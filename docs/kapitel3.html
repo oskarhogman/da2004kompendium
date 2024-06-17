@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 3</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 3</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<p>Det här kapitlet handlar om:</p>
+<ul>
+<li>Listor</li>
+<li>Iteration med <code class="python">for</code> och <code
+class="python">while</code> loopar</li>
+</ul>
+<p>Listor är viktiga i programmering då de låter oss samla flera element
+tillsammans. Iteration handlar om att automatisera upprepning och är ett
+fundamentalt koncept i så kallad <em>imperativ</em> programmering. Två
+viktiga konstruktioner som vi ska prata om i det här kapitlet är <code
+class="python">for</code> och <code class="python">while</code> loopar.
+Listor och loopar är väldigt användbara tillsammans, exempelvis kan man
+skriva ett program som läser in tal från användaren, sparar dem i en
+lista och beräknar medelvärdet av de inmatade talen.</p>
+<div id="listor" class="section level1">
+<h1>Listor</h1>
+<p>Python har stöd för listor av element med olika typ. Dessa skrivs
+inom hakparenteser (“<code>[</code>” och “<code>]</code>”) och elementen
+i listan separeras med komma:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdCA9IFsnaGVqJywyLCdkdSddIn0=
+</div>
+<p>Pythons lista kan jämföras med typen <em>array</em> i andra språk,
+men den är mindre beräkningseffektiv. Dock är Pythons listor mer
+lättanvända. Detta är typiskt för scriptspråk: det är enklare att
+använda datastrukturer, på bekostnad av effektivitet.</p>
+<div id="listindexering" class="section level2">
+<h2>Listindexering</h2>
+<p>Man kan hämta ut elementen ur en lista genom <code>mylist[i]</code>
+där <code>i</code> är ett heltal:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdFswXSlcbnByaW50KG15bGlzdFsxXSlcbnByaW50KG15bGlzdFsyXSkifQ==
+</div>
+<pre class="python"><code>hej
+2
+du</code></pre>
+<p><strong>Viktigt:</strong> listor börjar indexeras från
+<code>0</code>!</p>
+<p>Man kan även använda negativa värden för att hämta ut element från
+slutet av listan.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdFstMV0pXG5wcmludChteWxpc3RbLTJdKVxucHJpbnQobXlsaXN0Wy0zXSkifQ==
+</div>
+<pre class="python"><code>du
+2
+hej</code></pre>
+<p>Om man använder ett index som är för stort får man ett
+felmeddelande:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdFszXSkifQ==
+</div>
+<pre class="python"><code>IndexError: list index out of range</code></pre>
+<p><strong>Fråga:</strong> vad händer om man indexerar med ett för stort
+negativt värde (t.ex. <code>mylist[-4]</code>)?</p>
+<p>Man kan lägga till element i slutet av en lista med
+<code>append</code>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdC5hcHBlbmQoVHJ1ZSlcbnByaW50KG15bGlzdCkifQ==
+</div>
+<pre class="python"><code>[&#39;hej&#39;, 2, &#39;du&#39;, True]</code></pre>
+<p>Man kan enkelt tilldela ett nytt värde till ett element i en
+lista.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdFsxXSA9IDVcbnByaW50KG15bGlzdCkifQ==
+</div>
+<pre class="python"><code>[&#39;hej&#39;, 5, &#39;du&#39;, True]</code></pre>
+<p>Vi kan även göra detta genom att indexera från slutet av listan:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdFstMl0gKj0gM1xucHJpbnQobXlsaXN0KSJ9
+</div>
+<pre class="python"><code>[&#39;hej&#39;, 5, &#39;dududu&#39;, True]</code></pre>
+<p>Man kan hämta ut alla element med index <code>i &lt; j</code> genom
+<code>mylist[i:j]</code>. Detta kallas för <em>slicing</em>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdFswOjFdKVxucHJpbnQobXlsaXN0WzA6Ml0pXG5wcmludChteWxpc3RbMTozXSlcbnByaW50KG15bGlzdFsxOjRdKSJ9
+</div>
+<pre class="python"><code>[&#39;hej&#39;]
+[&#39;hej&#39;, 5]
+[5, &#39;dududu&#39;]
+[5, &#39;dududu&#39;, True]</code></pre>
+<p>Man kan ändra steglängden i slicingen till <code>k</code> genom
+<code>mylist[i:j:k]</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdFswOjQ6Ml0pXG5wcmludChteWxpc3RbMTo0OjJdKSJ9
+</div>
+<pre class="python"><code>[&#39;hej&#39;, &#39;dududu&#39;]
+[5, True]</code></pre>
+</div>
+<div id="listfunktioner" class="section level2">
+<h2>Listfunktioner</h2>
+<p>Man kan addera listor och multiplicera dem med tal för att upprepa
+dem:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdCArIG15bGlzdClcbnByaW50KDIgKiBteWxpc3QpIn0=
+</div>
+<pre class="python"><code>[&#39;hej&#39;, 5, &#39;dududu&#39;, True, &#39;hej&#39;, 5, &#39;dududu&#39;, True]
+[&#39;hej&#39;, 5, &#39;dududu&#39;, True, &#39;hej&#39;, 5, &#39;dududu&#39;, True]</code></pre>
+<p>Längden av en lista räknas ut med <code>len</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGxlbihteWxpc3QpKVxucHJpbnQobGVuKDUgKiBteWxpc3QgKyBteWxpc3QpKSJ9
+</div>
+<pre class="python"><code>4
+24</code></pre>
+<p>En väldigt användbar funktion är <code class="python">in</code> som
+testar om ett element finns i en lista:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KDUgaW4gbXlsaXN0KVxucHJpbnQoRmFsc2UgaW4gbXlsaXN0KSJ9
+</div>
+<pre class="python"><code>True
+False</code></pre>
+<p>Jämför med <span class="math inline">\(x \in S\)</span> från
+matematiken som säger att <span class="math inline">\(x\)</span> finns i
+mängden <span class="math inline">\(S\)</span>. Funktionen <code
+class="python">in</code> fungerar även på strängar:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KCdnZycgaW4gJ2VnZ3MnKSJ9
+</div>
+<pre class="python"><code>True</code></pre>
+<p>Det finns även <code class="python">not in</code> vilket motsvarar
+<span class="math inline">\(x \notin S\)</span> från matematiken:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KDUgbm90IGluIG15bGlzdClcbnByaW50KEZhbHNlIG5vdCBpbiBteWxpc3QpIn0=
+</div>
+<pre class="python"><code>False
+True</code></pre>
+<p>Man beräknar minsta och största element ur en lista med
+<code>min</code> och <code>max</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG1pbihbMiw1LDEsLTIsMTAwXSkpXG5wcmludChtYXgoWzIsNSwxLC0yLDEwMF0pKSJ9
+</div>
+<pre class="python"><code>-2
+100</code></pre>
+<p>Man kan ta reda på vilket index ett element finns på med hjälp av
+<code>index</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdC5pbmRleChUcnVlKSkifQ==
+</div>
+<pre class="python"><code>3</code></pre>
+<p>Försöker man hitta index för något som inte finns i listan får man
+ett felmeddelande:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdC5pbmRleCg0MikpIn0=
+</div>
+<pre class="python"><code>ValueError: 42 is not in list</code></pre>
+<p>Man kan räkna antalet gånger ett element finns med i en lista med
+<code>count</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdC5hcHBlbmQoNSlcbnByaW50KG15bGlzdC5jb3VudCg1KSlcbnByaW50KG15bGlzdC5jb3VudCg0MikpIn0=
+</div>
+<pre class="python"><code>2
+0</code></pre>
+<p>Vi kan ta bort element på ett specifikt index eller en hel slice med
+<code class="python">del</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdClcbmRlbCBteWxpc3RbMl1cbnByaW50KG15bGlzdClcbmRlbCBteWxpc3RbMDoyXVxucHJpbnQobXlsaXN0KSJ9
+</div>
+<pre class="python"><code>[&#39;hej&#39;, 5, &#39;dududu&#39;, True, 5]
+[&#39;hej&#39;, 5, True, 5]
+[True, 5]</code></pre>
+<p>Detta är samma som <code>mylist[i:j] = []</code>. Man kan även
+använda <code class="python">del mylist[i:j:k]</code> för att att få en
+annan steglängd.</p>
+<p>Vi kan även ta bort elementet på index <code>i</code> och returnera
+det med <code>pop</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdCA9IFsnaGVqJywgNSwgJ2R1ZHVkdScsIFRydWUsIDVdXG5wcmludChteWxpc3QpXG54ID0gbXlsaXN0LnBvcCgyKVxucHJpbnQobXlsaXN0KVxucHJpbnQoeCkifQ==
+</div>
+<pre class="python"><code>[&#39;hej&#39;, 5, &#39;dududu&#39;, True, 5]
+[&#39;hej&#39;, 5, True, 5]
+dududu</code></pre>
+<p>Detta fungerar även med negativa värden (dvs, genom att man indexerar
+från slutet). Ger man inget argument till <code>pop</code> så är det
+samma som <code>pop(-1)</code>, dvs sista elementet tas bort.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBteWxpc3QucG9wKClcbnByaW50KG15bGlzdClcbnByaW50KHgpIn0=
+</div>
+<pre class="python"><code>[&#39;hej&#39;, 5, True]
+5</code></pre>
+<p>Man kan stoppa in ett element <code>x</code> på ett givet index
+<code>i</code> i en lista med <code>insert(i,x)</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdC5pbnNlcnQoMSwgJ2R1JylcbnByaW50KG15bGlzdCkifQ==
+</div>
+<pre class="python"><code>[&#39;hej&#39;, &#39;du&#39;, 5, True]</code></pre>
+<p>För att ta bort första elementet som är lika med något <code>x</code>
+använder man <code>remove(x)</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdC5hcHBlbmQoNSlcbnByaW50KG15bGlzdClcbm15bGlzdC5yZW1vdmUoNSlcbnByaW50KG15bGlzdCkifQ==
+</div>
+<pre class="python"><code>[&#39;hej&#39;, &#39;du&#39;, 5, True, 5]
+[&#39;hej&#39;, &#39;du&#39;, True, 5]</code></pre>
+<p>Slutligen kan man använda <code>reverse</code> för att vända på en
+lista:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdC5yZXZlcnNlKClcbnByaW50KG15bGlzdCkifQ==
+</div>
+<pre class="python"><code>[5, True, &#39;du&#39;, &#39;hej&#39;]</code></pre>
+<div id="sammanfattning-av-användbara-listfunktioner"
+class="section level3">
+<h3>Sammanfattning av användbara listfunktioner</h3>
+<ul>
+<li><code class="python">mylist.append(x)</code>: lägg till
+<code>x</code> i slutet av <code>mylist</code>.</li>
+<li><code class="python">len(mylist)</code>: beräkna längden av
+<code>mylist</code>.</li>
+<li><code class="python">x in mylist</code>: testa om <code>x</code>
+finns i <code>mylist</code> (returnerar en <code>bool</code>).</li>
+<li><code class="python">x not in mylist</code>: testa om <code>x</code>
+inte finns i <code>mylist</code> (returnerar en <code>bool</code>).</li>
+<li><code class="python">min(mylist)</code> och <code
+class="python">max(mylist)</code>: hämta ut minsta respektive största
+element i <code>mylist</code>.</li>
+<li><code class="python">mylist.index(x)</code>: räkna ut första index
+där <code>x</code> finns i <code>mylist</code>.</li>
+<li><code class="python">mylist.count(x)</code>: räkna hur många gånger
+<code>x</code> finns i <code>mylist</code>.</li>
+<li><code class="python">del mylist[i]</code>: ta bort elementet på
+index <code>i</code> ur <code>mylist</code> (utan att returnera
+det).</li>
+<li><code class="python">mylist.pop(i)</code>: ta bort elementet på
+index <code>i</code> ur <code>mylist</code> (och returnera det).</li>
+<li><code class="python">mylist.insert(i,x)</code>: sätt in
+<code>x</code> på index <code>i</code> i <code>mylist</code>.</li>
+<li><code class="python">mylist.remove(x)</code>: ta bort första
+förekomsten av <code>x</code> ur <code>mylist</code>.</li>
+<li><code class="python">mylist.reverse()</code>: vänd
+<code>mylist</code> baklänges.</li>
+</ul>
+<p>För mer listfunktioner och detaljer om listor se: <a
+href="https://docs.python.org/3/tutorial/datastructures.html#more-on-lists"
+class="uri">https://docs.python.org/3/tutorial/datastructures.html#more-on-lists</a></p>
+<p><a
+href="https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range"
+class="uri">https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range</a></p>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#lists"
+class="uri">https://docs.python.org/3/library/stdtypes.html#lists</a></p>
+</div>
+</div>
+<div id="praktisk-funktion-för-att-skapa-listor-range"
+class="section level2">
+<h2>Praktisk funktion för att skapa listor: <code>range</code></h2>
+<p>Ett sätt att skapa heltalslistor är att använda <code
+class="python">range</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGxpc3QocmFuZ2UoMSw0KSkpXG5wcmludChsaXN0KHJhbmdlKDMpKSkgICAgICAgIyBzYW1tYSBzb20gcmFuZ2UoMCwzKVxucHJpbnQobGlzdChyYW5nZSg0LDIpKSlcbnByaW50KGxpc3QocmFuZ2UoMCwxMCwyKSkpXG5wcmludChsaXN0KHJhbmdlKDUsMCwtMSkpKSAjIGl0ZXJlcmEgYmFrbFx1MDBlNG5nZXMifQ==
+</div>
+<pre class="python"><code>[1, 2, 3]
+[0, 1, 2]
+[]
+[0, 2, 4, 6, 8]
+[5, 4, 3, 2, 1]</code></pre>
+<p><strong>Obs:</strong> vi måste konvertera resultatet till en lista
+med hjälp av <code>list(...)</code> då <code>range</code> inte ger en
+lista direkt, utan ett “löfte” om en lista. Dvs, <code>range</code>
+returnerar ett objekt som skapar en lista vartefter man behöver en.
+Detta beteende kallas för <em>lat evaluering</em> och är smidigt då man
+inte behöver skapa hela listan på en gång. Detta har fördelen då hela
+listan inte behöver sparas i minnet på datorn på en gång vilket kan bli
+långsamt för stora listor. Mer om detta senare.</p>
+Om man försöker skriva ut <code>range(0,10)</code> utan att konvertera
+till en lista händer följande:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KHJhbmdlKDAsMTApKSJ9
+</div>
+<pre class="python"><code>range(0, 10)</code></pre>
+</div>
+<div id="listors-egenskaper" class="section level2">
+<h2>Listors egenskaper</h2>
+<p>Listor har många styrkor, bland annat:</p>
+<ol style="list-style-type: decimal">
+<li>Enkla och effektiva att iterera över (mer om detta i nästa
+stycken).</li>
+<li>Enkla att utöka.</li>
+<li>Omedelbar åtkomst om man har index.</li>
+<li>Listelementen kan ha olika typ.</li>
+</ol>
+<p>Egenskap 3 är speciell i Python. Andra språk, som t.ex. C och Java,
+skiljer på <em>array</em> och <em>lista</em>. En array är som en vektor
+och har en fix storlek. I dessa språk är listor istället en speciell
+datastruktur där elementen är “länkade” så att man bara har omedelbar
+tillgång till det första (och kanske sista) elementet. Det gör att man
+inte automatiskt får omedelbar tillgång till alla element. Men i Python
+har man alltså direkt åtkomst till alla element genom listindexering
+vilket gör att dom påminner lite om arrayer.</p>
+<p>En svaghet med listor är att de är ineffektiva att <em>leta</em> i
+(dvs operatorn <code class="python">in</code> kan vara långsam på stora
+listor). En annan svaghet är att oväntade saker kan hända om man har en
+lista som innehåller element av olika typ och försöker hämta ut
+största/minsta värde (se ).</p>
+</div>
+</div>
+<div id="for-loopar" class="section level1">
+<h1><code>for</code> loopar</h1>
+<p><code class="python">for</code> används för att iterera över
+uppräkningar av olika slag, framförallt listor. Dessa uppräkningar
+kallas <em>sekvenser</em> i Python och även strängar är sekvenser (av
+tecken).</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZvciB4IGluIFsxLCAyLCAzXTpcbiAgICBwcmludCh4KSJ9
+</div>
+<pre class="python"><code>1
+2
+3</code></pre>
+<p><strong>Obs</strong>: notera att <code>print</code> satsen är
+indragen! Allt som kommer efter <code class="python">for</code> och som
+är indenterat (med lika många mellanslag) kommer att köras i loopen. Som
+vi såg i förra kapitlet är Python indenteringskänsligt, dvs det är
+viktigt att man indenterar kodblock lika mycket och detta gäller även
+för <code class="python">for</code> loopar. Detta skiljer sig från språk
+som C och Java där man istället grupperar kodblock inom måsvingar (dvs
+“<code>{</code>” och “<code>}</code>”) och rader avslutas med semikolon
+“<code>;</code>”. Skulle man ha indenterat något fel i Python får man
+felmeddelandet:</p>
+<pre class="python"><code>IndentationError: expected an indented block</code></pre>
+<p>Ett kodblock kan innehålla flera instruktioner:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InMgPSAnQSBudW1iZXI6ICdcblxuZm9yIHggaW4gWzAsMSwyXTpcbiAgICBwcmludCh4KVxuICAgIHMgKz0gc3RyKHgpXG5cbnByaW50KHMpIn0=
+</div>
+<pre class="python"><code>0
+1
+2
+A number: 012</code></pre>
+<p>Vi kan även iterera över en lista som ligger i en variabel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdCA9IFsxMTIsIDg1NywgJ2hlaiddXG5cbmZvciB4IGluIG15bGlzdDpcbiAgICBwcmludCh4KSJ9
+</div>
+<pre class="python"><code>112
+857
+hej</code></pre>
+<p>Eftersom strängar också är sekvenser kan man lätt iterera över
+bokstäverna i en sträng:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZvciBjIGluICdEQTIwMDQnOlxuICAgIHByaW50KDIqYykifQ==
+</div>
+<pre class="python"><code>DD
+AA
+22
+00
+00
+44</code></pre>
+<div id="funktion-som-returnerar-konsonanterna-i-en-sträng"
+class="section level2">
+<h2>Funktion som returnerar konsonanterna i en sträng</h2>
+<p>Låt oss nu implementera en lite mer komplicerad funktion som
+returnerar en strängs konsonanter. Innan man börjar skriva koden bör man
+fundera hur funktionen ska fungera. Givet en sträng <code>s</code> så
+ska den iterera över alla bokstäver och testa om de är konsonanter. Om
+bokstaven var det så ska den läggas till en sträng med alla konsonanter
+vi hittat i <code>s</code> och annars ska inget hända. Detta kan
+implementeras på följande sätt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBjb25zb25hbnRzKHMpOlxuICAgIGNzID0gJ0JDREZHSEpLTE1OUFFSU1RWV1haYmNkZmdoamtsbW5wcXJzdHZ3eHonXG5cbiAgICBvdXQgPSAnJ1xuXG4gICAgZm9yIGMgaW4gczpcbiAgICAgICAgaWYgYyBpbiBjczpcbiAgICAgICAgICAgIG91dCArPSBjXG5cbiAgICByZXR1cm4gb3V0XG5cbnByaW50KGNvbnNvbmFudHMoJ0hleSBBbmRlcnMhJykpIn0=
+</div>
+<pre class="python"><code>Hndrs</code></pre>
+<p>Notera hur vi definierar en variabel <code>out</code> vilken används
+för att spara de konsonanter vi hittat i <code>s</code>. Detta är ett
+väldigt vanligt sätt att programmera på och något vi kommer se mer av i
+kursen.</p>
+</div>
+<div id="dela-upp-en-sträng-i-ord-split" class="section level2">
+<h2>Dela upp en sträng i ord: <code>split</code></h2>
+<p></p>
+<p>Låt oss skriva en funktion som tar en sträng och bryter upp den i
+smådelar när man hittar ett blanksteg som separator. Det vill säga vi
+ska skriva en funktion <code>split(s)</code> som tar in en sträng
+<code>s</code> och returnerar alla ord i strängen. Detta kan göras genom
+att man har två variabler, en med de ord vi hittat och en med alla
+bokstäver i ordet vi håller på att bygga upp. För varje bokstav i
+<code>s</code> testar vi om den är ett mellanslag eller inte. Om
+bokstaven är ett mellanslag så lägger vi det inlästa ordet i listan,
+annars så lägger vi till bokstaven till ordet och tittar på nästa
+bokstav.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBzcGxpdChzKTpcbiAgICBvdXQgPSBbXVxuICAgIHRlcm0gPSAnJ1xuXG4gICAgZm9yIGMgaW4gczpcbiAgICAgICAgaWYgYyA9PSAnICc6XG4gICAgICAgICAgICBvdXQuYXBwZW5kKHRlcm0pXG4gICAgICAgICAgICB0ZXJtID0gJydcbiAgICAgICAgZWxzZTpcbiAgICAgICAgICAgIHRlcm0gKz0gY1xuXG4gICAgIyBhZGQgdGhlIGZpbmFsIHdvcmQgdW5sZXNzIGl0IGlzIGVtcHR5XG4gICAgaWYgdGVybSAhPSAnJzpcbiAgICAgICAgb3V0LmFwcGVuZCh0ZXJtKVxuXG4gICAgcmV0dXJuIG91dFxuXG5wcmludChzcGxpdCgnSGV5IEFuZGVycyEgSG93IGFyZSB5b3U/JykpIn0=
+</div>
+<pre class="python"><code>[&#39;Hey&#39;, &#39;Anders!&#39;, &#39;How&#39;, &#39;are&#39;, &#39;you?&#39;]</code></pre>
+<p>Säg nu att vi vill generalisera detta till många olika möjliga
+separatorer, men att mellanslag ska vara standardvärdet, då skriver vi
+istället följande kod:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBzcGxpdChzLCBzZXAgPSAnICcpOlxuICAgIHJlcyA9IFtdXG4gICAgdGVybSA9ICcnXG4gICAgZm9yIGMgaW4gczpcbiAgICAgICAgaWYgYyBpbiBzZXA6XG4gICAgICAgICAgICByZXMuYXBwZW5kKHRlcm0pXG4gICAgICAgICAgICB0ZXJtID0gJydcbiAgICAgICAgZWxzZTpcbiAgICAgICAgICAgIHRlcm0gKz0gY1xuXG4gICAgaWYgdGVybSAhPSAnJzpcbiAgICAgICAgcmVzLmFwcGVuZCh0ZXJtKVxuXG4gICAgcmV0dXJuIHJlc1xuXG5wcmludChzcGxpdCgnSGV5IEFuZGVycyEgSG93IGFyZSB5b3U/JykpXG5wcmludChzcGxpdCgnSGV5IEFuZGVycyEgSG93IGFyZSB5b3U/JywnIScpKSJ9
+</div>
+<pre class="python"><code>[&#39;Hey&#39;, &#39;Anders!&#39;, &#39;How&#39;, &#39;are&#39;, &#39;you?&#39;]
+[&#39;Hey Anders&#39;, &#39; How are you?&#39;]</code></pre>
+<p>Vi kan nu alltså anropa funktionen med ett <em>eller</em> två
+argument.</p>
+<p><strong>Obs:</strong> det finns redan en variant på
+<code>split</code> inbyggd i Python!</p>
+</div>
+<div id="flödeskontroll-pass-continue-break-och-return"
+class="section level2">
+<h2>Flödeskontroll: <code>pass</code>, <code>continue</code>,
+<code>break</code> och <code>return</code></h2>
+<p>Man kan kontrollera och avsluta iteration med <code
+class="python">pass</code>, <code class="python">continue</code>, <code
+class="python">break</code> och <code class="python">return</code>.</p>
+<p>Den enklaste av dessa är <code class="python">pass</code> som inte
+gör någonting:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZvciBpIGluIHJhbmdlKDQpOlxuICAgIGlmIGkgPT0gMTpcbiAgICAgICAgcGFzc1xuICAgICAgICBwcmludCgncGFzc2VkIDEnKVxuICAgIGVsc2U6XG4gICAgICAgIHByaW50KGkpIn0=
+</div>
+<pre class="python"><code>0
+passed 1
+2
+3</code></pre>
+<p><strong>Obs:</strong> <code class="python">pass</code> operationen
+kan verka oanvändbar då den inte gör någonting, men ett vanligt
+användningsområde är när man strukturerar upp sitt program men inte har
+skrivit klart allt. Man kan till exempel definiera en funktion där
+kroppen bara är <code class="python">pass</code> eller ha en <code
+class="python">if</code> sats där något fall inte är skrivet än. Detta
+gör att man kan testa all annan kod i programmet och sedan skriva klart
+de delar där man använt <code class="python">pass</code> efter att man
+försäkrat sig om att allt annat fungerar.</p>
+En <code class="python">continue</code> instruktion avslutar nuvarande
+iteration av loopen och går vidare till nästa:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZvciBpIGluIHJhbmdlKDQpOlxuICAgIGlmIGkgPT0gMTpcbiAgICAgICAgY29udGludWVcbiAgICAgICAgcHJpbnQoJ3Bhc3NlZCAxJylcbiAgICBlbHNlOlxuICAgICAgICBwcmludChpKSJ9
+</div>
+<pre class="python"><code>0
+2
+3</code></pre>
+<p>En <code class="python">break</code> instruktion avslutar loopen
+helt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZvciBpIGluIHJhbmdlKDQpOlxuICAgIGlmIGkgPT0gMjpcbiAgICAgICAgYnJlYWtcbiAgICBlbHNlOlxuICAgICAgICBwcmludChpKSJ9
+</div>
+<pre class="python"><code>0
+1</code></pre>
+<p>Slutligen, <code class="python">return</code> används i en loop när
+man vill returnera något från en funktion. Till exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmaXJzdF9ldmVuX251bWJlcihsKTpcbiAgICBmb3IgbnVtYmVyIGluIGw6XG4gICAgICAgIGlmIG51bWJlciAlIDIgPT0gMDpcbiAgICAgICAgICAgIHJldHVybiBudW1iZXJcblxucHJpbnQoZmlyc3RfZXZlbl9udW1iZXIoWzEsNDUsMjQsOV0pKSJ9
+</div>
+<pre class="python"><code>24</code></pre>
+</div>
+<div id="pythons-for-är-annorlunda" class="section level2">
+<h2>Pythons <code>for</code> är annorlunda</h2>
+<p>Det kan vara bra att vara medveten om att Pythons <code
+class="python">for</code> loop är mer generell än i de flesta andra
+språk. Till exempel förväntas loopen gå över heltalsvärden i många äldre
+språk. Pythons konstruktion kan sägas vara modern: den bygger på att man
+konstruerar en datastruktur som stödjer iteration. Det är fullt möjligt,
+och inte så svårt, att skriva sina egna itererbara datatyper för
+speciella behov. Som vi sett går det att iterera över både listor och
+strängar, men vi kommer att se att även andra typer i Python stödjer
+det.</p>
+</div>
+<div id="ett-vanligt-problem-med-listor-i-python-muterbarhet"
+class="section level2">
+<h2>Ett vanligt problem med listor i Python: muterbarhet</h2>
+<p>Ett vanligt problem med listor i Python som vi kommer se flera gånger
+i kursen är att man kan råka ändra på listan som man itererar över utan
+att vilja det. Detta är en väldigt vanlig källa till buggar, både för
+nybörjare och mer erfarna programmerare.</p>
+<p>Låt oss säga att vi vill köra följande program som är tänkt att lägga
+in de ord som är längre än 6 bokstäver längst fram i listan:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFuaW1hbHMgPSBbJ2NhdCcsICdkb2cnLCAndG9ydG9pc2UnLCAncmFiYml0J11cblxuZm9yIHggaW4gYW5pbWFsczpcbiAgICBpZiBsZW4oeCkgPiA2OlxuICAgICAgICBhbmltYWxzLmluc2VydCgwLCB4KVxuXG5wcmludChhbmltYWxzKSJ9
+</div>
+<p>Men kör man detta kommer Python bara loopa och inte komma ur loopen!
+För att avsluta loopen trycker man <code>CTRL-c</code>. Problemet är att
+vi ändrar på <code>animals</code> listan samtidigt som vi loopar över
+den, så <code class="python">for</code> loopen kommer aldrig
+avslutas.</p>
+<p>För att undvika detta bör man itererar över en <em>kopia</em> av
+listan. Vi kan göra detta genom att använda <code
+class="python">.copy()</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFuaW1hbHMgPSBbJ2NhdCcsICdkb2cnLCAndG9ydG9pc2UnLCAncmFiYml0J11cblxuZm9yIHggaW4gYW5pbWFscy5jb3B5KCk6XG4gICAgaWYgbGVuKHgpID4gNjpcbiAgICAgICAgYW5pbWFscy5pbnNlcnQoMCwgeClcblxucHJpbnQoYW5pbWFscykifQ==
+</div>
+<pre class="python"><code>[&#39;tortoise&#39;, &#39;cat&#39;, &#39;dog&#39;, &#39;tortoise&#39;, &#39;rabbit&#39;]</code></pre>
+<p>Här används <code>animals.copy()</code>, istället för bara
+<code>animals</code>, så att vi får en kopia av listan och undviker den
+oändliga loopen.</p>
+<p>Detta problem med listor kan komma upp när man programmerar och inte
+är försiktig med att kopierar saker. Detta kan leda till väldigt
+mystiska buggar som den oändliga loopen ovan. Det som gör att Pythons
+listor beter sig så här är att de är <em>muterbara</em>. Vi kommer prata
+mer om muterbarhet senare i kursen, men i dagsläget behöver ni bara
+komma ihåg att man kan behöva använda <code>.copy()</code> på en
+listvariabel för att undvika att råka ändra på den när man inte vill
+det.</p>
+</div>
+</div>
+<div id="while-loopar" class="section level1">
+<h1><code>while</code> loopar</h1>
+<p>Ibland finns det inte någon självklar struktur att iterera över, men
+man vill ända repetera ett kodblock flera gånger. Då finns <code
+class="python">while</code> loopen. Den fungerar så att man kör ett
+kodblock tills något booleskt test är uppfyllt. Om vi kör följande
+exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImkgPSAxMFxuXG53aGlsZSBpID4gMDpcbiAgIHByaW50KGkpXG4gICBpIC09IDFcblxucHJpbnQoJ0RvbmUhJykifQ==
+</div>
+<pre class="python"><code>10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+Done!</code></pre>
+<p>Ett vanlig användningsområde för <code class="python">while</code>
+loopar är att loopa tills man fått rätt indata från en användare.
+Programmet nedan kommer läsa in indata från användaren tills man skriver
+<code>exit</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Imxvb3AgPSBUcnVlXG5cbndoaWxlIGxvb3A6XG4gICAgcHJpbnQoXCJXcml0ZSAnZXhpdCcgdG8gcXVpdFwiKVxuICAgIGFuc3dlciA9IGlucHV0KCdXcml0ZSBzb21ldGhpbmc6ICcpXG4gICAgaWYgYW5zd2VyID09ICdleGl0JzpcbiAgICAgICAgcHJpbnQoJ0dvb2RieWUhJylcbiAgICAgICAgbG9vcCA9IEZhbHNlXG4gICAgZWxzZTpcbiAgICAgICAgcHJpbnQoJ0xldCB1cyBrZWVwIGdvaW5nIScpIn0=
+</div>
+<pre class="python"><code>Write &#39;exit&#39; to quit
+Write something: hey
+Let us keep going!
+Write &#39;exit&#39; to quit
+Write something: ho
+Let us keep going!
+Write &#39;exit&#39; to quit
+Write something: exit
+Goodbye!</code></pre>
+<div id="while-loopar-över-listor" class="section level2">
+<h2><code>while</code> loopar över listor</h2>
+<p>Listor är speciella och kan användas som booleska uttryck. Den tomma
+listan motsvarar <code>False</code> och alla andra listor motsvarar
+<code>True</code>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Imxpc3QgPSBbXVxuXG5pZiBsaXN0OlxuICAgcHJpbnQoJ05vdCBlbXB0eSEnKVxuZWxzZTpcbiAgIHByaW50KCdFbXB0eSEnKVxuXG5saXN0MiA9IFsnSGV5J11cblxuaWYgbGlzdDI6XG4gICBwcmludCgnTm90IGVtcHR5IScpXG5lbHNlOlxuICAgcHJpbnQoJ0VtcHR5IScpIn0=
+</div>
+<pre class="python"><code>Empty!
+Not empty!</code></pre>
+<p>Denna egenhet är till för följande <em>idiom</em> där man loopar över
+en lista och plockar bort dess element:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdCA9IFsnSG8nLCdobycsJ2hvISddXG5cbndoaWxlIG15bGlzdDpcbiAgICB4ID0gbXlsaXN0LnBvcCgpXG4gICAgcHJpbnQoeClcblxucHJpbnQobXlsaXN0KSJ9
+</div>
+<pre class="python"><code>ho!
+ho
+Ho
+[]</code></pre>
+<p>När loopen är klar är listan tom och man behöver alltså inte jämföra
+listan med <code>[]</code>. Detta är alltså ett till exempel där Python
+har förändrat en lista i en loop.</p>
+</div>
+<div id="ta-bort-blanksteg-i-slutet-av-en-sträng"
+class="section level2">
+<h2>Ta bort blanksteg i slutet av en sträng</h2>
+<p>Så här kan man ta bort blanksteg i slutet av en sträng med hjälp av
+en <code class="python">while</code> loop och slicing:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiByZW1vdmVfdHJhaWxpbmdfc3BhY2Uocyk6XG4gICAgaSA9IGxlbihzKVxuICAgIHdoaWxlIGkgPiAwIGFuZCBzW2ktMV0gPT0gJyAnOlxuICAgICAgICBpIC09IDFcbiAgICByZXR1cm4gc1swOmldXG5cbnByaW50KHJlbW92ZV90cmFpbGluZ19zcGFjZSgnU1UgICcpKSJ9
+</div>
+<pre class="python"><code>SU</code></pre>
+<p>Funktionen fungerar på så sätt att man börjar med en räknare
+<code>i</code> som sätts till längden på listan. Sen räknar vi hur många
+tecken från slutet av listan som är blanksteg och när vi är klara
+returnerar vi en slice av de ursprungliga listan där vi tagit bort alla
+blanksteg i slutet.</p>
+</div>
+<div id="kap3:GCD" class="section level2">
+<h2>Största gemensamma delare: <code>GCD</code></h2>
+<p>Den <em>största gemensamma delaren</em> (eng.: <em>greatest common
+divisor</em>, GCD) av två tal är det största heltal som delar dem.
+Exempelvis är <code>3</code> GCD av <code>15</code> och
+<code>12</code>.</p>
+<p>Euklides algoritm för att beräkna GCD för två tal <code>a</code> och
+<code>b</code> lyder så här:</p>
+<ul>
+<li>Antag <code>a &gt;= b</code>,</li>
+<li>låt <code>r</code> vara resten av heltalsdivision
+<code>a // b</code>,</li>
+<li>om r == 0, då är <code>GCD(a, b) = b</code>,</li>
+<li>annars kan man använda att är
+<code>GCD(a,b) = GCD(b, r)</code>.</li>
+</ul>
+<p>Lägg märke till att det är en villkorad iteration, men ingen tydlig
+struktur att iterera över. Så vi bör använda en <code
+class="python">while</code> loop för att implementera den:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBHQ0QoYSxiKTpcbiAgICBpZiBiID4gYTpcbiAgICAgICAgcHJpbnQoJ2EgbXVzdCBiZSBiaWdnZXIgdGhhbiBiIGluIEdDRChhLGIpJylcbiAgICAgICAgcmV0dXJuIE5vbmVcblxuICAgIHIgPSBhICUgYlxuICAgIHdoaWxlIHIgIT0gMDpcbiAgICAgICAgYSA9IGJcbiAgICAgICAgYiA9IHJcbiAgICAgICAgciA9IGEgJSBiXG4gICAgcmV0dXJuIGJcblxucHJpbnQoJ0dDRDogJyArIHN0cihHQ0QoMTUsMTIpKSArICdcXG4nKVxucHJpbnQoJ0dDRDogJyArIHN0cihHQ0QoMTIsMTUpKSkifQ==
+</div>
+<pre class="python"><code>GCD: 3
+
+b must be bigger than a in GCD(a,b)
+GCD: None</code></pre>
+</div>
+</div>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Vad är resultatet av <code>[1,2] + ['a', 'b']</code>?</p></li>
+<li><p>Vad händer om man använder <code>min</code>/<code>max</code> på
+listor med element av olika typ? </p></li>
+<li><p>Skriv klart funktionen </p>
+<pre class="python"><code>def vowels(s):
+    vs = &#39;AEIOUYaeiouy&#39;
+    pass</code></pre>
+<p>vilken tar in en sträng <code>s</code> och returnerar dess
+vokaler.</p></li>
+<li><p>Modifiera funktionen i så att den istället bara returnerar
+konsonanter utan att ändra på strängen <code>vs</code>. Skriv sen en
+funktion <code>vowels_or_consonants</code> med en extra parameter vilken
+bestämmer om vokaler eller konsonanter ska returneras. Parametern ska ha
+ett standardvärde så att vokaler returneras om användaren inte kallar på
+funktionen med två argument.</p></li>
+<li><p>Vad händer om man inte har blocket med <code
+class="python">if term != ''</code> i funktionen <code
+class="python">split(s)</code> i avsnitt ? Hitta på ett exempel med en
+sträng <code>s</code> där utdata blir fel om man inte har det. Vidare,
+hur beter sig vår funktion <code>split</code> för strängar med flera
+mellanslag i rad? Skriv sen en korrekt version av funktionen.</p></li>
+<li><p>Testa följande kodsnutt:</p>
+<pre class="python"><code>list = [1,2,3]
+list2 = list
+list2.reverse()
+print(list)</code></pre>
+<p>Fungerar den som ni trodde? Varför inte? Hur kan man fixa
+det?</p></li>
+<li><p>Skriv om koden</p>
+<pre class="python"><code>mylist = [&#39;Ho&#39;,&#39;ho&#39;,&#39;ho!&#39;]
+
+while mylist:
+    x = mylist.pop()
+    print(x)
+
+print(mylist)</code></pre>
+<p>så att listan <code>mylist</code> inte är tom när man är klar.</p>
+<p><em>Tips</em>: använd <code>.copy()</code>. Hur kan man göra om man
+inte får använda copy?</p></li>
+<li><p>Testa att använda <code class="python">continue</code>, <code
+class="python">break</code> och <code class="python">pass</code> i <code
+class="python">while</code> loopen nedan. Vad händer?</p>
+<pre class="python"><code>n = 10
+while n &gt; 0:
+     n -= 1
+     if n == 7:
+         # test continue, break or pass here
+     print(n)</code></pre></li>
+<li><p>Skriv en <code class="python">while</code> loop som läser in tal
+från användaren och sparar dem i en lista. Detta ska göras tills
+användaren skriver in <code>0</code> och då ska loopen avslutas och
+listan skrivas ut.</p></li>
+<li><p>Skriv funktionen</p>
+<pre class="python"><code>def naive_gcd(a,b):
+    pass</code></pre>
+<p>som beräknar GCD av <code>a</code> och <code>b</code> genom att testa
+alla tal mellan <code>1</code> och <code>min(a,b)</code> för att se
+vilket som är det största talet som delar båda.</p></li>
+<li><p>Skriv funktionen <code class="python">portkod()</code> som läser
+in en siffra (<code>1</code>–<code>9</code>) i taget från användaren.
+Efter varje siffra är inläst ska funktionen testa om de fyra senaste
+siffrorna matchar med korrekt kod. Om korrekt kod ges ska funktionen
+skriva ut <code>Door unlocked!</code> och returnera <code>True</code>.
+Välj vad som är korrekt portkod själv, t.ex. <code>1337</code>.</p>
+<p><em>Tanketips</em>: Vilken loop ska vi använda?</p></li>
+<li><p>Om vi har <code>lst = [1, 2, 3]</code> så kan man stoppa in ett
+element mellan 1:an och 2:an med instruktionen
+<code>lst.insert(1, 'x')</code>. Resultatet är att listan blir
+<code>[1, 'x', 2, 3]</code>.</p>
+<p>Ett annat men ekvivalent sätt är att skriva
+<code>lst[1:1] = ['x']</code>.</p>
+<ul>
+<li>Vad är det som händer i den instruktionen?</li>
+<li>Vilket sätt tycker du är tydligast?</li>
+</ul></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

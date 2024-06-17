@@ -8,5 +8,7 @@ navbar:
       href: kapitel1.html
     - text: "2: Grunder i Python-programmering"
       href: kapitel2.html
+    - text: "3: Listor och iteration"
+      href: kapitel3.html
       
 output_dir: 'docs'

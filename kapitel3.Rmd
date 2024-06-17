@@ -1,0 +1,1110 @@
+---
+title: "Kapitel 3"
+output: html_document
+date: "2024-06-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, include=FALSE}
+tutorial::go_interactive()
+```
+
+\chapter{Listor och iteration}
+\label{chap:listor_iteration}
+
+Det här kapitlet handlar om:
+
+* Listor
+* Iteration med `for`{.python} och `while`{.python} loopar
+
+Listor är viktiga i programmering då de låter oss samla flera element
+tillsammans. Iteration handlar om att automatisera upprepning och är
+ett fundamentalt koncept i så kallad *imperativ* programmering. Två
+viktiga konstruktioner som vi ska prata om i det här kapitlet är
+`for`{.python} och `while`{.python} loopar. Listor och loopar är
+väldigt användbara tillsammans, exempelvis kan man skriva ett program
+som läser in tal från användaren, sparar dem i en lista och beräknar
+medelvärdet av de inmatade talen.
+
+# Listor
+
+Python har stöd för listor av element med olika typ. Dessa skrivs inom
+hakparenteser ("`[`" och "`]`") och elementen i listan separeras med
+komma:
+
+\pyin
+```{python}
+mylist = ['hej',2,'du']
+```
+
+Pythons lista kan jämföras med typen _array_ i andra språk, men den är
+mindre beräkningseffektiv. Dock är Pythons listor mer
+lättanvända. Detta är typiskt för scriptspråk: det är enklare att
+använda datastrukturer, på bekostnad av effektivitet.
+
+## Listindexering
+
+Man kan hämta ut elementen ur en lista genom `mylist[i]` där `i` är
+ett heltal:
+
+\pyin
+```{python}
+print(mylist[0])
+print(mylist[1])
+print(mylist[2])
+```
+\pyout
+```python
+hej
+2
+du
+```
+
+**Viktigt:** listor börjar indexeras från `0`!
+
+Man kan även använda negativa värden för att hämta ut element från
+slutet av listan.
+
+\pyin
+```{python}
+print(mylist[-1])
+print(mylist[-2])
+print(mylist[-3])
+```
+\pyout
+```python
+du
+2
+hej
+```
+
+Om man använder ett index som är för stort får man ett felmeddelande:
+
+\pyin
+```{python}
+print(mylist[3])
+```
+\pyout
+```python
+IndexError: list index out of range
+```
+
+**Fråga:** vad händer om man indexerar med ett för stort negativt
+  värde (t.ex. `mylist[-4]`)?
+
+Man kan lägga till element i slutet av en lista med `append`.
+
+\pyin
+```{python}
+mylist.append(True)
+print(mylist)
+```
+\pyout
+```python
+['hej', 2, 'du', True]
+```
+
+Man kan enkelt tilldela ett nytt värde till ett element i en lista.
+
+\pyin
+```{python}
+mylist[1] = 5
+print(mylist)
+```
+\pyout
+```python
+['hej', 5, 'du', True]
+```
+
+Vi kan även göra detta genom att indexera från slutet av listan:
+
+\pyin
+```{python}
+mylist[-2] *= 3
+print(mylist)
+```
+\pyout
+```python
+['hej', 5, 'dududu', True]
+```
+
+Man kan hämta ut alla element med index `i < j` genom `mylist[i:j]`. Detta
+kallas för *slicing*.
+
+\pyin
+```{python}
+print(mylist[0:1])
+print(mylist[0:2])
+print(mylist[1:3])
+print(mylist[1:4])
+```
+\pyout
+```python
+['hej']
+['hej', 5]
+[5, 'dududu']
+[5, 'dududu', True]
+```
+
+Man kan ändra steglängden i slicingen till `k` genom `mylist[i:j:k]`:
+
+\pyin
+```{python}
+print(mylist[0:4:2])
+print(mylist[1:4:2])
+```
+\pyout
+```python
+['hej', 'dududu']
+[5, True]
+```
+
+## Listfunktioner
+
+Man kan addera listor och multiplicera dem med tal för att upprepa
+dem:
+
+\pyin
+```{python}
+print(mylist + mylist)
+print(2 * mylist)
+```
+\pyout
+```python
+['hej', 5, 'dududu', True, 'hej', 5, 'dududu', True]
+['hej', 5, 'dududu', True, 'hej', 5, 'dududu', True]
+```
+
+Längden av en lista räknas ut med `len`:
+
+\pyin
+```{python}
+print(len(mylist))
+print(len(5 * mylist + mylist))
+```
+\pyout
+```python
+4
+24
+```
+
+En väldigt användbar funktion är `in`{.python} som testar om ett element finns
+i en lista:
+
+\pyin
+```{python}
+print(5 in mylist)
+print(False in mylist)
+```
+\pyout
+```python
+True
+False
+```
+
+Jämför med $x \in S$ från matematiken som säger att $x$ finns i
+mängden $S$. Funktionen `in`{.python} fungerar även på strängar:
+
+\pyin
+```{python}
+print('gg' in 'eggs')
+```
+\pyout
+```python
+True
+```
+
+Det finns även `not in`{.python} vilket motsvarar $x \notin S$ från
+matematiken:
+
+\pyin
+```{python}
+print(5 not in mylist)
+print(False not in mylist)
+```
+\pyout
+```python
+False
+True
+```
+
+Man beräknar minsta och största element ur en lista med `min` och
+`max`:
+
+\pyin
+```{python}
+print(min([2,5,1,-2,100]))
+print(max([2,5,1,-2,100]))
+```
+\pyout
+```python
+-2
+100
+```
+
+Man kan ta reda på vilket index ett element finns på med hjälp av
+`index`:
+
+\pyin
+```{python}
+print(mylist.index(True))
+```
+\pyout
+```python
+3
+```
+
+Försöker man hitta index för något som inte finns i listan får man ett
+felmeddelande:
+
+\pyin
+```{python}
+print(mylist.index(42))
+```
+\pyout
+```python
+ValueError: 42 is not in list
+```
+
+Man kan räkna antalet gånger ett element finns med i en lista med
+`count`:
+
+\pyin
+```{python}
+mylist.append(5)
+print(mylist.count(5))
+print(mylist.count(42))
+```
+\pyout
+```python
+2
+0
+```
+
+Vi kan ta bort element på ett specifikt index eller en hel slice med
+`del`{.python}:
+
+\pyin
+```{python}
+print(mylist)
+del mylist[2]
+print(mylist)
+del mylist[0:2]
+print(mylist)
+```
+\pyout
+```python
+['hej', 5, 'dududu', True, 5]
+['hej', 5, True, 5]
+[True, 5]
+```
+
+Detta är samma som `mylist[i:j] = []`. Man kan även använda `del
+mylist[i:j:k]`{.python} för att att få en annan steglängd.
+
+Vi kan även ta bort elementet på index `i` och returnera det med
+`pop`:
+
+\pyin
+```{python}
+mylist = ['hej', 5, 'dududu', True, 5]
+print(mylist)
+x = mylist.pop(2)
+print(mylist)
+print(x)
+```
+\pyout
+```python
+['hej', 5, 'dududu', True, 5]
+['hej', 5, True, 5]
+dududu
+```
+
+Detta fungerar även med negativa värden (dvs, genom att man indexerar
+från slutet). Ger man inget argument till `pop` så är det samma som
+`pop(-1)`, dvs sista elementet tas bort.
+
+\pyin
+```{python}
+x = mylist.pop()
+print(mylist)
+print(x)
+```
+\pyout
+```python
+['hej', 5, True]
+5
+```
+
+Man kan stoppa in ett element `x` på ett givet index `i` i en lista med
+`insert(i,x)`:
+
+\pyin
+```{python}
+mylist.insert(1, 'du')
+print(mylist)
+```
+\pyout
+```python
+['hej', 'du', 5, True]
+```
+
+För att ta bort första elementet som är lika med något `x` använder
+man `remove(x)`:
+
+\pyin
+```{python}
+mylist.append(5)
+print(mylist)
+mylist.remove(5)
+print(mylist)
+```
+\pyout
+```python
+['hej', 'du', 5, True, 5]
+['hej', 'du', True, 5]
+```
+
+Slutligen kan man använda `reverse` för att vända på en lista:
+
+\pyin
+```{python}
+mylist.reverse()
+print(mylist)
+```
+\pyout
+```python
+[5, True, 'du', 'hej']
+```
+
+### Sammanfattning av användbara listfunktioner
+
+* `mylist.append(x)`{.python}: lägg till `x` i slutet av `mylist`.
+* `len(mylist)`{.python}: beräkna längden av `mylist`.
+* `x in mylist`{.python}: testa om `x` finns i `mylist` (returnerar en
+  `bool`).
+* `x not in mylist`{.python}: testa om `x` inte finns i `mylist`
+  (returnerar en `bool`).
+* `min(mylist)`{.python} och `max(mylist)`{.python}: hämta ut minsta
+  respektive största element i `mylist`.
+* `mylist.index(x)`{.python}: räkna ut första index där `x` finns i
+  `mylist`.
+* `mylist.count(x)`{.python}: räkna hur många gånger `x` finns i
+  `mylist`.
+* `del mylist[i]`{.python}: ta bort elementet på index `i` ur `mylist`
+  (utan att returnera det).
+* `mylist.pop(i)`{.python}: ta bort elementet på index `i` ur `mylist`
+  (och returnera det).
+* `mylist.insert(i,x)`{.python}: sätt in `x` på index `i` i `mylist`.
+* `mylist.remove(x)`{.python}: ta bort första förekomsten av `x` ur
+  `mylist`.
+* `mylist.reverse()`{.python}: vänd `mylist` baklänges.
+
+För mer listfunktioner och detaljer om listor se:
+<https://docs.python.org/3/tutorial/datastructures.html#more-on-lists>
+
+<https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range>
+
+<https://docs.python.org/3/library/stdtypes.html#lists>
+
+## Praktisk funktion för att skapa listor: `range`
+
+Ett sätt att skapa heltalslistor är att använda `range`{.python}:
+
+\pyin
+```{python}
+print(list(range(1,4)))
+print(list(range(3)))       # samma som range(0,3)
+print(list(range(4,2)))
+print(list(range(0,10,2)))
+print(list(range(5,0,-1))) # iterera baklänges
+```
+\pyout
+```python
+[1, 2, 3]
+[0, 1, 2]
+[]
+[0, 2, 4, 6, 8]
+[5, 4, 3, 2, 1]
+```
+
+**Obs:** vi måste konvertera resultatet till en lista med hjälp av
+`list(...)` då `range` inte ger en lista direkt, utan ett "löfte" om
+en lista. Dvs, `range` returnerar ett objekt som skapar en lista
+vartefter man behöver en. Detta beteende kallas för *lat evaluering*
+och är smidigt då man inte behöver skapa hela listan på en gång. Detta
+har fördelen då hela listan inte behöver sparas i minnet på datorn på
+en gång vilket kan bli långsamt för stora listor. Mer om detta senare.
+
+Om man försöker skriva ut `range(0,10)` utan att konvertera till en
+lista händer följande:
+\pyin
+```{python}
+print(range(0,10))
+```
+\pyout
+```python
+range(0, 10)
+```
+
+## Listors egenskaper
+
+Listor har många styrkor, bland annat:
+
+1. Enkla och effektiva att iterera över (mer om detta i nästa
+   stycken).
+2. Enkla att utöka.
+3. Omedelbar åtkomst om man har index.
+4. Listelementen kan ha olika typ.
+
+Egenskap 3 är speciell i Python. Andra språk, som t.ex. C och Java,
+skiljer på _array_ och _lista_. En array är som en vektor och har en
+fix storlek. I dessa språk är listor istället en speciell datastruktur
+där elementen är "länkade" så att man bara har omedelbar tillgång till
+det första (och kanske sista) elementet. Det gör att man inte
+automatiskt får omedelbar tillgång till alla element. Men i Python har
+man alltså direkt åtkomst till alla element genom listindexering
+vilket gör att dom påminner lite om arrayer.
+
+En svaghet med listor är att de är ineffektiva att
+_leta_ i (dvs operatorn `in`{.python} kan vara långsam på stora
+listor). En annan svaghet är att oväntade saker kan hända om man har
+en lista som innehåller element av olika typ och försöker hämta ut
+största/minsta värde (se \cref{uppgift:minmax}).
+
+# `for` loopar
+
+`for`{.python} används för att iterera över uppräkningar av olika
+slag, framförallt listor. Dessa uppräkningar kallas *sekvenser* i
+Python och även strängar är sekvenser (av tecken).
+
+\pyin
+```{python}
+for x in [1, 2, 3]:
+    print(x)
+```
+\pyout
+```python
+1
+2
+3
+```
+
+**Obs**: notera att `print` satsen är indragen! Allt som kommer efter
+`for`{.python} och som är indenterat (med lika många mellanslag)
+kommer att köras i loopen. Som vi såg i förra kapitlet är Python
+indenteringskänsligt, dvs det är viktigt att man indenterar kodblock
+lika mycket och detta gäller även för `for`{.python} loopar. Detta
+skiljer sig från språk som C och Java där man istället grupperar
+kodblock inom måsvingar (dvs "`{`" och "`}`") och rader avslutas med
+semikolon "`;`". Skulle man ha indenterat något fel i Python får man
+felmeddelandet:
+
+\pyout
+```python
+IndentationError: expected an indented block
+```
+
+Ett kodblock kan innehålla flera instruktioner:
+
+\pyin
+```{python}
+s = 'A number: '
+
+for x in [0,1,2]:
+    print(x)
+    s += str(x)
+
+print(s)
+```
+\pyout
+```python
+0
+1
+2
+A number: 012
+```
+
+Vi kan även iterera över en lista som ligger i en variabel:
+
+\pyin
+```{python}
+mylist = [112, 857, 'hej']
+
+for x in mylist:
+    print(x)
+```
+\pyout
+```python
+112
+857
+hej
+```
+
+Eftersom strängar också är sekvenser kan man lätt iterera över
+bokstäverna i en sträng:
+
+\pyin
+```{python}
+for c in 'DA2004':
+    print(2*c)
+```
+\pyout
+```python
+DD
+AA
+22
+00
+00
+44
+```
+
+## Funktion som returnerar konsonanterna i en sträng
+
+Låt oss nu implementera en lite mer komplicerad funktion som returnerar
+en strängs konsonanter. Innan man börjar skriva koden bör man
+fundera hur funktionen ska fungera. Givet en sträng `s` så ska den
+iterera över alla bokstäver och testa om de är konsonanter. Om
+bokstaven var det så ska den läggas till en sträng med alla
+konsonanter vi hittat i `s` och annars ska inget hända. Detta kan
+implementeras på följande sätt:
+
+\pyin
+```{python}
+def consonants(s):
+    cs = 'BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz'
+
+    out = ''
+
+    for c in s:
+        if c in cs:
+            out += c
+
+    return out
+
+print(consonants('Hey Anders!'))
+```
+\pyout
+```python
+Hndrs
+```
+
+Notera hur vi definierar en variabel `out` vilken används för att
+spara de konsonanter vi hittat i `s`. Detta är ett väldigt vanligt
+sätt att programmera på och något vi kommer se mer av i kursen.
+
+## Dela upp en sträng i ord: `split`
+\label{ex:split}
+
+Låt oss skriva en funktion som tar en sträng och bryter upp den i
+smådelar när man hittar ett blanksteg som separator. Det vill säga vi
+ska skriva en funktion `split(s)` som tar in en sträng `s` och
+returnerar alla ord i strängen. Detta kan göras genom att man har två
+variabler, en med de ord vi hittat och en med alla bokstäver i ordet
+vi håller på att bygga upp. För varje bokstav i `s` testar vi om den
+är ett mellanslag eller inte. Om bokstaven är ett mellanslag så lägger vi det inlästa ordet
+i listan, annars så lägger vi till bokstaven till ordet och tittar på
+nästa bokstav.
+
+\pyin
+```{python}
+def split(s):
+    out = []
+    term = ''
+
+    for c in s:
+        if c == ' ':
+            out.append(term)
+            term = ''
+        else:
+            term += c
+
+    # add the final word unless it is empty
+    if term != '':
+        out.append(term)
+
+    return out
+
+print(split('Hey Anders! How are you?'))
+```
+\pyout
+```python
+['Hey', 'Anders!', 'How', 'are', 'you?']
+```
+
+Säg nu att vi vill generalisera detta till många olika möjliga
+separatorer, men att mellanslag ska vara standardvärdet, då skriver vi
+istället följande kod:
+
+\pyin
+```{python}
+def split(s, sep = ' '):
+    res = []
+    term = ''
+    for c in s:
+        if c in sep:
+            res.append(term)
+            term = ''
+        else:
+            term += c
+
+    if term != '':
+        res.append(term)
+
+    return res
+
+print(split('Hey Anders! How are you?'))
+print(split('Hey Anders! How are you?','!'))
+```
+\pyout
+```python
+['Hey', 'Anders!', 'How', 'are', 'you?']
+['Hey Anders', ' How are you?']
+```
+
+Vi kan nu alltså anropa funktionen med ett _eller_ två argument.
+
+**Obs:** det finns redan en variant på `split` inbyggd i Python!
+
+## Flödeskontroll: `pass`, `continue`, `break` och `return`
+
+Man kan kontrollera och avsluta iteration med `pass`{.python},
+`continue`{.python}, `break`{.python} och `return`{.python}.
+
+Den enklaste av dessa är `pass`{.python} som inte gör någonting:
+
+\pyin
+```{python}
+for i in range(4):
+    if i == 1:
+        pass
+        print('passed 1')
+    else:
+        print(i)
+```
+\pyout
+```python
+0
+passed 1
+2
+3
+```
+
+**Obs:** `pass`{.python} operationen kan verka oanvändbar då den inte
+  gör någonting, men ett vanligt användningsområde är när man
+  strukturerar upp sitt program men inte har skrivit klart allt. Man
+  kan till exempel definiera en funktion där kroppen bara är
+  `pass`{.python} eller ha en `if`{.python} sats där något fall inte
+  är skrivet än. Detta gör att man kan testa all annan kod i
+  programmet och sedan skriva klart de delar där man använt
+  `pass`{.python} efter att man försäkrat sig om att allt annat
+  fungerar.
+
+En `continue`{.python} instruktion avslutar nuvarande iteration av
+loopen och går vidare till nästa:
+\pyin
+```{python}
+for i in range(4):
+    if i == 1:
+        continue
+        print('passed 1')
+    else:
+        print(i)
+```
+\pyout
+```python
+0
+2
+3
+```
+
+En `break`{.python} instruktion avslutar loopen helt:
+
+\pyin
+```{python}
+for i in range(4):
+    if i == 2:
+        break
+    else:
+        print(i)
+```
+\pyout
+```python
+0
+1
+```
+
+Slutligen, `return`{.python} används i en loop när man vill returnera
+något från en funktion. Till exempel:
+
+\pyin
+```{python}
+def first_even_number(l):
+    for number in l:
+        if number % 2 == 0:
+            return number
+
+print(first_even_number([1,45,24,9]))
+```
+\pyout
+```python
+24
+```
+
+## Pythons `for` är annorlunda
+
+Det kan vara bra att vara medveten om att Pythons `for`{.python} loop
+är mer generell än i de flesta andra språk. Till exempel förväntas
+loopen gå över heltalsvärden i många äldre språk. Pythons konstruktion
+kan sägas vara modern: den bygger på att man konstruerar en
+datastruktur som stödjer iteration. Det är fullt möjligt, och inte så
+svårt, att skriva sina egna itererbara datatyper för speciella
+behov. Som vi sett går det att iterera över både listor och strängar,
+men vi kommer att se att även andra typer i Python stödjer det.
+
+## Ett vanligt problem med listor i Python: muterbarhet
+
+Ett vanligt problem med listor i Python som vi kommer se flera gånger
+i kursen är att man kan råka ändra på listan som man itererar över
+utan att vilja det. Detta är en väldigt vanlig källa till buggar, både
+för nybörjare och mer erfarna programmerare.
+
+Låt oss säga att vi vill köra följande program som är tänkt att lägga
+in de ord som är längre än 6 bokstäver längst fram i listan:
+
+\pyin
+```{python}
+animals = ['cat', 'dog', 'tortoise', 'rabbit']
+
+for x in animals:
+    if len(x) > 6:
+        animals.insert(0, x)
+
+print(animals)
+```
+
+Men kör man detta kommer Python bara loopa och inte komma ur loopen!
+För att avsluta loopen trycker man `CTRL-c`. Problemet är att vi
+ändrar på `animals` listan samtidigt som vi loopar över den, så
+`for`{.python} loopen kommer aldrig avslutas.
+
+För att undvika detta bör man itererar över en _kopia_ av listan. Vi
+kan göra detta genom att använda `.copy()`{.python}:
+
+\pyin
+```{python}
+animals = ['cat', 'dog', 'tortoise', 'rabbit']
+
+for x in animals.copy():
+    if len(x) > 6:
+        animals.insert(0, x)
+
+print(animals)
+```
+\pyout
+```python
+['tortoise', 'cat', 'dog', 'tortoise', 'rabbit']
+```
+
+Här används `animals.copy()`, istället för bara `animals`, så att vi
+får en kopia av listan och undviker den oändliga loopen.
+
+Detta problem med listor kan komma upp när man programmerar och inte
+är försiktig med att kopierar saker. Detta kan leda till väldigt
+mystiska buggar som den oändliga loopen ovan. Det som gör att Pythons
+listor beter sig så här är att de är *muterbara*. Vi kommer prata mer
+om muterbarhet senare i kursen, men i dagsläget behöver ni bara komma
+ihåg att man kan behöva använda `.copy()` på en listvariabel för att
+undvika att råka ändra på den när man inte vill det.
+
+# `while` loopar
+
+Ibland finns det inte någon självklar struktur att iterera över, men
+man vill ända repetera ett kodblock flera gånger. Då finns
+`while`{.python} loopen. Den fungerar så att man kör ett kodblock
+tills något booleskt test är uppfyllt. Om vi kör följande exempel:
+
+\pyin
+```{python}
+i = 10
+
+while i > 0:
+   print(i)
+   i -= 1
+
+print('Done!')
+```
+\pyout
+```python
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+Done!
+```
+
+Ett vanlig användningsområde för `while`{.python} loopar är att loopa
+tills man fått rätt indata från en användare. Programmet nedan kommer
+läsa in indata från användaren tills man skriver `exit`:
+
+\pyin
+```{python}
+loop = True
+
+while loop:
+    print("Write 'exit' to quit")
+    answer = input('Write something: ')
+    if answer == 'exit':
+        print('Goodbye!')
+        loop = False
+    else:
+        print('Let us keep going!')
+```
+\pyout
+```python
+Write 'exit' to quit
+Write something: hey
+Let us keep going!
+Write 'exit' to quit
+Write something: ho
+Let us keep going!
+Write 'exit' to quit
+Write something: exit
+Goodbye!
+```
+
+## `while` loopar över listor
+
+Listor är speciella och kan användas som booleska uttryck. Den tomma
+listan motsvarar `False` och alla andra listor motsvarar `True`.
+
+\pyin
+```{python}
+list = []
+
+if list:
+   print('Not empty!')
+else:
+   print('Empty!')
+
+list2 = ['Hey']
+
+if list2:
+   print('Not empty!')
+else:
+   print('Empty!')
+```
+\pyout
+```python
+Empty!
+Not empty!
+```
+
+Denna egenhet är till för följande _idiom_ där man loopar över en
+lista och plockar bort dess element:
+
+\pyin
+```{python}
+mylist = ['Ho','ho','ho!']
+
+while mylist:
+    x = mylist.pop()
+    print(x)
+
+print(mylist)
+```
+\pyout
+```python
+ho!
+ho
+Ho
+[]
+```
+
+När loopen är klar är listan tom och man behöver alltså inte jämföra
+listan med `[]`. Detta är alltså ett till exempel där Python har
+förändrat en lista i en loop.
+
+## Ta bort blanksteg i slutet av en sträng
+
+Så här kan man ta bort blanksteg i slutet av en sträng med hjälp av en
+`while`{.python} loop och slicing:
+
+\pyin
+```{python}
+def remove_trailing_space(s):
+    i = len(s)
+    while i > 0 and s[i-1] == ' ':
+        i -= 1
+    return s[0:i]
+
+print(remove_trailing_space('SU  '))
+```
+\pyout
+```python
+SU
+```
+
+Funktionen fungerar på så sätt att man börjar med en räknare `i` som
+sätts till längden på listan. Sen räknar vi hur många tecken från
+slutet av listan som är blanksteg och när vi är klara returnerar vi en
+slice av de ursprungliga listan där vi tagit bort alla blanksteg i
+slutet.
+
+## Största gemensamma delare: `GCD` {#kap3:GCD}
+
+Den *största gemensamma delaren* (eng.: *greatest common divisor*, GCD)
+av två tal är det största heltal som delar dem. Exempelvis är `3` GCD
+av `15` och `12`.
+
+Euklides algoritm för att beräkna GCD för två tal `a` och `b` lyder så
+här:
+
+* Antag `a >= b`,
+* låt `r` vara resten av heltalsdivision `a // b`,
+* om r == 0, då är `GCD(a, b) = b`,
+* annars kan man använda att är `GCD(a,b) = GCD(b, r)`.
+
+Lägg märke till att det är en villkorad iteration, men ingen tydlig
+struktur att iterera över. Så vi bör använda en `while`{.python} loop
+för att implementera den:
+
+\pyin
+```{python}
+def GCD(a,b):
+    if b > a:
+        print('a must be bigger than b in GCD(a,b)')
+        return None
+
+    r = a % b
+    while r != 0:
+        a = b
+        b = r
+        r = a % b
+    return b
+
+print('GCD: ' + str(GCD(15,12)) + '\n')
+print('GCD: ' + str(GCD(12,15)))
+```
+\pyout
+```python
+GCD: 3
+
+b must be bigger than a in GCD(a,b)
+GCD: None
+```
+
+# Uppgifter
+
+1. Vad är resultatet av `[1,2] + ['a', 'b']`?
+
+2. Vad händer om man använder `min`/`max` på listor med element av
+   olika typ? \label{uppgift:minmax}
+
+3. Skriv klart funktionen \label{uppgift:vowels}
+
+   \pyin
+   ```python
+   def vowels(s):
+       vs = 'AEIOUYaeiouy'
+       pass
+   ```
+
+   vilken tar in en sträng `s` och returnerar dess vokaler.
+
+4. Modifiera funktionen i \cref{uppgift:vowels} så att den istället
+   bara returnerar konsonanter utan att ändra på strängen `vs`. Skriv
+   sen en funktion `vowels_or_consonants` med en extra parameter
+   vilken bestämmer om vokaler eller konsonanter ska
+   returneras. Parametern ska ha ett standardvärde så att vokaler
+   returneras om användaren inte kallar på funktionen med två
+   argument.
+
+5. Vad händer om man inte har blocket med `if term != ''`{.python} i
+   funktionen `split(s)`{.python} i avsnitt \cref{ex:split}? Hitta på ett exempel med en
+   sträng `s` där utdata blir fel om man inte har det. Vidare, hur
+   beter sig vår funktion `split` för strängar med flera mellanslag i
+   rad? Skriv sen en korrekt version av funktionen.
+
+6. Testa följande kodsnutt:
+
+   \pyin
+   ```python
+   list = [1,2,3]
+   list2 = list
+   list2.reverse()
+   print(list)
+   ```
+   Fungerar den som ni trodde? Varför inte? Hur kan man fixa det?
+
+7. Skriv om koden
+
+   \pyin
+   ```python
+   mylist = ['Ho','ho','ho!']
+
+   while mylist:
+       x = mylist.pop()
+       print(x)
+
+   print(mylist)
+   ```
+
+   så att listan `mylist` inte är tom när man är klar.
+
+   _Tips_: använd `.copy()`. Hur kan man göra om man inte får använda
+   copy?
+
+8. Testa att använda `continue`{.python}, `break`{.python} och
+   `pass`{.python} i `while`{.python} loopen nedan. Vad händer?
+
+   \pyin
+   ```python
+   n = 10
+   while n > 0:
+        n -= 1
+        if n == 7:
+            # test continue, break or pass here
+        print(n)
+   ```
+
+9. Skriv en `while`{.python} loop som läser in tal från användaren och
+   sparar dem i en lista. Detta ska göras tills användaren skriver in
+   `0` och då ska loopen avslutas och listan skrivas ut.
+
+10. Skriv funktionen
+
+    \pyin
+    ```python
+    def naive_gcd(a,b):
+        pass
+    ```
+   som beräknar GCD av `a` och `b` genom att testa alla tal mellan
+   `1` och `min(a,b)` för att se vilket som är det största talet som
+   delar båda.
+
+11. Skriv funktionen `portkod()`{.python} som läser in en siffra
+    (`1`--`9`) i taget från användaren. Efter varje siffra är inläst
+    ska funktionen testa om de fyra senaste siffrorna matchar med
+    korrekt kod. Om korrekt kod ges ska funktionen skriva ut
+    `Door unlocked!` och returnera `True`. Välj vad som är korrekt
+    portkod själv, t.ex. `1337`.
+
+    _Tanketips_: Vilken loop ska vi använda?
+
+12. Om vi har `lst = [1, 2, 3]` så kan man stoppa in ett element mellan 1:an och 2:an med 
+    instruktionen `lst.insert(1, 'x')`. Resultatet är att listan blir `[1, 'x', 2, 3]`. 
+	
+    Ett annat men ekvivalent sätt är att skriva `lst[1:1] = ['x']`. 
+
+    * Vad är det som händer i den instruktionen?
+    * Vilket sätt tycker du är tydligast?
+
