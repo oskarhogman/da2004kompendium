@@ -282,12 +282,6 @@ div.tocify {
   border-radius: 0px;
 }
 
-.tocify-subheader {
-  display: inline;
-}
-.tocify-subheader .tocify-item {
-  font-size: 0.95em;
-}
 
 </style>
 
@@ -383,8 +377,8 @@ div.tocify {
 
 
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-<div id="kap6:sekvenser" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Sekvenser</h1>
+<div id="kap6:sekvenser" class="section level1">
+<h1>Sekvenser</h1>
 <p>Python har stöd för ett antal olika sekvenstyper. Sekvenstyper i
 Python har gemensamt några vanliga operationer, t.ex. gäller:</p>
 <ul>
@@ -413,8 +407,8 @@ potentiella sidoeffekter kod kan ha, kan bero på om ett objekt är
 muterbart eller inte.</p>
 <p>För mer detaljerad information, se Python-dokumentationen om <a
 href="https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range">sekvenstyper</a>.</p>
-<div id="kap6:listor" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Listor</h2>
+<div id="kap6:listor" class="section level2">
+<h2>Listor</h2>
 <p>Listor är en sekvenstyp som är <em>muterbar</em>. Det är en viktig
 egenskap hos listor som betyder att vi kan uppdatera deras värden utan
 att kopiera listan. Vi har redan sett många exempel på vad som kan göras
@@ -441,8 +435,8 @@ har, se Python-dokumentationen och <a
 href="https://docs.python.org/3/tutorial/datastructures.html#more-on-lists">mer
 info om listor</a>.</p>
 </div>
-<div id="tupler" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Tupler</h2>
+<div id="tupler" class="section level2">
+<h2>Tupler</h2>
 <p>Tupler liknar listor, men de är <em>icke-muterbara</em>. Så vi kan
 inte bara uppdatera en tupel som vi vill. Vi har sett tupler förr, även
 om vi kanske inte explicit skapat variabler av typen tupler: <a
@@ -498,9 +492,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IiMgdDJbMF0gPSBbMSwgMiwgNF0gIyB0aHJvd3Mg
 <pre class="python"><code>([1, 2, 3], [3, 2, 1])
 ([42, 2, 3], [3, 2, 1])</code></pre>
 </div>
-<div id="range" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span>
-<code>range</code></h2>
+<div id="range" class="section level2">
+<h2><code>range</code></h2>
 <p>Pythons <code>range</code> är också en <em>icke-muterbar</em>
 sekvenstyp. Den beter sig som en tupel, men den har inte stöd för vissa
 operationer, t.ex. <code>+</code> och <code>*</code>.</p>
@@ -514,8 +507,8 @@ False
 TypeError: unsupported operand type(s) for +: &#39;range&#39; and &#39;range&#39;</code></pre>
 <p>Återigen, slicing ger här tillbaka en <code>range</code>-typ.</p>
 </div>
-<div id="strängar" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Strängar</h2>
+<div id="strängar" class="section level2">
+<h2>Strängar</h2>
 <p>Strängar är även de ett exempel på en sekvenstyp, också
 <em>icke-muterbara</em>. Vi har precis som listor använt strängar
 flitigt. Det finns väldigt många användbara strängfunktioner; de flesta
@@ -550,8 +543,8 @@ interaktivt sätt, kan man i konsolen skriva <code>my_string.</code>
 href="https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str">Python-dokumentationen</a>.</p>
 </div>
 </div>
-<div id="generatorer" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Generatorer</h1>
+<div id="generatorer" class="section level1">
+<h1>Generatorer</h1>
 <p><em>Generatorer</em> i Python är itererbara objekt som i varje
 iteration lämnar tillbaka ett värde till användaren. Vad värdet är beror
 på hur en generator har definierats. Vi har stött på flera itererbara
@@ -563,9 +556,8 @@ kan antingen ske <em>direkt</em> när man skapar objektet eller först när
 värdet på elementet <em>behövs</em>, d.v.s. när man väl utför en loop.
 Generatorer är ett exempel på en typ där värdet av ett element beräknas
 först när det behövs, detta är så kallad <em>lat evaluering</em>.</p>
-<div id="lat-och-strikt-evaluering" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Lat och strikt
-evaluering</h2>
+<div id="lat-och-strikt-evaluering" class="section level2">
+<h2>Lat och strikt evaluering</h2>
 <p>Om alla värden i ett objekt beräknas när objektet skapas kallar man
 det <em>strikt</em> eller <em>ivrig evaluering/beräkning</em> (eng.
 <em>eager evaluation</em>). Motsatsen är <em>lat</em> eller <em>selektiv
@@ -593,9 +585,8 @@ det är en så vanlig struktur att ha en sekvens av ökande tal. Om man
 vill använda sig av lat evaluering, fast för mer komplicerade
 strukturer, så kommer generatorer väl till hands.</p>
 </div>
-<div id="generatorfunktioner" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span>
-Generatorfunktioner</h2>
+<div id="generatorfunktioner" class="section level2">
+<h2>Generatorfunktioner</h2>
 <p>I Python kan man skapa en generatorfunktion på ett väldigt likt sätt
 som man skapar en vanlig funktion. När en vanlig funktion anropas, så
 exekveras all kod i funktionen fram tills att en
@@ -662,8 +653,8 @@ i:  3 j: 1
 Iteration:  4 gen returns:  6
 i:  4 j: 2</code></pre>
 </div>
-<div id="generatoruttryck" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Generatoruttryck</h2>
+<div id="generatoruttryck" class="section level2">
+<h2>Generatoruttryck</h2>
 <p>Generatorer kan även skrivas på ett liknande sätt som
 listomfattningar. Det skapas då ingen lista utan istället får man en
 generator som man kan arbeta vidare med, framförallt iterera över med
@@ -677,9 +668,8 @@ Size of big_generator in memory: 96</code></pre>
 datorn. Detta illustrerar vikten av att använda sig utav generatorer när
 vi ska iterera över många värden.</p>
 </div>
-<div id="kap6:gen_ex" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Exempel: Generator
-för alla primtal</h2>
+<div id="kap6:gen_ex" class="section level2">
+<h2>Exempel: Generator för alla primtal</h2>
 <p>Generatorer är smidiga att använda till vissa saker, bland annat
 oändliga sekvenser.</p>
 <p>Låt oss säga att vi vill beräkna alla primtalsdelare till ett tal
@@ -695,8 +685,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBpc19wcmltZSh4KTpcbiAgICBmb3IgdCBp
 [2, 2, 2, 29]</code></pre>
 </div>
 </div>
-<div id="kap6:uppgifter" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Uppgifter</h1>
+<div id="kap6:uppgifter" class="section level1">
+<h1>Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Vi såg att funktionen <code>sum_of_increment(l, x)</code> ändrade
 i vår lista när vi kallade på den flera gånger. Vi såg även att vi inte
@@ -917,7 +907,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = false;
+    options.showAndHide = true;
     options.smoothScroll = true;
 
     // tocify

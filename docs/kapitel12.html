@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 12</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+<li>
+  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+</li>
+<li>
+  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+</li>
+<li>
+  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+</li>
+<li>
+  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+</li>
+<li>
+  <a href="kapitel8.html">8: Funktionell programmering</a>
+</li>
+<li>
+  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+</li>
+<li>
+  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+</li>
+<li>
+  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+</li>
+<li>
+  <a href="kapitel12.html">12: Defensiv programmering</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 12</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<p>Den som har lärt sig programmera har nog också blivit tvungen att
+lära sig felsöka. Alla programmerare gör fel, råkar förlita sig på
+olämpliga antaganden, och missförstår dokumentation. Fel kan göra att
+programmet avbryter precis där misstaget är, men det kan också uppstå
+långt senare. Om division med noll uppstår så kanske det är ett symptom
+på ett tidigare misstag. En variabel kanske har blivit satt till 0,
+trots att det är orimligt, men var gjordes det och varför? Det kan vara
+arbetsamt att leta upp orsaken till felet. Programmeringsstilen
+<em>defensiv programmering</em> syftar dels till att hitta fel tidigt,
+så nära det egentliga misstaget, för att undvika arbetsamma
+felsökningssessioner, och dels till att tydliggöra sina antaganden i
+koden.</p>
+<p>Defensiv programmering avser att man förväntar sig att funktioner
+kommer att användas på fel sätt, algoritmer blir implementerade fel,
+kombinationer av variablers värden uppstår som man inte har tänkt på,
+och att andra konstigheter sker under programutveckling. Genom att
+<em>koda</em> sina förväntningar på variablers värden med hjälp av <code
+class="python">assert</code> på många platser i ett program kan man
+upptäcka felen tidigare, närmare felkällan, och därmed förenkla
+felsökningen.</p>
+<div id="assert" class="section level1">
+<h1>Assert</h1>
+<p>Instruktionen <code class="python">assert condition</code> anger att
+uttrycket <code>condition</code> förutsattes vara sant. Om uttrycket är
+sant händer inget, det är det förväntade uppträdandet, men om det är
+falskt avbryter programmet med hjälp av ett särfall, <code
+class="python">AssertionError</code>. Denna typ av instruktion finns i
+många språk och är ett hjälpmedel för felsökning, utveckling, och
+underhåll av program.</p>
+<p>Några exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFzc2VydCBsZW4oZGF0YV9saXN0KSA+IDBcbmFzc2VydCB4ICE9IDBcbmFzc2VydCB4ID4gMCBhbmQgeSA+IDAifQ==
+</div>
+<p>Dessa rader ställer tre tänkbara krav på tillståndet i ett program.
+Instruktionen <code class="python">assert</code> ska utläsas som “detta
+gäller”.</p>
+<div id="avbrott-och-felmeddelande" class="section level2">
+<h2>Avbrott och felmeddelande</h2>
+<p>Säg att vi har skrivit en divisionsfunktion på följande sätt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkaXZpZGUoeCx5KTpcbiAgICBhc3NlcnQgeSAhPSAwXG4gICAgcmV0dXJuIHggLyB5In0=
+</div>
+<p>Om vi nu anropar <code class="python">divide</code> med
+<code>0</code> som andra argument</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGRpdmlkZSgxMCwyKSlcbnByaW50KGRpdmlkZSgxMCwwKSkifQ==
+</div>
+<p>så kommer ett felmeddelande skrivas ut:</p>
+<pre class="python"><code>Traceback (most recent call last):
+  File &quot;f12.py&quot;, line 6, in &lt;module&gt;
+    print(divide(10,0))
+  File &quot;f12.py&quot;, line 2, in divide
+    assert y != 0
+AssertionError</code></pre>
+<p>Notera att särfallet <code class="python">AssertionError</code> inte
+är tänkt att fångas med <code class="python">except</code>; man använder
+<code class="python">assert</code> för att hitta allvarliga
+programmeringsfel, inte för att hantera körfel (som t.ex., namngiven fil
+finns ej, minnet räcker inte, man har rekurserat för djupt, o.s.v.).</p>
+</div>
+<div id="generellt" class="section level2">
+<h2>Generellt</h2>
+<p>Det generella fallet kan skrivas</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFzc2VydCBjb25kaXRpb24gWywgY29tbWVudF9zdHJpbmddIn0=
+</div>
+<p>där <code>condition</code> är ett boolskt uttryck och
+<code>comment_string</code> är en möjlig förklarande text. Man kan
+alltså skriva villkoren ovan som:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFzc2VydCBsZW4oZGF0YV9saXN0KSA+IDAsICdVc2VyIHN1Ym1pdHRlZCBlbXB0eSBkYXRhJ1xuYXNzZXJ0IHggIT0gMCwgJ3g9PTAgbXVzdCBiZSBhdm9pZGVkIGVhcmx5IGluIHRoZSBhcHBsaWNhdGlvbiEnXG5hc3NlcnQgeCA+IDAgYW5kIHkgPiAwLCAnQm90aCB4IGFuZCB5IGhhdmUgdG8gYmUgcG9zaXRpdmUhJyJ9
+</div>
+<p>för att hjälpa till att förstå felen som uppstår.</p>
+<p>Exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkaXZpZGUoeCx5KTpcbiAgICBhc3NlcnQgeSAhPSAwLCBcIlNlY29uZCBhcmd1bWVudCBjYW5ub3QgYmUgMCB3aGVuIGRpdmlkaW5nXCJcbiAgICByZXR1cm4geCAvIHlcblxucHJpbnQoZGl2aWRlKDEwLDApKSJ9
+</div>
+<p>ger</p>
+<pre class="python"><code>Traceback (most recent call last):
+  File &quot;f12.py&quot;, line 6, in &lt;module&gt;
+    print(divide(10,0))
+  File &quot;f12.py&quot;, line 2, in divide
+    assert y != 0, &quot;Second argument cannot be 0 when dividing&quot;
+AssertionError: Second argument cannot be 0 when dividing</code></pre>
+</div>
+<div id="tumregler-för-assert" class="section level2">
+<h2>Tumregler för <code>assert</code></h2>
+<p><code class="python">assert</code> är implementerat med hjälp av
+särfall, men syftet är att uttrycka antaganden i koden, inte att hantera
+oväntade tillstånd.</p>
+<ul>
+<li><code class="python">assert</code> är för problem under
+kodning/utveckling.</li>
+<li><code class="python">raise</code> och <code
+class="python">try</code>/<code class="python">except</code> är för
+oväntade effekter under körning.</li>
+</ul>
+<p>Man kan säga att <code class="python">assert</code> används för att
+fånga oväntade tillstånd i koden, <code class="python">raise</code>
+används för att signalera eventuella förväntade fel och <code
+class="python">try</code>/<code class="python">except</code> används för
+att fånga mer eller mindre förväntade fel. Ett program ska inte vara
+beroende av <code class="python">assert</code>, utan fungera minst lika
+bra utan. I allmänhet går ett program långsammare med <code
+class="python">assert</code> eftersom det är mer kod att exekvera, men
+man ska inte dra sig för att lägga till <code
+class="python">assert</code> i sin kod. Om snabbhet är viktigt kan man
+starta sitt program med <code>python -O kod.py</code> istället för
+<code>python kod.py</code>; flaggan <code>-O</code> deaktiverar alla
+<code class="python">assert</code>-instruktioner.</p>
+<div id="exempel-1-remove_trailing_spaces" class="section level3">
+<h3>Exempel 1: <code>remove_trailing_spaces</code></h3>
+<p>Nedan följer ett exempel på <code class="python">assert</code> i
+<code>remove_trailing_spaces</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiByZW1vdmVfdHJhaWxpbmdfc3BhY2VzKHMsIHNwYWNlcz1cIiBcXHRcIik6XG4gICAgYXNzZXJ0IGxlbihzcGFjZXMpID4gMFxuICAgIGkgPSBsZW4ocylcbiAgICB3aGlsZSBpID4gMCBhbmQgc1tpLTFdIGluIHNwYWNlczpcbiAgICAgICAgaSAtPSAxXG4gICAgcmV0dXJuIHNbMDppXSJ9
+</div>
+</div>
+<div id="exempel-2-newton_raphson" class="section level3">
+<h3>Exempel 2: <code>newton_raphson</code></h3>
+<p>Nedan följer ett exempel på <code class="python">assert</code> i en
+funktion för att beräkna roten av en funktion med hjälp av
+Newton-Raphsons algoritm:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBuZXd0b25fcmFwaHNvbihmLCBmX3ByaW1lLCB4LCBwcmVjaXNpb24pOlxuICAgIGFzc2VydCBpc2luc3RhbmNlKHgsIGZsb2F0KVxuICAgIGFzc2VydCBpc2luc3RhbmNlKGYoeCksIGZsb2F0KVxuICAgIGFzc2VydCBpc2luc3RhbmNlKGZfcHJpbWUoeCksIGZsb2F0KVxuICAgIGFzc2VydCAgMC4wIDwgcHJlY2lzaW9uIDwgMS4wLCAncHJlY2lzaW9uIG11c3QgYmUgaW4gdGhlIGludGVydmFsICgwLDEpJ1xuXG4gICAgcmVhZHkgPSBGYWxzZVxuICAgIHdoaWxlIG5vdCByZWFkeTpcbiAgICAgICAgeF9uZXh0ID0geCAtIGYoeCkvZl9wcmltZSh4KSAgICAgICMgTWFpbiBsaW5lIG9mIGNvZGUgdG8gYmUgcmVwZWF0ZWRcbiAgICAgICAgcmVhZHkgPSBhYnMoeC14X25leHQpIDwgcHJlY2lzaW9uICMgVGVzdCBmb3Igc3RvcHBpbmcgY3JpdGVyaW9uXG4gICAgICAgIHggPSB4X25leHQgICAgICAgICAgICAgICAgICAgICAgICAjIFByZXBhcmluZyB0aGUgbmV4dCBpdGVyYXRpb25cblxuICAgIHJldHVybiB4X25leHQifQ==
+</div>
+<p>Som du ser kan vi testa typen för ett objekt med hjälp av <code
+class="python">isinstance</code>. Funktionen <code
+class="python">type</code>, som returnerar objektets typ, är också
+användbar, men <code class="python">isinstance</code> är mer generell;
+<code>isinstance</code> kan som andra argument ta en tupel av klasser
+och returnerar om det första argumentet är en instans av <em>någon</em>
+av klasserna <em>eller</em> dess subklasser.</p>
+<p>Observera även att <code class="python">assert</code> kan ses som
+extra dokumentation kring de antagande som görs i programmet.</p>
+</div>
+</div>
+<div id="villkor-och-invarianter" class="section level2">
+<h2>Villkor och invarianter</h2>
+<p>Vi kan dela upp <code class="python">assert</code>-användandet i tre
+sorter:</p>
+<ul>
+<li><strong>förvillkor</strong>: uttryck som ska vara sanna när en
+funktionskropp exekveras (eng. <em>preconditions</em>)</li>
+<li><strong>eftervillkor</strong>: uttryck som ska vara sanna när en
+funktion returnerar (eng. <em>postconditions</em>)</li>
+<li><strong>loop invarianter</strong>: uttryck som ska vara sanna i en
+loop (eng. <em>loop invariants</em>)</li>
+</ul>
+<div id="exempel-3" class="section level3">
+<h3>Exempel 3</h3>
+<p>Låt oss säga att vi har en databas som kopplar unika identifierare
+(representerade som <code>int</code>) med namn (representerade som
+<code>str</code>). För att det ska gå snabbt att slå upp någon genom
+antingen dess identifierare eller namn har vi två uppslagstabeller, en
+från identifierare till namn och en från namn till identifierare. För
+att detta ska fungera måste ju nycklarna i den ena vara samma som
+värdena i den andra, och vice versa.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIE15REI6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICBzZWxmLl9pZDJuYW1lX21hcCA9IHt9XG4gICAgICBzZWxmLl9uYW1lMmlkX21hcCA9IHt9XG5cbiAgICBkZWYgYWRkKHNlbGYsIGlkLCBuYW1lKTpcbiAgICAgIHNlbGYuX25hbWUyaWRfbWFwW25hbWVdID0gaWRcbiAgICAgIHNlbGYuX2lkMm5hbWVfbWFwW2lkXSA9IG5hbWVcblxuICAgIGRlZiBieV9uYW1lKHNlbGYsIG5hbWUpOlxuICAgICAgaWQgPSBzZWxmLl9uYW1lMmlkX21hcFtuYW1lXVxuICAgICAgcmV0dXJuIGlkIn0=
+</div>
+<p>En första sak som kan bli fel här är ju att användaren helt enkelt
+skriver över en av <code>_id2name_map</code> och
+<code>_name2id_map</code>, eller att någon annan metod vi senare lägger
+till har en bugg som bryter mot invarianten för klassen. Vi kan lägga in
+en <code class="python">assert</code> i <code>by_name</code> där vi
+dubbelkollar att invarianten ej har blivit bruten:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIE15REI6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICBzZWxmLl9pZDJuYW1lX21hcCA9IHt9XG4gICAgICBzZWxmLl9uYW1lMmlkX21hcCA9IHt9XG5cbiAgICBkZWYgYWRkKHNlbGYsIGlkLCBuYW1lKTpcbiAgICAgIHNlbGYuX25hbWUyaWRfbWFwW25hbWVdID0gaWRcbiAgICAgIHNlbGYuX2lkMm5hbWVfbWFwW2lkXSA9IG5hbWVcblxuICAgIGRlZiBieV9uYW1lKHNlbGYsIG5hbWUpOlxuICAgICAgaWQgPSBzZWxmLl9uYW1lMmlkX21hcFtuYW1lXVxuICAgICAgYXNzZXJ0IHNlbGYuX2lkMm5hbWVfbWFwW2lkXSA9PSBuYW1lXG4gICAgICByZXR1cm4gaWQifQ==
+</div>
+<p>Om vi nu lägger in en buggig metod eller en användare använder
+klassen på fel sätt så kommer <code>by_name</code> generera ett <code
+class="python">AssertionError</code>. En annan invariant är ju att ett
+id ska vara en <code>int</code> och namn <code>str</code>. I många
+programmeringsspråk med striktare typsystem kan vi specificera detta i
+signaturen för klassen eller konstruktorn. I Python kan vi lösa detta
+genom att lägga in en <code class="python">assert</code> tillsammans med
+<code>isinstance</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIE15REI6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICBzZWxmLl9pZDJuYW1lX21hcCA9IHt9XG4gICAgICBzZWxmLl9uYW1lMmlkX21hcCA9IHt9XG5cbiAgICBkZWYgYWRkKHNlbGYsIGlkLCBuYW1lKTpcbiAgICAgIGFzc2VydCBpc2luc3RhbmNlKGlkLCBpbnQpLCAoXCJpZCBpcyBub3QgYW4gaW50ZWdlcjogXCIgKyBzdHIoaWQpKVxuICAgICAgYXNzZXJ0IGlzaW5zdGFuY2UobmFtZSwgc3RyKSwgKFwibmFtZSBpcyBub3QgYSBzdHJpbmc6IFwiICsgc3RyKG5hbWUpKVxuICAgICAgc2VsZi5fbmFtZTJpZF9tYXBbbmFtZV0gPSBpZFxuICAgICAgc2VsZi5faWQybmFtZV9tYXBbaWRdID0gbmFtZVxuXG4gICAgZGVmIGJ5X25hbWUoc2VsZiwgbmFtZSk6XG4gICAgICBpZCA9IHNlbGYuX25hbWUyaWRfbWFwW25hbWVdXG4gICAgICBhc3NlcnQgc2VsZi5faWQybmFtZV9tYXBbaWRdID09IG5hbWVcbiAgICAgIHJldHVybiBpZFxuXG5cbmRiID0gTXlEQigpXG5kYi5hZGQoMiwyKVxuZGIuYWRkKFwiaGVqXCIsXCJkdVwiKSJ9
+</div>
+</div>
+</div>
+</div>
+<div id="testning" class="section level1">
+<h1>Testning</h1>
+<p>Det är svårt att garantera att ens kod är korrekt. Man kan resonera
+matematiskt om kod och algoritmer, men även då är det lätt att det blir
+fel. Oavsett hur mycket man planerar, tänker och granskar, så är det bra
+att också noggrant testa sin kod. Men hur gör man det på bästa sätt?</p>
+<p>Erfarenheten visar att det varken är tillräckligt eller praktiskt att
+testa om ett helt program, själva <em>produkten</em>, fungerar som det
+ska. Om man vill upptäcka problem tidigt och skydda sig mot fel på grund
+av ändringar i koden, då bör man testa programmets funktioner och
+metoder.</p>
+<p>Ett vanligt arbetssätt är att (1) skriva lite kod, kanske en
+funktion, (2) verifiera att koden fungerar, och sen fortsätta skriva mer
+kod. Det kan vara enkelt att verifiera koden: man väljer några
+parametrar till sin funktion och ser om resultatet blir som det var
+tänkt. Ett scenario som i praktiken är ännu vanligare är följande:</p>
+<ol style="list-style-type: decimal">
+<li>Ändra i befintlig kod, för att lägga till ny funktionalitet.</li>
+<li>Verifiera den nya funktionaliteten.</li>
+<li>Verifiera den gamla funktionaliteten.</li>
+</ol>
+<p>Punkt 3 blir lätt bortglömd, men den kan också vara lite jobbig att
+ta hand om. Det är ju på den nya funktionaliteten man har sitt fokus,
+inte den gamla, och hur var det nu vi testade den koden? Om du ändrar i
+en funktion <code>fun</code>, kommer du då också ihåg att testa andra
+delar av din kod som är beroende av <code>fun</code>? Allteftersom tiden
+går och ett projekt växer blir det allt svårare verifiera gammal
+funktionalitet. Och om man jobbar med andras kod blir det förstås ännu
+svårare att komma på hur man bör testa de funktioner som finns. Så hur
+gör man?</p>
+<p>Det som behövs är <em>systematisk</em> och <em>automatisk</em>
+testning, vilket man åstadkommer genom att koda testningen, och
+metodiken för detta kallas <em>enhetstestning</em> (eng. <em>unit
+testing</em>). Idag finns det så pass bra stöd för testning i vanliga
+programmeringsspråk att det ofta är enkelt att inkludera tester i sitt
+projekt. I det här avsnittet tittar vi på några olika sätt att arbeta
+med tester.</p>
+<p>Ni kan läsa mer på: <a href="https://realpython.com/python-testing/"
+class="uri">https://realpython.com/python-testing/</a></p>
+<div id="testning-med-assert" class="section level2">
+<h2>Testning med <code>assert</code></h2>
+<p>Kodtestning kan göras både manuellt och automatiskt. För enkel
+manuell testning kan vi använda <code class="python">assert</code>.</p>
+<p>I labb 2 var uppgiften att skriva funktioner manipulerade eller
+utvärderade listrepresentationer av polynom. En del av uppgiften var att
+testa dessa funktioner, vilket gjordes genom att manuellt undersöka
+outputen av en given input. Ett bättre sätt hade varit om
+instruktionerna för labb 2 hade innehållit följande fil:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZyb20gbGFiYjIgaW1wb3J0ICpcblxucCA9IFsyLDAsMV1cbnEgPSBbLTIsMSwwLDAsMV1cbnAwID0gWzIsMCwxLDBdXG5xMCA9IFswLDAsMF1cblxuYXNzZXJ0IChwb2x5X3RvX3N0cmluZyhwKSA9PSAnMiArIHheMicpXG5hc3NlcnQgKHBvbHlfdG9fc3RyaW5nKHEpID09ICctMiArIHggKyB4XjQnKVxuYXNzZXJ0IChwb2x5X3RvX3N0cmluZyhbXSkgPT0gJzAnKVxuYXNzZXJ0IChwb2x5X3RvX3N0cmluZyhbMCwwLDBdKSA9PSAnMCcpXG5hc3NlcnQgKGRyb3BfemVyb2VzKHAwKSA9PSBbMiwgMCwgMV0pXG5hc3NlcnQgKGRyb3BfemVyb2VzKHEwKSA9PSBbXSlcbmFzc2VydCAoZXFfcG9seShwLHAwKSlcbmFzc2VydCAobm90IGVxX3BvbHkocSxwMCkpXG5hc3NlcnQgKGVxX3BvbHkocTAsW10pKVxuYXNzZXJ0IChldmFsX3BvbHkocCwwKSA9PSAyKVxuYXNzZXJ0IChldmFsX3BvbHkocCwxKSA9PSAzKVxuYXNzZXJ0IChldmFsX3BvbHkocCwyKSA9PSA2KVxuYXNzZXJ0IChldmFsX3BvbHkocSwyKSA9PSAxNilcbmFzc2VydCAoZXZhbF9wb2x5KHEsLTIpID09IDEyKVxuYXNzZXJ0IChlcV9wb2x5KGFkZF9wb2x5KHAscSksYWRkX3BvbHkocSxwKSkpXG5hc3NlcnQgKGVxX3BvbHkoc3ViX3BvbHkocCxwKSxbXSkpXG5hc3NlcnQgKGVxX3BvbHkoc3ViX3BvbHkocCxuZWdfcG9seShxKSksYWRkX3BvbHkocCxxKSkpXG5hc3NlcnQgKG5vdCBlcV9wb2x5KGFkZF9wb2x5KHAscCksW10pKVxuYXNzZXJ0IChlcV9wb2x5KHN1Yl9wb2x5KHAscSksWzQsIC0xLCAxLCAwLCAtMV0pKVxuYXNzZXJ0IChldmFsX3BvbHkoYWRkX3BvbHkocCxxKSwxMikgPT0gZXZhbF9wb2x5KHAsMTIpICsgZXZhbF9wb2x5KHEsMTIpKSJ9
+</div>
+<p>Denna fil kommer endast att köra klart om samtliga tester går igenom!
+Vi behöver varken ha med testerna eller de polynom vi bara har
+definierat för tester (dvs <code>p</code>, <code>q</code>,
+<code>p0</code> och <code>q0</code>) i huvudfilen för laborationen
+<code>labb2.py</code>.</p>
+<p>På detta sätt kan vi använda <code class="python">assert</code> för
+att testa och specificera våra program. Ett problem är dock att vi bara
+ser resultatet av det första <code class="python">assert</code> som inte
+håller och inte för alla andra som inte går igenom. Ett bättre sätt för
+testning av mer komplexa program är <em>enhetstester</em>.</p>
+</div>
+<div id="enhetstester-med-unittest" class="section level2">
+<h2>Enhetstester med <code>unittest</code></h2>
+<p>Modulen <code>unittest</code> har funnits med i Pythons
+standardbibliotek sen version 2.1 och används av många projekt, både
+kommersiella och open-source. För att använda <code>unittest</code>
+måste vi:</p>
+<ol style="list-style-type: decimal">
+<li>Gruppera alla tester i klasser där testerna är metoder.</li>
+<li>Använda specifika assert-metoder från <code>unittest.TestCase</code>
+istället för de inbyggda <code class="python">assert</code>
+uttrycken.</li>
+</ol>
+<p>För att skriva om labb 2 exemplet ovan så att det använder <code
+class="python">unittest</code> gör vi följande:</p>
+<ul>
+<li><p>Importera <code>unittest</code></p></li>
+<li><p>Skapa en klass <code>TestPoly</code> som ärver från
+<code>TestCase</code> klassen</p></li>
+<li><p>Skriv om alla <code class="python">assert</code> till metoder i
+den här klassen som använder <code
+class="python">self.assertEqual()</code></p></li>
+<li><p>Ändra så att <code class="python">unittest.main()</code> körs när
+filen laddas</p></li>
+</ul>
+<p>Så här kan filen se ut:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCB1bml0dGVzdFxuXG5pbXBvcnQgbGFiYjJcblxucCA9IFsyLDAsMV1cbnEgPSBbLTIsMSwwLDAsMV1cbnAwID0gWzIsMCwxLDBdXG5xMCA9IFswLDAsMF1cblxuY2xhc3MgVGVzdFBvbHkodW5pdHRlc3QuVGVzdENhc2UpOlxuXG4gICAgZGVmIHRlc3RfcG9seV90b19zdHJpbmdfcChzZWxmKTpcbiAgICAgICAgc2VsZi5hc3NlcnRFcXVhbChsYWJiMi5wb2x5X3RvX3N0cmluZyhwKSwnMiArIHheMicsIFxcXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJTaG91bGQgYmUgMiArIHheMlwiKVxuXG4gICAgZGVmIHRlc3RfcG9seV90b19zdHJpbmdfcShzZWxmKTpcbiAgICAgICAgc2VsZi5hc3NlcnRFcXVhbChsYWJiMi5wb2x5X3RvX3N0cmluZyhxKSwnLTIgKyB4ICsgeF40JyxcXFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiU2hvdWxkIGJlIC0yICsgeCArIHheNFwiKVxuXG4gICAgZGVmIHRlc3RfcG9seV90b19zdHJpbmdfZW1wdHkoc2VsZik6XG4gICAgICAgIHNlbGYuYXNzZXJ0RXF1YWwobGFiYjIucG9seV90b19zdHJpbmcoW10pLCcwJywgXCJTaG91bGQgYmUgMFwiKVxuXG4gICAgZGVmIHRlc3RfcG9seV90b19zdHJpbmdfZW1wdHkyKHNlbGYpOlxuICAgICAgICBzZWxmLmFzc2VydEVxdWFsKGxhYmIyLnBvbHlfdG9fc3RyaW5nKFswLDAsMF0pLCcwJywgXCJTaG91bGQgYmUgMFwiKVxuXG4gICAgZGVmIHRlc3RfZHJvcF96ZXJvZXNfcDAoc2VsZik6XG4gICAgICAgIHNlbGYuYXNzZXJ0RXF1YWwobGFiYjIuZHJvcF96ZXJvZXMocDApLFsyLCAwLCAxXSlcblxuICAgIGRlZiB0ZXN0X2Ryb3BfemVyb2VzX3EwKHNlbGYpOlxuICAgICAgICBzZWxmLmFzc2VydEVxdWFsKGxhYmIyLmRyb3BfemVyb2VzKHEwKSxbXSlcblxuICAgIGRlZiB0ZXN0X2VxX3BvbHlfcHAwKHNlbGYpOlxuICAgICAgICBzZWxmLmFzc2VydEVxdWFsKGxhYmIyLmVxX3BvbHkocCxwMCksVHJ1ZSlcblxuICAgIGRlZiB0ZXN0X2VxX3BvbHlfcXAwKHNlbGYpOlxuICAgICAgICBzZWxmLmFzc2VydE5vdEVxdWFsKGxhYmIyLmVxX3BvbHkocSxwMCksVHJ1ZSlcblxuICAgIGRlZiB0ZXN0X2VxX3BvbHlfcTAoc2VsZik6XG4gICAgICAgIHNlbGYuYXNzZXJ0RXF1YWwobGFiYjIuZXFfcG9seShxMCxbXSksVHJ1ZSlcblxuICAgICMgLi4uXG5cbmlmIF9fbmFtZV9fID09ICdfX21haW5fXyc6XG4gICAgdW5pdHRlc3QubWFpbigpIn0=
+</div>
+<p>Och om vi kör den får vi:</p>
+<pre class="python"><code>.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK</code></pre>
+<p>Om vi har en bugg, som exempelvis att <code
+class="python">poly_to_string</code> alltid råkar returnera tomma
+strängen, blir resultatet:</p>
+<pre class="python"><code>.....FFFF
+======================================================================
+FAIL: test_poly_to_string_empty (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;unittestlabb2.py&quot;, line 19, in test_poly_to_string_empty
+    self.assertEqual(poly_to_string([]),&#39;0&#39;, &quot;Should be 0&quot;)
+AssertionError: &#39;&#39; != &#39;0&#39;
++ 0 : Should be 0
+
+======================================================================
+FAIL: test_poly_to_string_empty2 (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;unittestlabb2.py&quot;, line 22, in test_poly_to_string_empty2
+    self.assertEqual(poly_to_string([0,0,0]),&#39;0&#39;, &quot;Should be 0&quot;)
+AssertionError: &#39;&#39; != &#39;0&#39;
++ 0 : Should be 0
+
+======================================================================
+FAIL: test_poly_to_string_p (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;unittestlabb2.py&quot;, line 13, in test_poly_to_string_p
+    self.assertEqual(poly_to_string(p),&#39;2 + x^2&#39;, &quot;Should be 2 + x^2&quot;)
+AssertionError: &#39;&#39; != &#39;2 + x^2&#39;
++ 2 + x^2 : Should be 2 + x^2
+
+======================================================================
+FAIL: test_poly_to_string_q (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;unittestlabb2.py&quot;, line 16, in test_poly_to_string_q
+    self.assertEqual(poly_to_string(q),&#39;-2 + x + x^4&#39;, &quot;Should be -2 + x + x^4&quot;)
+AssertionError: &#39;&#39; != &#39;-2 + x + x^4&#39;
++ -2 + x + x^4 : Should be -2 + x + x^4
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.002s
+
+FAILED (failures=4)</code></pre>
+<p>Vi ser alltså att 4 av testerna felar och vi kan nu börja debugga vår
+kod. Genom att skriva bra tester som vi kör varje gång vi gör några
+ändringar kan vi alltså vara säkra på att vår kod fortsätter fungera som
+vi förväntar oss trots att vi förändrar den. Detta är väldigt användbart
+i större projekt där man är många som samarbetar. Många system för att
+arbeta på kod tillsammans (exempelvis <a
+href="www.github.com">Github</a>) har stöd för denna typ av automatisk
+testning för varje ändring som någon vill göra till kodbasen (denna
+utvecklingsteknik kallas för “kontinuerlig integration” (eng.
+<em>continuous integration</em>).</p>
+</div>
+<div id="slumptestning-à-la-quickcheck" class="section level2">
+<h2>Slumptestning (à la QuickCheck):</h2>
+<p>Det är svårt att skriva bra tester för hand. Ett alternativ som kan
+vara väldigt smidigt är att använda ett bibliotek som genererar tester
+åt en automatiskt, dvs genom så kallad “slumptestning”. För denna typ av
+testning skriver man en specifikation, t.ex.
+<code>add_poly(p,q) == add_poly(q,p)</code>, och biblioteket genererar
+sedan slumpmässig indata (dvs, polynom i detta fall) för att testa så
+att specifikationen håller.</p>
+<p>Python har stöd för detta genom <a
+href="https://hypothesis.readthedocs.io/">hypothesis</a>
+biblioteket.</p>
+</div>
+</div>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Jaccard-index (<span class="math inline">\(J\)</span>) är ett
+mått på hur lika två mängder <code>A</code> och <code>B</code> är och är
+definierat som</p>
+<p><span class="math display">\[
+J := \frac{|A \cap B|}{|A \cup B|}
+\]</span></p>
+<p>där <span class="math inline">\(\cap\)</span> och <span
+class="math inline">\(\cup\)</span> är <em>snittet</em> och
+<em>unionen</em> av mängderna <code>A</code> och <code>B</code> (se <a
+href="https://sv.wikipedia.org/wiki/M%C3%A4ngd">Wikipedia</a>).
+Implementera denna formel som funktionen
+<code>jaccard_index(l1,l2)</code> i Python där <code>l1</code> och
+<code>l2</code> är två listor med element.</p>
+<p><em>Tips</em>: Konvertera listorna till mängder och använd deras
+metoder. Till exempel ska funktionen kunna användas så här</p>
+<pre class="python"><code>print(jaccard_index([&#39;dog&#39;, &#39;cat&#39;, &#39;mouse&#39;], [&#39;dog&#39;, &#39;cat&#39;, &#39;mouse&#39;]))
+print(jaccard_index([&#39;dog&#39;, &#39;cat&#39;], [&#39;dog&#39;, &#39;cat&#39;, &#39;mouse&#39;]))
+print(jaccard_index([&#39;dog&#39;, &#39;cat&#39;], [&#39;mouse&#39;, &#39;rat&#39;]))</code></pre>
+<pre class="python"><code>1.0
+0.6666666666666666
+0.0</code></pre></li>
+<li><p>Använd modulen <code>unittest</code> för att skriva enhetstester
+för din funktion i uppgift 1.</p></li>
+<li><p>En begränsning med Jaccard-index är att det inte tar hänsyn till
+repeterade element. Till exempel resulterar koden nedan i samma
+Jaccard-index som ovan, även fast vi kanske skulle beskriva dessa två
+<em>multimängder</em> (dvs samma element kan förekomma flera gånger) som
+“mer olika”.</p>
+<pre class="python"><code>print(jaccard_index([&#39;dog&#39;, &#39;dog&#39;, &#39;dog&#39;, &#39;cat&#39;, &#39;mouse&#39;],
+                    [&#39;dog&#39;, &#39;cat&#39;, &#39;cat&#39;, &#39;cat&#39;, &#39;cat&#39;,  &#39;mouse&#39;]))
+print(jaccard_index([&#39;dog&#39;, &#39;cat&#39;,&#39;cat&#39;, &#39;cat&#39;],
+                    [&#39;dog&#39;, &#39;cat&#39;, &#39;mouse&#39;, &#39;mouse&#39;]))</code></pre>
+<pre class="python"><code>1.0
+0.6666666666666666</code></pre>
+<p>Implementera kod för att beräkna viktat Jaccard-index. Låt <span
+class="math inline">\(A\)</span> och <span
+class="math inline">\(B\)</span> vara två <em>multimängder</em> och
+<span class="math inline">\(A_z\)</span> och <span
+class="math inline">\(B_z\)</span> beteckna hur många gånger elementet
+<span class="math inline">\(z\)</span> förekom i <span
+class="math inline">\(A\)</span> respektive <span
+class="math inline">\(B\)</span>. Då definierar vi viktat Jaccard-index
+<span class="math inline">\(J_w\)</span> som</p>
+<p><span class="math display">\[
+J_w := \frac{\sum_{z \in (A \cup B) } \min(A_z,B_z)}{\sum_{z \in (A
+\cup B) } \max(A_z,B_z)}
+\]</span></p>
+<p>Till exempel:</p>
+<pre class="python"><code>print(weighted_jaccard_index([&#39;dog&#39;, &#39;dog&#39;, &#39;dog&#39;, &#39;cat&#39;, &#39;mouse&#39;],
+                             [&#39;dog&#39;, &#39;cat&#39;, &#39;cat&#39;, &#39;cat&#39;, &#39;cat&#39;, &#39;mouse&#39;]))
+print(weighted_jaccard_index([&#39;dog&#39;, &#39;cat&#39;, &#39;cat&#39;, &#39;cat&#39;],
+                             [&#39;dog&#39;, &#39;cat&#39;, &#39;mouse&#39;, &#39;mouse&#39;]))</code></pre>
+<pre class="python"><code>0.375
+0.3333333333333333</code></pre>
+<p>När du implementerar detta, tänk på tips om struktur och kod från
+delkapitlet “Bra kod”. Till exempel: separera kod i små funktioner som
+gör en sak, ha inte för långa uttryck på samma rad. Tänk på hur koden
+bör struktureras.</p></li>
+<li><p>Använd modulen <code>unittest</code> för att skriva enhetstester
+för dina funktioner i uppgift 3.</p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

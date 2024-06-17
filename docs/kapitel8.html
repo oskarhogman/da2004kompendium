@@ -282,12 +282,6 @@ div.tocify {
   border-radius: 0px;
 }
 
-.tocify-subheader {
-  display: inline;
-}
-.tocify-subheader .tocify-item {
-  font-size: 0.95em;
-}
 
 </style>
 
@@ -389,8 +383,8 @@ ihop och modifiera funktioner. På detta sätt kan vi göra mycket av vad
 vi redan sett i de andra kapitlen, men endast genom att hantera
 funktioner. T.ex. kan vi byta ut loopar mot <em>rekursiva</em>
 funktioner, dvs funktioner som anropar sig själva.</p>
-<div id="rekursion" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Rekursion</h1>
+<div id="rekursion" class="section level1">
+<h1>Rekursion</h1>
 <p>Funktioner kan anropa sig själva och då kallas de <em>rekursiva</em>.
 Det finns många exempel på detta i matematiken, men även inom
 programmering kan rekursion vara användbart då det ofta leder till
@@ -398,8 +392,8 @@ eleganta och korta program. Det kan dock vara svårt att börja “tänka
 rekursivt” och se hur man kan lösa olika problem med hjälp av rekursion.
 Ett bra sätt att lära sig använda rekursion är att ta program man
 skrivit med hjälp av loopar och göra om dem med rekursion istället.</p>
-<div id="fakultet" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Fakultet</h2>
+<div id="fakultet" class="section level2">
+<h2>Fakultet</h2>
 <p>Ett klassiskt exempel på en rekursiv funktion från matematiken är
 fakultet. Detta skrivs <span class="math inline">\(n!\)</span> och
 beräknas genom att man tar produkten av alla tal från <span
@@ -442,8 +436,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGZhYyg1KSkifQ==
 </div>
 <pre class="python"><code>120</code></pre>
 </div>
-<div id="fibonacci-talen" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Fibonacci-talen</h2>
+<div id="fibonacci-talen" class="section level2">
+<h2>Fibonacci-talen</h2>
 <p>Varje kurs som tar upp rekursion måste ha med Fibonacci-talen som
 exempel. Detta är en talserie som ser ut på följande sätt: <span
 class="math display">\[
@@ -480,10 +474,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmaWIobik6XG4gICAgaWYgbiA9PSAwOlxu
 Fibonacci-tal med den i i <a href="#kap6:uppgifter">Kapitel 6</a>, som
 använder sig av en generator.</p>
 </div>
-<div id="största-gemensamma-delare-rekursivt" class="section level2"
-number="1.3">
-<h2><span class="header-section-number">1.3</span> Största gemensamma
-delare, rekursivt</h2>
+<div id="största-gemensamma-delare-rekursivt" class="section level2">
+<h2>Största gemensamma delare, rekursivt</h2>
 <p>Minns <a href="#kap3:GCD">Euklides algoritm</a> för största
 gemensamma delare (GCD, för “Greatest Common Divisor”) för två tal
 <code>a</code> och <code>b</code> från :</p>
@@ -513,9 +505,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBnY2QoYSxiKTpcbiAgICBpZiBiID4gYTpc
 a must be bigger than b in gcd(a,b)
 GCD: None</code></pre>
 </div>
-<div id="loopar-genom-rekursion" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Loopar genom
-rekursion</h2>
+<div id="loopar-genom-rekursion" class="section level2">
+<h2>Loopar genom rekursion</h2>
 <p>Ovan såg vi ett exempel på ett program vi redan skrivit med loopar
 som kan ersättas med rekursion. Detta kan alltid göras, både för <code
 class="python">for</code> och <code class="python">while</code>
@@ -549,9 +540,8 @@ f_rec(3) = 6
 f(4) = 10
 f_rec(4) = 10</code></pre>
 </div>
-<div id="rekursion-över-listor" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Rekursion över
-listor</h2>
+<div id="rekursion-över-listor" class="section level2">
+<h2>Rekursion över listor</h2>
 <p>Vi har sett hur man kan skriva rekursiva funktioner över tal. Detta
 går även att göra över andra datatyper. Det generella tankesättet är att
 man måste ha ett eller fler basfall och att de rekursiva fallen
@@ -595,9 +585,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBzdW0oeHMpOlxuICAgIGlmIHhzOlxuICAg
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBwcm9kKHhzKTpcbiAgICBpZiB4czpcbiAgICAgICAgeCA9IHhzLnBvcCgpICAjIHBvcCByZXR1cm5zIHRoZSBlbGVtZW50XG4gICAgICAgIHJldHVybiAoeCAqIHByb2QoeHMpKVxuICAgIGVsc2U6XG4gICAgICAgIHJldHVybiAxXG5cbnByaW50KHByb2QoWzEsMyw1LC0xLDJdKSkifQ==
 </div>
 <pre class="python"><code>-30</code></pre>
-<div id="sortering-av-listor" class="section level3" number="1.5.1">
-<h3><span class="header-section-number">1.5.1</span> Sortering av
-listor</h3>
+<div id="sortering-av-listor" class="section level3">
+<h3>Sortering av listor</h3>
 <p>En snabb och bra sorteringsalgoritm är <em>quicksort</em>. Den
 fungerar på följande sätt:</p>
 <ol style="list-style-type: decimal">
@@ -631,9 +620,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBxdWlja3NvcnQoeHMpOlxuICAgIGlmIHhz
 <pre class="python"><code>[2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 8]</code></pre>
 </div>
 </div>
-<div id="effektiv-rekursion" class="section level2" number="1.6">
-<h2><span class="header-section-number">1.6</span> Effektiv
-rekursion</h2>
+<div id="effektiv-rekursion" class="section level2">
+<h2>Effektiv rekursion</h2>
 <p>En fara med att skriva rekursiva funktioner är att de kan bli väldigt
 långsamma jämfört med iterativ kod skriven med loopar. Exempelvis om vi
 utvidgar definitionen av <code>fib(5)</code> för hand så ser vi
@@ -727,9 +715,8 @@ exekvera funktioner skrivna med rekursion. Så det är oftast bättre att
 skriva en funktion med hjälp av <code>for</code> eller
 <code>while</code> om man behöver snabb kod.</p>
 </div>
-<div id="diskussion-om-rekursion" class="section level2" number="1.7">
-<h2><span class="header-section-number">1.7</span> Diskussion om
-rekursion</h2>
+<div id="diskussion-om-rekursion" class="section level2">
+<h2>Diskussion om rekursion</h2>
 <ul>
 <li>Princip: bryt upp i mindre instanser, lös dessa.</li>
 <li>Rekursion är att “ta hjälp av en (osynlig) kompis”</li>
@@ -758,10 +745,9 @@ stacken när funktionen är klar.</li>
 datorer.</p>
 </div>
 </div>
-<div id="anonyma-och-högre-ordningens-funktioner" class="section level1"
-number="2">
-<h1><span class="header-section-number">2</span> Anonyma och högre
-ordningens funktioner</h1>
+<div id="anonyma-och-högre-ordningens-funktioner"
+class="section level1">
+<h1>Anonyma och högre ordningens funktioner</h1>
 <p>När vi har pratat variabler och värden har vi hittills framförallt
 pratat om heltal, flyttal, strängar, listor, med mera. Det finns goda
 skäl att lägga <em>funktioner</em> till uppräkningen av värden att
@@ -776,9 +762,8 @@ språk</em>, var dåliga på att hantera funktioner, men i Lisp och andra
 språk för <em>funktionell programmering</em> så har funktioner varit
 <em>first class citizens</em> sedan 50-talet. Idag kan man säga att det
 är en vanlig finess som många språk stödjer, däribland Python.</p>
-<div id="anonyma-funktioner" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Anonyma
-funktioner</h2>
+<div id="anonyma-funktioner" class="section level2">
+<h2>Anonyma funktioner</h2>
 <p>Begreppet <em>anonyma funktioner</em> med hjälp av
 <em>lambda-uttryck</em> finns i många språk idag. Man säger att
 funktionerna är <em>anonyma</em> eftersom man inte ger dem ett namn,
@@ -823,10 +808,8 @@ om en formell definition av regler, som t.ex. utgör ett
 programmeringsspråk, är sådan att vilken Turingmaskin som helst kan
 representeras med instruktioner enligt dessa regler.</p>
 </div>
-<div id="högre-ordningens-funktioner" class="section level2"
-number="2.2">
-<h2><span class="header-section-number">2.2</span> Högre ordningens
-funktioner</h2>
+<div id="högre-ordningens-funktioner" class="section level2">
+<h2>Högre ordningens funktioner</h2>
 <p>En <em>högre ordningens funktion</em> tar en funktion som argument
 och är ett djupare begrepp än det kanske först låter som. Poängen med
 högre ordningens funktioner är att de kan vara ett sätt att generalisera
@@ -859,9 +842,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IiMgMVxucHJpbnQobGlzdChtYXAobGFtYmRhIHg6
 [3, 4]</code></pre>
 <p><strong>Obs:</strong> <code>map</code> returnerar en generator, så vi
 måste lägga in <code>list</code> för att få ut en lista.</p>
-<div id="inte-bara-för-listor" class="section level3" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> Inte bara för
-listor</h3>
+<div id="inte-bara-för-listor" class="section level3">
+<h3>Inte bara för listor</h3>
 <p>Observera också att <code>map</code> och liknande funktioner inte är
 låsta till listor, utan kan tillämpas på allt som i Python är definierat
 som <em>itererbart</em>. Det inkluderar till exempel strängar, tupler
@@ -880,10 +862,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGxpc3QobWFwKGxlbiwgb3BlbigncGVv
 <p>Notera att newline tecknet <code>\n</code> räknas med och är av längd
 1.</p>
 </div>
-<div id="högre-ordningens-funktion-filter" class="section level3"
-number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> Högre ordningens
-funktion: <code>filter</code></h3>
+<div id="högre-ordningens-funktion-filter" class="section level3">
+<h3>Högre ordningens funktion: <code>filter</code></h3>
 <p>En annan typ av funktionalitet som vi ofta vill använda är att välja
 ut element som uppfyller något kriterium. Till det finns funktionen
 <code>filter</code>. Den tar ett predikat, dvs en funktion som
@@ -899,10 +879,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGxpc3QoZmlsdGVyKGxhbWJkYSB4OiB4
 [[1], [2, 3], [4, 5, 6]]</code></pre>
 </div>
 </div>
-<div id="egna-högre-ordningens-funktioner" class="section level2"
-number="2.3">
-<h2><span class="header-section-number">2.3</span> Egna högre ordningens
-funktioner</h2>
+<div id="egna-högre-ordningens-funktioner" class="section level2">
+<h2>Egna högre ordningens funktioner</h2>
 <p>Funktionerna <code>map</code> och <code>filter</code> har ingen
 särställning i Python, de är helt enkelt bra verktyg som många finner
 praktiska att använda. Det är inte så svårt att skriva dessa funktioner
@@ -969,8 +947,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBmdW5jdG9vbHNcblxucHJpbnQoZnVu
 <!-- ``` -->
 </div>
 </div>
-<div id="uppgifter" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Uppgifter</h1>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Skriv en rekursiv funktion <code>rec_prod_m(n,m)</code> som tar
 två tal <code>n</code> och <code>m</code> och beräknar
@@ -1110,7 +1088,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = false;
+    options.showAndHide = true;
     options.smoothScroll = true;
 
     // tocify

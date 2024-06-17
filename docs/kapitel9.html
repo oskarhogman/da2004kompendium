@@ -282,12 +282,6 @@ div.tocify {
   border-radius: 0px;
 }
 
-.tocify-subheader {
-  display: inline;
-}
-.tocify-subheader .tocify-item {
-  font-size: 0.95em;
-}
 
 </style>
 
@@ -383,8 +377,8 @@ div.tocify {
 
 
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-<div id="objektorientering" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Objektorientering</h1>
+<div id="objektorientering" class="section level1">
+<h1>Objektorientering</h1>
 <p>Objektorientering (förkortas OO) är ett programmeringsparadigm eller
 programmeringsstil där man samlar data och datastrukturer med de
 funktioner som kan tillämpas på dem. I Python är i princip allt
@@ -411,9 +405,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InMgPSAnSGVqJ1xucHJpbnQocy5sb3dlcigpKSJ9
 <p>Här har vi skapat ett objekt <code>s</code> av typ <code>str</code>
 och använt metoden <code>lower</code> (specifik för datatypen
 <code>str</code>).</p>
-<div id="varför-objektorientering" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Varför
-objektorientering?</h2>
+<div id="varför-objektorientering" class="section level2">
+<h2>Varför objektorientering?</h2>
 <p>Objektorientering lämpar sig bra att använda när man vill:</p>
 <ul>
 <li>Knyta samman mycket data som relaterar till varandra (hör till samma
@@ -444,9 +437,8 @@ funktionalitet på samma ställe.</p></li>
 detaljer.</p></li>
 </ol>
 </div>
-<div id="hur-skapas-objekt" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Hur skapas
-objekt?</h2>
+<div id="hur-skapas-objekt" class="section level2">
+<h2>Hur skapas objekt?</h2>
 <p>Hur skriver vi då objektorienterad kod? För att skapa egna objekt
 (tänk till exempel på en bil eller en kurs som ett objekt) så måste vi
 ha en specifikation för objektets data, metoder och allmänna struktur.
@@ -465,9 +457,8 @@ tillämpa på ett objekt <code>xs</code> med <code>xs.pop()</code>.</p>
 <p>Vi har i kursen använt många exempel på klasser: heltal, listor,
 uppslagstabeller, med mera. Vi ska nu lära oss att skriva våra egna.</p>
 </div>
-<div id="att-definiera-en-klass" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Att definiera en
-klass</h2>
+<div id="att-definiera-en-klass" class="section level2">
+<h2>Att definiera en klass</h2>
 <p>Ett minimalt exempel är för en tom klass:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIENvdXJzZTpcbiAgICBwYXNzIn0=
@@ -492,8 +483,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGsyLmNvZGUpICMgVGhpcyBvYmplY3Qg
 objektet/instansen <code>k</code>. Vi kommer ofta säga “instansattribut”
 för denna typ av variabler.</p>
 </div>
-<div id="metoder" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Metoder</h2>
+<div id="metoder" class="section level2">
+<h2>Metoder</h2>
 <p>En <em>metod</em> är en funktion definierad i en klass. I
 <code>Course</code> (nedan) är alla <code
 class="python">def</code>-satser metoder. När man definierar metoder
@@ -528,8 +519,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNC5uZXdfcGFydGljaXBhbnQoJ0pvaGFu
 </div>
 <pre class="python"><code>1</code></pre>
 </div>
-<div id="self" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Self</h2>
+<div id="self" class="section level2">
+<h2>Self</h2>
 <p>Vad är då uttrycket <code class="python">self</code> som finns med
 framför alla attribut och som parametrar till metoder? Variabeln <code
 class="python">self</code> i <code>Course</code>-klassen representerar
@@ -555,10 +546,8 @@ endast en illustration av konceptet att metoden
 <code>new_participant</code> tar objektet <code>da2004</code> som
 parameter för att kunna modifiera det.</p>
 </div>
-<div id="klass--och-instansattribut" class="section level2"
-number="1.6">
-<h2><span class="header-section-number">1.6</span> Klass- och
-instansattribut</h2>
+<div id="klass--och-instansattribut" class="section level2">
+<h2>Klass- och instansattribut</h2>
 <p><em>Attribut</em> är ett annat sätt att benämna variabler som är
 specifika för objekt eller klasser. Det finns två olika typer av
 attribut; <em>instansattribut</em> och <em>klassattribut</em>. Generellt
@@ -598,9 +587,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIENvdXJzZTpcblxuICAgIHVuaXZlcnNp
 [(&#39;Johan Jansson&#39;, &#39;j.jansson@exempel.se&#39;)]</code></pre>
 </div>
 <div id="privata-och-publika-metoder-och-attribut"
-class="section level2" number="1.7">
-<h2><span class="header-section-number">1.7</span> Privata och publika
-metoder och attribut</h2>
+class="section level2">
+<h2>Privata och publika metoder och attribut</h2>
 <p>I objektorienterad programmering skiljer man ofta på <em>privata</em>
 och <em>publika</em> metoder och attribut. De publika metoderna utgör
 <em>gränssnittet</em> (eng. <em>interface</em>) för en klass och är de
@@ -649,8 +637,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNC5fY2hlY2tfZHVwbGljYXRlKCdKb2hh
 </div>
 <p>men det betraktas som dålig programmering.</p>
 </div>
-<div id="ordlista" class="section level2" number="1.8">
-<h2><span class="header-section-number">1.8</span> Ordlista</h2>
+<div id="ordlista" class="section level2">
+<h2>Ordlista</h2>
 <ul>
 <li><em>Objekt</em>: ett element av någon typ med olika attribut och
 metoder.</li>
@@ -673,10 +661,8 @@ Tillhör en specifik instans av klassen.</li>
 </ul>
 </div>
 </div>
-<div id="modularitet-genom-objektorientering" class="section level1"
-number="2">
-<h1><span class="header-section-number">2</span> Modularitet genom
-objektorientering</h1>
+<div id="modularitet-genom-objektorientering" class="section level1">
+<h1>Modularitet genom objektorientering</h1>
 <p>I exemplet <code>Course</code> ovan har vi använt en lista med tupler
 för att representera deltagarlistan <code>participants</code>. En mer
 objektorienterad lösning hade varit att ha en separat klass för
@@ -708,9 +694,8 @@ liten kodmodul i sig och interna modifikationer påverkar ingen annan kod
 i programmet så länge gränssnittet är oförändrat.</p>
 </div>
 <div id="ett-till-exempel-på-objektorientering-talmängder"
-class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Ett till exempel på
-objektorientering: talmängder</h1>
+class="section level1">
+<h1>Ett till exempel på objektorientering: talmängder</h1>
 <p>Python har en typ för mängder, liknande uppslagstabeller, men
 nycklarna är inte associerade med några värden. För dokumentation
 se:</p>
@@ -733,9 +718,8 @@ False
 {1, 2, 3, 5}
 {5}
 {1, 2, 3}</code></pre>
-<div id="egen-implementation" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Egen
-implementation</h2>
+<div id="egen-implementation" class="section level2">
+<h2>Egen implementation</h2>
 <p>Här kommer ett till större exempel taget från kursboken (Introduction
 to Computation and Programming using Python av John V Guttag, sida 111),
 där vi implementerar vår egen mängd-datatyp <code>IntSet</code> med
@@ -761,20 +745,16 @@ objektet; var det är definierat och på vilken minnesadress det sparats
 på. Om man kör denna kodsnutt igen kommer troligtvis objektet ligga på
 ett annat ställe i minnet.</p>
 </div>
-<div id="integrera-din-klass-i-python-systemet" class="section level2"
-number="3.2">
-<h2><span class="header-section-number">3.2</span> Integrera din klass i
-Python-systemet</h2>
+<div id="integrera-din-klass-i-python-systemet" class="section level2">
+<h2>Integrera din klass i Python-systemet</h2>
 <p>Visst vore det bra att kunna lägga till egna datastrukturer som är
 lika integrerade i Python-systemet som <code>list</code>,
 <code>dict</code>, <code>set</code>, och så vidare? Det är möjligt och
 till och med att betrakta som god programmering. Det man skulle behöva
 är att metoder som Python tillåter på inbyggda objekt/klasser också är
 tillämpbara på dina egna klasser. Här beskriver vi hur.</p>
-<div id="str-len-och-andra-anpassningar" class="section level3"
-number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> <code>str</code>,
-<code>len</code> och andra anpassningar</h3>
+<div id="str-len-och-andra-anpassningar" class="section level3">
+<h3><code>str</code>, <code>len</code> och andra anpassningar</h3>
 <p>Vi kan lägga till metoder <code class="python">__str__(self)</code>
 och <code class="python">__len__(self)</code> som gör att vi kan använda
 oss av Python-systemets syntax <code>str()</code>, och
@@ -797,10 +777,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBJbnRTZXQoKVxucHJpbnQoeClcbnguaW5z
 <pre class="python"><code>{}
 {2,3}</code></pre>
 </div>
-<div id="integrering-av-jämförelseoperatorer" class="section level3"
-number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Integrering av
-jämförelseoperatorer</h3>
+<div id="integrering-av-jämförelseoperatorer" class="section level3">
+<h3>Integrering av jämförelseoperatorer</h3>
 <p>Låt oss säga att vi vill kunna jämföra <code>IntSet</code> med
 <code>&lt;=</code> och att <code>x &lt;= y</code> ska tolkas som att
 “<code>x</code> är en delmängd till <code>y</code>”. Då kan vi lägga
@@ -830,8 +808,8 @@ skriva <code class="python">5 in x</code> istället för att skriva
 </div>
 </div>
 </div>
-<div id="uppgifter" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Uppgifter</h1>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Utöka klasserna <code>Course</code> och <code>Participant</code>
 med metoden <code class="python">__str__</code> så att vi kan använda
@@ -895,10 +873,8 @@ print(d &gt; e)</code></pre>
 <pre class="python"><code>Fido knows: roll over, shake hands
 True</code></pre></li>
 </ol>
-<div id="exempelkod-för-uppgifterna" class="section level2"
-number="4.1">
-<h2><span class="header-section-number">4.1</span> Exempelkod för
-uppgifterna</h2>
+<div id="exempelkod-för-uppgifterna" class="section level2">
+<h2>Exempelkod för uppgifterna</h2>
 <p></p>
 <pre class="python"><code>import warnings  # included in Python&#39;s standard library
 
@@ -1006,7 +982,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = false;
+    options.showAndHide = true;
     options.smoothScroll = true;
 
     // tocify

@@ -1,0 +1,631 @@
+---
+title: "Kapitel 12"
+output: html_document
+date: "2024-06-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, include=FALSE}
+tutorial::go_interactive()
+```
+
+\chapter{Defensiv programmering}
+
+Den som har lärt sig programmera har nog också blivit tvungen att lära sig
+felsöka.  Alla programmerare gör fel, råkar förlita sig på olämpliga antaganden,
+och missförstår dokumentation. Fel kan göra att programmet avbryter precis där
+misstaget är, men det kan också uppstå långt senare. Om division med noll
+uppstår så kanske det är ett symptom på ett tidigare misstag. En variabel kanske
+har blivit satt till 0, trots att det är orimligt, men var gjordes det och
+varför? Det kan vara arbetsamt att leta upp orsaken till felet.
+Programmeringsstilen _defensiv programmering_ syftar dels till att hitta fel
+tidigt, så nära det egentliga misstaget, för att undvika arbetsamma
+felsökningssessioner, och dels till att tydliggöra sina antaganden i koden.
+
+Defensiv programmering avser att man förväntar sig att funktioner kommer att
+användas på fel sätt, algoritmer blir implementerade fel, kombinationer av
+variablers värden uppstår som man inte har tänkt på, och att andra konstigheter
+sker under programutveckling.  Genom att _koda_ sina förväntningar
+på variablers värden med hjälp av `assert`{.python} på många platser i ett program kan
+man upptäcka felen tidigare, närmare felkällan, och därmed förenkla felsökningen.
+
+
+# Assert
+
+Instruktionen `assert condition`{.python} anger att uttrycket `condition` förutsattes vara sant.  Om
+uttrycket är sant händer inget, det är det förväntade uppträdandet, men om det
+är falskt avbryter programmet med hjälp av ett särfall, `AssertionError`{.python}.
+Denna typ av instruktion
+finns i många språk och är ett hjälpmedel för felsökning, utveckling,
+och underhåll av program.
+
+Några exempel:
+
+\pyin
+```{python}
+assert len(data_list) > 0
+assert x != 0
+assert x > 0 and y > 0
+```
+
+Dessa rader ställer tre tänkbara krav på tillståndet i ett
+program. Instruktionen `assert`{.python} ska utläsas som "detta gäller".
+
+## Avbrott och felmeddelande
+
+Säg att vi har skrivit en divisionsfunktion på följande sätt:
+
+\pyin
+```{python}
+def divide(x,y):
+    assert y != 0
+    return x / y
+```
+
+Om vi nu anropar `divide`{.python} med `0` som andra argument
+
+\pyin
+```{python}
+print(divide(10,2))
+print(divide(10,0))
+```
+
+så kommer ett felmeddelande skrivas ut:
+
+\pyout
+```python
+Traceback (most recent call last):
+  File "f12.py", line 6, in <module>
+    print(divide(10,0))
+  File "f12.py", line 2, in divide
+    assert y != 0
+AssertionError
+```
+
+Notera att särfallet `AssertionError`{.python} inte är tänkt att fångas med `except`{.python}; man
+använder `assert`{.python} för att hitta allvarliga programmeringsfel, inte för att
+hantera  körfel (som t.ex., namngiven fil finns ej, minnet räcker
+inte, man har rekurserat för djupt, o.s.v.).
+
+
+## Generellt
+
+Det generella fallet kan skrivas
+
+\pyin
+```{python}
+assert condition [, comment_string]
+```
+
+där `condition` är ett boolskt uttryck och `comment_string` är en
+möjlig förklarande text. Man kan alltså skriva villkoren ovan
+som:
+
+\pyin
+```{python}
+assert len(data_list) > 0, 'User submitted empty data'
+assert x != 0, 'x==0 must be avoided early in the application!'
+assert x > 0 and y > 0, 'Both x and y have to be positive!'
+```
+
+för att hjälpa till att förstå felen som uppstår.
+
+Exempel:
+
+\pyin
+```{python}
+def divide(x,y):
+    assert y != 0, "Second argument cannot be 0 when dividing"
+    return x / y
+
+print(divide(10,0))
+```
+
+ger
+
+\pyout
+```python
+Traceback (most recent call last):
+  File "f12.py", line 6, in <module>
+    print(divide(10,0))
+  File "f12.py", line 2, in divide
+    assert y != 0, "Second argument cannot be 0 when dividing"
+AssertionError: Second argument cannot be 0 when dividing
+```
+
+## Tumregler för `assert`
+
+`assert`{.python} är implementerat med hjälp av särfall, men syftet är att
+uttrycka antaganden i koden, inte att hantera oväntade tillstånd.
+
+* `assert`{.python} är för problem under kodning/utveckling.
+* `raise`{.python} och `try`{.python}/`except`{.python} är för oväntade effekter under körning.
+
+Man kan säga att `assert`{.python} används för att fånga oväntade
+tillstånd i koden, `raise`{.python} används för att signalera
+eventuella förväntade fel och `try`{.python}/`except`{.python} används
+för att fånga mer eller mindre förväntade fel. Ett program ska inte
+vara beroende av `assert`{.python}, utan fungera minst lika bra utan. I
+allmänhet går ett program långsammare med `assert`{.python} eftersom
+det är mer kod att exekvera, men man ska inte dra sig för att lägga
+till `assert`{.python} i sin kod. Om snabbhet är viktigt kan man
+starta sitt program med `python -O kod.py` istället för
+`python kod.py`; flaggan `-O` deaktiverar alla
+`assert`{.python}-instruktioner.
+
+### Exempel 1: `remove_trailing_spaces`
+
+Nedan följer ett exempel på `assert`{.python} i
+`remove_trailing_spaces`:
+
+\pyin
+```{python}
+def remove_trailing_spaces(s, spaces=" \t"):
+    assert len(spaces) > 0
+    i = len(s)
+    while i > 0 and s[i-1] in spaces:
+        i -= 1
+    return s[0:i]
+```
+
+### Exempel 2: `newton_raphson`
+
+Nedan följer ett exempel på `assert`{.python} i en funktion för att
+beräkna roten av en funktion med hjälp av Newton-Raphsons algoritm:
+
+\pyin
+```{python}
+def newton_raphson(f, f_prime, x, precision):
+    assert isinstance(x, float)
+    assert isinstance(f(x), float)
+    assert isinstance(f_prime(x), float)
+    assert  0.0 < precision < 1.0, 'precision must be in the interval (0,1)'
+
+    ready = False
+    while not ready:
+        x_next = x - f(x)/f_prime(x)      # Main line of code to be repeated
+        ready = abs(x-x_next) < precision # Test for stopping criterion
+        x = x_next                        # Preparing the next iteration
+
+    return x_next
+```
+
+Som du ser kan vi testa typen för ett objekt med hjälp av
+`isinstance`{.python}. Funktionen `type`{.python}, som returnerar
+objektets typ, är också användbar, men `isinstance`{.python} är mer
+generell; `isinstance` kan som andra argument ta en tupel av klasser
+och returnerar om det första argumentet är en instans av _någon_ av
+klasserna _eller_ dess subklasser.
+
+Observera även att `assert`{.python} kan ses som extra dokumentation
+kring de antagande som görs i programmet.
+
+## Villkor och invarianter
+
+Vi kan dela upp `assert`{.python}-användandet i tre sorter:
+
+* __förvillkor__: uttryck som ska vara sanna när en funktionskropp
+  exekveras (eng. *preconditions*)
+* __eftervillkor__: uttryck som ska vara sanna när en funktion
+  returnerar (eng. *postconditions*)
+* __loop invarianter__: uttryck som ska vara sanna i en loop
+  (eng. *loop invariants*)
+
+### Exempel 3
+
+Låt oss säga att vi har en databas som kopplar unika identifierare (representerade som `int`)
+med namn (representerade som `str`). För att det ska gå snabbt att slå
+upp någon genom antingen dess identifierare eller namn har vi två
+uppslagstabeller, en från identifierare till namn och en från namn till identifierare. För
+att detta ska fungera måste ju nycklarna i den ena vara samma som
+värdena i den andra, och vice versa.
+
+\pyin
+```{python}
+class MyDB:
+
+    def __init__(self):
+      self._id2name_map = {}
+      self._name2id_map = {}
+
+    def add(self, id, name):
+      self._name2id_map[name] = id
+      self._id2name_map[id] = name
+
+    def by_name(self, name):
+      id = self._name2id_map[name]
+      return id
+```
+
+En första sak som kan bli fel här är ju att användaren helt enkelt
+skriver över en av `_id2name_map` och `_name2id_map`, eller att någon
+annan metod vi senare lägger till har en bugg som bryter mot
+invarianten för klassen. Vi kan lägga in en `assert`{.python} i
+`by_name` där vi dubbelkollar att invarianten ej har blivit bruten:
+
+\pyin
+```{python}
+class MyDB:
+
+    def __init__(self):
+      self._id2name_map = {}
+      self._name2id_map = {}
+
+    def add(self, id, name):
+      self._name2id_map[name] = id
+      self._id2name_map[id] = name
+
+    def by_name(self, name):
+      id = self._name2id_map[name]
+      assert self._id2name_map[id] == name
+      return id
+```
+
+Om vi nu lägger in en buggig metod eller en användare använder klassen
+på fel sätt så kommer `by_name` generera ett
+`AssertionError`{.python}. En annan invariant är ju att ett id ska
+vara en `int` och namn `str`. I många programmeringsspråk med
+striktare typsystem kan vi specificera detta i signaturen för klassen
+eller konstruktorn. I Python kan vi lösa detta genom att lägga in en
+`assert`{.python} tillsammans med `isinstance`:
+
+\pyin
+```{python}
+class MyDB:
+
+    def __init__(self):
+      self._id2name_map = {}
+      self._name2id_map = {}
+
+    def add(self, id, name):
+      assert isinstance(id, int), ("id is not an integer: " + str(id))
+      assert isinstance(name, str), ("name is not a string: " + str(name))
+      self._name2id_map[name] = id
+      self._id2name_map[id] = name
+
+    def by_name(self, name):
+      id = self._name2id_map[name]
+      assert self._id2name_map[id] == name
+      return id
+
+
+db = MyDB()
+db.add(2,2)
+db.add("hej","du")
+```
+
+
+
+# Testning
+
+Det är svårt att garantera att ens kod är korrekt. Man kan resonera matematiskt om kod och
+algoritmer, men även då är det lätt att det blir fel. Oavsett hur mycket man planerar, tänker och
+granskar, så är det bra att också noggrant testa sin kod. Men hur gör man det på bästa sätt?
+
+Erfarenheten visar att det varken är tillräckligt eller praktiskt att testa om
+ett helt program, själva _produkten_, fungerar som det ska. Om man vill upptäcka
+problem tidigt och skydda sig mot fel på grund av ändringar i koden, då bör man
+testa programmets funktioner och metoder.
+
+Ett vanligt arbetssätt är att (1) skriva lite kod, kanske en funktion, (2) verifiera att koden
+fungerar, och sen fortsätta skriva mer kod. Det kan vara enkelt att verifiera koden: man väljer
+några parametrar till sin funktion och ser om resultatet blir som det var tänkt. Ett scenario som i praktiken är
+ännu vanligare är följande:
+
+1. Ändra i befintlig kod, för att lägga till ny funktionalitet.
+2. Verifiera den nya funktionaliteten.
+3. Verifiera den gamla funktionaliteten.
+
+Punkt 3 blir lätt bortglömd, men den kan också vara lite jobbig att ta
+hand om. Det är ju på den nya funktionaliteten man har sitt fokus,
+inte den gamla, och hur var det nu vi testade den koden? Om du ändrar
+i en funktion `fun`, kommer du då också ihåg att testa andra delar av
+din kod som är beroende av `fun`? Allteftersom tiden går och ett
+projekt växer blir det allt svårare verifiera gammal
+funktionalitet. Och om man jobbar med andras kod blir det förstås ännu
+svårare att komma på hur man bör testa de funktioner som finns. Så hur
+gör man?
+
+Det som behövs är _systematisk_ och _automatisk_ testning, vilket man
+åstadkommer genom att koda testningen, och metodiken för detta kallas
+_enhetstestning_ (eng. _unit testing_).  Idag finns det så pass bra
+stöd för testning i vanliga programmeringsspråk att det ofta är enkelt
+att inkludera tester i sitt projekt. I det här avsnittet tittar vi på
+några olika sätt att arbeta med tester.
+
+
+Ni kan läsa  mer på: <https://realpython.com/python-testing/>
+
+## Testning med `assert`
+
+Kodtestning kan göras både manuellt och automatiskt. För enkel manuell
+testning kan vi använda `assert`{.python}.
+
+I labb 2 var uppgiften att skriva funktioner manipulerade eller utvärderade listrepresentationer av polynom. En del av uppgiften var att testa dessa funktioner, vilket gjordes genom att manuellt undersöka outputen av en given input. Ett
+bättre sätt hade varit om instruktionerna för labb 2 hade innehållit följande fil:
+
+\pyin
+```{python}
+from labb2 import *
+
+p = [2,0,1]
+q = [-2,1,0,0,1]
+p0 = [2,0,1,0]
+q0 = [0,0,0]
+
+assert (poly_to_string(p) == '2 + x^2')
+assert (poly_to_string(q) == '-2 + x + x^4')
+assert (poly_to_string([]) == '0')
+assert (poly_to_string([0,0,0]) == '0')
+assert (drop_zeroes(p0) == [2, 0, 1])
+assert (drop_zeroes(q0) == [])
+assert (eq_poly(p,p0))
+assert (not eq_poly(q,p0))
+assert (eq_poly(q0,[]))
+assert (eval_poly(p,0) == 2)
+assert (eval_poly(p,1) == 3)
+assert (eval_poly(p,2) == 6)
+assert (eval_poly(q,2) == 16)
+assert (eval_poly(q,-2) == 12)
+assert (eq_poly(add_poly(p,q),add_poly(q,p)))
+assert (eq_poly(sub_poly(p,p),[]))
+assert (eq_poly(sub_poly(p,neg_poly(q)),add_poly(p,q)))
+assert (not eq_poly(add_poly(p,p),[]))
+assert (eq_poly(sub_poly(p,q),[4, -1, 1, 0, -1]))
+assert (eval_poly(add_poly(p,q),12) == eval_poly(p,12) + eval_poly(q,12))
+```
+
+Denna fil kommer endast att köra klart om samtliga tester går igenom! Vi
+behöver varken ha med testerna eller de polynom vi bara har
+definierat för tester (dvs `p`, `q`, `p0` och `q0`) i huvudfilen för laborationen `labb2.py`.
+
+På detta sätt kan vi använda `assert`{.python} för att testa och specificera
+våra program. Ett problem är dock att vi bara ser resultatet av det första
+`assert`{.python} som inte håller och inte för alla andra som inte går igenom. Ett
+bättre sätt för testning av mer komplexa program är _enhetstester_.
+
+## Enhetstester med `unittest`
+
+Modulen `unittest` har funnits med i Pythons standardbibliotek
+sen version 2.1 och används av många projekt, både kommersiella och
+open-source. För att använda `unittest` måste vi:
+
+1. Gruppera alla tester i klasser där testerna är metoder.
+2. Använda specifika assert-metoder från `unittest.TestCase`
+   istället för de inbyggda `assert`{.python} uttrycken.
+
+För att skriva om labb 2 exemplet ovan så att det använder `unittest`{.python}
+gör vi följande:
+
+- Importera `unittest`
+
+- Skapa en klass `TestPoly` som ärver från `TestCase` klassen
+
+- Skriv om alla `assert`{.python}  till metoder i den här klassen som använder
+`self.assertEqual()`{.python}
+
+- Ändra så att `unittest.main()`{.python} körs när filen laddas
+
+Så här kan filen se ut:
+
+\pyin
+```{python}
+import unittest
+
+import labb2
+
+p = [2,0,1]
+q = [-2,1,0,0,1]
+p0 = [2,0,1,0]
+q0 = [0,0,0]
+
+class TestPoly(unittest.TestCase):
+
+    def test_poly_to_string_p(self):
+        self.assertEqual(labb2.poly_to_string(p),'2 + x^2', \
+                                        "Should be 2 + x^2")
+
+    def test_poly_to_string_q(self):
+        self.assertEqual(labb2.poly_to_string(q),'-2 + x + x^4',\
+                                        "Should be -2 + x + x^4")
+
+    def test_poly_to_string_empty(self):
+        self.assertEqual(labb2.poly_to_string([]),'0', "Should be 0")
+
+    def test_poly_to_string_empty2(self):
+        self.assertEqual(labb2.poly_to_string([0,0,0]),'0', "Should be 0")
+
+    def test_drop_zeroes_p0(self):
+        self.assertEqual(labb2.drop_zeroes(p0),[2, 0, 1])
+
+    def test_drop_zeroes_q0(self):
+        self.assertEqual(labb2.drop_zeroes(q0),[])
+
+    def test_eq_poly_pp0(self):
+        self.assertEqual(labb2.eq_poly(p,p0),True)
+
+    def test_eq_poly_qp0(self):
+        self.assertNotEqual(labb2.eq_poly(q,p0),True)
+
+    def test_eq_poly_q0(self):
+        self.assertEqual(labb2.eq_poly(q0,[]),True)
+
+    # ...
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+Och om vi kör den får vi:
+
+\pyout
+```python
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
+```
+
+Om vi har en bugg, som exempelvis att `poly_to_string`{.python} alltid råkar
+returnera tomma strängen, blir resultatet:
+
+\pyout
+```python
+.....FFFF
+======================================================================
+FAIL: test_poly_to_string_empty (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittestlabb2.py", line 19, in test_poly_to_string_empty
+    self.assertEqual(poly_to_string([]),'0', "Should be 0")
+AssertionError: '' != '0'
++ 0 : Should be 0
+
+======================================================================
+FAIL: test_poly_to_string_empty2 (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittestlabb2.py", line 22, in test_poly_to_string_empty2
+    self.assertEqual(poly_to_string([0,0,0]),'0', "Should be 0")
+AssertionError: '' != '0'
++ 0 : Should be 0
+
+======================================================================
+FAIL: test_poly_to_string_p (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittestlabb2.py", line 13, in test_poly_to_string_p
+    self.assertEqual(poly_to_string(p),'2 + x^2', "Should be 2 + x^2")
+AssertionError: '' != '2 + x^2'
++ 2 + x^2 : Should be 2 + x^2
+
+======================================================================
+FAIL: test_poly_to_string_q (__main__.TestPoly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittestlabb2.py", line 16, in test_poly_to_string_q
+    self.assertEqual(poly_to_string(q),'-2 + x + x^4', "Should be -2 + x + x^4")
+AssertionError: '' != '-2 + x + x^4'
++ -2 + x + x^4 : Should be -2 + x + x^4
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.002s
+
+FAILED (failures=4)
+```
+
+Vi ser alltså att 4 av testerna felar och vi kan nu börja debugga vår
+kod. Genom att skriva bra tester som vi kör varje gång vi gör några
+ändringar kan vi alltså vara säkra på att vår kod fortsätter fungera
+som vi förväntar oss trots att vi förändrar den. Detta är väldigt
+användbart i större projekt där man är många som samarbetar. Många
+system för att arbeta på kod tillsammans (exempelvis
+[Github](www.github.com)) har stöd för denna typ av automatisk
+testning för varje ändring som någon vill göra till kodbasen (denna
+utvecklingsteknik kallas för "kontinuerlig integration"
+(eng. *continuous integration*).
+
+## Slumptestning (à la QuickCheck):
+
+Det är svårt att skriva bra tester för hand. Ett alternativ som kan
+vara väldigt smidigt är att använda ett bibliotek som genererar tester
+åt en automatiskt, dvs genom så kallad "slumptestning". För denna typ
+av testning skriver man en specifikation, t.ex. `add_poly(p,q) ==
+add_poly(q,p)`, och biblioteket genererar sedan slumpmässig indata
+(dvs, polynom i detta fall) för att testa så att specifikationen
+håller.
+
+Python har stöd för detta genom
+[hypothesis](https://hypothesis.readthedocs.io/) biblioteket.
+
+# Uppgifter
+
+1.  Jaccard-index ($J$) är ett mått på hur lika två mängder `A` och
+    `B` är och är definierat som
+
+    $$
+    J := \frac{|A \cap B|}{|A \cup B|}
+    $$
+
+    där $\cap$ och $\cup$ är _snittet_ och _unionen_ av mängderna `A`
+    och `B` (se
+    [Wikipedia](https://sv.wikipedia.org/wiki/M%C3%A4ngd)).
+    Implementera denna formel som funktionen `jaccard_index(l1,l2)` i
+    Python där `l1` och `l2` är två listor med element.
+
+    _Tips_: Konvertera listorna till mängder och
+    använd deras metoder. Till exempel ska funktionen kunna användas så här
+
+    \pyin
+    ```python
+    print(jaccard_index(['dog', 'cat', 'mouse'], ['dog', 'cat', 'mouse']))
+    print(jaccard_index(['dog', 'cat'], ['dog', 'cat', 'mouse']))
+    print(jaccard_index(['dog', 'cat'], ['mouse', 'rat']))
+    ```
+
+    \pyout
+    ```python
+    1.0
+    0.6666666666666666
+    0.0
+    ```
+
+2.  Använd modulen `unittest` för att skriva enhetstester för din
+    funktion i uppgift 1.
+
+3.  En begränsning med Jaccard-index är att det inte tar hänsyn till
+    repeterade element. Till exempel resulterar koden nedan i samma
+    Jaccard-index som ovan, även fast vi kanske skulle beskriva dessa
+    två _multimängder_ (dvs samma element kan förekomma flera gånger)
+    som "mer olika".
+
+    \pyin
+    ```python
+    print(jaccard_index(['dog', 'dog', 'dog', 'cat', 'mouse'],
+                        ['dog', 'cat', 'cat', 'cat', 'cat',  'mouse']))
+    print(jaccard_index(['dog', 'cat','cat', 'cat'],
+                        ['dog', 'cat', 'mouse', 'mouse']))
+    ```
+
+    \pyout
+    ```python
+    1.0
+    0.6666666666666666
+    ```
+
+    Implementera kod för att beräkna viktat Jaccard-index. Låt $A$ och
+    $B$ vara två _multimängder_ och $A_z$ och $B_z$ beteckna hur många
+    gånger elementet $z$ förekom i $A$ respektive $B$. Då definierar
+    vi viktat Jaccard-index $J_w$ som
+
+    $$
+    J_w := \frac{\sum_{z \in (A \cup B) } \min(A_z,B_z)}{\sum_{z \in (A
+    \cup B) } \max(A_z,B_z)}
+    $$
+
+    Till exempel:
+
+    \pyin
+    ```python
+    print(weighted_jaccard_index(['dog', 'dog', 'dog', 'cat', 'mouse'],
+                                 ['dog', 'cat', 'cat', 'cat', 'cat', 'mouse']))
+    print(weighted_jaccard_index(['dog', 'cat', 'cat', 'cat'],
+                                 ['dog', 'cat', 'mouse', 'mouse']))
+    ```
+
+    \pyout
+    ```python
+    0.375
+    0.3333333333333333
+    ```
+
+    När du implementerar detta, tänk på tips om struktur och kod från
+    delkapitlet "Bra kod". Till exempel: separera kod i små funktioner
+    som gör en sak, ha inte för långa uttryck på samma rad. Tänk på
+    hur koden bör struktureras.
+
+4.  Använd modulen `unittest` för att skriva enhetstester för dina
+    funktioner i uppgift 3.
