@@ -1,0 +1,758 @@
+---
+title: "Kapitel 10"
+output: html_document
+date: "2024-06-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, include=FALSE}
+tutorial::go_interactive()
+```
+
+\chapter{Objektorientering och arv}
+
+_Arv_ är en central princip i objektorientering (OO) som handlar om att på ett strukturerat sätt kunna återanvända kod och funktionalitet i redan definierade klasser med möjligheten att _lägga till_  eller _ändra_ på den existerande klassen. Ofta så finns redan en klass som nästan gör det man vill, och det är då en god idé att låta _ärva_ från den klassen.
+
+Ett enkelt exempel är vi har en klass `A` som vi vill använda funktionaliteten från, men ändra på vissa delar:
+
+\pyin
+```{python}
+class A:
+    """This is a base class
+    """
+    class_integer = 10
+
+    def __init__(self):
+        self.vals = [5]
+
+    def power_sum(self):
+        return sum([i**2 for i in self.vals]) + A.class_integer
+
+class B(A):
+    """This is a sub class
+    """
+    def __init__(self, x, y):
+        self.vals = [x, y]
+
+    def print_result(self):
+        print(self.power_sum())
+```
+
+Här är `A` en _basklass_ (eng. _base class_) för `B` och `B` är
+_subklass_ (eng. _sub class_) till `A`. Man kan också säga att `A` är
+_superklass_ (eng. _super class_) till `B`. I flera
+programmeringsspråk används ofta de engelska termerna _parent class_
+och _child class_ för bas- och subklass.
+
+Lägg märke till att `class`{.python}-definitionen av `B` tar `A` som
+ett argument, vilket indikerar att `B` ärver från `A`. Med ett arv i
+detta fall så menas att `A`:s funktionalitet _automatiskt_ kommer
+att vara implementerad i `B`, så länge man inte aktivt definierar om
+något. I det här fallet har klass-konstruktorn för `B`,
+`__init__`{.python}, definierats om för att ta _två_ istället för
+_ett_ argument (`x` och `y`). Utöver detta så används funktionaliteten
+från `A`: t.ex. finns i ovan exempel inget skäl att definiera om
+`power_sum` i `B`.
+
+Användningen är ganska rättfram:
+
+\pyin
+```{python}
+a = A()
+print(a.power_sum())   # method defined in A
+
+b = B(10, 20)
+print(b.power_sum())   # calling method in B inherited from A
+b.print_result()       # uses method specific to B
+```
+\pyout
+```python
+35
+510
+510
+```
+
+**Obs**: i Python ärver man inte instansattribut
+automatiskt! Det görs i många andra programmeringsspråk.
+\pyin
+```{python}
+class C(A):
+    def __init__(self, y):
+        self.vals.append(y)
+
+c = C(10)
+```
+\pyout
+```python
+AttributeError: 'C' object has no attribute 'vals'
+```
+
+För att se till att `C` ärver även instansattribut från `A`, får vi ändra konstruktorn lite genom att anropa `super`, som ser till att metoden som följer anropas på i basklassen:
+\pyin
+```{python}
+class C(A):
+    def __init__(self, y):
+        super().__init__()  # call constuctor of super class
+        self.vals.append(y)
+
+class D(B):
+    def __init__(self, y):
+        super().__init__(5, 10) # call constuctor of super class
+        self.vals.append(y)
+
+c = C(10)
+d = D(10)
+print(c.power_sum())
+d.print_result()
+c.print_result()       # raises an Error
+```
+\pyout
+```python
+135
+235
+AttributeError: 'C' object has no attribute 'print_result'
+```
+Felet uppstår på grund av att `print_result()` inte är definerad för `C`, som ärvt från `A`. Klass `D` däremot har ärvt metoden från `B`.
+
+# Klassdiagram
+
+Ett klassdiagram visualiserar hur klasser hänger ihop. Det innehåller
+ingen information om objekt.  Man kan ange att en klass ärver från en
+annan (relationen "is-a", dvs "är en") och att en klass innehåller
+objekt från en annan klass ("aggregation" och "komposition").
+
+Det finns många sätt att rita klassdiagram och informell notation
+används ofta. Det finns professionella verktyg, som ofta bygger på
+industristandarden UML, som genererar klassdiagram från kod. T.ex. är \cref{fig:kap10_class_diagram} genererad m.h.a. Python-biblioteket `pyreverse` (som är en del av kodanalysverktyget `pylint`).
+
+![Klassdiagram för `A`, `B`, `C` och `D`\label{fig:kap10_class_diagram}](./kapitel/images/kap10_class_diagram.pdf){width=50%}
+
+Ett _objektdiagram_ liknar till stor del ett klassdiagram, men förklarar _tillståndet_ i ett program vid en _viss_
+tidpunkt: t.ex. skulle ett objektdiagram av ovan visa att `a.vals` innehåller `[5]`, `b.vals` innehåller `[10, 20]`, `c.vals` innehåller `[5, 10]` och `d.vals` innehåller `[5, 10, 10]`. Klassdiagrammet i \cref{fig:kap10_class_diagram} förklarar relationer mellan klasser _oavsett_ tidpunkt.
+
+
+# Substitutionsprincipen
+
+Det är erkänt svårt att bestämma bra klasser. Många böcker har skrivits på
+ämnet, med många olika tillvägagångssätt för att bestämma vilken
+klass-struktur man ska ha. Det här kan bli väldigt komplicerat fort,
+men en väldigt bra tumregel, som är känd som
+[Liskov's substitutionsprincip](https://en.wikipedia.org/wiki/Liskov_substitution_principle
+) (efter MIT professorn och Turingprisvinnaren Barbara Liskov), är:
+
+* Allt som gäller för en klass ska gälla för dess subklasser.
+
+Principen ger _god design_. Det kanske låter som en självklar
+princip, men det är lätt att vilja plocka bort funktionalitet i
+subklasser och det finns många exempel som bryter mot principen.
+
+
+# Funktioner som ger information om klasser
+
+Två användbara inbyggda funktioner när det gäller klasser är `isinstance`{.python} och `issubclass`{.python}. Den första funktionen testar om ett givet _objekt_ är en _instans_ av en klass, och den andra om en _klass_ är en subklass av en annan _klass_, dvs om en klass ärver från en annan.
+
+Om vi använder oss av klassdefinitionera (`A, B, C, D`) och instanserna (`a, b, c, d`) ovan, så kan vi t.ex. göra:
+
+\pyin
+```{python}
+isinstance(a, A) # a is an instance of the class A
+isinstance(d, A) # d is an instance a class that inherits from A
+isinstance(d, C) # d is not an instance of a class that inherits from C
+
+issubclass(A, A)
+issubclass(D, A)
+issubclass(D, C)
+```
+
+\pyout
+```python
+True
+True
+False
+
+True
+True
+False
+```
+
+Lägg märke till att det inte bara är den _direkta_ basklassen som kollas med funktionerna, utan även vidare tillbaka i "arvsledet".
+
+I programmeringsspråk som stödjer multipelt arv (som Python, mer om det i \cref{kap11}) så kallas ett sådant "arvsled" [_method resolution order_](https://docs.python.org/3/tutorial/classes.html?highlight=mro) (förkortas vanligtvis som _MRO_). MRO specificerar i vilken ordning basklasserna (om flera) till en klass Python söker efter metoder. I Python har klasser en metod `.mro` som visar klassens MRO. T.ex:
+
+\pyin
+```{python}
+A.mro()
+D.mro()
+```
+
+\pyout
+```python
+[__main__.A, object]
+[__main__.D, __main__.B, __main__.A, object]
+```
+
+Här kan vi se att `D` ärver från `B` (som är den första klassen efter `D` som söks för om en metod finns  `D`) och vidare från `A`. Den sista elementet i listan, `object`{.python}, är den _fundamentala byggstenen_ för typer i Python och är därför sist i listan och både `A` och `D` har detta som en del av sin MRO. När det gäller Python får man ofta höra _"Everything is an object in Python"_:
+
+\pyin
+```{python}
+isinstance(a, object)
+isinstance(print, object) # function print is an object
+issubclass(str, object)
+issubclass(int, object)
+```
+
+
+\pyout
+```python
+True
+True
+True
+True
+```
+
+# Exempel: Geometriska figurer
+
+Som ett exempel på arv ska vi nu implementera klasser som representerar geometriska objekt (figurer) som samlar vanliga/typiska operationer som man kan vilja göra på dessa figurer. Meningen är att med dessa klasser:
+
+* Illustrera värdet av arv
+* Illustrera _överlagring av metoder_ (eng.: _method overriding/overloading_)
+* Illustrera värdet av _inkapsling_ (eng.: _encapsulation_, samling av data-attribut och de metoder som agerar på datat)
+* Rita klassdiagram
+
+Vi vill skriva kod som implementerar Python-objekt som representerar olika geometriska figurer som består av (raka) sidor. För att följa Liskovs substitutionsprincip, så vill vi ha en basklass som representerar det mest allmänna fallet: en polygon. Subklasserna ska lägga till data och funktionalitet som representerar en specifik typ av geometrisk figur.
+
+Vi börjar med att definiera basklassen `Polygon`, som är menad att vara en klass som täcker det allmänna fallet men med vissa begränsningar.
+
+\pyin
+```{python}
+class Polygon:
+    def __init__(self, n_sides, n_unique_sides=None):
+        self.n_sides = n_sides
+        if n_unique_sides:
+            self.n_unique_sides = n_unique_sides
+        else:
+            self.n_unique_sides = n_sides
+        if self.n_sides % self.n_unique_sides:
+            raise ValueError(
+                "The total number of sides must be an integer"
+                " multiple of the number of unique sides")
+        self.sides = None
+        self.__name__ = 'Polygon'
+
+    # "Private" methods
+    def _check_sides(self):
+        if (not self.sides or
+            not all(map(lambda x: x > 0, self.sides))):
+            print("Invalid side lengths")
+            return False
+        else:
+            return True
+
+    def _get_side(self, side_no):
+        s = float(input("Enter side " + str(side_no + 1) + ": "))
+        return s
+
+    # "Public" methods
+    def input_sides(self):
+        print("Please enter the " + str(self.n_unique_sides) +
+              " unique side lengths for a " + self.__name__)
+        unique_sides = [self._get_side(i) for i in
+                        range(self.n_unique_sides)]
+        self.sides = unique_sides * (self.n_sides
+                                     // self.n_unique_sides)
+        if not self._check_sides():
+            print("Please provide positive side lengths")
+            self.input_sides()
+
+    def display_sides(self):
+        if self._check_sides():
+            for i in range(self.n_sides):
+                print("Length of side", i + 1, ":", self.sides[i])
+```
+
+Klasskonstruktorn tar två argument, ett obligatorist argument `n_sides` som specificerar hur många sidor polygonen skall ha och ett nyckelordsargument `n_unique_sides` som har standardvärdet `None`{.python}. Vi vill här ge möjligheten att kunna specifiecera att en polygon har `n_sides` _antal_ sidor men bara har ett visst antal unika sidlängder, t.ex så skulle `n_unique_sides=1` betyda att alla sidor i polygonen är lika långa.
+
+I konstruktorn så sätts instansattributen till de värden som de formella parameterarna har; om `n_unique_sides` inte har specificerats så får instansattributet samma värde som `n_sides`, dvs att alla sidor anses unika. Vi vill dock begränsa hur en användare kan specificera antalet unika sidor i en polygon: det totala antalet sidor måste vara en heltalsmultipel av antalet unika sidor. Vi kollar att detta är uppfyllt genom att se om villkoret `n_sides % n_unique_sides` utvärderas till `True`{.python}, dvs om det finns en rest efter divisionen (ett tal skiljt från `0`) så lyfter vi ett `ValueError`{.python} (kom ihåg att alla tal som är skiljda från `0` utvärderas till `True`{.python} i Python).
+
+Huvudmetoden i `Polygon` är `input_sides`, som när den kallas först skriver ut ett meddelande och sedan m.h.a en listomfattning läser in `n_unique_sides` antal sidlängder. Inläsningen av _varje enskild_ sidlängd görs av den privata metoden `_get_sides`. Eftersom vi i konstruktorn redan sett till att `n_unique_sides` har ett tillåtet värde, så kan vi multiplicera listan med (unika) inlästa sidlängder med `n_sides // n_unique_sides` för att slutligen få en lista som innehåller _alla_ sidlängder (dvs `len(sides) == n_sides`): i fallet att vi har färre unika sidlängder än totalt antal sidlängder, så repeteras listan med de unika sidlängderna ett lämpligt antal gånger. Slutligen försäkrar vi oss att alla sidlängder är tillåtna med den privata metoden `_check_sides`, som med `map`{.python} och en anonym funktion (`lambda`{.python}) kontrollerar att alla sidor är positiva. Om de inte är det skrivs ett felmeddelande ut. Den första delen av villkoret för `if`{.python}-satsen i `_check_sides` kontrollerar att `sides` är satt, dvs om `sides == None`{.python} så exekveras satsen _oavesett_ om det andra villkoret är uppfyllt eller ej. Denna sats är av värde då `map`{.python} skulle ge ett fel om `sides == None`{.python}, eftersom `None`{.python} inte går att iterera över. Genom att uvärdera `if not sides` först så exekveras `if`{.python}-satsen om `sides == None`{.python} (och `map`{.python} exekveras aldrig) _eller_ så är `sides` satt (vi antar att det är en lista) och `map`{.python} kan iterera över `sides`.
+
+Metoden `display_sides` skriver ut alla sidlängder om `sides` innehåller giltiga sidlängder.
+
+
+Nu när vi har en basklass, så kan vi lätt genom arv definiera subklasser som representerar specifika polygoner. T.ex., så kan en triangel-typ representeras av:
+
+```{python}
+class Triangle(Polygon):
+    def __init__(self):
+        super().__init__(3)
+        self.__name__ = 'Triangle'
+
+    # method specific to triangles
+    def get_area(self):
+        a, b, c = sorted(self.sides)
+        if c > (a + b):
+            print("Non-valid side lengths for a triangle.")
+            return
+        # calculate the semi-perimeter
+        s = (a + b + c) / 2
+        return (s * (s - a) * (s - b) * (s - c))**0.5
+```
+
+Här ser vi att `Triangle` ärver från `Polygon` och att vi i `Triangle`s konstruktor kallar _basklassens_ konstruktor med ett argument (`3`{.python}). Att vi explicit kallar konstruktorn med `super` gör att `Polygon` instantieras med `n_sides=3, n_unique_sides=None`{.python} och att en instans av `Triangle` ärver både instansattribut och metoder från `Polygon`. Vi överlagrar instansattributet `__name__` så att namnet för klassinstansen ges som `Triangle`. Vi _utökar_ basklassens funktionalitet genom att lägga till en metod `get_area` som beräknar en triangels area om triangeln har giltiga sidlängder.
+
+På ett liknande sätt kan vi definiera en rektangel. Rektanglar har fyra sidor, men endast två _unika_ sidlängder. Det här löses enkelt genom att definiera en klass `Rectangle` som ärver från `Polygon` men som kallar basklassens konstruktor med argument som specificerar just detta, dvs en polygon som har `4` sidor men bara `2` unika sidlängder.
+
+
+```{python}
+class Rectangle(Polygon):
+    def __init__(self):
+        super().__init__(4, n_unique_sides=2)
+        self.__name__ = 'Rectangle'
+
+    # method specific for rectangles
+    def get_area(self):
+        return self.sides[0] * self.sides[1]
+
+    # method specific for rectangles
+    def get_diagonal(self):
+        return (self.sides[0]**2 + self.sides[1]**2)**0.5
+```
+
+`Rectangle` definierar också metoder som är specifika för rektanglar: `get_area` och `get_diagonal`.
+
+Slutligen så definierar vi ett specialfall av en rektangel, nämligen en kvadrat `Square`. En kvadrat är en rektangel, så både area och diagonal beräknas på samma sätt som i `Rectangle`. Det är därför lämpligt att ärva funktionaliteten av `Rectangle`.
+
+```{python}
+class Square(Rectangle):
+    def __init__(self):
+        super(Rectangle, self).__init__(4, n_unique_sides=1)
+        self.__name__ = 'Square'
+
+    def get_corner_coordinates(self):
+        s = self.sides[0]/2
+        return ((-s, -s), (-s, s), (s, s), (s, -s))
+```
+
+Skillnaden mellan en kvadrat och en rektangel är att det bara finns _en unik_ sidlängd. I dett fall kan vi _inte_ kalla på basklassens konstruktor i `Square` för att ärva instansattribut, eftersom basklassens (`Rectangle`) konstruktor inte tar några argument utan implicit sätter `n_sides = 4` och `n_unique_sides = 2`. Vi skulle vilja kalla konstruktorn till `Rectangle`s basklass (dvs `Polygon`). Detta kan åstadkommas genom att vi i `Square`s konstruktor använder oss av `super` med argumenten `Rectangle` och `self`{.python} för att säga att vi vill initiera basklassen _till_ `Rectangle`, men att det ska gälla för klassinstansen av `Square` (`self`{.python}). Vi ärver fortfarande från `Rectangle` (t.ex. metoderna `get_area` och `get_diagonal`), men konstruktorn körs som `Polygon(4, n_unique_sides=1)` för att begränsa antalet unika sidlängder till _en_ men fortfarande ha (totalt) fyra sidor.
+
+Man kan nu använda sig av ovan definierade klasser:
+\pyin
+```{python}
+t = Triangle()
+t.input_sides()
+print('The area of the triangle is:', t.get_area())
+t.display_sides()
+
+r = Rectangle()
+r.input_sides()
+print('The area of the rectangle is:', r.get_area())
+print('The diagonal of the rectangle is:', r.get_diagonal())
+
+s = Square()
+s.input_sides()
+print('The area of the square is:', s.get_area())
+print('The diagonal of the square is:', s.get_diagonal())
+print('The coordinates of the square corners are:\n',
+      s.get_corner_coordinates())
+```
+
+\pyout
+```python
+Please enter the 3 unique side lengths for a Triangle
+Enter side 1 : 1
+Enter side 2 : 2.5
+Enter side 3 : 2
+The area of the triangle is: 0.9499177595981665
+Length of side 1 : 1.0
+Length of side 2 : 2.5
+Length of side 3 : 2.0
+Please enter the 2 unique side lengths for a Rectangle
+Enter side 1 : -1
+Enter side 2 : 2
+Invalid side lengths.
+Please provide positive side lengths.
+Please enter the 2 unique side lengths for a Rectangle
+Enter side 1 : 1.2
+Enter side 2 : 1.9
+The area of the rectangle is: 2.28
+The diagonal of the rectangle is: 2.247220505424423
+Please enter the 1 unique side lengths for a Square
+Enter side 1 : 6
+The area of the square is: 36.0
+The diagonal of the square is: 8.48528137423857
+The coordinates of the square corners are:
+ ((-3.0, -3.0), (-3.0, 3.0), (3.0, 3.0), (3.0, -3.0))
+```
+
+## Implementera jämförelser
+
+Som vi gick igenom i \cref{chap:objektorientering1}, så kan man genom att använda sig av specifika privata metoder implementera jämförelser för sin egen typ (klass). Dessa metoder fungerar väldigt bra att ärva från en basklass när någon logisk jämförelse mellan objekt kan göras.
+
+Antag t.ex. att vi vill implementera `<`, `>`, och `==` baserat på arean av ett objekt. För de geometriska figurerna `Triangle`, `Rectangle` och `Square` så kan vi ju genom `get_area` räkna ut arean av ett objekt. Vi kan lägga till nedan funktioner i `Triangle` och `Rectangle`:
+
+\pyin
+```{python}
+def __lt__(self, other):
+    return self.get_area() < other.get_area()
+
+def __gt__(self, other):
+    return self.get_area() > other.get_area()
+
+def __eq__(self, other):
+    return self.get_area() == other.get_area()
+```
+
+Lägg märke till att vi _inte_ behöver lägga till detta i `Square`, då denna klass ärver från `Rectangle`.
+
+<!-- ## Implementera koll om giltig form -->
+
+<!-- Någonting med implementationen av `Rectangle` verkar inte bra. Vi -->
+<!-- kunde ovan ange fyra sidlängder som alla är olika: det stämmer inte -->
+<!-- bra för en rektangel. Således är också diagonalen felaktig, eftersom -->
+<!-- man inte vet vilka två sidor som ska användas. Ett enkelt sätt att -->
+<!-- lösa detta är att se till att av de fyra sidlängder som läses in, så -->
+<!-- ska det finnas bara _en eller två_ unika sidlängder. Vi kan göra detta -->
+<!-- genom att ändra funktionaliteten av `input_sides` i `Rectangle` genom -->
+<!-- att _överlagra_ metoden (om-definiera den i `Rectangle`): -->
+
+<!-- \pyin -->
+<!-- ```python -->
+<!-- def input_sides(self): # method overriding for rectangle -->
+<!--     # super calls the immediate base class, -->
+<!--     # without having to specify the name explicitly (providing self as argument) -->
+<!--     super().input_sides() -->
+<!--     # alternative way to directly use the base class by name -->
+<!--     # Polygon.input_sides(self) -->
+<!--     while len(set(self.sides)) <= 2: -->
+<!--         print("Not a valid rectangle, try again.") -->
+<!--         super().input_sides() -->
+<!-- ``` -->
+
+<!-- Vi använder oss här av `set` för att ta bort duplicerade element i -->
+<!-- `self.sides`, så ger man fyra sidlängder med samma längd så kommer -->
+<!-- bara ett värde att användas, finns två olika sidlängder andvänds dessa -->
+<!-- och annars så anropas `input_sides()` igen. -->
+
+<!-- Nu är funktionen `input_sides` i `Polygon` inte så lång eller komplex (bara en rad!). Men föreställ dig att det är en ganska lång och komplex beräkning (eller övrigt) som görs i `Polygon.input_sides`. Vi ser varför överlagring av metoder har sin nytta: vi har tillgång till (den potentiellt sett komplexa funktionen) `input_sides` i Polygon, och modifierar den för subklasserna. -->
+
+<!-- _Notera_: Vi skulle här för `Rectangle` gjort precis likadant som för -->
+<!-- `Triangle` eller `Square`, dvs anropat konstruktorn för `Polygon` med -->
+<!-- `2`, som `super().__init__(2)`, så hade det bara lästs in två -->
+<!-- sidlängder till en början. -->
+
+I \cref{fig:kap10_geometry_diagram} illustrerar vi klassdiagram för
+det här exemplet.
+
+![Klassdiagram för geometriska figurer. \label{fig:kap10_geometry_diagram}](./kapitel/images/kap10_geometry_diagram.pdf){width=50%}
+
+# Exempel: Monster Go
+
+Följande exempel är inspirerat av Pokemon Go och är ett lite större exempel. Exemplet är lite konstruerat, men det är för att framhäva viktiga poänger som illustrerar värdet av objekt-orienterad programmering.
+
+Målet med detta exempel är att:
+
+* Illustrera värdet av arv.
+* Illustrera värdet av abstraktion: dölja implementationsdetaljer.
+
+
+## En basklass: ProgMon
+
+Klassen `ProgMon` innehåller attribut och metoder som ska vara gemensamma för alla objekt. Vi försöker alltså även här följa Liskovs substitutionsprincip.
+
+Vi kommer i följande exempel att använda oss mycket av privata metoder och attribut (både de som används av Python och börjar/slutar med `__`, t.ex. `__str__` och de som är privata för vår implementation och börjar med `_`, t.ex. instansattributen `_attack`).
+
+\pyin
+```{python}
+class ProgMon():
+    def __init__(self):
+        self._attack = 0.0
+        self._defense = 0.0
+        self._caffeinated = False
+        self._unit_testing = False
+
+    def __str__(self):
+        return "<ProgMon object>"
+
+    def get_attack(self):
+        if self._caffeinated:
+            return 2 * self._attack
+        else:
+            return self._attack
+
+    def get_defense(self):
+        if self._unit_testing:
+            return 2 * self._defense
+        else:
+            return self._defense
+
+    def fight(self, other_progmon):
+        '''
+        Attack is the best form of defense!
+        Returns (True, False) if self wins, (False, True) if other_progmon
+        wins and (False, False) otherwise.
+        '''
+        if self.get_attack() > other_progmon.get_defense():
+            return (True, False)
+        elif other_progmon.get_attack() > self.get_defense():
+            return (False, True)
+        else:
+            return (False, False)
+```
+
+## Tre subklasser
+
+I subklasserna `Hacker`, `Newbie`, och `Guru` lägger vi in specialisering (data och beteende som är specifika för klassen). Vi gör detta genom att ändra värden för de privata attributen och definiera `__str__`.
+
+\pyin
+```{python}
+class Hacker(ProgMon):
+    def __init__(self):
+        super().__init__()  # Call the superclass constructor!
+        self._attack = 0.5
+        self._defense = 0.25
+
+    def __str__(self):
+        return "<Hacker A=" + str(self._attack) + ">"
+
+class Newbie(ProgMon):
+    def __init__(self):
+        super().__init__()
+        self._attack = 0.15
+        self._defense = 0.1
+
+    def __str__(self):
+        return "<Newbie>"
+
+class Guru(ProgMon):
+    def __init__(self):
+        super().__init__()
+        self._attack = 1.0
+        self._defense = 1.0
+```
+
+Provkör med:
+\pyin
+```{python}
+h = Hacker()
+n = Newbie()
+g = Guru()
+print(n.fight(h))
+print(h.fight(n))
+print(g.fight(h))
+```
+\pyout
+```python
+(False, True)
+(True, False)
+(True, False)
+```
+
+**Obs:** Gemensam funktionalitet i basklassen gör att vi undviker
+duplicering av kod.
+
+
+## Anpassning
+
+Antag att man inte gillar tanken på att en `Guru` försöker vinna
+kamper. Vi kan implementera en "Don't win, don't lose" för en `Guru` som initierar en "fight", genom att definiera en ny version av `Guru`:
+
+\pyin
+```{python}
+class Guru(ProgMon):
+    def __init__(self):
+        super().__init__()
+        self._attack = 1.0
+        self._defense = 1.0
+
+    # method overloading
+    def fight(self, other_progmon):
+        '''
+        Don't win, don't lose.
+        '''
+        # same type of return value as in the super class
+        return (False, False)
+```
+
+Provkör med ny definition: `g.fight(h)` ger `(False, False)`.
+
+
+Observera att vi ändrar beteendet hos en subklass genom att definiera om
+en metod i subklassen.
+
+
+## Abstraktion undviker detaljkunskap
+
+Basklassen `ProgMon` definierar ett _gränssnitt_ som ger en praktisk
+abstraktion: du behöver inte kunna några detaljer om basklassen eller
+dess subklasser om du använder gränssnittet.
+
+## Exempel: en hacker dojo
+
+Antag att vi skapar en klass för en "Hacker Dojo", där ProgMon:s samlas för att träna. Man ska kunna
+utmana en Hacker Dojo, vilket kräver att man vinner en kamp mot varje
+medlem för att kunna säga att man vunnit. Förlust mot en medlem ger
+förlust av utmaningen.
+
+\pyin
+```{python}
+class HackerDojo():
+    def __init__(self):
+        self._members = []
+
+    def add_member(self, m):
+        self._members.append(m)
+
+    def challenge(self, pm):
+        for monster in self._members:
+            win, loose = pm.fight(monster)
+            if loose:
+                # Lost against one member, challenge failed.
+                return False
+        # Won against all members of the dojo
+        return True
+```
+
+Utprovning:
+
+\pyin
+```{python}
+dojo = HackerDojo()
+dojo.add_member(h)
+dojo.add_member(n)
+print(dojo.challenge(g))
+print(dojo.challenge(n))
+```
+\pyout
+```python
+True
+False
+```
+Här vinner dojon mot gurun eftersom vår guru varken vinner eller förlorar (se den omdefinierade metoden `fight` i klassen `Guru`)
+och i metoden `challenge` så har vi programmerat att HackerDojo tycker att den vinner om den inte förlorar någon fajt.
+
+**Obs:** det enda vi använder i implementationen är gränssnittet från
+`ProgMon`. Vi får automatiskt den lite annorlunda specialiseringen
+från `Guru`. Eller snarare: vi behöver inte oroa oss för sådana
+detaljer.
+
+## Ändrade detaljer
+
+En av de stora vinsterna med objektorientering (men inte unikt för OO)
+är abstraktion. Genom att sätta ihop bra gränssnitt (dvs väl valda
+metoder) "framtidssäkrar" vi ett program: det blir lätt att ändra
+detaljer i en del av programmet, utan att andra delar påverkas. Detta
+underlättar ofantligt mycket i större kodprojekt som kan ha tusentals
+eller miljoner rader kod.
+
+Antag att vi inser att `_attack` inte är ett bra attribut. Styrkan ges
+av erfarenhet, level, och andra attribut som blir specifika för
+subklasserna.
+
+* Vilka ändringar behövs göras, och vilka klasser påverkas?
+* Är `get_attack` en bra metod?
+
+
+I \cref{fig:kap10_pokemon_diagram} illustrerar vi det här exemplet med
+ett klassdiagram.
+
+![Klassdiagram för Monster Go. \label{fig:kap10_pokemon_diagram}](./kapitel/images/kap10_pokemon_diagram.pdf){width=80%}
+
+
+# Uppgifter
+
+1.  Skapa en klass `Equilateral` som ärver från `Triangle` i exemplet
+    ovan och metodöverlagrar `get_area`.
+
+    _Tips_: Arean för en liksidig triangel är $\sqrt{3}
+    a^2/4$, där $a$ är sidlängden. Man kan från
+    standardmodulen `math` importera funktionen `sqrt`.
+
+2.  Skapa en klass `Student` som ärver från `ProgMon` (även
+    instansattribut), men som lägger till ett instansattribut
+    `is_learning` av typen `bool` och metodöverlagrar både
+    `get_attack` och `get_defense` i `ProgMon`. Klassen `Student`s
+    metoder `get_attack` och `get_defense` skall använda sig av
+    `ProgMon` `get_attack` och `get_defense` men ska multiplicera
+    styrkan med två om `Student` lärs, dvs om `is_learning` är
+    `True`{.python}. Du kan bestämma vad instansattributen `_attack`
+    och `_defense` instansieras till i klassen själv.
+
+3.  I uppgift 5 och 6 i \cref{chap:objektorientering1} implementerade
+    vi en class `Dog`. Implementera en klass `Tournament` som
+    1. rankar hundarna baserat på antal tricks de kan, och
+    2. skriver ut resultaten.
+
+    _Tips_: hämta inspiration från hur `HackerDojo` relaterar till
+    `ProgMon`.
+
+4.  Skriv en basklass `Vehicle`, som innehåller instansattributen
+    `wheels`, `wings` och `sound`. Utöver detta ska `Vehicle`s metod
+    `__str__` returnera en sträng med information om fordonet (hur
+    många hjul, etc., fordonet har). Skapa tre subklasser `Car`,
+    `Motorcycle` och `Plane` som alla ärver från `Vehicle`, men har
+    rätt antal hjul/vingar och gör "rätt" ljud.
+
+    Exempel-använding och output skulle vara:
+
+    \pyin
+    ```python
+    car = Car()
+    mc = Motorcycle()
+    plane = Plane()
+    print(car)
+    print(mc)
+    print(plane)
+    ```
+    \pyout
+    ```python
+    A Car has:
+    4 wheels
+    and makes a AAARRRRRRRR! sound
+
+    A Motorcycle has:
+    2 wheels
+    and makes a VROOM VROOM! sound
+
+    A Plane has:
+    2 wings
+    and makes a WHOOSH! sound
+    ```
+
+5.  Skriv en egen sträng-klass som "hanterar" subtraktion och
+    division.
+    Med _subtrahera_ en sträng menar vi här att ta bort en delsträng,
+    och `s1 - s2` innebär att den högraste förekomsten av `s2` i `s1`
+    tas bort.
+    Med _division_ menas att alla förekomster av
+    strängen till höger om `/` operatorn tas bort från huvudsträngen,
+    dvs `s1 / s2` innebär att _alla_ förekomster av `s2` tas bort från `s1`.
+
+
+    _Tips_: skapa en subklass `MyString` till `str`, och läs på om
+    vilka privata metoder som behövs implementeras för `-` och `/`.
+
+    Exempel:
+    \pyin
+    ```python
+    s1 = MyString("This is my own string!")
+    s2 = MyString("My, oh my, oh Oh.... oh")
+    op1 = MyString('my')
+    op2 = MyString('oh')
+    print(s1 - op1)
+    print(s1 / op2)
+    print(s2 - op1)
+    print(s2 / op2)
+    print(s1 - 'hello')
+    print(s1 / 'hello')
+    ```
+    \pyout
+    ```python
+    This is  own string!
+    This is my own string!
+    My, oh , oh Oh.... oh
+    My,  my,  Oh....
+    This is my own string!
+    This is my own string!
+    ```

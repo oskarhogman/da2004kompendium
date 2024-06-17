@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 10</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+<li>
+  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+</li>
+<li>
+  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+</li>
+<li>
+  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+</li>
+<li>
+  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+</li>
+<li>
+  <a href="kapitel8.html">8: Funktionell programmering</a>
+</li>
+<li>
+  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+</li>
+<li>
+  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+</li>
+<li>
+  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+</li>
+<li>
+  <a href="kapitel12.html">12: Defensiv programmering</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 10</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<p><em>Arv</em> är en central princip i objektorientering (OO) som
+handlar om att på ett strukturerat sätt kunna återanvända kod och
+funktionalitet i redan definierade klasser med möjligheten att <em>lägga
+till</em> eller <em>ändra</em> på den existerande klassen. Ofta så finns
+redan en klass som nästan gör det man vill, och det är då en god idé att
+låta <em>ärva</em> från den klassen.</p>
+<p>Ett enkelt exempel är vi har en klass <code>A</code> som vi vill
+använda funktionaliteten från, men ändra på vissa delar:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEE6XG4gICAgXCJcIlwiVGhpcyBpcyBhIGJhc2UgY2xhc3NcbiAgICBcIlwiXCJcbiAgICBjbGFzc19pbnRlZ2VyID0gMTBcblxuICAgIGRlZiBfX2luaXRfXyhzZWxmKTpcbiAgICAgICAgc2VsZi52YWxzID0gWzVdXG5cbiAgICBkZWYgcG93ZXJfc3VtKHNlbGYpOlxuICAgICAgICByZXR1cm4gc3VtKFtpKioyIGZvciBpIGluIHNlbGYudmFsc10pICsgQS5jbGFzc19pbnRlZ2VyXG5cbmNsYXNzIEIoQSk6XG4gICAgXCJcIlwiVGhpcyBpcyBhIHN1YiBjbGFzc1xuICAgIFwiXCJcIlxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCB4LCB5KTpcbiAgICAgICAgc2VsZi52YWxzID0gW3gsIHldXG5cbiAgICBkZWYgcHJpbnRfcmVzdWx0KHNlbGYpOlxuICAgICAgICBwcmludChzZWxmLnBvd2VyX3N1bSgpKSJ9
+</div>
+<p>Här är <code>A</code> en <em>basklass</em> (eng. <em>base class</em>)
+för <code>B</code> och <code>B</code> är <em>subklass</em> (eng. <em>sub
+class</em>) till <code>A</code>. Man kan också säga att <code>A</code>
+är <em>superklass</em> (eng. <em>super class</em>) till <code>B</code>.
+I flera programmeringsspråk används ofta de engelska termerna <em>parent
+class</em> och <em>child class</em> för bas- och subklass.</p>
+<p>Lägg märke till att <code class="python">class</code>-definitionen av
+<code>B</code> tar <code>A</code> som ett argument, vilket indikerar att
+<code>B</code> ärver från <code>A</code>. Med ett arv i detta fall så
+menas att <code>A</code>:s funktionalitet <em>automatiskt</em> kommer
+att vara implementerad i <code>B</code>, så länge man inte aktivt
+definierar om något. I det här fallet har klass-konstruktorn för
+<code>B</code>, <code class="python">__init__</code>, definierats om för
+att ta <em>två</em> istället för <em>ett</em> argument (<code>x</code>
+och <code>y</code>). Utöver detta så används funktionaliteten från
+<code>A</code>: t.ex. finns i ovan exempel inget skäl att definiera om
+<code>power_sum</code> i <code>B</code>.</p>
+<p>Användningen är ganska rättfram:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImEgPSBBKClcbnByaW50KGEucG93ZXJfc3VtKCkpICAgIyBtZXRob2QgZGVmaW5lZCBpbiBBXG5cbmIgPSBCKDEwLCAyMClcbnByaW50KGIucG93ZXJfc3VtKCkpICAgIyBjYWxsaW5nIG1ldGhvZCBpbiBCIGluaGVyaXRlZCBmcm9tIEFcbmIucHJpbnRfcmVzdWx0KCkgICAgICAgIyB1c2VzIG1ldGhvZCBzcGVjaWZpYyB0byBCIn0=
+</div>
+<pre class="python"><code>35
+510
+510</code></pre>
+<strong>Obs</strong>: i Python ärver man inte instansattribut
+automatiskt! Det görs i många andra programmeringsspråk.
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEMoQSk6XG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIHkpOlxuICAgICAgICBzZWxmLnZhbHMuYXBwZW5kKHkpXG5cbmMgPSBDKDEwKSJ9
+</div>
+<pre class="python"><code>AttributeError: &#39;C&#39; object has no attribute &#39;vals&#39;</code></pre>
+För att se till att <code>C</code> ärver även instansattribut från
+<code>A</code>, får vi ändra konstruktorn lite genom att anropa
+<code>super</code>, som ser till att metoden som följer anropas på i
+basklassen:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEMoQSk6XG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIHkpOlxuICAgICAgICBzdXBlcigpLl9faW5pdF9fKCkgICMgY2FsbCBjb25zdHVjdG9yIG9mIHN1cGVyIGNsYXNzXG4gICAgICAgIHNlbGYudmFscy5hcHBlbmQoeSlcblxuY2xhc3MgRChCKTpcbiAgICBkZWYgX19pbml0X18oc2VsZiwgeSk6XG4gICAgICAgIHN1cGVyKCkuX19pbml0X18oNSwgMTApICMgY2FsbCBjb25zdHVjdG9yIG9mIHN1cGVyIGNsYXNzXG4gICAgICAgIHNlbGYudmFscy5hcHBlbmQoeSlcblxuYyA9IEMoMTApXG5kID0gRCgxMClcbnByaW50KGMucG93ZXJfc3VtKCkpXG5kLnByaW50X3Jlc3VsdCgpXG5jLnByaW50X3Jlc3VsdCgpICAgICAgICMgcmFpc2VzIGFuIEVycm9yIn0=
+</div>
+<pre class="python"><code>135
+235
+AttributeError: &#39;C&#39; object has no attribute &#39;print_result&#39;</code></pre>
+<p>Felet uppstår på grund av att <code>print_result()</code> inte är
+definerad för <code>C</code>, som ärvt från <code>A</code>. Klass
+<code>D</code> däremot har ärvt metoden från <code>B</code>.</p>
+<div id="klassdiagram" class="section level1">
+<h1>Klassdiagram</h1>
+<p>Ett klassdiagram visualiserar hur klasser hänger ihop. Det innehåller
+ingen information om objekt. Man kan ange att en klass ärver från en
+annan (relationen “is-a”, dvs “är en”) och att en klass innehåller
+objekt från en annan klass (“aggregation” och “komposition”).</p>
+<p>Det finns många sätt att rita klassdiagram och informell notation
+används ofta. Det finns professionella verktyg, som ofta bygger på
+industristandarden UML, som genererar klassdiagram från kod. T.ex. är
+genererad m.h.a. Python-biblioteket <code>pyreverse</code> (som är en
+del av kodanalysverktyget <code>pylint</code>).</p>
+<div class="float">
+<embed src="./kapitel/images/kap10_class_diagram.pdf"
+style="width:50.0%" />
+<div class="figcaption">Klassdiagram för <code>A</code>, <code>B</code>,
+<code>C</code> och <code>D</code></div>
+</div>
+<p>Ett <em>objektdiagram</em> liknar till stor del ett klassdiagram, men
+förklarar <em>tillståndet</em> i ett program vid en <em>viss</em>
+tidpunkt: t.ex. skulle ett objektdiagram av ovan visa att
+<code>a.vals</code> innehåller <code>[5]</code>, <code>b.vals</code>
+innehåller <code>[10, 20]</code>, <code>c.vals</code> innehåller
+<code>[5, 10]</code> och <code>d.vals</code> innehåller
+<code>[5, 10, 10]</code>. Klassdiagrammet i förklarar relationer mellan
+klasser <em>oavsett</em> tidpunkt.</p>
+</div>
+<div id="substitutionsprincipen" class="section level1">
+<h1>Substitutionsprincipen</h1>
+<p>Det är erkänt svårt att bestämma bra klasser. Många böcker har
+skrivits på ämnet, med många olika tillvägagångssätt för att bestämma
+vilken klass-struktur man ska ha. Det här kan bli väldigt komplicerat
+fort, men en väldigt bra tumregel, som är känd som <a
+href="https://en.wikipedia.org/wiki/Liskov_substitution_principle">Liskov’s
+substitutionsprincip</a> (efter MIT professorn och Turingprisvinnaren
+Barbara Liskov), är:</p>
+<ul>
+<li>Allt som gäller för en klass ska gälla för dess subklasser.</li>
+</ul>
+<p>Principen ger <em>god design</em>. Det kanske låter som en självklar
+princip, men det är lätt att vilja plocka bort funktionalitet i
+subklasser och det finns många exempel som bryter mot principen.</p>
+</div>
+<div id="funktioner-som-ger-information-om-klasser"
+class="section level1">
+<h1>Funktioner som ger information om klasser</h1>
+<p>Två användbara inbyggda funktioner när det gäller klasser är <code
+class="python">isinstance</code> och <code
+class="python">issubclass</code>. Den första funktionen testar om ett
+givet <em>objekt</em> är en <em>instans</em> av en klass, och den andra
+om en <em>klass</em> är en subklass av en annan <em>klass</em>, dvs om
+en klass ärver från en annan.</p>
+<p>Om vi använder oss av klassdefinitionera (<code>A, B, C, D</code>)
+och instanserna (<code>a, b, c, d</code>) ovan, så kan vi t.ex.
+göra:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImlzaW5zdGFuY2UoYSwgQSkgIyBhIGlzIGFuIGluc3RhbmNlIG9mIHRoZSBjbGFzcyBBXG5pc2luc3RhbmNlKGQsIEEpICMgZCBpcyBhbiBpbnN0YW5jZSBhIGNsYXNzIHRoYXQgaW5oZXJpdHMgZnJvbSBBXG5pc2luc3RhbmNlKGQsIEMpICMgZCBpcyBub3QgYW4gaW5zdGFuY2Ugb2YgYSBjbGFzcyB0aGF0IGluaGVyaXRzIGZyb20gQ1xuXG5pc3N1YmNsYXNzKEEsIEEpXG5pc3N1YmNsYXNzKEQsIEEpXG5pc3N1YmNsYXNzKEQsIEMpIn0=
+</div>
+<pre class="python"><code>True
+True
+False
+
+True
+True
+False</code></pre>
+<p>Lägg märke till att det inte bara är den <em>direkta</em> basklassen
+som kollas med funktionerna, utan även vidare tillbaka i
+“arvsledet”.</p>
+<p>I programmeringsspråk som stödjer multipelt arv (som Python, mer om
+det i ) så kallas ett sådant “arvsled” <a
+href="https://docs.python.org/3/tutorial/classes.html?highlight=mro"><em>method
+resolution order</em></a> (förkortas vanligtvis som <em>MRO</em>). MRO
+specificerar i vilken ordning basklasserna (om flera) till en klass
+Python söker efter metoder. I Python har klasser en metod
+<code>.mro</code> som visar klassens MRO. T.ex:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IkEubXJvKClcbkQubXJvKCkifQ==
+</div>
+<pre class="python"><code>[__main__.A, object]
+[__main__.D, __main__.B, __main__.A, object]</code></pre>
+<p>Här kan vi se att <code>D</code> ärver från <code>B</code> (som är
+den första klassen efter <code>D</code> som söks för om en metod finns
+<code>D</code>) och vidare från <code>A</code>. Den sista elementet i
+listan, <code class="python">object</code>, är den <em>fundamentala
+byggstenen</em> för typer i Python och är därför sist i listan och både
+<code>A</code> och <code>D</code> har detta som en del av sin MRO. När
+det gäller Python får man ofta höra <em>“Everything is an object in
+Python”</em>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImlzaW5zdGFuY2UoYSwgb2JqZWN0KVxuaXNpbnN0YW5jZShwcmludCwgb2JqZWN0KSAjIGZ1bmN0aW9uIHByaW50IGlzIGFuIG9iamVjdFxuaXNzdWJjbGFzcyhzdHIsIG9iamVjdClcbmlzc3ViY2xhc3MoaW50LCBvYmplY3QpIn0=
+</div>
+<pre class="python"><code>True
+True
+True
+True</code></pre>
+</div>
+<div id="exempel-geometriska-figurer" class="section level1">
+<h1>Exempel: Geometriska figurer</h1>
+<p>Som ett exempel på arv ska vi nu implementera klasser som
+representerar geometriska objekt (figurer) som samlar vanliga/typiska
+operationer som man kan vilja göra på dessa figurer. Meningen är att med
+dessa klasser:</p>
+<ul>
+<li>Illustrera värdet av arv</li>
+<li>Illustrera <em>överlagring av metoder</em> (eng.: <em>method
+overriding/overloading</em>)</li>
+<li>Illustrera värdet av <em>inkapsling</em> (eng.:
+<em>encapsulation</em>, samling av data-attribut och de metoder som
+agerar på datat)</li>
+<li>Rita klassdiagram</li>
+</ul>
+<p>Vi vill skriva kod som implementerar Python-objekt som representerar
+olika geometriska figurer som består av (raka) sidor. För att följa
+Liskovs substitutionsprincip, så vill vi ha en basklass som
+representerar det mest allmänna fallet: en polygon. Subklasserna ska
+lägga till data och funktionalitet som representerar en specifik typ av
+geometrisk figur.</p>
+<p>Vi börjar med att definiera basklassen <code>Polygon</code>, som är
+menad att vara en klass som täcker det allmänna fallet men med vissa
+begränsningar.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFBvbHlnb246XG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIG5fc2lkZXMsIG5fdW5pcXVlX3NpZGVzPU5vbmUpOlxuICAgICAgICBzZWxmLm5fc2lkZXMgPSBuX3NpZGVzXG4gICAgICAgIGlmIG5fdW5pcXVlX3NpZGVzOlxuICAgICAgICAgICAgc2VsZi5uX3VuaXF1ZV9zaWRlcyA9IG5fdW5pcXVlX3NpZGVzXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICBzZWxmLm5fdW5pcXVlX3NpZGVzID0gbl9zaWRlc1xuICAgICAgICBpZiBzZWxmLm5fc2lkZXMgJSBzZWxmLm5fdW5pcXVlX3NpZGVzOlxuICAgICAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihcbiAgICAgICAgICAgICAgICBcIlRoZSB0b3RhbCBudW1iZXIgb2Ygc2lkZXMgbXVzdCBiZSBhbiBpbnRlZ2VyXCJcbiAgICAgICAgICAgICAgICBcIiBtdWx0aXBsZSBvZiB0aGUgbnVtYmVyIG9mIHVuaXF1ZSBzaWRlc1wiKVxuICAgICAgICBzZWxmLnNpZGVzID0gTm9uZVxuICAgICAgICBzZWxmLl9fbmFtZV9fID0gJ1BvbHlnb24nXG5cbiAgICAjIFwiUHJpdmF0ZVwiIG1ldGhvZHNcbiAgICBkZWYgX2NoZWNrX3NpZGVzKHNlbGYpOlxuICAgICAgICBpZiAobm90IHNlbGYuc2lkZXMgb3JcbiAgICAgICAgICAgIG5vdCBhbGwobWFwKGxhbWJkYSB4OiB4ID4gMCwgc2VsZi5zaWRlcykpKTpcbiAgICAgICAgICAgIHByaW50KFwiSW52YWxpZCBzaWRlIGxlbmd0aHNcIilcbiAgICAgICAgICAgIHJldHVybiBGYWxzZVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmV0dXJuIFRydWVcblxuICAgIGRlZiBfZ2V0X3NpZGUoc2VsZiwgc2lkZV9ubyk6XG4gICAgICAgIHMgPSBmbG9hdChpbnB1dChcIkVudGVyIHNpZGUgXCIgKyBzdHIoc2lkZV9ubyArIDEpICsgXCI6IFwiKSlcbiAgICAgICAgcmV0dXJuIHNcblxuICAgICMgXCJQdWJsaWNcIiBtZXRob2RzXG4gICAgZGVmIGlucHV0X3NpZGVzKHNlbGYpOlxuICAgICAgICBwcmludChcIlBsZWFzZSBlbnRlciB0aGUgXCIgKyBzdHIoc2VsZi5uX3VuaXF1ZV9zaWRlcykgK1xuICAgICAgICAgICAgICBcIiB1bmlxdWUgc2lkZSBsZW5ndGhzIGZvciBhIFwiICsgc2VsZi5fX25hbWVfXylcbiAgICAgICAgdW5pcXVlX3NpZGVzID0gW3NlbGYuX2dldF9zaWRlKGkpIGZvciBpIGluXG4gICAgICAgICAgICAgICAgICAgICAgICByYW5nZShzZWxmLm5fdW5pcXVlX3NpZGVzKV1cbiAgICAgICAgc2VsZi5zaWRlcyA9IHVuaXF1ZV9zaWRlcyAqIChzZWxmLm5fc2lkZXNcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvLyBzZWxmLm5fdW5pcXVlX3NpZGVzKVxuICAgICAgICBpZiBub3Qgc2VsZi5fY2hlY2tfc2lkZXMoKTpcbiAgICAgICAgICAgIHByaW50KFwiUGxlYXNlIHByb3ZpZGUgcG9zaXRpdmUgc2lkZSBsZW5ndGhzXCIpXG4gICAgICAgICAgICBzZWxmLmlucHV0X3NpZGVzKClcblxuICAgIGRlZiBkaXNwbGF5X3NpZGVzKHNlbGYpOlxuICAgICAgICBpZiBzZWxmLl9jaGVja19zaWRlcygpOlxuICAgICAgICAgICAgZm9yIGkgaW4gcmFuZ2Uoc2VsZi5uX3NpZGVzKTpcbiAgICAgICAgICAgICAgICBwcmludChcIkxlbmd0aCBvZiBzaWRlXCIsIGkgKyAxLCBcIjpcIiwgc2VsZi5zaWRlc1tpXSkifQ==
+</div>
+<p>Klasskonstruktorn tar två argument, ett obligatorist argument
+<code>n_sides</code> som specificerar hur många sidor polygonen skall ha
+och ett nyckelordsargument <code>n_unique_sides</code> som har
+standardvärdet <code class="python">None</code>. Vi vill här ge
+möjligheten att kunna specifiecera att en polygon har
+<code>n_sides</code> <em>antal</em> sidor men bara har ett visst antal
+unika sidlängder, t.ex så skulle <code>n_unique_sides=1</code> betyda
+att alla sidor i polygonen är lika långa.</p>
+<p>I konstruktorn så sätts instansattributen till de värden som de
+formella parameterarna har; om <code>n_unique_sides</code> inte har
+specificerats så får instansattributet samma värde som
+<code>n_sides</code>, dvs att alla sidor anses unika. Vi vill dock
+begränsa hur en användare kan specificera antalet unika sidor i en
+polygon: det totala antalet sidor måste vara en heltalsmultipel av
+antalet unika sidor. Vi kollar att detta är uppfyllt genom att se om
+villkoret <code>n_sides % n_unique_sides</code> utvärderas till <code
+class="python">True</code>, dvs om det finns en rest efter divisionen
+(ett tal skiljt från <code>0</code>) så lyfter vi ett <code
+class="python">ValueError</code> (kom ihåg att alla tal som är skiljda
+från <code>0</code> utvärderas till <code class="python">True</code> i
+Python).</p>
+<p>Huvudmetoden i <code>Polygon</code> är <code>input_sides</code>, som
+när den kallas först skriver ut ett meddelande och sedan m.h.a en
+listomfattning läser in <code>n_unique_sides</code> antal sidlängder.
+Inläsningen av <em>varje enskild</em> sidlängd görs av den privata
+metoden <code>_get_sides</code>. Eftersom vi i konstruktorn redan sett
+till att <code>n_unique_sides</code> har ett tillåtet värde, så kan vi
+multiplicera listan med (unika) inlästa sidlängder med
+<code>n_sides // n_unique_sides</code> för att slutligen få en lista som
+innehåller <em>alla</em> sidlängder (dvs
+<code>len(sides) == n_sides</code>): i fallet att vi har färre unika
+sidlängder än totalt antal sidlängder, så repeteras listan med de unika
+sidlängderna ett lämpligt antal gånger. Slutligen försäkrar vi oss att
+alla sidlängder är tillåtna med den privata metoden
+<code>_check_sides</code>, som med <code class="python">map</code> och
+en anonym funktion (<code class="python">lambda</code>) kontrollerar att
+alla sidor är positiva. Om de inte är det skrivs ett felmeddelande ut.
+Den första delen av villkoret för <code class="python">if</code>-satsen
+i <code>_check_sides</code> kontrollerar att <code>sides</code> är satt,
+dvs om <code class="python">sides == None</code> så exekveras satsen
+<em>oavesett</em> om det andra villkoret är uppfyllt eller ej. Denna
+sats är av värde då <code class="python">map</code> skulle ge ett fel om
+<code class="python">sides == None</code>, eftersom <code
+class="python">None</code> inte går att iterera över. Genom att uvärdera
+<code>if not sides</code> först så exekveras <code
+class="python">if</code>-satsen om <code
+class="python">sides == None</code> (och <code class="python">map</code>
+exekveras aldrig) <em>eller</em> så är <code>sides</code> satt (vi antar
+att det är en lista) och <code class="python">map</code> kan iterera
+över <code>sides</code>.</p>
+<p>Metoden <code>display_sides</code> skriver ut alla sidlängder om
+<code>sides</code> innehåller giltiga sidlängder.</p>
+<p>Nu när vi har en basklass, så kan vi lätt genom arv definiera
+subklasser som representerar specifika polygoner. T.ex., så kan en
+triangel-typ representeras av:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFRyaWFuZ2xlKFBvbHlnb24pOlxuICAgIGRlZiBfX2luaXRfXyhzZWxmKTpcbiAgICAgICAgc3VwZXIoKS5fX2luaXRfXygzKVxuICAgICAgICBzZWxmLl9fbmFtZV9fID0gJ1RyaWFuZ2xlJ1xuXG4gICAgIyBtZXRob2Qgc3BlY2lmaWMgdG8gdHJpYW5nbGVzXG4gICAgZGVmIGdldF9hcmVhKHNlbGYpOlxuICAgICAgICBhLCBiLCBjID0gc29ydGVkKHNlbGYuc2lkZXMpXG4gICAgICAgIGlmIGMgPiAoYSArIGIpOlxuICAgICAgICAgICAgcHJpbnQoXCJOb24tdmFsaWQgc2lkZSBsZW5ndGhzIGZvciBhIHRyaWFuZ2xlLlwiKVxuICAgICAgICAgICAgcmV0dXJuXG4gICAgICAgICMgY2FsY3VsYXRlIHRoZSBzZW1pLXBlcmltZXRlclxuICAgICAgICBzID0gKGEgKyBiICsgYykgLyAyXG4gICAgICAgIHJldHVybiAocyAqIChzIC0gYSkgKiAocyAtIGIpICogKHMgLSBjKSkqKjAuNSJ9
+</div>
+<p>Här ser vi att <code>Triangle</code> ärver från <code>Polygon</code>
+och att vi i <code>Triangle</code>s konstruktor kallar
+<em>basklassens</em> konstruktor med ett argument (<code
+class="python">3</code>). Att vi explicit kallar konstruktorn med
+<code>super</code> gör att <code>Polygon</code> instantieras med <code
+class="python">n_sides=3, n_unique_sides=None</code> och att en instans
+av <code>Triangle</code> ärver både instansattribut och metoder från
+<code>Polygon</code>. Vi överlagrar instansattributet
+<code>__name__</code> så att namnet för klassinstansen ges som
+<code>Triangle</code>. Vi <em>utökar</em> basklassens funktionalitet
+genom att lägga till en metod <code>get_area</code> som beräknar en
+triangels area om triangeln har giltiga sidlängder.</p>
+<p>På ett liknande sätt kan vi definiera en rektangel. Rektanglar har
+fyra sidor, men endast två <em>unika</em> sidlängder. Det här löses
+enkelt genom att definiera en klass <code>Rectangle</code> som ärver
+från <code>Polygon</code> men som kallar basklassens konstruktor med
+argument som specificerar just detta, dvs en polygon som har
+<code>4</code> sidor men bara <code>2</code> unika sidlängder.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFJlY3RhbmdsZShQb2x5Z29uKTpcbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICAgIHN1cGVyKCkuX19pbml0X18oNCwgbl91bmlxdWVfc2lkZXM9MilcbiAgICAgICAgc2VsZi5fX25hbWVfXyA9ICdSZWN0YW5nbGUnXG5cbiAgICAjIG1ldGhvZCBzcGVjaWZpYyBmb3IgcmVjdGFuZ2xlc1xuICAgIGRlZiBnZXRfYXJlYShzZWxmKTpcbiAgICAgICAgcmV0dXJuIHNlbGYuc2lkZXNbMF0gKiBzZWxmLnNpZGVzWzFdXG5cbiAgICAjIG1ldGhvZCBzcGVjaWZpYyBmb3IgcmVjdGFuZ2xlc1xuICAgIGRlZiBnZXRfZGlhZ29uYWwoc2VsZik6XG4gICAgICAgIHJldHVybiAoc2VsZi5zaWRlc1swXSoqMiArIHNlbGYuc2lkZXNbMV0qKjIpKiowLjUifQ==
+</div>
+<p><code>Rectangle</code> definierar också metoder som är specifika för
+rektanglar: <code>get_area</code> och <code>get_diagonal</code>.</p>
+<p>Slutligen så definierar vi ett specialfall av en rektangel, nämligen
+en kvadrat <code>Square</code>. En kvadrat är en rektangel, så både area
+och diagonal beräknas på samma sätt som i <code>Rectangle</code>. Det är
+därför lämpligt att ärva funktionaliteten av <code>Rectangle</code>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFNxdWFyZShSZWN0YW5nbGUpOlxuICAgIGRlZiBfX2luaXRfXyhzZWxmKTpcbiAgICAgICAgc3VwZXIoUmVjdGFuZ2xlLCBzZWxmKS5fX2luaXRfXyg0LCBuX3VuaXF1ZV9zaWRlcz0xKVxuICAgICAgICBzZWxmLl9fbmFtZV9fID0gJ1NxdWFyZSdcblxuICAgIGRlZiBnZXRfY29ybmVyX2Nvb3JkaW5hdGVzKHNlbGYpOlxuICAgICAgICBzID0gc2VsZi5zaWRlc1swXS8yXG4gICAgICAgIHJldHVybiAoKC1zLCAtcyksICgtcywgcyksIChzLCBzKSwgKHMsIC1zKSkifQ==
+</div>
+<p>Skillnaden mellan en kvadrat och en rektangel är att det bara finns
+<em>en unik</em> sidlängd. I dett fall kan vi <em>inte</em> kalla på
+basklassens konstruktor i <code>Square</code> för att ärva
+instansattribut, eftersom basklassens (<code>Rectangle</code>)
+konstruktor inte tar några argument utan implicit sätter
+<code>n_sides = 4</code> och <code>n_unique_sides = 2</code>. Vi skulle
+vilja kalla konstruktorn till <code>Rectangle</code>s basklass (dvs
+<code>Polygon</code>). Detta kan åstadkommas genom att vi i
+<code>Square</code>s konstruktor använder oss av <code>super</code> med
+argumenten <code>Rectangle</code> och <code class="python">self</code>
+för att säga att vi vill initiera basklassen <em>till</em>
+<code>Rectangle</code>, men att det ska gälla för klassinstansen av
+<code>Square</code> (<code class="python">self</code>). Vi ärver
+fortfarande från <code>Rectangle</code> (t.ex. metoderna
+<code>get_area</code> och <code>get_diagonal</code>), men konstruktorn
+körs som <code>Polygon(4, n_unique_sides=1)</code> för att begränsa
+antalet unika sidlängder till <em>en</em> men fortfarande ha (totalt)
+fyra sidor.</p>
+Man kan nu använda sig av ovan definierade klasser:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InQgPSBUcmlhbmdsZSgpXG50LmlucHV0X3NpZGVzKClcbnByaW50KCdUaGUgYXJlYSBvZiB0aGUgdHJpYW5nbGUgaXM6JywgdC5nZXRfYXJlYSgpKVxudC5kaXNwbGF5X3NpZGVzKClcblxuciA9IFJlY3RhbmdsZSgpXG5yLmlucHV0X3NpZGVzKClcbnByaW50KCdUaGUgYXJlYSBvZiB0aGUgcmVjdGFuZ2xlIGlzOicsIHIuZ2V0X2FyZWEoKSlcbnByaW50KCdUaGUgZGlhZ29uYWwgb2YgdGhlIHJlY3RhbmdsZSBpczonLCByLmdldF9kaWFnb25hbCgpKVxuXG5zID0gU3F1YXJlKClcbnMuaW5wdXRfc2lkZXMoKVxucHJpbnQoJ1RoZSBhcmVhIG9mIHRoZSBzcXVhcmUgaXM6Jywgcy5nZXRfYXJlYSgpKVxucHJpbnQoJ1RoZSBkaWFnb25hbCBvZiB0aGUgc3F1YXJlIGlzOicsIHMuZ2V0X2RpYWdvbmFsKCkpXG5wcmludCgnVGhlIGNvb3JkaW5hdGVzIG9mIHRoZSBzcXVhcmUgY29ybmVycyBhcmU6XFxuJyxcbiAgICAgIHMuZ2V0X2Nvcm5lcl9jb29yZGluYXRlcygpKSJ9
+</div>
+<pre class="python"><code>Please enter the 3 unique side lengths for a Triangle
+Enter side 1 : 1
+Enter side 2 : 2.5
+Enter side 3 : 2
+The area of the triangle is: 0.9499177595981665
+Length of side 1 : 1.0
+Length of side 2 : 2.5
+Length of side 3 : 2.0
+Please enter the 2 unique side lengths for a Rectangle
+Enter side 1 : -1
+Enter side 2 : 2
+Invalid side lengths.
+Please provide positive side lengths.
+Please enter the 2 unique side lengths for a Rectangle
+Enter side 1 : 1.2
+Enter side 2 : 1.9
+The area of the rectangle is: 2.28
+The diagonal of the rectangle is: 2.247220505424423
+Please enter the 1 unique side lengths for a Square
+Enter side 1 : 6
+The area of the square is: 36.0
+The diagonal of the square is: 8.48528137423857
+The coordinates of the square corners are:
+ ((-3.0, -3.0), (-3.0, 3.0), (3.0, 3.0), (3.0, -3.0))</code></pre>
+<div id="implementera-jämförelser" class="section level2">
+<h2>Implementera jämförelser</h2>
+<p>Som vi gick igenom i , så kan man genom att använda sig av specifika
+privata metoder implementera jämförelser för sin egen typ (klass). Dessa
+metoder fungerar väldigt bra att ärva från en basklass när någon logisk
+jämförelse mellan objekt kan göras.</p>
+<p>Antag t.ex. att vi vill implementera <code>&lt;</code>,
+<code>&gt;</code>, och <code>==</code> baserat på arean av ett objekt.
+För de geometriska figurerna <code>Triangle</code>,
+<code>Rectangle</code> och <code>Square</code> så kan vi ju genom
+<code>get_area</code> räkna ut arean av ett objekt. Vi kan lägga till
+nedan funktioner i <code>Triangle</code> och <code>Rectangle</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBfX2x0X18oc2VsZiwgb3RoZXIpOlxuICAgIHJldHVybiBzZWxmLmdldF9hcmVhKCkgPCBvdGhlci5nZXRfYXJlYSgpXG5cbmRlZiBfX2d0X18oc2VsZiwgb3RoZXIpOlxuICAgIHJldHVybiBzZWxmLmdldF9hcmVhKCkgPiBvdGhlci5nZXRfYXJlYSgpXG5cbmRlZiBfX2VxX18oc2VsZiwgb3RoZXIpOlxuICAgIHJldHVybiBzZWxmLmdldF9hcmVhKCkgPT0gb3RoZXIuZ2V0X2FyZWEoKSJ9
+</div>
+<p>Lägg märke till att vi <em>inte</em> behöver lägga till detta i
+<code>Square</code>, då denna klass ärver från
+<code>Rectangle</code>.</p>
+<!-- ## Implementera koll om giltig form -->
+<!-- Någonting med implementationen av `Rectangle` verkar inte bra. Vi -->
+<!-- kunde ovan ange fyra sidlängder som alla är olika: det stämmer inte -->
+<!-- bra för en rektangel. Således är också diagonalen felaktig, eftersom -->
+<!-- man inte vet vilka två sidor som ska användas. Ett enkelt sätt att -->
+<!-- lösa detta är att se till att av de fyra sidlängder som läses in, så -->
+<!-- ska det finnas bara _en eller två_ unika sidlängder. Vi kan göra detta -->
+<!-- genom att ändra funktionaliteten av `input_sides` i `Rectangle` genom -->
+<!-- att _överlagra_ metoden (om-definiera den i `Rectangle`): -->
+<!-- \pyin -->
+<!-- ```python -->
+<!-- def input_sides(self): # method overriding for rectangle -->
+<!--     # super calls the immediate base class, -->
+<!--     # without having to specify the name explicitly (providing self as argument) -->
+<!--     super().input_sides() -->
+<!--     # alternative way to directly use the base class by name -->
+<!--     # Polygon.input_sides(self) -->
+<!--     while len(set(self.sides)) <= 2: -->
+<!--         print("Not a valid rectangle, try again.") -->
+<!--         super().input_sides() -->
+<!-- ``` -->
+<!-- Vi använder oss här av `set` för att ta bort duplicerade element i -->
+<!-- `self.sides`, så ger man fyra sidlängder med samma längd så kommer -->
+<!-- bara ett värde att användas, finns två olika sidlängder andvänds dessa -->
+<!-- och annars så anropas `input_sides()` igen. -->
+<!-- Nu är funktionen `input_sides` i `Polygon` inte så lång eller komplex (bara en rad!). Men föreställ dig att det är en ganska lång och komplex beräkning (eller övrigt) som görs i `Polygon.input_sides`. Vi ser varför överlagring av metoder har sin nytta: vi har tillgång till (den potentiellt sett komplexa funktionen) `input_sides` i Polygon, och modifierar den för subklasserna. -->
+<!-- _Notera_: Vi skulle här för `Rectangle` gjort precis likadant som för -->
+<!-- `Triangle` eller `Square`, dvs anropat konstruktorn för `Polygon` med -->
+<!-- `2`, som `super().__init__(2)`, så hade det bara lästs in två -->
+<!-- sidlängder till en början. -->
+<p>I illustrerar vi klassdiagram för det här exemplet.</p>
+<div class="float">
+<embed src="./kapitel/images/kap10_geometry_diagram.pdf"
+style="width:50.0%" />
+<div class="figcaption">Klassdiagram för geometriska figurer. </div>
+</div>
+</div>
+</div>
+<div id="exempel-monster-go" class="section level1">
+<h1>Exempel: Monster Go</h1>
+<p>Följande exempel är inspirerat av Pokemon Go och är ett lite större
+exempel. Exemplet är lite konstruerat, men det är för att framhäva
+viktiga poänger som illustrerar värdet av objekt-orienterad
+programmering.</p>
+<p>Målet med detta exempel är att:</p>
+<ul>
+<li>Illustrera värdet av arv.</li>
+<li>Illustrera värdet av abstraktion: dölja
+implementationsdetaljer.</li>
+</ul>
+<div id="en-basklass-progmon" class="section level2">
+<h2>En basklass: ProgMon</h2>
+<p>Klassen <code>ProgMon</code> innehåller attribut och metoder som ska
+vara gemensamma för alla objekt. Vi försöker alltså även här följa
+Liskovs substitutionsprincip.</p>
+<p>Vi kommer i följande exempel att använda oss mycket av privata
+metoder och attribut (både de som används av Python och börjar/slutar
+med <code>__</code>, t.ex. <code>__str__</code> och de som är privata
+för vår implementation och börjar med <code>_</code>, t.ex.
+instansattributen <code>_attack</code>).</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFByb2dNb24oKTpcbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICAgIHNlbGYuX2F0dGFjayA9IDAuMFxuICAgICAgICBzZWxmLl9kZWZlbnNlID0gMC4wXG4gICAgICAgIHNlbGYuX2NhZmZlaW5hdGVkID0gRmFsc2VcbiAgICAgICAgc2VsZi5fdW5pdF90ZXN0aW5nID0gRmFsc2VcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gXCI8UHJvZ01vbiBvYmplY3Q+XCJcblxuICAgIGRlZiBnZXRfYXR0YWNrKHNlbGYpOlxuICAgICAgICBpZiBzZWxmLl9jYWZmZWluYXRlZDpcbiAgICAgICAgICAgIHJldHVybiAyICogc2VsZi5fYXR0YWNrXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICByZXR1cm4gc2VsZi5fYXR0YWNrXG5cbiAgICBkZWYgZ2V0X2RlZmVuc2Uoc2VsZik6XG4gICAgICAgIGlmIHNlbGYuX3VuaXRfdGVzdGluZzpcbiAgICAgICAgICAgIHJldHVybiAyICogc2VsZi5fZGVmZW5zZVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmV0dXJuIHNlbGYuX2RlZmVuc2VcblxuICAgIGRlZiBmaWdodChzZWxmLCBvdGhlcl9wcm9nbW9uKTpcbiAgICAgICAgJycnXG4gICAgICAgIEF0dGFjayBpcyB0aGUgYmVzdCBmb3JtIG9mIGRlZmVuc2UhXG4gICAgICAgIFJldHVybnMgKFRydWUsIEZhbHNlKSBpZiBzZWxmIHdpbnMsIChGYWxzZSwgVHJ1ZSkgaWYgb3RoZXJfcHJvZ21vblxuICAgICAgICB3aW5zIGFuZCAoRmFsc2UsIEZhbHNlKSBvdGhlcndpc2UuXG4gICAgICAgICcnJ1xuICAgICAgICBpZiBzZWxmLmdldF9hdHRhY2soKSA+IG90aGVyX3Byb2dtb24uZ2V0X2RlZmVuc2UoKTpcbiAgICAgICAgICAgIHJldHVybiAoVHJ1ZSwgRmFsc2UpXG4gICAgICAgIGVsaWYgb3RoZXJfcHJvZ21vbi5nZXRfYXR0YWNrKCkgPiBzZWxmLmdldF9kZWZlbnNlKCk6XG4gICAgICAgICAgICByZXR1cm4gKEZhbHNlLCBUcnVlKVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmV0dXJuIChGYWxzZSwgRmFsc2UpIn0=
+</div>
+</div>
+<div id="tre-subklasser" class="section level2">
+<h2>Tre subklasser</h2>
+<p>I subklasserna <code>Hacker</code>, <code>Newbie</code>, och
+<code>Guru</code> lägger vi in specialisering (data och beteende som är
+specifika för klassen). Vi gör detta genom att ändra värden för de
+privata attributen och definiera <code>__str__</code>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEhhY2tlcihQcm9nTW9uKTpcbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICAgIHN1cGVyKCkuX19pbml0X18oKSAgIyBDYWxsIHRoZSBzdXBlcmNsYXNzIGNvbnN0cnVjdG9yIVxuICAgICAgICBzZWxmLl9hdHRhY2sgPSAwLjVcbiAgICAgICAgc2VsZi5fZGVmZW5zZSA9IDAuMjVcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gXCI8SGFja2VyIEE9XCIgKyBzdHIoc2VsZi5fYXR0YWNrKSArIFwiPlwiXG5cbmNsYXNzIE5ld2JpZShQcm9nTW9uKTpcbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICAgIHN1cGVyKCkuX19pbml0X18oKVxuICAgICAgICBzZWxmLl9hdHRhY2sgPSAwLjE1XG4gICAgICAgIHNlbGYuX2RlZmVuc2UgPSAwLjFcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gXCI8TmV3YmllPlwiXG5cbmNsYXNzIEd1cnUoUHJvZ01vbik6XG4gICAgZGVmIF9faW5pdF9fKHNlbGYpOlxuICAgICAgICBzdXBlcigpLl9faW5pdF9fKClcbiAgICAgICAgc2VsZi5fYXR0YWNrID0gMS4wXG4gICAgICAgIHNlbGYuX2RlZmVuc2UgPSAxLjAifQ==
+</div>
+Provkör med:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImggPSBIYWNrZXIoKVxubiA9IE5ld2JpZSgpXG5nID0gR3VydSgpXG5wcmludChuLmZpZ2h0KGgpKVxucHJpbnQoaC5maWdodChuKSlcbnByaW50KGcuZmlnaHQoaCkpIn0=
+</div>
+<pre class="python"><code>(False, True)
+(True, False)
+(True, False)</code></pre>
+<p><strong>Obs:</strong> Gemensam funktionalitet i basklassen gör att vi
+undviker duplicering av kod.</p>
+</div>
+<div id="anpassning" class="section level2">
+<h2>Anpassning</h2>
+<p>Antag att man inte gillar tanken på att en <code>Guru</code> försöker
+vinna kamper. Vi kan implementera en “Don’t win, don’t lose” för en
+<code>Guru</code> som initierar en “fight”, genom att definiera en ny
+version av <code>Guru</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEd1cnUoUHJvZ01vbik6XG4gICAgZGVmIF9faW5pdF9fKHNlbGYpOlxuICAgICAgICBzdXBlcigpLl9faW5pdF9fKClcbiAgICAgICAgc2VsZi5fYXR0YWNrID0gMS4wXG4gICAgICAgIHNlbGYuX2RlZmVuc2UgPSAxLjBcblxuICAgICMgbWV0aG9kIG92ZXJsb2FkaW5nXG4gICAgZGVmIGZpZ2h0KHNlbGYsIG90aGVyX3Byb2dtb24pOlxuICAgICAgICAnJydcbiAgICAgICAgRG9uJ3Qgd2luLCBkb24ndCBsb3NlLlxuICAgICAgICAnJydcbiAgICAgICAgIyBzYW1lIHR5cGUgb2YgcmV0dXJuIHZhbHVlIGFzIGluIHRoZSBzdXBlciBjbGFzc1xuICAgICAgICByZXR1cm4gKEZhbHNlLCBGYWxzZSkifQ==
+</div>
+<p>Provkör med ny definition: <code>g.fight(h)</code> ger
+<code>(False, False)</code>.</p>
+<p>Observera att vi ändrar beteendet hos en subklass genom att definiera
+om en metod i subklassen.</p>
+</div>
+<div id="abstraktion-undviker-detaljkunskap" class="section level2">
+<h2>Abstraktion undviker detaljkunskap</h2>
+<p>Basklassen <code>ProgMon</code> definierar ett <em>gränssnitt</em>
+som ger en praktisk abstraktion: du behöver inte kunna några detaljer om
+basklassen eller dess subklasser om du använder gränssnittet.</p>
+</div>
+<div id="exempel-en-hacker-dojo" class="section level2">
+<h2>Exempel: en hacker dojo</h2>
+<p>Antag att vi skapar en klass för en “Hacker Dojo”, där ProgMon:s
+samlas för att träna. Man ska kunna utmana en Hacker Dojo, vilket kräver
+att man vinner en kamp mot varje medlem för att kunna säga att man
+vunnit. Förlust mot en medlem ger förlust av utmaningen.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEhhY2tlckRvam8oKTpcbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICAgIHNlbGYuX21lbWJlcnMgPSBbXVxuXG4gICAgZGVmIGFkZF9tZW1iZXIoc2VsZiwgbSk6XG4gICAgICAgIHNlbGYuX21lbWJlcnMuYXBwZW5kKG0pXG5cbiAgICBkZWYgY2hhbGxlbmdlKHNlbGYsIHBtKTpcbiAgICAgICAgZm9yIG1vbnN0ZXIgaW4gc2VsZi5fbWVtYmVyczpcbiAgICAgICAgICAgIHdpbiwgbG9vc2UgPSBwbS5maWdodChtb25zdGVyKVxuICAgICAgICAgICAgaWYgbG9vc2U6XG4gICAgICAgICAgICAgICAgIyBMb3N0IGFnYWluc3Qgb25lIG1lbWJlciwgY2hhbGxlbmdlIGZhaWxlZC5cbiAgICAgICAgICAgICAgICByZXR1cm4gRmFsc2VcbiAgICAgICAgIyBXb24gYWdhaW5zdCBhbGwgbWVtYmVycyBvZiB0aGUgZG9qb1xuICAgICAgICByZXR1cm4gVHJ1ZSJ9
+</div>
+<p>Utprovning:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRvam8gPSBIYWNrZXJEb2pvKClcbmRvam8uYWRkX21lbWJlcihoKVxuZG9qby5hZGRfbWVtYmVyKG4pXG5wcmludChkb2pvLmNoYWxsZW5nZShnKSlcbnByaW50KGRvam8uY2hhbGxlbmdlKG4pKSJ9
+</div>
+<pre class="python"><code>True
+False</code></pre>
+<p>Här vinner dojon mot gurun eftersom vår guru varken vinner eller
+förlorar (se den omdefinierade metoden <code>fight</code> i klassen
+<code>Guru</code>) och i metoden <code>challenge</code> så har vi
+programmerat att HackerDojo tycker att den vinner om den inte förlorar
+någon fajt.</p>
+<p><strong>Obs:</strong> det enda vi använder i implementationen är
+gränssnittet från <code>ProgMon</code>. Vi får automatiskt den lite
+annorlunda specialiseringen från <code>Guru</code>. Eller snarare: vi
+behöver inte oroa oss för sådana detaljer.</p>
+</div>
+<div id="ändrade-detaljer" class="section level2">
+<h2>Ändrade detaljer</h2>
+<p>En av de stora vinsterna med objektorientering (men inte unikt för
+OO) är abstraktion. Genom att sätta ihop bra gränssnitt (dvs väl valda
+metoder) “framtidssäkrar” vi ett program: det blir lätt att ändra
+detaljer i en del av programmet, utan att andra delar påverkas. Detta
+underlättar ofantligt mycket i större kodprojekt som kan ha tusentals
+eller miljoner rader kod.</p>
+<p>Antag att vi inser att <code>_attack</code> inte är ett bra attribut.
+Styrkan ges av erfarenhet, level, och andra attribut som blir specifika
+för subklasserna.</p>
+<ul>
+<li>Vilka ändringar behövs göras, och vilka klasser påverkas?</li>
+<li>Är <code>get_attack</code> en bra metod?</li>
+</ul>
+<p>I illustrerar vi det här exemplet med ett klassdiagram.</p>
+<div class="float">
+<embed src="./kapitel/images/kap10_pokemon_diagram.pdf"
+style="width:80.0%" />
+<div class="figcaption">Klassdiagram för Monster Go. </div>
+</div>
+</div>
+</div>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Skapa en klass <code>Equilateral</code> som ärver från
+<code>Triangle</code> i exemplet ovan och metodöverlagrar
+<code>get_area</code>.</p>
+<p><em>Tips</em>: Arean för en liksidig triangel är <span
+class="math inline">\(\sqrt{3}
+a^2/4\)</span>, där <span class="math inline">\(a\)</span> är
+sidlängden. Man kan från standardmodulen <code>math</code> importera
+funktionen <code>sqrt</code>.</p></li>
+<li><p>Skapa en klass <code>Student</code> som ärver från
+<code>ProgMon</code> (även instansattribut), men som lägger till ett
+instansattribut <code>is_learning</code> av typen <code>bool</code> och
+metodöverlagrar både <code>get_attack</code> och
+<code>get_defense</code> i <code>ProgMon</code>. Klassen
+<code>Student</code>s metoder <code>get_attack</code> och
+<code>get_defense</code> skall använda sig av <code>ProgMon</code>
+<code>get_attack</code> och <code>get_defense</code> men ska
+multiplicera styrkan med två om <code>Student</code> lärs, dvs om
+<code>is_learning</code> är <code class="python">True</code>. Du kan
+bestämma vad instansattributen <code>_attack</code> och
+<code>_defense</code> instansieras till i klassen själv.</p></li>
+<li><p>I uppgift 5 och 6 i implementerade vi en class <code>Dog</code>.
+Implementera en klass <code>Tournament</code> som</p>
+<ol style="list-style-type: decimal">
+<li>rankar hundarna baserat på antal tricks de kan, och</li>
+<li>skriver ut resultaten.</li>
+</ol>
+<p><em>Tips</em>: hämta inspiration från hur <code>HackerDojo</code>
+relaterar till <code>ProgMon</code>.</p></li>
+<li><p>Skriv en basklass <code>Vehicle</code>, som innehåller
+instansattributen <code>wheels</code>, <code>wings</code> och
+<code>sound</code>. Utöver detta ska <code>Vehicle</code>s metod
+<code>__str__</code> returnera en sträng med information om fordonet
+(hur många hjul, etc., fordonet har). Skapa tre subklasser
+<code>Car</code>, <code>Motorcycle</code> och <code>Plane</code> som
+alla ärver från <code>Vehicle</code>, men har rätt antal hjul/vingar och
+gör “rätt” ljud.</p>
+<p>Exempel-använding och output skulle vara:</p>
+<pre class="python"><code>car = Car()
+mc = Motorcycle()
+plane = Plane()
+print(car)
+print(mc)
+print(plane)</code></pre>
+<pre class="python"><code>A Car has:
+4 wheels
+and makes a AAARRRRRRRR! sound
+
+A Motorcycle has:
+2 wheels
+and makes a VROOM VROOM! sound
+
+A Plane has:
+2 wings
+and makes a WHOOSH! sound</code></pre></li>
+<li><p>Skriv en egen sträng-klass som “hanterar” subtraktion och
+division. Med <em>subtrahera</em> en sträng menar vi här att ta bort en
+delsträng, och <code>s1 - s2</code> innebär att den högraste förekomsten
+av <code>s2</code> i <code>s1</code> tas bort. Med <em>division</em>
+menas att alla förekomster av strängen till höger om <code>/</code>
+operatorn tas bort från huvudsträngen, dvs <code>s1 / s2</code> innebär
+att <em>alla</em> förekomster av <code>s2</code> tas bort från
+<code>s1</code>.</p>
+<p><em>Tips</em>: skapa en subklass <code>MyString</code> till
+<code>str</code>, och läs på om vilka privata metoder som behövs
+implementeras för <code>-</code> och <code>/</code>.</p>
+<p>Exempel: </p>
+<pre class="python"><code>s1 = MyString(&quot;This is my own string!&quot;)
+s2 = MyString(&quot;My, oh my, oh Oh.... oh&quot;)
+op1 = MyString(&#39;my&#39;)
+op2 = MyString(&#39;oh&#39;)
+print(s1 - op1)
+print(s1 / op2)
+print(s2 - op1)
+print(s2 / op2)
+print(s1 - &#39;hello&#39;)
+print(s1 / &#39;hello&#39;)</code></pre>
+<pre class="python"><code>This is  own string!
+This is my own string!
+My, oh , oh Oh.... oh
+My,  my,  Oh....
+This is my own string!
+This is my own string!</code></pre></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

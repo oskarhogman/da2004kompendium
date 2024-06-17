@@ -36,5 +36,6 @@ output:
   html_document:
     theme: flatly
     toc: yes
+    number_section: false
     toc_float:
-      collapsed: false
+      collapsed: true

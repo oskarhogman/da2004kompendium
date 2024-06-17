@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 9</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+<li>
+  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+</li>
+<li>
+  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+</li>
+<li>
+  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+</li>
+<li>
+  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+</li>
+<li>
+  <a href="kapitel8.html">8: Funktionell programmering</a>
+</li>
+<li>
+  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+</li>
+<li>
+  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+</li>
+<li>
+  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+</li>
+<li>
+  <a href="kapitel12.html">12: Defensiv programmering</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 9</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<div id="objektorientering" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Objektorientering</h1>
+<p>Objektorientering (förkortas OO) är ett programmeringsparadigm eller
+programmeringsstil där man samlar data och datastrukturer med de
+funktioner som kan tillämpas på dem. I Python är i princip allt
+implementerat som objekt. Detta gäller såväl heltal, flyttal, strängar,
+listor, uppslagstabeller som funktioner. Vad menas då med att knyta ihop
+datastrukturer med “funktioner som kan tillämpas på dem”? Ta till
+exempel listor:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImwgPSBbMiw3LDJdXG5wcmludChsLmFwcGVuZCgxKSkifQ==
+</div>
+<pre class="python"><code>[2, 7, 2, 1]</code></pre>
+I objektorienterade termer har vi på första raden skapat ett objekt
+<code>l</code> av typ <code>list</code>. Vi har på andra raden använt
+funktionen <code>append</code> som <em>är specifik</em> för datatypen
+<code>list</code>. I objektorientering benämner man funktioner som är
+knutna till objekt för <em>metoder</em>. De anropas med hjälp av
+punktnotationen <code>object.method(&lt;parameters&gt;)</code>. Det är
+en notation som du vid det här lagt kanske känner igen? Ta till exempel
+strängar och operationer vi gör på dem:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InMgPSAnSGVqJ1xucHJpbnQocy5sb3dlcigpKSJ9
+</div>
+<pre class="python"><code>hej</code></pre>
+<p>Här har vi skapat ett objekt <code>s</code> av typ <code>str</code>
+och använt metoden <code>lower</code> (specifik för datatypen
+<code>str</code>).</p>
+<div id="varför-objektorientering" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Varför
+objektorientering?</h2>
+<p>Objektorientering lämpar sig bra att använda när man vill:</p>
+<ul>
+<li>Knyta samman mycket data som relaterar till varandra (hör till samma
+objekt).</li>
+<li>Kunna definiera egna datatyper.</li>
+</ul>
+<p>Säg till exempel att vi vill hålla data associerat till en bil
+(kanske för ett datorspel) i minnet i ett program. Det kan vara
+däckbredd, färg, antal dörrar, nuvarande bensinnivå, hastighet, vinkel
+på framhjulen och en mängd annan data. Det skulle då vara smidigt att ha
+all data för denna bil “på ett ställe”. Om vi hade ett bil-objekt
+<code>b</code> skulle vi komma åt och kunna ändra alla <em>attribut</em>
+i detta objekt med</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImIudGlyZV93aWR0aCgpXG5iLmNvbG9yKClcbmIuaW5jcmVhc2Vfc3BlZWQoMikifQ==
+</div>
+<p>Det är naturligt att tänka på objekt som “fysiska ting” (t.ex. en
+bil), men det finns även naturliga objekt som vi inte kan ta på. Vi
+kommer strax visa hur vi implementerar en kurs (t.ex. DA2004) där vi kan
+samla användarinformation, resultat, med mera. Slutligen ska vi även
+titta på hur vi kan implementera vår egen datastruktur för att
+representera heltalsmängder.</p>
+<p>Två fördelar med att skriva objektorienterad kod är:</p>
+<ol style="list-style-type: decimal">
+<li><p>Det uppmuntrar god struktur genom att samla data och relaterad
+funktionalitet på samma ställe.</p></li>
+<li><p>Det är bra för abstraktion, eftersom det blir lättare att gömma
+detaljer.</p></li>
+</ol>
+</div>
+<div id="hur-skapas-objekt" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Hur skapas
+objekt?</h2>
+<p>Hur skriver vi då objektorienterad kod? För att skapa egna objekt
+(tänk till exempel på en bil eller en kurs som ett objekt) så måste vi
+ha en specifikation för objektets data, metoder och allmänna struktur.
+En sådan specifikation heter <em>klass</em> i objektorienteringens
+terminologi. Vi kan skapa en klass som paketerar data och funktionalitet
+(du kan tolka “klass” som “klassificering”, som minnestrick). En klass
+är att jämföra med en typ och ett objekt är en <em>instans</em> av en
+klass. Till exempel är <code class="python">[1,2,3]</code> en instans av
+klassen <code>list</code>. Varje instans kan ha olika <em>attribut</em>
+kopplade till den för att representera dess nuvarande tillstånd. Ett
+sätt att förstå attribut är att tänka på dem som ett objekts “egna”
+variabler. Instanser kan även ha <em>metoder</em>, att tänka på som
+funktioner definierade i klassen, för att modifiera dess tillstånd. Ett
+exempel på en metod för listor är <code>pop()</code>, som man kan
+tillämpa på ett objekt <code>xs</code> med <code>xs.pop()</code>.</p>
+<p>Vi har i kursen använt många exempel på klasser: heltal, listor,
+uppslagstabeller, med mera. Vi ska nu lära oss att skriva våra egna.</p>
+</div>
+<div id="att-definiera-en-klass" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Att definiera en
+klass</h2>
+<p>Ett minimalt exempel är för en tom klass:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIENvdXJzZTpcbiAgICBwYXNzIn0=
+</div>
+<p>Vi har döpt klassen till <code>Course</code>. Konventionen är att
+klassnamn börjar med stor bokstav.</p>
+<p>Klassdefinitionen ovan gör det möjligt att <em>instansiera</em>
+klassen till <em>objekt</em>. Man kan sedan knyta olika
+<em>attribut</em> till objektet.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImsgPSBDb3Vyc2UoKSAgICAgICAjIEFuIG9iamVjdCBpcyBjcmVhdGVkLCBhbiBpbnN0YW5jZSBvZiB0aGUgY2xhc3MgQ291cnNlXG5rLmNvZGUgPSAnREEyMDA0JyAgIyBBbiBhdHRyaWJ1dGUgaXMgYXNzaWduZWQgdG8gdGhlIG9iamVjdFxuazIgPSBDb3Vyc2UoKSAgICAgICMgQSBuZXcgb2JqZWN0IGlzIGNyZWF0ZWRcbnByaW50KGsuY29kZSkifQ==
+</div>
+<pre class="python"><code>DA2004</code></pre>
+<p>Om man försöker använda attributet <code>code</code> för objektet
+<code>k2</code> så får man ett felmeddelande eftersom vi inte har
+tillskrivit <code>k2</code> något sådant attribut:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGsyLmNvZGUpICMgVGhpcyBvYmplY3QgZG9lcyBub3QgaGF2ZSBhbiBhdHRyaWJ1dGUgXCJjb2RlXCIifQ==
+</div>
+<pre class="python"><code>AttributeError: &#39;Course&#39; object has no attribute &#39;code&#39;</code></pre>
+<p>Här är <code>code</code> alltså en variabel som tillhör
+objektet/instansen <code>k</code>. Vi kommer ofta säga “instansattribut”
+för denna typ av variabler.</p>
+</div>
+<div id="metoder" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Metoder</h2>
+<p>En <em>metod</em> är en funktion definierad i en klass. I
+<code>Course</code> (nedan) är alla <code
+class="python">def</code>-satser metoder. När man definierar metoder
+följer man samma konventioner som för funktioner, det vill säga
+identifierarna skrivs med små bokstäver och om man använder flera ord så
+separeras de med <code>_</code>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIENvdXJzZTpcblxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCBjb2RlLCBuYW1lLCB5ZWFyPTIwMjApOiAgICAgICAjIENvbnN0cnVjdG9yXG4gICAgICAgIHNlbGYucGFydGljaXBhbnRzID0gW11cbiAgICAgICAgc2VsZi5jb2RlID0gY29kZVxuICAgICAgICBzZWxmLm5hbWUgPSBuYW1lXG4gICAgICAgIHNlbGYueWVhciA9IHllYXJcblxuICAgIGRlZiBudW1iZXJfcGFydGljaXBhbnRzKHNlbGYpOlxuICAgICAgICByZXR1cm4gbGVuKHNlbGYucGFydGljaXBhbnRzKVxuXG4gICAgZGVmIG5ld19wYXJ0aWNpcGFudChzZWxmLCBuYW1lLCBlbWFpbCk6XG4gICAgICAgIHNlbGYucGFydGljaXBhbnRzLmFwcGVuZCgobmFtZSwgZW1haWwpKSJ9
+</div>
+<p>Ignorera identifieraren <code>self</code> en liten stund.</p>
+<p>Den första metoden, <code>__init__</code>, har en särställning och
+kallas <em>konstruktor</em>. En konstruktor är den metod som initierar
+ett nytt objekt. Konstruktorn anropas bara vid instansiering (alltså då
+vi skapar objektet). Metoder med identifierare på formen
+<code>__fkn__</code> används av Python-systemet, så man bör vara
+försiktig med hur dessa används. Konstruktorn heter alltid
+<code>__init__</code>, så när vi kör</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNCA9IENvdXJzZSgnREEyMDA0JywgJ1Byb2dyYW1tZXJpbmdzdGVrbmlrJykifQ==
+</div>
+<p>anropas konstruktormetoden <code>Course.__init__</code> och
+resultatet sparas i variabeln <code>da2004</code>. Objektet i
+<code>da2004</code> är då en <em>instans</em> av
+<code>Course</code>-klassen. Det är vidare endast <code>__init__</code>
+som anropas vid instansiering. De övriga metoderna finns tillgängliga
+att använda när vi anropar dem.</p>
+<p>Vi kan modifiera ett objekt genom att anropa dess metoder. Detta gör
+man genom punkt-notation (precis som vi använt <code>xs.pop()</code> och
+andra listmetoder för att modifiera listor).</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNC5uZXdfcGFydGljaXBhbnQoJ0pvaGFuIEphbnNzb24nLCAnai5qYW5zc29uQGV4ZW1wZWwuc2UnKVxucHJpbnQoZGEyMDA0Lm51bWJlcl9wYXJ0aWNpcGFudHMoKSkifQ==
+</div>
+<pre class="python"><code>1</code></pre>
+</div>
+<div id="self" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Self</h2>
+<p>Vad är då uttrycket <code class="python">self</code> som finns med
+framför alla attribut och som parametrar till metoder? Variabeln <code
+class="python">self</code> i <code>Course</code>-klassen representerar
+objektet som metoden anropas från (man måste inte kalla det argumentet
+för <code class="python">self</code>, men det är en konvention bland
+Python programmerare att göra så). I exemplet ovan refererar <code
+class="python">self</code> i <code>new_participant</code> till objektet
+<code>da2004</code>. Detta kan vara svårt att greppa när man först lär
+sig om klasser och objektorientering. Som illustration kan du tänka dig
+att raden</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNC5uZXdfcGFydGljaXBhbnQoJ0pvaGFuIEphbnNzb24nLCAnai5qYW5zc29uQGV4ZW1wZWwuc2UnKSJ9
+</div>
+<p>egentligen motsvarar:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IkNvdXJzZS5uZXdfcGFydGljaXBhbnQoZGEyMDA0LCAnSm9oYW4gSmFuc3NvbicsICdqLmphbnNzb25AZXhlbXBlbC5zZScpIn0=
+</div>
+<p>dvs att vi plockar fram metoden <code>new_participant</code> från
+klassen <code>Course</code> och i första parametern anger vilket objekt
+som ska användas.</p>
+<p><strong>Obs</strong>: Detta är inte korrekt syntax i Python, utan
+endast en illustration av konceptet att metoden
+<code>new_participant</code> tar objektet <code>da2004</code> som
+parameter för att kunna modifiera det.</p>
+</div>
+<div id="klass--och-instansattribut" class="section level2"
+number="1.6">
+<h2><span class="header-section-number">1.6</span> Klass- och
+instansattribut</h2>
+<p><em>Attribut</em> är ett annat sätt att benämna variabler som är
+specifika för objekt eller klasser. Det finns två olika typer av
+attribut; <em>instansattribut</em> och <em>klassattribut</em>. Generellt
+sett används <em>instansattribut</em> för att hålla data som är unik för
+varje instans (dvs, specifika för objektet) och <em>klassattribut</em>
+används för attribut och metoder som delas av alla instanser av
+klassen:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIENvdXJzZTpcblxuICAgIHVuaXZlcnNpdHkgPSAnU3RvY2tob2xtIFVuaXZlcnNpdHknICAjIGNsYXNzIGF0dHJpYnV0ZSBzaGFyZWQgYnkgYWxsIGluc3RhbmNlc1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICgxKSBPY2N1cnMgb3V0c2lkZSBvZiBjb25zdHJ1Y3RvclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICgyKSBIYXMgbm8gJ3NlbGYnLCBpLmUuLCBzcGVjaWZpYyBvYmplY3QsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgYXNzb2NpYXRlZCB0byBpdFxuXG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIGNvZGUsIG5hbWUsIHllYXI9MjAyMCk6XG4gICAgICAgICMgaW5zdGFuY2UgYXR0cmlidXRlcyBiZWxvdywgdW5pcXVlIHRvIGVhY2ggaW5zdGFuY2VcbiAgICAgICAgc2VsZi5wYXJ0aWNpcGFudHMgPSBbXVxuICAgICAgICBzZWxmLmNvZGUgPSBjb2RlXG4gICAgICAgIHNlbGYubmFtZSA9IG5hbWVcbiAgICAgICAgc2VsZi55ZWFyID0geWVhciJ9
+</div>
+<p>Exempelanvändning:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNCA9IENvdXJzZSgnREEyMDA0JywgJ1Byb2dyYW1tZXJpbmdzdGVrbmlrJylcbmRhMjAwNSA9IENvdXJzZSgnREEyMDA1JywgJ1Byb2dyYW1tZXJpbmdzdGVrbmlrIChvbmxpbmUgdmVyc2lvbiknLCB5ZWFyID0gMjAyMSlcblxucHJpbnQoZGEyMDA0LnVuaXZlcnNpdHkpICAgICAgICAgICAgICAgICAgICAgICAgICAjIHNoYXJlZCBieSBhbGwgY291cnNlc1xucHJpbnQoZGEyMDA1LnVuaXZlcnNpdHkpICAgICAgICAgICAgICAgICAgICAgICAgICAjIHNoYXJlZCBieSBhbGwgY291cnNlc1xucHJpbnQoZGEyMDA0LmNvZGUsIGRhMjAwNC55ZWFyLCBkYTIwMDQubmFtZSkgICAgICAjIHVuaXF1ZSB0byBkYTIwMDRcbnByaW50KGRhMjAwNS5jb2RlLCBkYTIwMDUueWVhciwgZGEyMDA1Lm5hbWUpICAgICAgIyB1bmlxdWUgdG8gZGEyMDA1XG5wcmludChDb3Vyc2UudW5pdmVyc2l0eSkgICAgICAgICAgICAgICAgICAgICAgICAgICMgeW91IGNhbiBhbHNvIGFjY2VzcyBhIGNsYXNzXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgYXR0cmlidXRlIGZyb20gdGhlIGNsYXNzIGl0c2VsZiJ9
+</div>
+<pre class="python"><code>Stockholm University
+Stockholm University
+DA2004 2020 Programmeringsteknik
+DA2005 2021 Programmeringsteknik (online version)
+Stockholm University</code></pre>
+<p>Vi kan även skriva över nuvarande värden på attribut genom</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNC55ZWFyID0gMjAyMVxucHJpbnQoZGEyMDA0LnllYXIpIn0=
+</div>
+<pre class="python"><code>2021</code></pre>
+<p>På samma sätt som vi ovan skrivit över instansattributet
+<code>year</code> i <code>da2004</code>, men inte i <code>da2005</code>,
+kan vi även skriva över metoder i ett objekt (kom ihåg att funktioner ej
+har någon särställning utan är som andra objekt i Python).</p>
+<p><strong>Varning</strong>: Muterbara data kan ha överraskande effekter
+om de används som klassattribut!</p>
+Om vi till exempel hade lagt listan <code>participants</code> som en
+klassvariabel kommer den delas av <em>alla</em> kurser:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIENvdXJzZTpcblxuICAgIHVuaXZlcnNpdHkgPSAnU3RvY2tob2xtIFVuaXZlcnNpdHknICAgIyBjbGFzcyBhdHRyaWJ1dGUgc2hhcmVkIGJ5IGFsbCBpbnN0YW5jZXNcbiAgICBwYXJ0aWNpcGFudHMgPSBbXSAgICAgICAgICAgICAgICAgICAgICMgY2xhc3MgYXR0cmlidXRlIHNoYXJlZCBieSBhbGwgaW5zdGFuY2VzXG5cbiAgICBkZWYgX19pbml0X18oc2VsZiwgY29kZSwgbmFtZSwgeWVhcj0yMDIwKTpcbiAgICAgICAgIyBpbnN0YW5jZSBhdHRyaWJ1dGVzIGJlbG93LCB1bmlxdWUgdG8gZWFjaCBpbnN0YW5jZVxuICAgICAgICBzZWxmLmNvZGUgPSBjb2RlXG4gICAgICAgIHNlbGYubmFtZSA9IG5hbWVcbiAgICAgICAgc2VsZi55ZWFyID0geWVhclxuXG4gICAgZGVmIG5ld19wYXJ0aWNpcGFudChzZWxmLCBuYW1lLCBlbWFpbCk6XG4gICAgICAgIHNlbGYucGFydGljaXBhbnRzLmFwcGVuZCgobmFtZSwgZW1haWwpKVxuXG5kID0gQ291cnNlKCdkYTIwMDQnLCAnUHJvZ3JhbW1lcmluZ3N0ZWtuaWsnKVxuZSA9IENvdXJzZSgnZGEyMDA1JywgJ1Byb2dyYW1tZXJpbmdzdGVrbmlrIChvbmxpbmUgdmVyc2lvbiknKVxuXG5kLm5ld19wYXJ0aWNpcGFudCgnSm9oYW4gSmFuc3NvbicsICdqLmphbnNzb25AZXhlbXBlbC5zZScpXG5wcmludChkLnBhcnRpY2lwYW50cykgICAgICAgICAgICAgICAgICAjIHNoYXJlZCBieSBhbGwgY291cnNlc1xucHJpbnQoZS5wYXJ0aWNpcGFudHMpICAgICAgICAgICAgICAgICAgIyBzaGFyZWQgYnkgYWxsIGNvdXJzZXMifQ==
+</div>
+<pre class="python"><code>[(&#39;Johan Jansson&#39;, &#39;j.jansson@exempel.se&#39;)]
+[(&#39;Johan Jansson&#39;, &#39;j.jansson@exempel.se&#39;)]</code></pre>
+</div>
+<div id="privata-och-publika-metoder-och-attribut"
+class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> Privata och publika
+metoder och attribut</h2>
+<p>I objektorienterad programmering skiljer man ofta på <em>privata</em>
+och <em>publika</em> metoder och attribut. De publika metoderna utgör
+<em>gränssnittet</em> (eng. <em>interface</em>) för en klass och är de
+metoder som användare av klassen ska använda. De privata metoderna och
+attributen är för internt bruk. I många programmeringsspråk finns det
+stöd för att kontrollera åtkomst av metoder och attribut så att man inte
+av misstag börjar förlita sig på annat än klassens gränssnitt. På detta
+sätt uppnår man <em>abstraktion</em><a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a> med hjälp av objektorientering:</p>
+<p>Python fokuserar på enkelhet och har istället en konvention:
+identifierare för attribut/metoder som börjar med understreck
+<code>_</code> <em>ses som privata</em>. De bör alltså bara användas
+internt.</p>
+<p>Vi har nedan lagt till en privat metod <code>_check_duplicate</code>
+i vårt kursexempel. Det är vanligt att studenter registrerar sig med
+olika email-adresser. Metoden kontrollerar om identiska namn förekommer
+i deltagarlistan när vi lägger till en deltagare och skriver i så fall
+ut en varning. Vi kan då vidta lämpliga åtgärder (t.ex. implementera en
+metod <code>remove_participant</code> för att ta bort dubbla
+deltagare).</p>
+
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCB3YXJuaW5ncyAgIyBpbmNsdWRlZCBpbiBQeXRob24ncyBzdGFuZGFyZCBsaWJyYXJ5XG5cbmNsYXNzIENvdXJzZTpcblxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCBjb2RlLCBuYW1lLCB5ZWFyPTIwMjApOiAgICAgICAjIENvbnN0cnVjdG9yXG4gICAgICAgIHNlbGYucGFydGljaXBhbnRzID0gW11cbiAgICAgICAgc2VsZi5jb2RlID0gY29kZVxuICAgICAgICBzZWxmLm5hbWUgPSBuYW1lXG4gICAgICAgIHNlbGYueWVhciA9IHllYXJcblxuICAgIGRlZiBfY2hlY2tfZHVwbGljYXRlKHNlbGYsIG5hbWUsIGVtYWlsKTpcbiAgICAgICAgZm9yIHAgaW4gc2VsZi5wYXJ0aWNpcGFudHM6XG4gICAgICAgICAgICBpZiBuYW1lID09IHBbMF06ICMgY2hlY2sgaWYgaWRlbnRpY2FsIG5hbWVcbiAgICAgICAgICAgICAgICAjIHJhaXNlIHdhcm5pbmcgYW5kIHByaW50IG1lc3NhZ2UgaWYgaWRlbnRpY2FsIG5hbWU6XG4gICAgICAgICAgICAgICAgIyB1c2VzIHN0cmluZyBmb3JtYXR0aW5nLCBzZWUgZS5nLjpcbiAgICAgICAgICAgICAgICAjIGh0dHBzOi8vd3d3Lnczc2Nob29scy5jb20vcHl0aG9uL3JlZl9zdHJpbmdfZm9ybWF0LmFzcFxuICAgICAgICAgICAgICAgIHdhcm5pbmdzLndhcm4oXG4gICAgICAgICAgICAgICAgICAgICdXYXJuaW5nOiBOYW1lIGFscmVhZHkgZXhpc3RzIHVuZGVyIGVudHJ5OiB7MH0nLmZvcm1hdChwKSlcblxuICAgIGRlZiBudW1iZXJfcGFydGljaXBhbnRzKHNlbGYpOlxuICAgICAgICByZXR1cm4gbGVuKHNlbGYucGFydGljaXBhbnRzKVxuXG4gICAgZGVmIG5ld19wYXJ0aWNpcGFudChzZWxmLCBuYW1lLCBlbWFpbCk6XG4gICAgICAgIHNlbGYuX2NoZWNrX2R1cGxpY2F0ZShuYW1lLCBlbWFpbClcbiAgICAgICAgc2VsZi5wYXJ0aWNpcGFudHMuYXBwZW5kKChuYW1lLCBlbWFpbCkpIn0=
+</div>
+<p>Vi kan nu se vad som händer om vi registrerar studenter med samma
+namn:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNCA9IENvdXJzZSgnREEyMDA0JywgJ1Byb2dyYW1tZXJpbmdzdGVrbmlrJylcbmRhMjAwNC5uZXdfcGFydGljaXBhbnQoJ0pvaGFuIEphbnNzb24nLCAnai5qYW5zc29uQGV4ZW1wZWwuc2UnKVxuZGEyMDA0Lm5ld19wYXJ0aWNpcGFudCgnSm9oYW4gSmFuc3NvbicsICdqLmphbnNzb25AZ21haWwuY29tJykifQ==
+</div>
+<p>Den tredje raden kommer att generera en “varning” som skrivs ut</p>
+<pre class="python"><code>UserWarning: Warning: Name already exists under entry:
+    (&#39;Johan Jansson&#39;, &#39;j.jansson@exempel.se&#39;)</code></pre>
+<p>I detta exempel används metoden <code>_check_duplicate</code> för
+internt bruk i klassen <code>Course</code>. Det är alltså inte tänkt att
+användaren av klassen ska anropa denna metod. Metoden är inte med i
+<em>gränssnittet</em> och ökar således inte storleken (komplexiteten i
+användning) av vår klass. Syftet med privata metoder är att kunna
+definiera metoder som är praktiska att använda internt i klassen, men
+som man vet kan vara olämpliga eller ologiska som gränssnittsmetod. I
+exemplet ovan är det en praktiskt hjälpmetod med användbar
+funktionalitet när vi lägger till deltagare. Notera att även om det är
+markerat med <code>_</code> att metoden är privat, så kan vi fortfarande
+anropa den med följande explicita metodanrop,</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhMjAwNC5fY2hlY2tfZHVwbGljYXRlKCdKb2hhbiBKYW5zc29uJywgJ2ouamFuc3NvbkBleGVtcGVsLnNlJykifQ==
+</div>
+<p>men det betraktas som dålig programmering.</p>
+</div>
+<div id="ordlista" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> Ordlista</h2>
+<ul>
+<li><em>Objekt</em>: ett element av någon typ med olika attribut och
+metoder.</li>
+<li><em>Klass</em>: en typ innehållande attribut och metoder (t.ex.
+<code>list</code>, <code>dict</code>, <code>Course</code> från exemplet
+ovan, etc.).</li>
+<li><em>Instansiering</em>: då ett objekt skapas från en viss
+klass.</li>
+<li><em>Metod</em>: en funktion <code class="python">def</code>inierad i
+en klass (ex. <code>pop</code>, <code>insert</code>).</li>
+<li><em>Konstruktor</em>: metod för att instansiera ett objekt av
+klassen (ex. <code>dict()</code>). Varje klass har en konstruktor <code
+class="python">__init__</code> som antingen är implicit eller explicit
+definierad.</li>
+<li><em>Klassattribut</em>: variabel definierad utanför konstruktorn i
+en klass (delas av alla instanser av klassen).</li>
+<li><em>Instansattribut</em>: variabel definierad i konstruktorn för
+klassen (eller satt med <code class="python">self</code> i klassen).
+Tillhör en specifik instans av klassen.</li>
+</ul>
+</div>
+</div>
+<div id="modularitet-genom-objektorientering" class="section level1"
+number="2">
+<h1><span class="header-section-number">2</span> Modularitet genom
+objektorientering</h1>
+<p>I exemplet <code>Course</code> ovan har vi använt en lista med tupler
+för att representera deltagarlistan <code>participants</code>. En mer
+objektorienterad lösning hade varit att ha en separat klass för
+deltagare:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFBhcnRpY2lwYW50OlxuXG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIG5hbWUsIGVtYWlsKTpcbiAgICAgICAgc2VsZi5fbmFtZSA9IG5hbWVcbiAgICAgICAgc2VsZi5fZW1haWwgPSBlbWFpbFxuXG4gICAgZGVmIG5hbWUoc2VsZik6XG4gICAgICAgIHJldHVybiBzZWxmLl9uYW1lXG5cbiAgICBkZWYgZW1haWwoc2VsZik6XG4gICAgICAgIHJldHVybiBzZWxmLl9lbWFpbCJ9
+</div>
+<p>Vi måste nu modifiera metoderna i <code>Course</code> så att de
+hanterar deltagare representerade som <code>Participant</code> istället
+för tupler av strängar. Exempelvis:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIENvdXJzZTpcblxuICAgICMgb2xkIGNvZGUgdW5jaGFuZ2VkLCBleGNlcHQgZm9yIF9jaGVja19kdXBsaWNhdGUgd2hpY2hcbiAgICAjIGhhcyB0byBiZSBtb2RpZmllZCB0byB0YWtlIGEgUGFydGljaXBhbnRcblxuICAgIGRlZiBuZXdfcGFydGljaXBhbnQoc2VsZiwgcCk6XG4gICAgICAgIHNlbGYuX2NoZWNrX2R1cGxpY2F0ZShzZWxmLCBwKVxuICAgICAgICBzZWxmLnBhcnRpY2lwYW50cy5hcHBlbmQocCkifQ==
+</div>
+<p>Vi måste nu skapa deltagare genom:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImQgPSBQYXJ0aWNpcGFudCgnSm9oYW4gSmFuc3NvbicsICdqLmphbnNzb25AZXhlbXBlbC5zZScpXG5kYTIwMDQubmV3X3BhcnRpY2lwYW50KGQpXG5kYTIwMDQubmV3X3BhcnRpY2lwYW50KFBhcnRpY2lwYW50KCdGb28gQmFyJywgJ2Zvb0BiYXIuY29tJykpIn0=
+</div>
+<p>Det kan tyckas konstigt att skriva om sin kod så här, men fördelen är
+att eventuella framtida förändringar kommer bli mindre komplexa.
+Exempelvis, låt oss säga att vi vill separera förnamn och efternamn för
+deltagare. Då räcker det att skriva:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFBhcnRpY2lwYW50OlxuXG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIGZuYW1lLCBsbmFtZSwgZW1haWwpOiAgICAgICAjIENoYW5nZWQhXG4gICAgICAgIHNlbGYuX2ZuYW1lID0gZm5hbWUgICAgICAgICAgICAgICAgICAgICAgICAjIENoYW5nZWQhXG4gICAgICAgIHNlbGYuX2xuYW1lID0gbG5hbWUgICAgICAgICAgICAgICAgICAgICAgICAjIENoYW5nZWQhXG4gICAgICAgIHNlbGYuX2VtYWlsID0gZW1haWxcblxuICAgIGRlZiBuYW1lKHNlbGYpOlxuICAgICAgICByZXR1cm4gc2VsZi5fZm5hbWUgKyAnICcgKyBzZWxmLl9sbmFtZSAgICAgIyBDaGFuZ2VkIVxuXG4gICAgZGVmIGVtYWlsKHNlbGYpOlxuICAgICAgICByZXR1cm4gc2VsZi5fZW1haWwifQ==
+</div>
+<p>Koden för <code>Course</code> behöver inte alls ändras eftersom den
+bara använder <code>Participant</code>-gränssnittet. På detta sätt leder
+objektorientering till mer modulär kod, dvs varje klass kan ses som en
+liten kodmodul i sig och interna modifikationer påverkar ingen annan kod
+i programmet så länge gränssnittet är oförändrat.</p>
+</div>
+<div id="ett-till-exempel-på-objektorientering-talmängder"
+class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Ett till exempel på
+objektorientering: talmängder</h1>
+<p>Python har en typ för mängder, liknande uppslagstabeller, men
+nycklarna är inte associerade med några värden. För dokumentation
+se:</p>
+<p><a href="https://docs.python.org/3/tutorial/datastructures.html#sets"
+class="uri">https://docs.python.org/3/tutorial/datastructures.html#sets</a></p>
+<p><a
+href="https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset"
+class="uri">https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset</a></p>
+<p>Syntaxen för att skapa en mängd (<code class="python">set</code>)
+liknar den för listor, men med <code>{}</code> istället för
+<code>[]</code>. Några exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImJhc2tldCA9IHNldChbJ2FwcGxlJywgJ2JhbmFuYScsICdvcmFuZ2UnLCAncGVhciddKVxuIyB0aGUgYWJvdmUgaXMgZXF1aXZhbGVudCB0b1xuYmFza2V0ID0geydhcHBsZScsICdvcmFuZ2UnLCAnYXBwbGUnLCAncGVhcicsICdvcmFuZ2UnLCAnYmFuYW5hJ31cbnByaW50KGJhc2tldClcbnByaW50KCdvcmFuZ2UnIGluIGJhc2tldClcbnByaW50KCdjcmFiZ3Jhc3MnIGluIGJhc2tldClcblxuYSA9IHNldChbMSwyLDVdKVxuYiA9IHNldChbMyw1XSlcbnByaW50KGEpXG5wcmludChhIC0gYikgICMgZGlmZmVyZW5jZVxucHJpbnQoYSB8IGIpICAjIHVuaW9uXG5wcmludChhICYgYikgICMgaW50ZXJzZWN0aW9uXG5wcmludChhIF4gYikgICMgbnVtYmVycyBpbiBhIG9yIGIgYnV0IG5vdCBib3RoIn0=
+</div>
+<pre class="python"><code>{&#39;pear&#39;, &#39;apple&#39;, &#39;orange&#39;, &#39;banana&#39;}
+True
+False
+{1, 2, 5}
+{1, 2}
+{1, 2, 3, 5}
+{5}
+{1, 2, 3}</code></pre>
+<div id="egen-implementation" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Egen
+implementation</h2>
+<p>Här kommer ett till större exempel taget från kursboken (Introduction
+to Computation and Programming using Python av John V Guttag, sida 111),
+där vi implementerar vår egen mängd-datatyp <code>IntSet</code> med
+hjälp av listor. Vi kan representera mängder av heltal som listor, med
+invarianten (en garanterad egenskap) att det inte finns några
+dubletter.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEludFNldDpcbiAgICAnJydBbiBJbnRTZXQgaXMgYSBzZXQgb2YgaW50ZWdlcnMnJydcblxuICAgIGRlZiBfX2luaXRfXyhzZWxmKTpcbiAgICAgICAgJycnQ3JlYXRlIGFuIGVtcHR5IHNldCBvZiBpbnRlZ2VycycnJ1xuICAgICAgICBzZWxmLnZhbHMgPSBbXVxuXG4gICAgZGVmIGluc2VydChzZWxmLGUpOlxuICAgICAgICAnJydBc3N1bWVzIGUgaXMgYW4gaW50ZWdlciBhbmQgaW5zZXJ0cyBlIGludG8gc2VsZicnJ1xuICAgICAgICBpZiBlIG5vdCBpbiBzZWxmLnZhbHM6XG4gICAgICAgICAgICBzZWxmLnZhbHMuYXBwZW5kKGUpXG5cbiAgICBkZWYgbWVtYmVyKHNlbGYsZSk6XG4gICAgICAgICcnJ0Fzc3VtZXMgZSBpcyBhbiBpbnRlZ2VyLlxuICAgICAgICAgICBSZXR1cm5zIFRydWUgaWYgZSBpcyBpbiBzZWxmLCBhbmQgRmFsc2Ugb3RoZXJ3aXNlJycnXG4gICAgICAgIHJldHVybiBlIGluIHNlbGYudmFsc1xuXG4gICAgZGVmIGRlbGV0ZShzZWxmLGUpOlxuICAgICAgICAnJydBc3N1bWVzIGUgaXMgYW4gaW50ZWdlciBhbmQgcmVtb3ZlcyBlIGZyb20gc2VsZlxuICAgICAgICAgICBSYWlzZXMgVmFsdWVFcnJvciBpZiBlIGlzIG5vdCBpbiBzZWxmJycnXG4gICAgICAgIHRyeTpcbiAgICAgICAgICAgIHNlbGYudmFscy5yZW1vdmUoZSlcbiAgICAgICAgZXhjZXB0OlxuICAgICAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihzdHIoZSkgKyAnIG5vdCBmb3VuZCcpXG5cbiAgICBkZWYgZ2V0X21lbWJlcnMoc2VsZik6XG4gICAgICAgICcnJ1JldHVybnMgYSBsaXN0IGNvbnRhaW5pbmcgdGhlIGVsZW1lbnRzIG9mIHNlbGYuXG4gICAgICAgICAgIE5vdGhpbmcgY2FuIGJlIGFzc3VtZWQgYWJvdXQgdGhlIG9yZGVyIG9mIHRoZSBlbGVtZW50cycnJ1xuICAgICAgICByZXR1cm4gc2VsZi52YWxzIn0=
+</div>
+<p>Vi bibehåller <em>invarianten</em> att ett <code>IntSet</code> ej
+innehåller några dubletter i alla funktioner.</p>
+<p>Lite tester:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBJbnRTZXQoKVxucHJpbnQoeClcbnguaW5zZXJ0KDIpXG54Lmluc2VydCgzKVxueC5pbnNlcnQoMilcbnByaW50KHgpXG5wcmludCh4Lm1lbWJlcig1KSlcbnByaW50KHgubWVtYmVyKDMpKVxueC5kZWxldGUoMilcbnByaW50KHguZ2V0X21lbWJlcnMoKSkifQ==
+</div>
+<pre class="python"><code>&lt;__main__.IntSet object at 0x7febb7002040&gt;
+&lt;__main__.IntSet object at 0x7febb7002040&gt;
+False
+True
+[3]</code></pre>
+<p>De två första <code>print</code>-anropen skriver ut information om
+objektet; var det är definierat och på vilken minnesadress det sparats
+på. Om man kör denna kodsnutt igen kommer troligtvis objektet ligga på
+ett annat ställe i minnet.</p>
+</div>
+<div id="integrera-din-klass-i-python-systemet" class="section level2"
+number="3.2">
+<h2><span class="header-section-number">3.2</span> Integrera din klass i
+Python-systemet</h2>
+<p>Visst vore det bra att kunna lägga till egna datastrukturer som är
+lika integrerade i Python-systemet som <code>list</code>,
+<code>dict</code>, <code>set</code>, och så vidare? Det är möjligt och
+till och med att betrakta som god programmering. Det man skulle behöva
+är att metoder som Python tillåter på inbyggda objekt/klasser också är
+tillämpbara på dina egna klasser. Här beskriver vi hur.</p>
+<div id="str-len-och-andra-anpassningar" class="section level3"
+number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> <code>str</code>,
+<code>len</code> och andra anpassningar</h3>
+<p>Vi kan lägga till metoder <code class="python">__str__(self)</code>
+och <code class="python">__len__(self)</code> som gör att vi kan använda
+oss av Python-systemets syntax <code>str()</code>, och
+<code>len()</code>. Se <a
+href="https://docs.python.org/3/reference/datamodel.html#object.__str__"
+class="uri">https://docs.python.org/3/reference/datamodel.html#object.__str__</a>
+och <a
+href="https://docs.python.org/3/reference/datamodel.html#object.__len__"
+class="uri">https://docs.python.org/3/reference/datamodel.html#object.__len__</a>.
+På detta sätt kan vi få mängder att skrivas ut snyggare än ovan och ett
+exempel på hur <code class="python">__str__</code> metoden kan se ut
+är</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IiAgICBkZWYgX19zdHJfXyhzZWxmKTpcbiAgICAgICAgcmVzdWx0ID0gJydcbiAgICAgICAgZm9yIGUgaW4gc2VsZi52YWxzOlxuICAgICAgICAgICAgcmVzdWx0ICs9IHN0cihlKSArICcsJ1xuICAgICAgICByZXR1cm4gJ3snICsgcmVzdWx0WzotMV0gKyAnfScifQ==
+</div>
+<p>Detta gör att följande skrivs ut istället:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBJbnRTZXQoKVxucHJpbnQoeClcbnguaW5zZXJ0KDIpXG54Lmluc2VydCgzKVxueC5pbnNlcnQoMilcbnByaW50KHgpIn0=
+</div>
+<pre class="python"><code>{}
+{2,3}</code></pre>
+</div>
+<div id="integrering-av-jämförelseoperatorer" class="section level3"
+number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Integrering av
+jämförelseoperatorer</h3>
+<p>Låt oss säga att vi vill kunna jämföra <code>IntSet</code> med
+<code>&lt;=</code> och att <code>x &lt;= y</code> ska tolkas som att
+“<code>x</code> är en delmängd till <code>y</code>”. Då kan vi lägga
+till följande metod till <code>IntSet</code> klassen:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IiAgICBkZWYgX19sZV9fKHNlbGYsb3RoZXIpOlxuICAgICAgICBmb3IgeCBpbiBzZWxmLnZhbHM6XG4gICAgICAgICAgICBpZiBub3Qgb3RoZXIubWVtYmVyKHgpOlxuICAgICAgICAgICAgICAgIHJldHVybiBGYWxzZVxuICAgICAgICByZXR1cm4gVHJ1ZSJ9
+</div>
+<p>Med tester:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KHggPD0geClcbmVtcHR5ID0gSW50U2V0KClcbnByaW50KGVtcHR5IDw9IHgpXG5wcmludCh4IDw9IGVtcHR5KSJ9
+</div>
+<pre class="python"><code>True
+True
+False</code></pre>
+<p>Vi kan på detta sätt definiera de olika standardoperationerna i
+Python (<code>+</code>, <code>&lt;</code>, <code>=</code>, …) för våra
+egna klasser. Vi kan även <em>operatoröverlagra</em> andra operatorer
+som <code class="python">in</code>, <code class="python">and</code> med
+flera. För dokumentation kring namn på standardoperationer för metoder
+se <a href="https://docs.python.org/3/library/operator.html"
+class="uri">https://docs.python.org/3/library/operator.html</a>. Till
+exempel kan vi döpa om metoden <code>member</code> i vår
+<code>IntSet</code>-klass till <code class="python">__contains__</code>.
+Då kan vi använda oss av operatorn <code class="python">in</code> och
+skriva <code class="python">5 in x</code> istället för att skriva
+<code>x.member(5)</code>.</p>
+</div>
+</div>
+</div>
+<div id="uppgifter" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Utöka klasserna <code>Course</code> och <code>Participant</code>
+med metoden <code class="python">__str__</code> så att vi kan använda
+oss av <code>str()</code> för att få en fin textrepresentation av objekt
+från de klasserna. Du kan använda dig av exempelkoden nedan (i avsnitt
+<span class="math inline">\(\ref{ex:uppgiftkod}\)</span>). Det är
+valfritt hur strängen ser ut, men kurskod och kursnamn ska synas för
+<code>Course</code>-objekt och namn och email ska förekomma i
+<code>Participant</code>-objekt.</p></li>
+<li><p>Lägg till attributen <code>teacher</code> av typ
+<code>bool</code> till klassen <code>Participant</code>. Skriv ut
+lärarens namn på något speciellt sätt så att man från
+<code>Participant</code>-listan ser vem det är.</p></li>
+<li><p>Lägg till metoder så att operatorerna <code>==</code> och
+<code>!=</code> finns för klassen <code>IntSet</code>. Operatorn
+<code>==</code> ska returnera <code class="python">True</code> om
+mängderna innehåller samma element, annars <code
+class="python">False</code>. Operatorn <code>!=</code> är negationen
+(logiska motsatsen) av <code>==</code>.</p>
+<p><em>Tips</em>: läs dokumentationen <a
+href="https://docs.python.org/3/library/operator.html"
+class="uri">https://docs.python.org/3/library/operator.html</a>.</p></li>
+<li><p>Implementera union, differens och snitt för <code>IntSet</code>.
+Snitt kan du implementera på valfritt sätt, men implementera union genom
+att operatoröverlagra <code>+</code> och differens genom att
+operatoröverlagra <code>-</code>. Metoderna skall returnera ett nytt
+<code>IntSet</code> objekt. Till exempel:</p>
+<pre class="python"><code>x = IntSet()
+x.insert(2)
+x.insert(3)
+x.insert(1)
+
+y = IntSet()
+y.insert(2)
+y.insert(3)
+y.insert(4)
+print(x == y, y != x)
+print(x.intersection(y))
+print(x + y, y - x)</code></pre>
+<pre class="python"><code>False True
+{2,3}
+{4,2,3,1} {4}</code></pre></li>
+<li><p>Implementera en klass <code>Dog</code> med funktionalitet som
+möjliggör gränssnittet nedan.</p>
+<pre class="python"><code>d = Dog(&#39;Fido&#39;)
+e = Dog(&#39;Buddy&#39;)
+d.add_trick(&#39;roll over&#39;)
+e.add_trick(&#39;play dead&#39;)
+d.add_trick(&#39;shake hands&#39;)
+print(d.name, d.tricks)
+print(e.name, e.tricks)</code></pre>
+<pre class="python"><code>Fido [&#39;roll over&#39;, &#39;shake hands&#39;]
+Buddy [&#39;play dead&#39;]</code></pre></li>
+<li><p>Implementera metoderna <code class="python">__str__</code> och
+<code class="python">__gt__</code> i klassen <code>Dog</code> så vi kan
+skriva <code>str(d)</code> och jämföra <code>d &gt; e</code> (
+<code>&gt;</code> baseras på hur många trick de kan). Exempel nedan
+(givet koden vi körde i uppgift 5)</p>
+<pre class="python"><code>print(str(d))
+print(d &gt; e)</code></pre>
+<pre class="python"><code>Fido knows: roll over, shake hands
+True</code></pre></li>
+</ol>
+<div id="exempelkod-för-uppgifterna" class="section level2"
+number="4.1">
+<h2><span class="header-section-number">4.1</span> Exempelkod för
+uppgifterna</h2>
+<p></p>
+<pre class="python"><code>import warnings  # included in Python&#39;s standard library
+
+class Course:
+
+    def __init__(self, code, name, year=2020):       # Constructor
+        self.participants = []
+        self.code = code
+        self.name = name
+        self.year = year
+
+    def _check_duplicate(self, p):
+        for other in self.participants:
+            if p.name() == other.name(): # check if identical name
+                # raise warning and print message if identical name:
+                warnings.warn(f&#39;Name already exists under entry:&#39; + str(p))
+
+    def number_participants(self):
+        return len(self.participants)
+
+    def new_participant(self, p):
+        self._check_duplicate(p)
+        self.participants.append(p)
+
+
+class Participant:
+
+    def __init__(self, fname, lname, email): 
+        self._fname = fname 
+        self._lname = lname 
+        self._email = email
+
+    def name(self):
+        return self._fname + &#39; &#39; + self._lname
+
+    def email(self):
+        return self._email</code></pre>
+</div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p><a
+href="https://en.wikipedia.org/wiki/Abstraction_(computer_science)#Abstraction_in_object_oriented_programming">Wikipedia:
+Abstraction_in_object_oriented_programming</a>.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
