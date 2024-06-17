@@ -4,5 +4,7 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Kapitel 1"
+      href: kapitel1.htlm
       
 output_dir: 'docs'
