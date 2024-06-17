@@ -1,0 +1,22 @@
+---
+title: "Preface"
+output: html_document
+date: "2024-06-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\chapter*{Förord}
+
+
+Det är många som hjälpt oss med att påpeka misstag och förbättra texten. 
+Särskilda insatser har gjorts av
+
+* Rikard Erngren
+* Samuel Lundqvist
+* Evan Cavallo, som översatt till engelska!
+* Lars Lidvall
+
+Tack alla!

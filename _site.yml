@@ -1,0 +1,8 @@
+name: "DA2004 Kompendium"
+navbar:
+  title: "DA2004 Programmersteknik"
+  left:
+    - text: "Home"
+      href: index.html
+      
+output_dir: 'docs'
