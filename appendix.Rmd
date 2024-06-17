@@ -1,0 +1,1873 @@
+---
+title: "Appendix"
+output: html_document
+date: "2024-06-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, include=FALSE}
+tutorial::go_interactive()
+```
+
+\appendix
+\chapter{Exempellösningar}
+\pyin
+
+# Kapitel 1
+
+1.  `x` och `y` byter värde
+
+2. T.ex.  `(x - y - y) ** 2`
+
+3. `s * 16`
+
+4. T.ex.:
+
+    ```python
+    s = 'hej'
+    s2 = s+s
+    s4 = s2+s2
+    s8 = s4+s4
+    s16= s8+s8
+    print(s16)
+    ```
+
+5. T.ex.:
+
+    ```python
+    name = input("Vad heter du i förnamn?")
+    surname = input("Vad heter du i efternamn?")
+    print("Hej " + name + " " + surname)
+    ```
+
+6.  Talen konkateneras då de är strängar. För att addera talen,
+    konvertera strängarna till heltal:
+
+    ```python
+    age = int(input("Ålder? "))
+    num = int(input("Favorittal? "))
+    print(age + num)
+    ```
+
+\pyin
+\newpage
+
+# Kapitel 2
+
+
+1. b, c
+
+2. T.ex.:
+
+    ```python
+    num = int(input("Enter an integer: "))
+    if num % 2:
+        print("Odd")
+    else:
+        print("Even")
+    ```
+
+3.
+
+x        y         x `and` y          x `or` y
+------   -------   --------------     --------------
+`True`   `True`    `True`             `True`
+`True`   `False`   `False`            `True`
+`False`  `True`    `False`            `True`
+`False`  `False`   `False`            `False`
+
+
+4.  Ett exempel:
+
+    ```python
+    x = True
+    y = False
+    z = False
+    ```
+    ger
+
+    \pyout
+
+    ```python
+    True
+    False
+    True
+    False
+    ```
+
+5. T.ex.:
+
+    \pyin
+
+    ```python
+    def division(x, y):
+        if x == 0 and y == 0:
+            print("Indeterminate form....")
+        elif y == 0:
+            print("The result is infinite...")
+        else:
+            return x/y
+    ```
+
+6. Alla utom det första:
+
+    \pyout
+
+    ```python
+    False
+    True
+    True
+    True
+    ```
+
+7. T.ex.:
+
+    \pyin
+
+    ```python
+    def nand(x, y):
+        return not (x and y)
+
+    def nor(x, y):
+        return (not x) and (not y)
+
+    def xnor(x, y):
+        return ((not x and not y) or (x and y))
+
+    # alternativ xnor
+    def xnor(x, y):
+        return (x==y)
+```
+
+8.  Om funktionerna är definierade som ovan, så ger t.ex.
+
+    ```python
+    xnor(47, 33)
+    ```
+    
+    \pyout
+    ```python
+    33
+    ```
+    vilket kanske man inte förväntar sig. Eftersom både `47` och `33` är sanna kanske man kan vänta sig att svaret ska bli `True`, men det stämmer inte pga att argumenten inte är av typ `bool`.
+   
+\pyin
+\newpage
+
+# Kapitel 3
+
+
+1. Listan `[1, 2, 'a', 'b']`.
+
+2.  Otillåtet att jämföra tex strängar och flyttal eller heltal
+
+    ```python
+    TypeError: '<' not supported between instances of 'str' and 'int'
+    ```
+
+3. T.ex:
+
+    ```python
+    def vowels(s):
+        vs = "AEIOUYaeiouy"
+        out = ""
+        for v in s:
+            if v in vs:
+                out += v
+        return out
+    ```
+
+4.  Ändra först testet i `if` satsen till att använda `not in`. Sen
+    kan ni skriva:
+
+    \pyin
+    ```python
+    def vowels_or_consonants(s, save='v'):
+        vs = "AEIOUYaeiouy"
+        out = ""
+
+        if save != 'c' and save != 'v':
+            print("illegal argument to save")
+            # Here we should raise an error, more about this later
+            return None
+
+        for v in s:
+            if save == 'v' and v in vs:
+                out += v
+            elif save == 'c' and v not in vs:
+                out += v
+
+        return out
+   ```
+
+5.  Om vi inte har blocket
+
+    \pyin
+    ```python
+    if term != '':
+        out.append(term)
+    ```
+
+    så läggs inte sista ordet in om strängen inte slutar med
+    mellanslag. Om vi inte har `if term != ''` utan låter
+    `out.append(term)` vara på indenteringsnivå 1 så läggs en tom
+    sträng till i slutet om strängen slutar på mellanslag. Notera även
+    att `split` endast hanterar ett mellanslag, så det blir även fel
+    om vi har flera mellanslag i rad. Vi kan fixa till det genom att
+    även testa om `term` är tom i loopen:
+
+    ```python
+    def split(s):
+        out = []
+        term = ""
+
+        for c in s:
+            if c == " ":
+                # do not add term if empty
+                if term != '':
+                    out.append(term)
+                    term = ''
+            else:
+                term += c
+
+        # add the final word unless it is empty
+        if term != "":
+            out.append(term)
+
+        return out
+    ```
+
+6. Problemet är att vi inte använt `copy()` på `list` när vi skapar
+   `list2`. Gör man inte det kommer `list` och `list2` bara vara olika
+   namn på samma lista, så ändrar man en ändras den andra. Testa
+   följande istället:
+
+   ```python
+   list = [1,2,3]
+   list2 = list.copy()
+   list2.reverse()
+   print(list)
+   ```
+
+7.  Alternativ 1
+
+    \pyin
+    ```python
+    mylist = ["Ho","ho","ho!"]
+    m = mylist.copy()
+    while m:
+        x = m.pop()
+        print(x)
+
+    print(mylist)
+    ```
+    Alternativ 2
+
+    \pyin
+    ```python
+    mylist = ["Ho","ho","ho!"]
+    n = len(mylist)
+    while n > 0:
+        print(mylist[n-1])
+        n -= 1
+
+    print(mylist)
+    ```
+
+    Alternativ 3
+
+    \pyin
+    ```python
+    mylist = ["Ho","ho","ho!"]
+    for i in mylist[::-1]:
+        print(i)
+
+    print(mylist)
+    ```
+
+8.  Om `break`{.python}:
+
+    \pyout
+    ```python
+    10
+    9
+    ```
+    Om `continue`{.python} skrivs allt utom `7` ut. Om `pass`{.python}
+    så skrivs alla siffror ut.
+
+
+9.  Till exempel:
+
+    \pyin
+    ```python
+    mylist = []
+
+    while True:
+        ans = int(input("Enter a single digit (quit with 0): "))
+        # if 0 is *not* to be included in the list.
+        if ans == 0:
+            break
+        else:
+            mylist.append(ans)
+
+    print(mylist)
+    ```
+    Ett annat alternativ är att använda sig av `:=` operatorn, som är
+    ett relativt nytt tilläg i Python (version $\geq$ `3.8`, så använd
+    denna operator med försiktighet). `:=` operatorn utvärderar _och_
+    tilldelar i en villkorssats, så vi kan undvika en rad i kodblocket
+    på villkorssatsen:
+
+    \pyin
+    ```python
+    mylist = []
+
+    while ans := int(input("Enter a single digit (quit with 0): ")):
+        mylist.append(ans)
+
+    print(mylist)
+    ```
+    Här tilldelas `ans` först det inlästa värdet och _efter_ detta
+    utvärderas villkorssatsen. Eftersom `0` utvärderas till falskt
+    (`bool(0) == False`), så kommer `while`{.python}-loopen att
+    avslutas när användaren skriver in `0`.
+
+10.  Till exempel:
+
+     \pyin
+     ```python
+     def naiveGCD(a,b):
+         for i in range(min(a,b), 0, -1):
+             if a % i == 0 and b % i == 0:
+                 return i
+
+     a = 12
+     b = 3
+     print(naiveGCD(a,b))
+     ```
+
+     eller med
+
+     \pyin
+     ```python
+      def naiveGCD(a,b):
+         i = min(a,b)
+         while i > 0:
+             if a % i == 0 and b % i == 0:
+                 return i
+             i -= 1
+     ```
+
+11. Till exempel:
+
+
+    \pyin
+    ```python
+    def portkod(pw = '1337'):
+        curr = ""
+
+        while True:
+            n = input("Enter digit: ")
+
+            curr += n # add new digit
+
+            # make sure our list is only 4 digits long
+            if len(curr) > 4:
+                curr = curr[1:]
+
+            print(curr) # print what the user has entered
+
+            if curr == pw:
+                print("Door unlocked!")
+                return True
+
+    portkod()
+    ```
+
+12. Uttrycket `lst[1:1]` ger dig listan som börjar på position 1, men utan att inbegripa
+    position 1, vilket kan tolkas som mellanrummet mellan position 0 och 1.
+    När denna _slice_ tilldelas ett värde så sätts det då in i mellanrummet.
+    
+\pyin
+\newpage
+
+# Kapitel 4
+
+1.  Till exempel
+
+    \pyin
+    ```python
+    a = ['a','b','c']
+    b = [1, 2, 3]
+
+    d = {}
+    for i in range(len(a)):
+        d[a[i]] = b[i]
+    ```
+
+2. Till exempel:
+
+    ```python
+    def naiveGCD(a,b):
+        for i in range(min(a,b), 0, -1):
+            if a % i == 0 and b % i == 0:
+                return i
+
+    print("x  y  GCD")
+    for x in range(2, 21):
+        for y in range(2, 21):
+            gcd = naiveGCD(x, y)
+            if x != y:
+                print(x, y, gcd)
+    ```
+
+3. Det finns många sätt att göra det på! Om du är osäker på om din lösning så
+   kan du testa på någon i din omgivning. Går det att följa ditt detaljerade recept?
+
+3. Några möjliga kandidater är:
+   - `mix_ingredients`, som utför punkt 1.
+   - `finalize_mixing`, som utför punkt 2.
+   - `make_pancakes`, som utför gräddningen, punkt 3 och 4.
+
+3. _Kommer senare._
+
+3. Ändra `for y in range(2, 21):` till `for y in range(x, 21):`.
+
+4. Till exempel:
+
+    ```python
+    def vowels(s):
+        vs = "AEIOUYaeiouy"
+        d = {vs[i] : i for i in range(len(vs))}
+        out = ""
+
+        for v in s:
+            if v in d:
+                out += str(d[v])
+            else:
+                out += v
+        return out
+
+    print(vowels("Hej"))
+   ```
+
+5.  Till exempel:
+
+    \pyin
+    ```python
+    def annotate_word(s):
+        out = {}
+        term = ""
+        cnt = 1
+        for c in s:
+            if c == " ":
+                out[term] = cnt
+                term = ""
+                cnt +=1
+            else:
+                term += c
+
+        # add the final word unless it is empty
+        if term != "":
+            out[term] = cnt
+        return out
+    ```
+
+6.  Alternativ 1: Skriv `out[cnt] = term` istället för `out[term] = cnt`.
+
+    Alternativ 2: Lägg till nedan rad i slutet på funktionen.
+
+    \pyin
+    ```python
+    out_reversed = { v : k for k, v in out.items()}
+    ```
+7.  Ja, vi kan ha en lista som värde.
+
+    \pyin
+    ```python
+    def annotate_word(s):
+        out = {}
+        term = ""
+        cnt = 1
+        for c in s:
+            if c == " ":
+                if term in out:
+                    out[term].append(cnt)
+                else:
+                    out[term] = [cnt]
+                term = ""
+                cnt +=1
+            else:
+                term += c
+
+        # add the final word unless it is empty
+        if term != "":
+            if term in out:
+                out[term].append(cnt)
+            else:
+                out[term] = [cnt]
+        return out
+
+    print(annotate_word("hej du hej hej du"))
+    ```
+    \pyout
+    ```python
+    {'hej': [1, 3, 4], 'du': [2, 5]}
+    ```
+\pyin
+\newpage
+
+# Kapitel 5
+
+
+1.  Vi får ett `TypeError`{.python}. Vi kan fånga det genom
+
+    \pyin
+    ```python
+    def divide_by_elems(filename,x):
+        try:
+            x = int(x)
+        except TypeError:
+            print("divide_by_elems:",
+                  "Second argument cannot be interpreted as an integer.")
+            return None
+
+        # ... rest of function here
+    ```
+
+2.  Till exempel:
+
+    \pyin
+    ```python
+    def divide_by_elems(filename,x):
+        quotients = []
+        with open(filename, 'r') as h:
+            for n in h:
+                try:
+                    frac = x / int(n)
+                    quotients.append(frac)
+                except ZeroDivisionError:
+                    print("divide_by_elems: Division by zero.")
+                except ValueError:
+                    print("At least one line contains characters that",
+                          " cannot be converted with int().")
+
+            return quotients
+
+    print(divide_by_elems('numbers.txt', 2))
+    ```
+
+3.  Till exempel:
+
+    \pyin
+    ```python
+    ys = [i for i in xs if i > 0]
+    ```
+
+4.  Till exempel:
+
+    \pyin
+    ```python
+    ys = [i if i > 0 else -i for i in xs]
+    ```
+
+    eller
+
+    ```python
+    [abs(i) for i in xs]
+    ```
+
+5.  Till exempel:
+
+    \pyin
+    ```python
+    [p for p in range(2,100) if is_prime(p)]
+    ```
+
+6.  Till exempel:
+
+    \pyin
+    ```python
+    [x1*x2 for x1 in xs for x2 in xs ]
+    ```
+
+7.  Till exempel:
+
+    \pyin
+    ```python
+    [xs[i]*xs[j] for i in range(len(xs)) for j in range(len(xs)) if i != j]
+    ```
+
+8.  *Utelämnad då vi inte vill ge ut facit till labb 1*.
+
+\pyin
+\newpage
+
+# Kapitel 6
+
+1.  Till exempel om det inte är tänkt att vi ska ändra på
+    informationen i en datastruktur. Då kan vi spara informationen i
+    en tupel. Python kommer då att meddela oss när programmet försökt
+    ändra något istället får att tyst utföra ändringen som hade gjorts
+    med en lista. Detta är väldigt viktigt när vi börjar använda andra
+    personers kod och inte har full insikt i hur deras funktioner och
+    moduler fungerar.
+
+2.  Till exempel:
+
+    \pyin
+    ```python
+    def is_palindrome(s):
+        backward_s = s[::-1]
+        if s == backward_s:
+            return True
+        else:
+            return backward_s
+    ```
+
+<!--
+    ```python
+    def is_palindrome(integer):
+        string_int = str(integer)
+        backward_int = int(string_int[::-1])
+        if integer == backward_int:
+            return True
+        else:
+            return backward_int
+    ``` -->
+
+3.  Ja, notationen `s[::-1]` fungerar för sekvenstyper i python.
+
+
+4.  Till exempel:
+
+    ```python
+    def occurrences(s):
+        """Returns number of occurrences of letters in string.
+        """
+        s = s.lower()
+        d = {}
+        for c in s:
+            if not c.isalpha():
+                c = 'non_alphas'
+            if c not in d:
+                d[c] = 0
+            d[c] += 1
+        return d
+    ```
+
+5.  Funktionen `occurrences` fungerar ju bra på en sträng, så om vi
+    läser in hela filen till _en sträng_, kan vi direkt använda oss av
+    funktionen. Man läser hela filen med `.read`. Detta inkluderar
+    tecknen för ny rad (`\n`), så vill man inte ha med dessa i
+    uträkningen, så kan man ta bort de med strängfunktionen `replace`.
+
+    ```python
+    with open('palindrome.txt', 'r') as fp:
+        # reads contents of entire file in one go.
+        # Note: memory consuming if a large file.
+        file_content = fp.read()
+
+    # if newline characters, \n, are to be counted
+    chars_with_newline = occurrences(file_content)
+
+    # if newline characters are to be skipped, modify the string by
+    # replacing the '\n' character with the empty string ''
+    file_content_no_newline = file_content.replace('\n', '')
+    chars_without_newline = occurrences(file_content_no_newline)
+
+    print(chars_with_newline)
+    print(chars_without_newline)
+    ```
+
+6.  Till exempel:
+
+    \pyin
+    ```python
+    def fibonacci(stop=55):
+        i = 0
+        yield i
+        j = 1
+        yield j
+        while i + j < stop:
+            yield i + j
+            i, j = j, i + j
+    ```
+
+7.  Till exempel:
+
+    ```python
+    def map_gen(f, it):
+        """
+	Applies a function to the elements of an iterable and returns a
+        generator.
+        """
+        return (f(i) for i in it)
+    ```
+8.  Till exempel:
+
+    ```python
+    def is_string_palindrome(s):
+        """
+	Checks if string is a palindrome
+        """
+        return s == s[::-1]
+
+
+    def palindrome_rows(filename):
+        """
+	Checks if each row of file is a palindrome string
+        """
+        return (is_string_palindrome(row.strip('\n'))
+                for row in open(filename, 'r'))
+
+
+    # OR
+
+    def palindrome_rows(filename):
+        with open(filename, 'r') as fp:
+            for row in fp:
+                yield is_string_palindrome(row.strip('\n'))
+    ```
+
+9.  Till exempel:
+
+    \pyin
+    ```python
+    with open('almost_lowercase.txt') as f:
+        file_content = f.read()
+    capitalized_word = file_content.lstrip(file_content.lower()).split()[0]
+    ```
+\pyin
+\newpage
+
+# Kapitel 7
+
+1.  Till exempel:
+
+    \pyin
+    ```python
+    import random
+
+    random_integers = [random.randint(1, 100) for i in range(10)]
+
+    random_floats = [random.uniform(1, 100) for i in range(10)]
+    ```
+
+2.  Till exempel:
+
+    ```python
+    def is_perfect(x):
+        sum = 0
+        for i in range(1, x):
+            if(x % i == 0):
+                sum = sum + i
+        return sum == x
+
+    def is_prime(x):
+        if x >= 2:
+            for y in range(2,x):
+                if not ( x % y ):
+                    return False
+        else:
+            return False
+        return True
+
+    def main(x):
+        print("The number is perfect:", is_perfect(x))
+        print("The number is prime:", is_prime(x))
+
+    x = int(input("Provide a number to analyze: \n"))
+    main(x)
+    ```
+
+3.  Till exempel:
+
+    \pyin
+    ```python
+    choice = input(
+        "Type 'G' to manually enter number or 'R'"
+        "to randomly generate number: \n")
+    if choice == "G":
+        x = int(input("Provide a number to analyze: \n"))
+    elif choice == "R":
+        x = random.randint(1, 100)
+    else:
+        print("You failed")
+    ```
+
+    Vår nya kod bör ligga nedanför funktionerna `is_perfect(x)` and
+    `is_prime(x)`. Vi kan ha det i `main` eller utanför. Det beror
+    lite på hur vi vill kunnna använda `main`. Ska den ha med denna ny
+    funktionalitet eller ej? Vanligtvis ska inte kunktioner som man
+    vill importera innehålla interaktiva delar (kommunikation med
+    användare) i koden.
+
+4.  Vi delar upp koden så att varje funktion tar och returnerar
+    parameterar. Vi har tagit bort alla globalt definierade variabler
+    (`seq`, `k`, `substrings`) och vi kan återanvända varje enskild
+    funktion i andra program.
+
+    \pyin
+    ```python
+    # Given a sequence as input find distances
+    # between the copies of the most frequent substring
+
+    def get_substrings(seq, k):
+        substrings = {}
+        for i in range(len(seq) - k + 1):
+            substring = seq[i: i+k]
+            if substring in substrings:
+                substrings[substring] += 1
+            else:
+                substrings[substring] = 1
+        return substrings
+
+    def find_most_freq_substring(substrings):
+        max_count = 0
+        most_freq_substring = ""
+        for substring, count in substrings.items():
+            if count > max_count:
+                most_freq_substring = substring
+                max_count = count
+        return most_freq_substring
+
+    def find_positions(query_substring, seq):
+        positions = []
+        k = len(query_substring)
+        for i in range(len(seq) - k + 1):
+            substring = seq[i: i+k]
+            if substring == query_substring:
+                positions.append(i)
+        return positions
+
+    def get_distances(positions):
+        distances = []
+        for p1,p2 in zip(positions[:-1], positions[1:]):
+            distances.append(p2 - p1)
+        return distances
+
+    ## Driver code
+    def main():
+        seq = input("Enter a dna string: ")
+        k = 3
+        substrings = get_substrings(seq, k)
+        max_substring = find_most_freq_substring(substrings)
+        positions = find_positions(max_substring, seq)
+        distances = get_distances(positions)
+        print(distances)
+    ```
+
+5.  Till exempel:
+
+    \pyin
+    ```python
+    import itertools
+    numbers = [13, 24, 42, 66, 78]
+    string_numbers = [str(i) for i in numbers]
+    # permutations
+    perm = itertools.permutations(string_numbers, r=2)
+    results = [int(''.join(i)) for i in perm]
+    ```
+
+6.  *Utelämnad då vi inte vill ge ut facit till labb 1*.
+
+\pyin
+\newpage
+
+# Kapitel 8
+
+1.  Till exempel:
+
+    ```python
+    def rec_prod_m(n,m):
+        if n <= 0:
+            return 1
+        else:
+            return n * rec_prod_m(n-m, m)
+    ```
+
+<!-- 3.  Till exempel:
+
+    \pyin
+    ```python
+    def length(xs):
+        if xs: # obs: lists behave as boolean values ([] is False)
+            return (1 + length(xs[1:]))
+        else:
+            return 0
+    xs = [1,341,23,1,0,2,0]
+    # Now try repetitive calls
+    print(length(xs))
+    print(length(xs))
+    ```
+    och på samma sätt med de två andra funktionerna. -->
+
+
+2.  `prod([])` kommer att returnera `0` vilket gör att alla andra
+    funktionsanrop på rad 4 i funktionen kommer att vara
+    multiplicerade med `0`. Till exempel, när listan har ett element
+    kvar (säg `xs = [23]`) kommer `return` på rad 4 i funktionen att
+    ha värdena `x = 23` och `xs = []`. Detta ger
+
+    \pyin
+    ```python
+    return (23 * prod([])) # ==> (23 * 0)
+    ```
+
+3.  Till exempel:
+
+    \pyin
+    ```python
+    f1 = lambda x, y: x + y
+    f2 = lambda x, y: x - y
+    f3 = lambda x, y: x * y
+    f4 = lambda x, y: x / y
+    f5 = lambda x, y: x ** y
+
+    print((6*(2+3)/5)**2)
+    print(f5(f3(f4(f1(2,3),5),6),2))
+
+    print((10 - 2**3)*5)
+    print(f3(f2(10,f5(2,3)),5))
+    ```
+
+4.  Till exempel:
+
+    \pyin
+    ```python
+    def get_evens(xs):
+        return list(map(lambda x: x % 2 == 0, xs))
+
+    l = [1,4,2,3,4,5]
+    print(get_evens(l))
+    ```
+
+5.  `7` funktionsanrop görs totalt för `3` (inklusive anropet `f(3)`)
+    och `13` anrop med `4`. Till exempel för `f(3)`
+
+    \pyin
+    ```python
+    f(3) = f(2) + f(1) + f(0)
+         = (f(1) + f(0) + f(-1)) + 1 + 1
+         = 1 + 1 + 1 + 1 + 1
+         = 5
+    ```
+
+    och för `f(4)`:
+
+    \pyin
+    ```python
+    f(4) = f(3) + f(2) + f(1)
+    ```
+
+    Vi vet att `f(3)` blir 7 anrop, `f(2)` blir 4, och `f(1)` blir 1,
+    så totalt får vi `1 + 7 + 4 + 1 = 13` anrop.
+
+
+6.  Till exempel någon av följande funktioner:
+    \pyin
+    ```python
+    def collatz_rec(n):
+        if n == 1:
+            return []
+        if n % 2 == 0:
+            return [n] + collatz_rec(n//2)
+        else:
+            return [n] + collatz_rec(3*n+1)
+
+
+    def collatz_rec2(l):
+        if l[-1] == 1:
+            l.pop(-1)
+            return l
+        if l[-1] % 2 == 0:
+            l.append(l[-1]//2)
+        else:
+            l.append(3*l[-1]+1)
+        return collatz_rec2(l)
+
+
+    def collatz_rec3(n):
+        while n != 1:
+            return [n] + collatz_rec3(n//2 if not n % 2 else 3*n+1)
+        return []
+
+
+    def collatz_rec4(n, collatz_seq):
+        if n == 1:
+            return collatz_seq
+        else:
+            collatz_seq.append(n)
+            n = n//2 if not n % 2 else 3*n+1
+            return collatz_rec4(n, collatz_seq)
+    ```
+
+    Dess funktioner fungerar på lite olika sätt men ger samma
+    resultat. För att beräkna collatz-sekvensen för `10`, så kallas
+    funktionerna på följande sätt:
+    \pyin
+    ```python
+    collatz_rec(10)
+    collatz_rec2([10])
+    collatz_rec3(10)
+    collatz_rec4(10,[])
+    ```
+
+7.  Till exempel:
+
+    \pyin
+    ```python
+    joinstrings = lambda xs: foldr(xs,lambda x,y: x + y,"")
+    ```
+
+8.  Till exempel:
+    \pyin
+    ```python
+    def fac(n):
+        ret = 1
+        for i in range(1, n + 1):
+            ret *= i
+        return ret
+
+
+    def fib(n):
+        i, j = 0, 1
+        if n == 0:
+            return 0
+        elif n == 1:
+            return 1
+        k = 1
+        while k < n:
+            i, j = j, i + j
+            k += 1
+        return j
+    ```
+
+9. Om `xs` inte kopieras kommer varje funkionsanrop med `smallereq()`
+   (och `greater()`) att potentiellt modifiera listan genom att ta
+   bort alla element (pga `.pop()`) . Detta resulterar i att efter
+   `smallereq` så finns bara tomma listan att ge till `greater` i ett
+   rekursivt anrop.
+
+10. Till exempel:
+
+    \pyin
+    ```python
+    def pascal(n):
+        if n == 1:
+            return [1]
+        else:
+            p_line = pascal(n-1)
+            line = [ p_line[i] + p_line[i+1] for i in range(len(p_line)-1)]
+            line.insert(0,1)
+            line.append(1)
+            return line
+    ```
+
+\pyin
+\newpage
+
+# Kapitel 9
+
+1.  Till exempel:
+
+    \pyin
+    ```python
+        def __str__(self):
+            return "<" + self._fname + " " + self._lname
+                    + ", " + self._email + ">"
+    ```
+
+    \pyin
+    ```python
+        def __str__(self):
+            return "<Course: " + self._code + " " + self._name + ">"
+    ```
+
+2.  Till exempel:
+
+    \pyin
+    ```python
+    class Participant:
+
+        # Changed!
+        def __init__(self, fname, lname, email, is_teacher = False):
+            self._fname = fname                        # Changed!
+            self._lname = lname                        # Changed!
+            self._email = email
+            self.is_teacher = is_teacher               # Changed!
+
+        def name(self):
+            return self._fname + " " + self._lname     # Changed!
+
+        def email(self):
+            return self._email
+
+        def __str__(self):
+            if self.is_teacher:
+                return "<" + self._fname + " " + self._lname
+                    + ", " + self._email + "(Teacher) >"
+            else:
+                return "<" + self._fname + " " + self._lname
+                    + ", " + self._email + ">"
+    ```
+
+3.  Till exempel:
+
+    \pyin
+    ```python
+    class IntSet:
+        """An IntSet is a set of integers"""
+
+        def __init__(self):
+            """Create an empty set of integers"""
+            self.vals = []
+
+        def insert(self,e):
+            """Assumes e is an integer and inserts e into self"""
+            if e not in self.vals:
+                self.vals.append(e)
+
+        def member(self,e):
+            """Assumes e is an integer.
+               Returns True if e is in self, and False otherwise"""
+            return e in self.vals
+
+        def delete(self,e):
+            """Assumes e is an integer and removes e from self
+               Raises ValueError if e is not in self"""
+            try:
+                self.vals.remove(e)
+            except:
+                raise ValueError(str(e) + ' not found')
+
+        def get_members(self):
+            """Returns a list containing the elements of self.
+               Nothing can be assumed about the order of the elements"""
+            return self.vals
+
+        def __eq__(self, other_intset):
+            for e in self.vals:
+                if e not in other_intset.vals:
+                    return False
+            for e in other_intset.vals:
+                if e not in self.vals:
+                    return False
+            return True
+
+            # eller:
+            # return (all([e in other_intset for e in self.vals ] ) and
+            #         all([e in self.vals for e in other_intset  ] ))
+
+            # eller:
+            # return sorted(self.vals) == sorted(other_intset)
+
+        def __neq__(self, other_intset):
+            return not self.__eq__()
+
+        def intersection(self, other_intset):
+            i_new = IntSet()
+            i_new.vals = [e for e in self.vals if e in other_intset.vals]
+            return i_new
+
+        def __add__(self, other_intset):
+            i_new = IntSet()
+            i_new.vals =  ([e for e in other_intset.vals if e not in self.vals ]
+                           + self.vals)
+            return i_new
+
+        def __sub__(self, other_intset):
+            i_new = IntSet()
+            i_new.vals = [e for e in self.vals if e not in other_intset.vals ]
+            return i_new
+    ```
+
+4.  Se svaret för uppgift 3.
+
+5.  Till exempel:
+
+    \pyin
+    ```python
+    class Dog:
+
+        kind = 'canine'         # class variable shared by all instances
+
+        def __init__(self, name):
+            self.name = name
+            self.tricks = []    # creates a new empty list for each dog
+
+        def add_trick(self, trick):
+            self.tricks.append(trick)
+
+    ```
+
+6.  Till exempel:
+
+    \pyin
+    ```python
+    class Dog:
+        kind = 'canine'
+        # class variable shared by all instances
+        def __init__(self, name):
+            self.name = name
+            self.tricks = []
+            # creates a new empty list for each dog
+
+        def add_trick(self, trick):
+            self.tricks.append(trick)
+
+        def __str__(self):
+            return self.name + " knows: " + ','.join(self.tricks)
+
+        def __gt__(self, other_dog):
+            return len(self.tricks) > len(other_dog.tricks)
+    ```
+\pyin
+\newpage
+
+# Kapitel 10
+
+1.  Till exempel:
+    \pyin
+    ```python
+    from math import sqrt
+
+    class Equilateral(Triangle):
+        def __init__(self):
+            super().__init__()
+            self.__name__ = 'Equilateral Triangle'
+
+        def get_area(self):
+            a, b, c = self.sides
+            # check if all sides are of equal length
+            if not a == b == c:
+                errmsg = ("An ", self.__name__,
+                          "cannot have different side lengths!")
+                raise ValueError(errmsg)
+            # calculate area
+            return sqrt(3) * a**2 / 4
+    ```
+
+2.  Till exempel:
+
+    \pyin
+    ```python
+    class Student(ProgMon):
+        """A Pokemon Go Monster Student.... person.
+        """
+        def __init__(self, is_learning,
+                     is_caffeinated=True,
+                     is_unit_testing=False):
+            super().__init__()
+            self._attack = 0.05
+            self._defense = 0.1
+            self.is_learning = is_learning
+            # convenience attribute to use for the multiplication of the
+            # base class ProgMon's get_* functions.
+            self._learning_multiplier = 2 if is_learning else 1
+
+        def __str__(self):
+            return "<Student>"
+
+        def get_attack(self):
+            return self._learning_multiplier * ProgMon.get_attack(self)
+
+        def get_defense(self):
+            return self._learning_multiplier * ProgMon.get_defense(self)
+    ```
+
+3.  Till exempel:
+
+    \pyin
+    ```python
+    class Tournament():
+        """Documentation for Tournament
+
+        """
+
+        # Note: either an immutable type should be used as a default argument
+        # for participants (like an empty tuple) or like below, None.
+        # an alternative would be to have the call signature as:
+        # __init__(self, participants=())
+        # and cast participats to a new list in the constructor, i.e.
+        # self.participants = list(participants)
+        def __init__(self, participants=None):
+            if not participants:
+                self.participants = []
+            else:
+                self.participants = participants
+
+        def add_participant(self, participant):
+            self.participants.append(participant)
+
+        def start_tournament(self):
+            """Decide who the winner of the Tournament is, and rank the rest.
+
+            Based on the number of tricks (i.e. size of the list contianing tricks)
+            """
+            # sort the list of participants based on how many tricks they
+            # know (key is number of tricks for a Dog). Since `sorted` is
+            # by default ascending, we reverse the list.
+            # Sorted can make use of comparison operators such as `__lt__`, `__leq__`,
+            # and more (in this case it finds the __gt__ method from class Dog()
+            self.ranking = sorted(self.participants, reverse = True)
+            self.winner = self.ranking[0] if self.ranking else None
+
+        def print_results(self):
+            print("Tournament Results\n" + "-"*18)
+            print(self.winner.name, "is the winner!\n" +
+                  "Tricks:\n\t", self.winner.tricks)
+            print("\nTournament runner-ups:")
+            for i, d in enumerate(self.ranking[1:], start=2):
+                print(str(i) + " place:", d.name)
+
+    ```
+    _Notera_: i konstruktorn för `Tournament` så används ett
+    standardvärde (default value) `None`{.python} som är en icke-muterbar typ.
+    Generellt sett är det viktigt att standardvärden till kunktioner
+    och klasser är av icke-muterbar typ. Standardvärdet för en
+    nyckelordsparameter sätts då en funktion/klass _definieras_, och
+    dessa argument omdefinieras _inte_ varje gång en funktion kallas.
+    En muterbar typ som standardvärde (t.ex. `participants=[]`) skulle
+    sättas _en_ gång. Antag att vi skapar ett objekt `t =
+    Tournament()`. Varje gång `participants` (eller
+    `self.participants` för den delen) modifieras i objektet `t`, så
+    kommer standardvärdet att modifieras. Det här vill vi inte,
+    eftersom om man skapar en ny turnering med `t2 = Tournament()` så
+    kommer standardvärdet till `participants` i `t2` inte vara den
+    tomma listan. Med ovan konstruktor (och specifikt det
+    icke-muterbara standardvärdet) undviks detta, och en ny instans av
+    `Tournaments` är alltid tom (om man inte specificerar
+    `participants` som argument). Se Listor som muterbara typer i
+    Kapitel 6.
+
+4.  Till exempel:
+
+    \pyin
+    ```python
+    class Vehicle():
+        def __init__(self, wheels=0, wings=0, sound=''):
+            self.wheels = wheels
+            self.wings = wings
+            self.sound = sound
+            self.__name__ = 'Abstract vehicle'
+
+        def __str__(self):
+            msg = 'A ' + self.__name__ + ' has:\n'
+            msg_add = ''
+            if self.wheels:
+                msg_add += str(self.wheels) + ' wheels\n'
+            if self.wings:
+                msg_add += str(self.wings) + ' wings\n'
+            if self.sound:
+                if msg_add:
+                    msg_add += 'and '
+                msg_add += 'makes a ' + self.sound + ' sound\n'
+            return msg + msg_add
+
+    class Car(Vehicle):
+        def __init__(self):
+            super().__init__(wheels=4, sound='AAARRRRRRRR!')
+            self.__name__ = 'Car'
+
+    class Motorcycle(Vehicle):
+        def __init__(self):
+            super().__init__(wheels=2, sound='VROOM VROOM!')
+            self.__name__ = 'Motorcycle'
+
+    class Plane(Vehicle):
+        def __init__(self):
+            super().__init__(wings=2, sound='WHOOSH!')
+            self.__name__ = 'Plane'
+    ```
+
+
+5.  Till exempel:
+
+    \pyin
+    ```python
+    class MyString(str):
+        def __init__(self, args):
+            super().__init__()
+
+        def __sub__(self, other):
+            return ''.join(self.rsplit(other))
+
+        def __truediv__(self, other):
+            return ''.join(self.split(other))
+    ```
+
+\newpage
+\pyin
+# Kapitel 11
+
+1.  Samtliga är exempel på hierarkiskt arv. De två första är även
+    exempel på mångnivå arv och alltså även hybridarv. Ingen av dem är
+    exempel på multipelt arv.
+
+2.  Till exempel:
+
+    ```python
+    class BinOp(Expr):
+        def __init__(self, left, right):
+            self._left = left
+            self._right = right
+
+        def __str__(self):
+            s1 = parens(self._left.prec,self.prec,str(self._left))
+            s2 = parens(self._right.prec,self.prec,str(self._right))
+            return s1 + self.op + s2
+
+    class Plus(BinOp):
+        prec = 1
+        op = " + "
+
+    class Times(BinOp):
+        prec = 2
+        op = " * "
+    ```
+
+3.  Om man gjort uppgiften ovan räcker det att skriva:
+
+    ```python
+    class Exp(BinOp):
+        prec = 3
+        op = " ** "
+
+    print(Exp(Times(Var("x"),Var("y")),Constant(7)))
+    print(Times(Var("x"),Exp(Var("y"),Constant(7))))
+    print(Times(Var("x"),Exp(Var("y"),Plus(Constant(3),Var("z")))))
+    ```
+    \pyout
+    ```python
+    (x * y) ** 7
+    x * y ** 7
+    x * y ** (3 + z)
+    ```
+
+4.  Till exempel:
+    \pyin
+    ```python
+    # using recursion
+    def big_constant_sum(n,e):
+        if n == 0:
+            return Constant(0)
+        elif n == 1:
+            return e
+        else:
+            return Plus(e,big_constant_sum(n-1,e))
+
+    # OR
+    # using iteration
+    def big_constant_sum_it(n,e):
+        if n == 0:
+            return Constant(0)
+        elif n == 1:
+            return e
+        else:
+            expr_so_far = e
+            for i in range(n-1):
+                expr_so_far = Plus(expr_so_far,e)
+        return expr_so_far
+
+
+    print(big_constant_sum(5,Var("x")))
+    # print(big_constant_sum_it(5,Var("x")))
+    ```
+    \pyout
+    ```python
+    x + x + x + x + x
+    ```
+
+5.  Till exempel:
+    \pyin
+    ```python
+    def big_sum(n,e):
+        if n == 0:
+            return e(0)
+        else:
+            return Plus(e(n),big_sum(n-1,e))
+
+    # tests
+    print(big_sum(5,lambda n: Var("x") if n == 1 else Var("y")))
+
+    def foo(n):
+        if n == 0:
+            return Constant(10)
+        elif n == 1:
+            return Var("x")
+        elif n == 2:
+            return Times(Var("z"),Var("y"))
+        else:
+            return Constant(n)
+
+    print(big_sum(10,foo))
+    ```
+    \pyout
+    ```python
+    y + y + y + y + x + y
+    10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + z * y + x + 10
+    ```
+
+6.  De ändringar som behöver göras är:
+
+    \pyin
+    ```python
+    class Constant(Expr):
+        def __init__(self, value):
+            self._value = value
+
+        def __str__(self):
+            return str(self._value)
+
+        def evaluate(self,d):
+            return self._value
+
+    class Var(Expr):
+        def __init__(self, name):
+            self._name = name
+
+        def __str__(self):
+            return self._name
+
+        def evaluate(self,d):
+            return d[self._name]
+
+    # BinOp code unchanged...
+
+    class Plus(BinOp):
+        prec = 1
+        op = " + "
+
+        def evaluate(self,d):
+            return self._left.evaluate(d) + self._right.evaluate(d)
+
+    class Times(BinOp):
+        prec = 2
+        op = " * "
+
+        def evaluate(self,d):
+            return self._left.evaluate(d) * self._right.evaluate(d)
+
+    class Exp(BinOp):
+        prec = 3
+        op = " ** "
+
+        def evaluate(self,d):
+            return self._left.evaluate(d) ** self._right.evaluate(d)
+
+    vals = { 'x' : 2, 'y' : 3, 'z' : 5 }
+
+    # x * y + 7
+    e1 = Plus(Times(Var("x"),Var("y")),Constant(7))
+    # x * (y + 7)
+    e2 = Times(Var("x"),Plus(Var("y"),Constant(7)))
+    # x * y ** (3 + z)
+    e3 = Times(Var("x"),Exp(Var("y"),Plus(Constant(3),Var("z"))))
+
+    print(e1.evaluate(vals))
+    print(e2.evaluate(vals))
+    print(e3.evaluate(vals))
+    ```
+    \pyout
+    ```python
+    13
+    20
+    13122
+    ```
+
+7.  Till exempel:
+
+    \pyin
+    ```python
+    # helper function to print lists the way we want
+    def to_string(xs):
+        if xs == []:
+            return '[]'
+        elif len(xs) == 1:
+            return '[' + str(xs[0]) + ']'
+        else:
+            out = ''
+            for x in xs[:-1]:
+                out += str(x) + ','
+            return '[' + out + str(xs[-1]) + ']'
+
+    class RoseTree:
+        def __init__(self,v,ts):
+            self._val = v
+            self._subtrees = ts
+
+        def __str__(self):
+            return ("(" + str(self._val) + "," +
+                    to_string([ str(x) for x in self._subtrees ]) + ")")
+
+        def member(self,x):
+            return (self._val == x or
+                    any (map(lambda v: v.member(x),self._subtrees)))
+
+        def map_tree(self,f):
+            return RoseTree(f(self._val),map(lambda v:v.map_tree(f),self._subtrees))
+
+        def linearize(self):
+            return ([self._val] +
+                    [ x for l in map(lambda v: v.linearize(),self._subtrees)
+                        for x in l ])
+
+    # tests
+    t = RoseTree(-32,[RoseTree(2,[])
+                     ,RoseTree(1,[RoseTree(23,[RoseTree(4,[])
+                                              ,RoseTree(-2,[])])
+                                 ,RoseTree(12,[])])])
+    print(t)
+    print(t.member(12))
+    print(t.member(-123))
+    print(t.map_tree(lambda x: 0))
+    print(t.map_tree(lambda x: x ** 2))
+    print(t.linearize())
+    ```
+    \pyout
+    ```python
+    (-32,[(2,[]),(1,[(23,[(4,[]),(-2,[])]),(12,[])])])
+    True
+    False
+    (0,[(0,[]),(0,[(0,[(0,[]),(0,[])]),(0,[])])])
+    (1024,[(4,[]),(1,[(529,[(16,[]),(4,[])]),(144,[])])])
+    [-32, 2, 1, 23, 4, -2, 12]
+    ```
+
+\newpage
+\pyin
+# Kapitel 12
+
+1.  Till exempel:
+
+    \pyin
+    ```python
+    def jaccard_index(l1, l2):
+        s1 = set(l1)
+        s2 = set(l2)
+        return float(len(s1.intersection(s2)) / len(s1.union(s2)))
+    ```
+
+2.  Tänk på att testa lite olika specialfall; tomma listor, tomt
+    snitt, identiska mängder, fel argument. När man testar funktioner
+    är det inte bara viktigt att se att de gör rätt, utan även
+    returnerar fel där det är förväntat. Det beror på att när man
+    bygger på funktioner så kan det hända att man intruducera buggar
+    som gör att koden råkar köra utan fel för indata som det är tänkt
+    att funktionen inte ska fungera för.
+
+    Om du har skrivit dina lösningar i en fil som heter `kap12.py`, skapa
+    då en fil (ex `test_kap12.py`) som till exempel se ut såhär:
+
+    \pyin
+    ```python
+    import unittest
+    import kap12
+
+    class TestJaccard(unittest.TestCase):
+        def test_identical_jaccard_index(self):
+            l1 = [2,0,1]
+            l2 = [2,1,0,0,1]
+            self.assertEqual(kap12.jaccard_index(l1,l2),1.0, "Should be 1.0")
+
+        def test_disjoint_jaccard_index(self):
+            l1 = [1,2,3]
+            l2 = [0,0,0]
+            self.assertEqual(kap12.jaccard_index(l1,l2),0, "Should be 0")
+
+        def test_empty_jaccard_index(self):
+            l1 = [1,2,3]
+            l2 = []
+            self.assertEqual(kap12.jaccard_index(l1,l2),0, "Should be 0")
+
+        def test_wrong_argument_jaccard_index(self):
+            # check that jaccard_index fails with TypeError when
+            # argument is not iterable
+            with self.assertRaises(TypeError):
+                l1 = [1,2,3]
+                l2 = 1
+                kap12.jaccard_index(l1,l2)
+
+        def test_empty_lists_jaccard_index(self):
+            # check that jaccard_index fails with ZeroDivisionError when
+            # empty sets
+            with self.assertRaises(ZeroDivisionError):
+                l1 = []
+                l2 = []
+                kap12.jaccard_index(l1,l2)
+
+    unittest.main()
+    ```
+
+3.  Till exempel:
+
+    \pyin
+    ```python
+    def make_weighted_operation(l1, l2, f):
+        # returns total number of elements shared
+        return sum([f(l1.count(item), l2.count(item)) for item in set(l1 + l2)])
+
+    def weighted_jaccard_index(l1, l2):
+        # for intersection
+        count_intersect = make_weighted_operation(l1, l2, min)
+        # for union
+        count_union = make_weighted_operation(l1, l2, max)
+        return float(count_intersect) / count_union
+    ```
+
+    Ovan kod är dock beräkningstung då funktionen måste stega igenom
+    listan för att räkna antalet förekomster av elementet `item` för
+    varje unikt `item`. För totala mängden element `n`, och för `m`
+    unika `item`s sker alltså $m \cdot n$ iterationer. Lösningen nedan
+    sparar vikterna i uppslagstabell och kräver därför bara ett fåtal
+    loopar (7 st funktionsanrop) som alla är av storlek `n`.  Vi har
+    under denna kod illustrerat tiden det tar för de två olika
+    lösningarna.
+
+    \pyin
+    ```python
+    def make_weighted_set(l):
+        w_set = {}
+        for element in l:
+             if element not in w_set:
+                 w_set[element] = 1
+             else:
+                 w_set[element] += 1
+        return w_set
+
+    def weighted_jaccard_index_faster(list1, list2):
+
+        w_set1 = make_weighted_set(list1)
+        w_set2 = make_weighted_set(list2)
+
+        key_union = set(list(w_set1.keys()) + list(w_set2.keys()))
+        min_total = 0
+        max_total = 0
+        for key in key_union:
+            # get retrieves the element if present, otherwise returns the value
+            # that is specified in the second argument (in this case 0)
+            min_total += min(w_set1.get(key,0),w_set2.get(key,0))
+            max_total += max(w_set1.get(key,0),w_set2.get(key,0))
+
+        return min_total/max_total
+    ```
+    \pyin
+    ```python
+    from time import time
+    import random
+    l1 = [random.randint(1, 1000) for i in range(100000)]
+    l2 = [random.randint(1, 1000) for i in range(100000)]
+
+    t_start = time()
+    print(weighted_jaccard_index(l1, l2))
+    print("Elapsed:", time() - t_start)
+
+    t_start = time()
+    print(weighted_jaccard_index_faster(l1, l2))
+    print("Elapsed:", time() - t_start)
+    ```
+
+    ger
+
+    \pyout
+    ```python
+    0.8919685933213508
+    Elapsed: 4.24 seconds
+    0.8919685933213508
+    Elapsed: 0.02 seconds
+    ```
+
+    \pyin
+    ```python
+    from time import time
+    import random
+    l1 = [random.randint(1, 10000) for i in range(1000000)]
+    l2 = [random.randint(1, 10000) for i in range(1000000)]
+
+    t_start = time()
+    print(weighted_jaccard_index(l1, l2))
+    print("Elapsed:", time() - t_start)
+
+    t_start = time()
+    print(weighted_jaccard_index_faster(l1, l2))
+    print("Elapsed:", time() - t_start)
+    ```
+
+    ger
+
+    \pyout
+    ```python
+    Elapsed: 459.42 seconds
+    0.8938228234057563
+    Elapsed: 0.28 seconds
+    ```
+
+4.  Testfilen kan ha samma struktur som i uppgift 2, men kom ihåg att
+    enhetstesta alla funktionerna separat. Till exempel för första
+    lösningen ovan.
+
+    \pyin
+    ```python
+    import unittest
+    import kap12
+
+    class TestWeightedJaccard(unittest.TestCase):
+        def test_identical_wjaccard_index(self):
+            l1 = [2, 0, 1]
+            l2 = [2, 1, 0, 0, 1]
+            self.assertEqual(kap12.weighted_jaccard_index(
+                l1, l2), 3/5, "Should be 3/5")
+
+        def test_disjoint_wjaccard_index(self):
+            l1 = [1, 2, 3]
+            l2 = [0, 0, 0]
+            self.assertEqual(kap12.weighted_jaccard_index(l1,l2), 0, "Should be 0")
+
+        def test_empty_wjaccard_index(self):
+            l1 = [1, 2, 3]
+            l2 = []
+            self.assertEqual(kap12.weighted_jaccard_index(l1,l2), 0, "Should be 0")
+
+        def test_wrong_argument_wjaccard_index(self):
+            # check that jaccard_index fails with TypeError when
+            # argument is not iterable
+            with self.assertRaises(TypeError):
+                l1 = [1, 2, 3]
+                l2 = 1
+                kap12.weighted_jaccard_index(l1, l2)
+
+        def test_empty_lists_wjaccard_index(self):
+            # check that jaccard_index fails with TypeError when
+            # argument is not iterable
+            with self.assertRaises(ZeroDivisionError):
+                l1 = []
+                l2 = []
+                kap12.weighted_jaccard_index(l1, l2)
+
+        def test_make_weighted_operation_min(self):
+            l1 = [1, 2, 3]
+            l2 = [0, 0, 0]
+            f = lambda x, y: min(x, y)
+            self.assertEqual(kap12.make_weighted_operation(
+                l1, l2, f), 0, "Should be 0")
+
+        def test_make_weighted_operation_max(self):
+            l1 = [1, 2, 3]
+            l2 = [0, 0, 0]
+            f = lambda x, y: max(x, y)
+            self.assertEqual(kap12.make_weighted_operation(
+                l1, l2, f), 6, "Should be 6")
+
+        def test_make_weighted_operation_empty(self):
+            l1 = []
+            l2 = []
+            f = lambda x, y: max(x, y)
+            self.assertEqual(kap12.make_weighted_operation(
+                l1, l2, f), 0, "Should be 6")
+
+    unittest.main()
+    ```

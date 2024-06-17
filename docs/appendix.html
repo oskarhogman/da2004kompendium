@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Appendix</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+<li>
+  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+</li>
+<li>
+  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+</li>
+<li>
+  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+</li>
+<li>
+  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+</li>
+<li>
+  <a href="kapitel8.html">8: Funktionell programmering</a>
+</li>
+<li>
+  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+</li>
+<li>
+  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+</li>
+<li>
+  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+</li>
+<li>
+  <a href="kapitel12.html">12: Defensiv programmering</a>
+</li>
+<li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Appendix</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<div id="kapitel-1" class="section level1">
+<h1>Kapitel 1</h1>
+<ol style="list-style-type: decimal">
+<li><p><code>x</code> och <code>y</code> byter värde</p></li>
+<li><p>T.ex. <code>(x - y - y) ** 2</code></p></li>
+<li><p><code>s * 16</code></p></li>
+<li><p>T.ex.:</p>
+<pre class="python"><code>s = &#39;hej&#39;
+s2 = s+s
+s4 = s2+s2
+s8 = s4+s4
+s16= s8+s8
+print(s16)</code></pre></li>
+<li><p>T.ex.:</p>
+<pre class="python"><code>name = input(&quot;Vad heter du i förnamn?&quot;)
+surname = input(&quot;Vad heter du i efternamn?&quot;)
+print(&quot;Hej &quot; + name + &quot; &quot; + surname)</code></pre></li>
+<li><p>Talen konkateneras då de är strängar. För att addera talen,
+konvertera strängarna till heltal:</p>
+<pre class="python"><code>age = int(input(&quot;Ålder? &quot;))
+num = int(input(&quot;Favorittal? &quot;))
+print(age + num)</code></pre></li>
+</ol>
+</div>
+<div id="kapitel-2" class="section level1">
+<h1>Kapitel 2</h1>
+<ol style="list-style-type: decimal">
+<li><p>b, c</p></li>
+<li><p>T.ex.:</p>
+<pre class="python"><code>num = int(input(&quot;Enter an integer: &quot;))
+if num % 2:
+    print(&quot;Odd&quot;)
+else:
+    print(&quot;Even&quot;)</code></pre></li>
+<li></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th align="left">x</th>
+<th align="left">y</th>
+<th align="left">x <code>and</code> y</th>
+<th align="left">x <code>or</code> y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>True</code></td>
+<td align="left"><code>True</code></td>
+<td align="left"><code>True</code></td>
+<td align="left"><code>True</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>True</code></td>
+<td align="left"><code>False</code></td>
+<td align="left"><code>False</code></td>
+<td align="left"><code>True</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>False</code></td>
+<td align="left"><code>True</code></td>
+<td align="left"><code>False</code></td>
+<td align="left"><code>True</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>False</code></td>
+<td align="left"><code>False</code></td>
+<td align="left"><code>False</code></td>
+<td align="left"><code>False</code></td>
+</tr>
+</tbody>
+</table>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Ett exempel:</p>
+<pre class="python"><code>x = True
+y = False
+z = False</code></pre>
+<p>ger</p>
+<pre class="python"><code>True
+False
+True
+False</code></pre></li>
+<li><p>T.ex.:</p>
+<p></p>
+<pre class="python"><code>def division(x, y):
+    if x == 0 and y == 0:
+        print(&quot;Indeterminate form....&quot;)
+    elif y == 0:
+        print(&quot;The result is infinite...&quot;)
+    else:
+        return x/y</code></pre></li>
+<li><p>Alla utom det första:</p>
+<p></p>
+<pre class="python"><code>False
+True
+True
+True</code></pre></li>
+<li><p>T.ex.:</p>
+<p></p>
+<pre class="python"><code>def nand(x, y):
+    return not (x and y)
+
+def nor(x, y):
+    return (not x) and (not y)
+
+def xnor(x, y):
+    return ((not x and not y) or (x and y))
+
+# alternativ xnor
+def xnor(x, y):
+    return (x==y)</code></pre></li>
+<li><p>Om funktionerna är definierade som ovan, så ger t.ex.</p>
+<pre class="python"><code>xnor(47, 33)</code></pre>
+<pre class="python"><code>33</code></pre>
+<p>vilket kanske man inte förväntar sig. Eftersom både <code>47</code>
+och <code>33</code> är sanna kanske man kan vänta sig att svaret ska bli
+<code>True</code>, men det stämmer inte pga att argumenten inte är av
+typ <code>bool</code>.</p></li>
+</ol>
+</div>
+<div id="kapitel-3" class="section level1">
+<h1>Kapitel 3</h1>
+<ol style="list-style-type: decimal">
+<li><p>Listan <code>[1, 2, 'a', 'b']</code>.</p></li>
+<li><p>Otillåtet att jämföra tex strängar och flyttal eller heltal</p>
+<pre class="python"><code>TypeError: &#39;&lt;&#39; not supported between instances of &#39;str&#39; and &#39;int&#39;</code></pre></li>
+<li><p>T.ex:</p>
+<pre class="python"><code>def vowels(s):
+    vs = &quot;AEIOUYaeiouy&quot;
+    out = &quot;&quot;
+    for v in s:
+        if v in vs:
+            out += v
+    return out</code></pre></li>
+<li><p>Ändra först testet i <code>if</code> satsen till att använda
+<code>not in</code>. Sen kan ni skriva:</p>
+<pre class="python"><code>def vowels_or_consonants(s, save=&#39;v&#39;):
+    vs = &quot;AEIOUYaeiouy&quot;
+    out = &quot;&quot;
+
+    if save != &#39;c&#39; and save != &#39;v&#39;:
+        print(&quot;illegal argument to save&quot;)
+        # Here we should raise an error, more about this later
+        return None
+
+    for v in s:
+        if save == &#39;v&#39; and v in vs:
+            out += v
+        elif save == &#39;c&#39; and v not in vs:
+            out += v
+
+    return out</code></pre></li>
+<li><p>Om vi inte har blocket</p>
+<pre class="python"><code>if term != &#39;&#39;:
+    out.append(term)</code></pre>
+<p>så läggs inte sista ordet in om strängen inte slutar med mellanslag.
+Om vi inte har <code>if term != ''</code> utan låter
+<code>out.append(term)</code> vara på indenteringsnivå 1 så läggs en tom
+sträng till i slutet om strängen slutar på mellanslag. Notera även att
+<code>split</code> endast hanterar ett mellanslag, så det blir även fel
+om vi har flera mellanslag i rad. Vi kan fixa till det genom att även
+testa om <code>term</code> är tom i loopen:</p>
+<pre class="python"><code>def split(s):
+    out = []
+    term = &quot;&quot;
+
+    for c in s:
+        if c == &quot; &quot;:
+            # do not add term if empty
+            if term != &#39;&#39;:
+                out.append(term)
+                term = &#39;&#39;
+        else:
+            term += c
+
+    # add the final word unless it is empty
+    if term != &quot;&quot;:
+        out.append(term)
+
+    return out</code></pre></li>
+<li><p>Problemet är att vi inte använt <code>copy()</code> på
+<code>list</code> när vi skapar <code>list2</code>. Gör man inte det
+kommer <code>list</code> och <code>list2</code> bara vara olika namn på
+samma lista, så ändrar man en ändras den andra. Testa följande
+istället:</p>
+<pre class="python"><code>list = [1,2,3]
+list2 = list.copy()
+list2.reverse()
+print(list)</code></pre></li>
+<li><p>Alternativ 1</p>
+<pre class="python"><code>mylist = [&quot;Ho&quot;,&quot;ho&quot;,&quot;ho!&quot;]
+m = mylist.copy()
+while m:
+    x = m.pop()
+    print(x)
+
+print(mylist)</code></pre>
+<p>Alternativ 2</p>
+<pre class="python"><code>mylist = [&quot;Ho&quot;,&quot;ho&quot;,&quot;ho!&quot;]
+n = len(mylist)
+while n &gt; 0:
+    print(mylist[n-1])
+    n -= 1
+
+print(mylist)</code></pre>
+<p>Alternativ 3</p>
+<pre class="python"><code>mylist = [&quot;Ho&quot;,&quot;ho&quot;,&quot;ho!&quot;]
+for i in mylist[::-1]:
+    print(i)
+
+print(mylist)</code></pre></li>
+<li><p>Om <code class="python">break</code>:</p>
+<pre class="python"><code>10
+9</code></pre>
+<p>Om <code class="python">continue</code> skrivs allt utom
+<code>7</code> ut. Om <code class="python">pass</code> så skrivs alla
+siffror ut.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>mylist = []
+
+while True:
+    ans = int(input(&quot;Enter a single digit (quit with 0): &quot;))
+    # if 0 is *not* to be included in the list.
+    if ans == 0:
+        break
+    else:
+        mylist.append(ans)
+
+print(mylist)</code></pre>
+<p>Ett annat alternativ är att använda sig av <code>:=</code> operatorn,
+som är ett relativt nytt tilläg i Python (version <span
+class="math inline">\(\geq\)</span> <code>3.8</code>, så använd denna
+operator med försiktighet). <code>:=</code> operatorn utvärderar
+<em>och</em> tilldelar i en villkorssats, så vi kan undvika en rad i
+kodblocket på villkorssatsen:</p>
+<pre class="python"><code>mylist = []
+
+while ans := int(input(&quot;Enter a single digit (quit with 0): &quot;)):
+    mylist.append(ans)
+
+print(mylist)</code></pre>
+<p>Här tilldelas <code>ans</code> först det inlästa värdet och
+<em>efter</em> detta utvärderas villkorssatsen. Eftersom <code>0</code>
+utvärderas till falskt (<code>bool(0) == False</code>), så kommer <code
+class="python">while</code>-loopen att avslutas när användaren skriver
+in <code>0</code>.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def naiveGCD(a,b):
+    for i in range(min(a,b), 0, -1):
+        if a % i == 0 and b % i == 0:
+            return i
+
+a = 12
+b = 3
+print(naiveGCD(a,b))</code></pre>
+<p>eller med</p>
+<pre class="python"><code> def naiveGCD(a,b):
+    i = min(a,b)
+    while i &gt; 0:
+        if a % i == 0 and b % i == 0:
+            return i
+        i -= 1</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def portkod(pw = &#39;1337&#39;):
+    curr = &quot;&quot;
+
+    while True:
+        n = input(&quot;Enter digit: &quot;)
+
+        curr += n # add new digit
+
+        # make sure our list is only 4 digits long
+        if len(curr) &gt; 4:
+            curr = curr[1:]
+
+        print(curr) # print what the user has entered
+
+        if curr == pw:
+            print(&quot;Door unlocked!&quot;)
+            return True
+
+portkod()</code></pre></li>
+<li><p>Uttrycket <code>lst[1:1]</code> ger dig listan som börjar på
+position 1, men utan att inbegripa position 1, vilket kan tolkas som
+mellanrummet mellan position 0 och 1. När denna <em>slice</em> tilldelas
+ett värde så sätts det då in i mellanrummet.</p></li>
+</ol>
+</div>
+<div id="kapitel-4" class="section level1">
+<h1>Kapitel 4</h1>
+<ol style="list-style-type: decimal">
+<li><p>Till exempel</p>
+<pre class="python"><code>a = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]
+b = [1, 2, 3]
+
+d = {}
+for i in range(len(a)):
+    d[a[i]] = b[i]</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def naiveGCD(a,b):
+    for i in range(min(a,b), 0, -1):
+        if a % i == 0 and b % i == 0:
+            return i
+
+print(&quot;x  y  GCD&quot;)
+for x in range(2, 21):
+    for y in range(2, 21):
+        gcd = naiveGCD(x, y)
+        if x != y:
+            print(x, y, gcd)</code></pre></li>
+<li><p>Det finns många sätt att göra det på! Om du är osäker på om din
+lösning så kan du testa på någon i din omgivning. Går det att följa ditt
+detaljerade recept?</p></li>
+<li><p>Några möjliga kandidater är:</p>
+<ul>
+<li><code>mix_ingredients</code>, som utför punkt 1.</li>
+<li><code>finalize_mixing</code>, som utför punkt 2.</li>
+<li><code>make_pancakes</code>, som utför gräddningen, punkt 3 och
+4.</li>
+</ul></li>
+<li><p><em>Kommer senare.</em></p></li>
+<li><p>Ändra <code>for y in range(2, 21):</code> till
+<code>for y in range(x, 21):</code>.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def vowels(s):
+    vs = &quot;AEIOUYaeiouy&quot;
+    d = {vs[i] : i for i in range(len(vs))}
+    out = &quot;&quot;
+
+    for v in s:
+        if v in d:
+            out += str(d[v])
+        else:
+            out += v
+    return out
+
+print(vowels(&quot;Hej&quot;))</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def annotate_word(s):
+    out = {}
+    term = &quot;&quot;
+    cnt = 1
+    for c in s:
+        if c == &quot; &quot;:
+            out[term] = cnt
+            term = &quot;&quot;
+            cnt +=1
+        else:
+            term += c
+
+    # add the final word unless it is empty
+    if term != &quot;&quot;:
+        out[term] = cnt
+    return out</code></pre></li>
+<li><p>Alternativ 1: Skriv <code>out[cnt] = term</code> istället för
+<code>out[term] = cnt</code>.</p>
+<p>Alternativ 2: Lägg till nedan rad i slutet på funktionen.</p>
+<pre class="python"><code>out_reversed = { v : k for k, v in out.items()}</code></pre></li>
+<li><p>Ja, vi kan ha en lista som värde.</p>
+<pre class="python"><code>def annotate_word(s):
+    out = {}
+    term = &quot;&quot;
+    cnt = 1
+    for c in s:
+        if c == &quot; &quot;:
+            if term in out:
+                out[term].append(cnt)
+            else:
+                out[term] = [cnt]
+            term = &quot;&quot;
+            cnt +=1
+        else:
+            term += c
+
+    # add the final word unless it is empty
+    if term != &quot;&quot;:
+        if term in out:
+            out[term].append(cnt)
+        else:
+            out[term] = [cnt]
+    return out
+
+print(annotate_word(&quot;hej du hej hej du&quot;))</code></pre>
+<pre class="python"><code>{&#39;hej&#39;: [1, 3, 4], &#39;du&#39;: [2, 5]}</code></pre></li>
+</ol>
+</div>
+<div id="kapitel-5" class="section level1">
+<h1>Kapitel 5</h1>
+<ol style="list-style-type: decimal">
+<li><p>Vi får ett <code class="python">TypeError</code>. Vi kan fånga
+det genom</p>
+<pre class="python"><code>def divide_by_elems(filename,x):
+    try:
+        x = int(x)
+    except TypeError:
+        print(&quot;divide_by_elems:&quot;,
+              &quot;Second argument cannot be interpreted as an integer.&quot;)
+        return None
+
+    # ... rest of function here</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def divide_by_elems(filename,x):
+    quotients = []
+    with open(filename, &#39;r&#39;) as h:
+        for n in h:
+            try:
+                frac = x / int(n)
+                quotients.append(frac)
+            except ZeroDivisionError:
+                print(&quot;divide_by_elems: Division by zero.&quot;)
+            except ValueError:
+                print(&quot;At least one line contains characters that&quot;,
+                      &quot; cannot be converted with int().&quot;)
+
+        return quotients
+
+print(divide_by_elems(&#39;numbers.txt&#39;, 2))</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>ys = [i for i in xs if i &gt; 0]</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>ys = [i if i &gt; 0 else -i for i in xs]</code></pre>
+<p>eller</p>
+<pre class="python"><code>[abs(i) for i in xs]</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>[p for p in range(2,100) if is_prime(p)]</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>[x1*x2 for x1 in xs for x2 in xs ]</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>[xs[i]*xs[j] for i in range(len(xs)) for j in range(len(xs)) if i != j]</code></pre></li>
+<li><p><em>Utelämnad då vi inte vill ge ut facit till labb
+1</em>.</p></li>
+</ol>
+</div>
+<div id="kapitel-6" class="section level1">
+<h1>Kapitel 6</h1>
+<ol style="list-style-type: decimal">
+<li><p>Till exempel om det inte är tänkt att vi ska ändra på
+informationen i en datastruktur. Då kan vi spara informationen i en
+tupel. Python kommer då att meddela oss när programmet försökt ändra
+något istället får att tyst utföra ändringen som hade gjorts med en
+lista. Detta är väldigt viktigt när vi börjar använda andra personers
+kod och inte har full insikt i hur deras funktioner och moduler
+fungerar.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def is_palindrome(s):
+    backward_s = s[::-1]
+    if s == backward_s:
+        return True
+    else:
+        return backward_s</code></pre></li>
+</ol>
+<!--
+    ```python
+    def is_palindrome(integer):
+        string_int = str(integer)
+        backward_int = int(string_int[::-1])
+        if integer == backward_int:
+            return True
+        else:
+            return backward_int
+    ``` -->
+<ol start="3" style="list-style-type: decimal">
+<li><p>Ja, notationen <code>s[::-1]</code> fungerar för sekvenstyper i
+python.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def occurrences(s):
+    &quot;&quot;&quot;Returns number of occurrences of letters in string.
+    &quot;&quot;&quot;
+    s = s.lower()
+    d = {}
+    for c in s:
+        if not c.isalpha():
+            c = &#39;non_alphas&#39;
+        if c not in d:
+            d[c] = 0
+        d[c] += 1
+    return d</code></pre></li>
+<li><p>Funktionen <code>occurrences</code> fungerar ju bra på en sträng,
+så om vi läser in hela filen till <em>en sträng</em>, kan vi direkt
+använda oss av funktionen. Man läser hela filen med <code>.read</code>.
+Detta inkluderar tecknen för ny rad (<code>\n</code>), så vill man inte
+ha med dessa i uträkningen, så kan man ta bort de med strängfunktionen
+<code>replace</code>.</p>
+<pre class="python"><code>with open(&#39;palindrome.txt&#39;, &#39;r&#39;) as fp:
+    # reads contents of entire file in one go.
+    # Note: memory consuming if a large file.
+    file_content = fp.read()
+
+# if newline characters, \n, are to be counted
+chars_with_newline = occurrences(file_content)
+
+# if newline characters are to be skipped, modify the string by
+# replacing the &#39;\n&#39; character with the empty string &#39;&#39;
+file_content_no_newline = file_content.replace(&#39;\n&#39;, &#39;&#39;)
+chars_without_newline = occurrences(file_content_no_newline)
+
+print(chars_with_newline)
+print(chars_without_newline)</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def fibonacci(stop=55):
+    i = 0
+    yield i
+    j = 1
+    yield j
+    while i + j &lt; stop:
+        yield i + j
+        i, j = j, i + j</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def map_gen(f, it):
+    &quot;&quot;&quot;
+Applies a function to the elements of an iterable and returns a
+    generator.
+    &quot;&quot;&quot;
+    return (f(i) for i in it)</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def is_string_palindrome(s):
+    &quot;&quot;&quot;
+Checks if string is a palindrome
+    &quot;&quot;&quot;
+    return s == s[::-1]
+
+
+def palindrome_rows(filename):
+    &quot;&quot;&quot;
+Checks if each row of file is a palindrome string
+    &quot;&quot;&quot;
+    return (is_string_palindrome(row.strip(&#39;\n&#39;))
+            for row in open(filename, &#39;r&#39;))
+
+
+# OR
+
+def palindrome_rows(filename):
+    with open(filename, &#39;r&#39;) as fp:
+        for row in fp:
+            yield is_string_palindrome(row.strip(&#39;\n&#39;))</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>with open(&#39;almost_lowercase.txt&#39;) as f:
+    file_content = f.read()
+capitalized_word = file_content.lstrip(file_content.lower()).split()[0]</code></pre></li>
+</ol>
+</div>
+<div id="kapitel-7" class="section level1">
+<h1>Kapitel 7</h1>
+<ol style="list-style-type: decimal">
+<li><p>Till exempel:</p>
+<pre class="python"><code>import random
+
+random_integers = [random.randint(1, 100) for i in range(10)]
+
+random_floats = [random.uniform(1, 100) for i in range(10)]</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def is_perfect(x):
+    sum = 0
+    for i in range(1, x):
+        if(x % i == 0):
+            sum = sum + i
+    return sum == x
+
+def is_prime(x):
+    if x &gt;= 2:
+        for y in range(2,x):
+            if not ( x % y ):
+                return False
+    else:
+        return False
+    return True
+
+def main(x):
+    print(&quot;The number is perfect:&quot;, is_perfect(x))
+    print(&quot;The number is prime:&quot;, is_prime(x))
+
+x = int(input(&quot;Provide a number to analyze: \n&quot;))
+main(x)</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>choice = input(
+    &quot;Type &#39;G&#39; to manually enter number or &#39;R&#39;&quot;
+    &quot;to randomly generate number: \n&quot;)
+if choice == &quot;G&quot;:
+    x = int(input(&quot;Provide a number to analyze: \n&quot;))
+elif choice == &quot;R&quot;:
+    x = random.randint(1, 100)
+else:
+    print(&quot;You failed&quot;)</code></pre>
+<p>Vår nya kod bör ligga nedanför funktionerna
+<code>is_perfect(x)</code> and <code>is_prime(x)</code>. Vi kan ha det i
+<code>main</code> eller utanför. Det beror lite på hur vi vill kunnna
+använda <code>main</code>. Ska den ha med denna ny funktionalitet eller
+ej? Vanligtvis ska inte kunktioner som man vill importera innehålla
+interaktiva delar (kommunikation med användare) i koden.</p></li>
+<li><p>Vi delar upp koden så att varje funktion tar och returnerar
+parameterar. Vi har tagit bort alla globalt definierade variabler
+(<code>seq</code>, <code>k</code>, <code>substrings</code>) och vi kan
+återanvända varje enskild funktion i andra program.</p>
+<pre class="python"><code># Given a sequence as input find distances
+# between the copies of the most frequent substring
+
+def get_substrings(seq, k):
+    substrings = {}
+    for i in range(len(seq) - k + 1):
+        substring = seq[i: i+k]
+        if substring in substrings:
+            substrings[substring] += 1
+        else:
+            substrings[substring] = 1
+    return substrings
+
+def find_most_freq_substring(substrings):
+    max_count = 0
+    most_freq_substring = &quot;&quot;
+    for substring, count in substrings.items():
+        if count &gt; max_count:
+            most_freq_substring = substring
+            max_count = count
+    return most_freq_substring
+
+def find_positions(query_substring, seq):
+    positions = []
+    k = len(query_substring)
+    for i in range(len(seq) - k + 1):
+        substring = seq[i: i+k]
+        if substring == query_substring:
+            positions.append(i)
+    return positions
+
+def get_distances(positions):
+    distances = []
+    for p1,p2 in zip(positions[:-1], positions[1:]):
+        distances.append(p2 - p1)
+    return distances
+
+## Driver code
+def main():
+    seq = input(&quot;Enter a dna string: &quot;)
+    k = 3
+    substrings = get_substrings(seq, k)
+    max_substring = find_most_freq_substring(substrings)
+    positions = find_positions(max_substring, seq)
+    distances = get_distances(positions)
+    print(distances)</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>import itertools
+numbers = [13, 24, 42, 66, 78]
+string_numbers = [str(i) for i in numbers]
+# permutations
+perm = itertools.permutations(string_numbers, r=2)
+results = [int(&#39;&#39;.join(i)) for i in perm]</code></pre></li>
+<li><p><em>Utelämnad då vi inte vill ge ut facit till labb
+1</em>.</p></li>
+</ol>
+</div>
+<div id="kapitel-8" class="section level1">
+<h1>Kapitel 8</h1>
+<ol style="list-style-type: decimal">
+<li><p>Till exempel:</p>
+<pre class="python"><code>def rec_prod_m(n,m):
+    if n &lt;= 0:
+        return 1
+    else:
+        return n * rec_prod_m(n-m, m)</code></pre></li>
+</ol>
+<!-- 3.  Till exempel:
+
+    \pyin
+    ```python
+    def length(xs):
+        if xs: # obs: lists behave as boolean values ([] is False)
+            return (1 + length(xs[1:]))
+        else:
+            return 0
+    xs = [1,341,23,1,0,2,0]
+    # Now try repetitive calls
+    print(length(xs))
+    print(length(xs))
+    ```
+    och på samma sätt med de två andra funktionerna. -->
+<ol start="2" style="list-style-type: decimal">
+<li><p><code>prod([])</code> kommer att returnera <code>0</code> vilket
+gör att alla andra funktionsanrop på rad 4 i funktionen kommer att vara
+multiplicerade med <code>0</code>. Till exempel, när listan har ett
+element kvar (säg <code>xs = [23]</code>) kommer <code>return</code> på
+rad 4 i funktionen att ha värdena <code>x = 23</code> och
+<code>xs = []</code>. Detta ger</p>
+<pre class="python"><code>return (23 * prod([])) # ==&gt; (23 * 0)</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>f1 = lambda x, y: x + y
+f2 = lambda x, y: x - y
+f3 = lambda x, y: x * y
+f4 = lambda x, y: x / y
+f5 = lambda x, y: x ** y
+
+print((6*(2+3)/5)**2)
+print(f5(f3(f4(f1(2,3),5),6),2))
+
+print((10 - 2**3)*5)
+print(f3(f2(10,f5(2,3)),5))</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def get_evens(xs):
+    return list(map(lambda x: x % 2 == 0, xs))
+
+l = [1,4,2,3,4,5]
+print(get_evens(l))</code></pre></li>
+<li><p><code>7</code> funktionsanrop görs totalt för <code>3</code>
+(inklusive anropet <code>f(3)</code>) och <code>13</code> anrop med
+<code>4</code>. Till exempel för <code>f(3)</code></p>
+<pre class="python"><code>f(3) = f(2) + f(1) + f(0)
+     = (f(1) + f(0) + f(-1)) + 1 + 1
+     = 1 + 1 + 1 + 1 + 1
+     = 5</code></pre>
+<p>och för <code>f(4)</code>:</p>
+<pre class="python"><code>f(4) = f(3) + f(2) + f(1)</code></pre>
+<p>Vi vet att <code>f(3)</code> blir 7 anrop, <code>f(2)</code> blir 4,
+och <code>f(1)</code> blir 1, så totalt får vi
+<code>1 + 7 + 4 + 1 = 13</code> anrop.</p></li>
+<li><p>Till exempel någon av följande funktioner: </p>
+<pre class="python"><code>def collatz_rec(n):
+    if n == 1:
+        return []
+    if n % 2 == 0:
+        return [n] + collatz_rec(n//2)
+    else:
+        return [n] + collatz_rec(3*n+1)
+
+
+def collatz_rec2(l):
+    if l[-1] == 1:
+        l.pop(-1)
+        return l
+    if l[-1] % 2 == 0:
+        l.append(l[-1]//2)
+    else:
+        l.append(3*l[-1]+1)
+    return collatz_rec2(l)
+
+
+def collatz_rec3(n):
+    while n != 1:
+        return [n] + collatz_rec3(n//2 if not n % 2 else 3*n+1)
+    return []
+
+
+def collatz_rec4(n, collatz_seq):
+    if n == 1:
+        return collatz_seq
+    else:
+        collatz_seq.append(n)
+        n = n//2 if not n % 2 else 3*n+1
+        return collatz_rec4(n, collatz_seq)</code></pre>
+<p>Dess funktioner fungerar på lite olika sätt men ger samma resultat.
+För att beräkna collatz-sekvensen för <code>10</code>, så kallas
+funktionerna på följande sätt: </p>
+<pre class="python"><code>collatz_rec(10)
+collatz_rec2([10])
+collatz_rec3(10)
+collatz_rec4(10,[])</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>joinstrings = lambda xs: foldr(xs,lambda x,y: x + y,&quot;&quot;)</code></pre></li>
+<li><p>Till exempel: </p>
+<pre class="python"><code>def fac(n):
+    ret = 1
+    for i in range(1, n + 1):
+        ret *= i
+    return ret
+
+
+def fib(n):
+    i, j = 0, 1
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    k = 1
+    while k &lt; n:
+        i, j = j, i + j
+        k += 1
+    return j</code></pre></li>
+<li><p>Om <code>xs</code> inte kopieras kommer varje funkionsanrop med
+<code>smallereq()</code> (och <code>greater()</code>) att potentiellt
+modifiera listan genom att ta bort alla element (pga
+<code>.pop()</code>) . Detta resulterar i att efter
+<code>smallereq</code> så finns bara tomma listan att ge till
+<code>greater</code> i ett rekursivt anrop.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def pascal(n):
+    if n == 1:
+        return [1]
+    else:
+        p_line = pascal(n-1)
+        line = [ p_line[i] + p_line[i+1] for i in range(len(p_line)-1)]
+        line.insert(0,1)
+        line.append(1)
+        return line</code></pre></li>
+</ol>
+</div>
+<div id="kapitel-9" class="section level1">
+<h1>Kapitel 9</h1>
+<ol style="list-style-type: decimal">
+<li><p>Till exempel:</p>
+<pre class="python"><code>    def __str__(self):
+        return &quot;&lt;&quot; + self._fname + &quot; &quot; + self._lname
+                + &quot;, &quot; + self._email + &quot;&gt;&quot;</code></pre>
+<pre class="python"><code>    def __str__(self):
+        return &quot;&lt;Course: &quot; + self._code + &quot; &quot; + self._name + &quot;&gt;&quot;</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class Participant:
+
+    # Changed!
+    def __init__(self, fname, lname, email, is_teacher = False):
+        self._fname = fname                        # Changed!
+        self._lname = lname                        # Changed!
+        self._email = email
+        self.is_teacher = is_teacher               # Changed!
+
+    def name(self):
+        return self._fname + &quot; &quot; + self._lname     # Changed!
+
+    def email(self):
+        return self._email
+
+    def __str__(self):
+        if self.is_teacher:
+            return &quot;&lt;&quot; + self._fname + &quot; &quot; + self._lname
+                + &quot;, &quot; + self._email + &quot;(Teacher) &gt;&quot;
+        else:
+            return &quot;&lt;&quot; + self._fname + &quot; &quot; + self._lname
+                + &quot;, &quot; + self._email + &quot;&gt;&quot;</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class IntSet:
+    &quot;&quot;&quot;An IntSet is a set of integers&quot;&quot;&quot;
+
+    def __init__(self):
+        &quot;&quot;&quot;Create an empty set of integers&quot;&quot;&quot;
+        self.vals = []
+
+    def insert(self,e):
+        &quot;&quot;&quot;Assumes e is an integer and inserts e into self&quot;&quot;&quot;
+        if e not in self.vals:
+            self.vals.append(e)
+
+    def member(self,e):
+        &quot;&quot;&quot;Assumes e is an integer.
+           Returns True if e is in self, and False otherwise&quot;&quot;&quot;
+        return e in self.vals
+
+    def delete(self,e):
+        &quot;&quot;&quot;Assumes e is an integer and removes e from self
+           Raises ValueError if e is not in self&quot;&quot;&quot;
+        try:
+            self.vals.remove(e)
+        except:
+            raise ValueError(str(e) + &#39; not found&#39;)
+
+    def get_members(self):
+        &quot;&quot;&quot;Returns a list containing the elements of self.
+           Nothing can be assumed about the order of the elements&quot;&quot;&quot;
+        return self.vals
+
+    def __eq__(self, other_intset):
+        for e in self.vals:
+            if e not in other_intset.vals:
+                return False
+        for e in other_intset.vals:
+            if e not in self.vals:
+                return False
+        return True
+
+        # eller:
+        # return (all([e in other_intset for e in self.vals ] ) and
+        #         all([e in self.vals for e in other_intset  ] ))
+
+        # eller:
+        # return sorted(self.vals) == sorted(other_intset)
+
+    def __neq__(self, other_intset):
+        return not self.__eq__()
+
+    def intersection(self, other_intset):
+        i_new = IntSet()
+        i_new.vals = [e for e in self.vals if e in other_intset.vals]
+        return i_new
+
+    def __add__(self, other_intset):
+        i_new = IntSet()
+        i_new.vals =  ([e for e in other_intset.vals if e not in self.vals ]
+                       + self.vals)
+        return i_new
+
+    def __sub__(self, other_intset):
+        i_new = IntSet()
+        i_new.vals = [e for e in self.vals if e not in other_intset.vals ]
+        return i_new</code></pre></li>
+<li><p>Se svaret för uppgift 3.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class Dog:
+
+    kind = &#39;canine&#39;         # class variable shared by all instances
+
+    def __init__(self, name):
+        self.name = name
+        self.tricks = []    # creates a new empty list for each dog
+
+    def add_trick(self, trick):
+        self.tricks.append(trick)
+</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class Dog:
+    kind = &#39;canine&#39;
+    # class variable shared by all instances
+    def __init__(self, name):
+        self.name = name
+        self.tricks = []
+        # creates a new empty list for each dog
+
+    def add_trick(self, trick):
+        self.tricks.append(trick)
+
+    def __str__(self):
+        return self.name + &quot; knows: &quot; + &#39;,&#39;.join(self.tricks)
+
+    def __gt__(self, other_dog):
+        return len(self.tricks) &gt; len(other_dog.tricks)</code></pre></li>
+</ol>
+</div>
+<div id="kapitel-10" class="section level1">
+<h1>Kapitel 10</h1>
+<ol style="list-style-type: decimal">
+<li><p>Till exempel: </p>
+<pre class="python"><code>from math import sqrt
+
+class Equilateral(Triangle):
+    def __init__(self):
+        super().__init__()
+        self.__name__ = &#39;Equilateral Triangle&#39;
+
+    def get_area(self):
+        a, b, c = self.sides
+        # check if all sides are of equal length
+        if not a == b == c:
+            errmsg = (&quot;An &quot;, self.__name__,
+                      &quot;cannot have different side lengths!&quot;)
+            raise ValueError(errmsg)
+        # calculate area
+        return sqrt(3) * a**2 / 4</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class Student(ProgMon):
+    &quot;&quot;&quot;A Pokemon Go Monster Student.... person.
+    &quot;&quot;&quot;
+    def __init__(self, is_learning,
+                 is_caffeinated=True,
+                 is_unit_testing=False):
+        super().__init__()
+        self._attack = 0.05
+        self._defense = 0.1
+        self.is_learning = is_learning
+        # convenience attribute to use for the multiplication of the
+        # base class ProgMon&#39;s get_* functions.
+        self._learning_multiplier = 2 if is_learning else 1
+
+    def __str__(self):
+        return &quot;&lt;Student&gt;&quot;
+
+    def get_attack(self):
+        return self._learning_multiplier * ProgMon.get_attack(self)
+
+    def get_defense(self):
+        return self._learning_multiplier * ProgMon.get_defense(self)</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class Tournament():
+    &quot;&quot;&quot;Documentation for Tournament
+
+    &quot;&quot;&quot;
+
+    # Note: either an immutable type should be used as a default argument
+    # for participants (like an empty tuple) or like below, None.
+    # an alternative would be to have the call signature as:
+    # __init__(self, participants=())
+    # and cast participats to a new list in the constructor, i.e.
+    # self.participants = list(participants)
+    def __init__(self, participants=None):
+        if not participants:
+            self.participants = []
+        else:
+            self.participants = participants
+
+    def add_participant(self, participant):
+        self.participants.append(participant)
+
+    def start_tournament(self):
+        &quot;&quot;&quot;Decide who the winner of the Tournament is, and rank the rest.
+
+        Based on the number of tricks (i.e. size of the list contianing tricks)
+        &quot;&quot;&quot;
+        # sort the list of participants based on how many tricks they
+        # know (key is number of tricks for a Dog). Since `sorted` is
+        # by default ascending, we reverse the list.
+        # Sorted can make use of comparison operators such as `__lt__`, `__leq__`,
+        # and more (in this case it finds the __gt__ method from class Dog()
+        self.ranking = sorted(self.participants, reverse = True)
+        self.winner = self.ranking[0] if self.ranking else None
+
+    def print_results(self):
+        print(&quot;Tournament Results\n&quot; + &quot;-&quot;*18)
+        print(self.winner.name, &quot;is the winner!\n&quot; +
+              &quot;Tricks:\n\t&quot;, self.winner.tricks)
+        print(&quot;\nTournament runner-ups:&quot;)
+        for i, d in enumerate(self.ranking[1:], start=2):
+            print(str(i) + &quot; place:&quot;, d.name)
+</code></pre>
+<p><em>Notera</em>: i konstruktorn för <code>Tournament</code> så
+används ett standardvärde (default value) <code
+class="python">None</code> som är en icke-muterbar typ. Generellt sett
+är det viktigt att standardvärden till kunktioner och klasser är av
+icke-muterbar typ. Standardvärdet för en nyckelordsparameter sätts då en
+funktion/klass <em>definieras</em>, och dessa argument omdefinieras
+<em>inte</em> varje gång en funktion kallas. En muterbar typ som
+standardvärde (t.ex. <code>participants=[]</code>) skulle sättas
+<em>en</em> gång. Antag att vi skapar ett objekt
+<code>t = Tournament()</code>. Varje gång <code>participants</code>
+(eller <code>self.participants</code> för den delen) modifieras i
+objektet <code>t</code>, så kommer standardvärdet att modifieras. Det
+här vill vi inte, eftersom om man skapar en ny turnering med
+<code>t2 = Tournament()</code> så kommer standardvärdet till
+<code>participants</code> i <code>t2</code> inte vara den tomma listan.
+Med ovan konstruktor (och specifikt det icke-muterbara standardvärdet)
+undviks detta, och en ny instans av <code>Tournaments</code> är alltid
+tom (om man inte specificerar <code>participants</code> som argument).
+Se Listor som muterbara typer i Kapitel 6.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class Vehicle():
+    def __init__(self, wheels=0, wings=0, sound=&#39;&#39;):
+        self.wheels = wheels
+        self.wings = wings
+        self.sound = sound
+        self.__name__ = &#39;Abstract vehicle&#39;
+
+    def __str__(self):
+        msg = &#39;A &#39; + self.__name__ + &#39; has:\n&#39;
+        msg_add = &#39;&#39;
+        if self.wheels:
+            msg_add += str(self.wheels) + &#39; wheels\n&#39;
+        if self.wings:
+            msg_add += str(self.wings) + &#39; wings\n&#39;
+        if self.sound:
+            if msg_add:
+                msg_add += &#39;and &#39;
+            msg_add += &#39;makes a &#39; + self.sound + &#39; sound\n&#39;
+        return msg + msg_add
+
+class Car(Vehicle):
+    def __init__(self):
+        super().__init__(wheels=4, sound=&#39;AAARRRRRRRR!&#39;)
+        self.__name__ = &#39;Car&#39;
+
+class Motorcycle(Vehicle):
+    def __init__(self):
+        super().__init__(wheels=2, sound=&#39;VROOM VROOM!&#39;)
+        self.__name__ = &#39;Motorcycle&#39;
+
+class Plane(Vehicle):
+    def __init__(self):
+        super().__init__(wings=2, sound=&#39;WHOOSH!&#39;)
+        self.__name__ = &#39;Plane&#39;</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class MyString(str):
+    def __init__(self, args):
+        super().__init__()
+
+    def __sub__(self, other):
+        return &#39;&#39;.join(self.rsplit(other))
+
+    def __truediv__(self, other):
+        return &#39;&#39;.join(self.split(other))</code></pre></li>
+</ol>
+</div>
+<div id="kapitel-11" class="section level1">
+<h1>Kapitel 11</h1>
+<ol style="list-style-type: decimal">
+<li><p>Samtliga är exempel på hierarkiskt arv. De två första är även
+exempel på mångnivå arv och alltså även hybridarv. Ingen av dem är
+exempel på multipelt arv.</p></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>class BinOp(Expr):
+    def __init__(self, left, right):
+        self._left = left
+        self._right = right
+
+    def __str__(self):
+        s1 = parens(self._left.prec,self.prec,str(self._left))
+        s2 = parens(self._right.prec,self.prec,str(self._right))
+        return s1 + self.op + s2
+
+class Plus(BinOp):
+    prec = 1
+    op = &quot; + &quot;
+
+class Times(BinOp):
+    prec = 2
+    op = &quot; * &quot;</code></pre></li>
+<li><p>Om man gjort uppgiften ovan räcker det att skriva:</p>
+<pre class="python"><code>class Exp(BinOp):
+    prec = 3
+    op = &quot; ** &quot;
+
+print(Exp(Times(Var(&quot;x&quot;),Var(&quot;y&quot;)),Constant(7)))
+print(Times(Var(&quot;x&quot;),Exp(Var(&quot;y&quot;),Constant(7))))
+print(Times(Var(&quot;x&quot;),Exp(Var(&quot;y&quot;),Plus(Constant(3),Var(&quot;z&quot;)))))</code></pre>
+<pre class="python"><code>(x * y) ** 7
+x * y ** 7
+x * y ** (3 + z)</code></pre></li>
+<li><p>Till exempel: </p>
+<pre class="python"><code># using recursion
+def big_constant_sum(n,e):
+    if n == 0:
+        return Constant(0)
+    elif n == 1:
+        return e
+    else:
+        return Plus(e,big_constant_sum(n-1,e))
+
+# OR
+# using iteration
+def big_constant_sum_it(n,e):
+    if n == 0:
+        return Constant(0)
+    elif n == 1:
+        return e
+    else:
+        expr_so_far = e
+        for i in range(n-1):
+            expr_so_far = Plus(expr_so_far,e)
+    return expr_so_far
+
+
+print(big_constant_sum(5,Var(&quot;x&quot;)))
+# print(big_constant_sum_it(5,Var(&quot;x&quot;)))</code></pre>
+<pre class="python"><code>x + x + x + x + x</code></pre></li>
+<li><p>Till exempel: </p>
+<pre class="python"><code>def big_sum(n,e):
+    if n == 0:
+        return e(0)
+    else:
+        return Plus(e(n),big_sum(n-1,e))
+
+# tests
+print(big_sum(5,lambda n: Var(&quot;x&quot;) if n == 1 else Var(&quot;y&quot;)))
+
+def foo(n):
+    if n == 0:
+        return Constant(10)
+    elif n == 1:
+        return Var(&quot;x&quot;)
+    elif n == 2:
+        return Times(Var(&quot;z&quot;),Var(&quot;y&quot;))
+    else:
+        return Constant(n)
+
+print(big_sum(10,foo))</code></pre>
+<pre class="python"><code>y + y + y + y + x + y
+10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + z * y + x + 10</code></pre></li>
+<li><p>De ändringar som behöver göras är:</p>
+<pre class="python"><code>class Constant(Expr):
+    def __init__(self, value):
+        self._value = value
+
+    def __str__(self):
+        return str(self._value)
+
+    def evaluate(self,d):
+        return self._value
+
+class Var(Expr):
+    def __init__(self, name):
+        self._name = name
+
+    def __str__(self):
+        return self._name
+
+    def evaluate(self,d):
+        return d[self._name]
+
+# BinOp code unchanged...
+
+class Plus(BinOp):
+    prec = 1
+    op = &quot; + &quot;
+
+    def evaluate(self,d):
+        return self._left.evaluate(d) + self._right.evaluate(d)
+
+class Times(BinOp):
+    prec = 2
+    op = &quot; * &quot;
+
+    def evaluate(self,d):
+        return self._left.evaluate(d) * self._right.evaluate(d)
+
+class Exp(BinOp):
+    prec = 3
+    op = &quot; ** &quot;
+
+    def evaluate(self,d):
+        return self._left.evaluate(d) ** self._right.evaluate(d)
+
+vals = { &#39;x&#39; : 2, &#39;y&#39; : 3, &#39;z&#39; : 5 }
+
+# x * y + 7
+e1 = Plus(Times(Var(&quot;x&quot;),Var(&quot;y&quot;)),Constant(7))
+# x * (y + 7)
+e2 = Times(Var(&quot;x&quot;),Plus(Var(&quot;y&quot;),Constant(7)))
+# x * y ** (3 + z)
+e3 = Times(Var(&quot;x&quot;),Exp(Var(&quot;y&quot;),Plus(Constant(3),Var(&quot;z&quot;))))
+
+print(e1.evaluate(vals))
+print(e2.evaluate(vals))
+print(e3.evaluate(vals))</code></pre>
+<pre class="python"><code>13
+20
+13122</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code># helper function to print lists the way we want
+def to_string(xs):
+    if xs == []:
+        return &#39;[]&#39;
+    elif len(xs) == 1:
+        return &#39;[&#39; + str(xs[0]) + &#39;]&#39;
+    else:
+        out = &#39;&#39;
+        for x in xs[:-1]:
+            out += str(x) + &#39;,&#39;
+        return &#39;[&#39; + out + str(xs[-1]) + &#39;]&#39;
+
+class RoseTree:
+    def __init__(self,v,ts):
+        self._val = v
+        self._subtrees = ts
+
+    def __str__(self):
+        return (&quot;(&quot; + str(self._val) + &quot;,&quot; +
+                to_string([ str(x) for x in self._subtrees ]) + &quot;)&quot;)
+
+    def member(self,x):
+        return (self._val == x or
+                any (map(lambda v: v.member(x),self._subtrees)))
+
+    def map_tree(self,f):
+        return RoseTree(f(self._val),map(lambda v:v.map_tree(f),self._subtrees))
+
+    def linearize(self):
+        return ([self._val] +
+                [ x for l in map(lambda v: v.linearize(),self._subtrees)
+                    for x in l ])
+
+# tests
+t = RoseTree(-32,[RoseTree(2,[])
+                 ,RoseTree(1,[RoseTree(23,[RoseTree(4,[])
+                                          ,RoseTree(-2,[])])
+                             ,RoseTree(12,[])])])
+print(t)
+print(t.member(12))
+print(t.member(-123))
+print(t.map_tree(lambda x: 0))
+print(t.map_tree(lambda x: x ** 2))
+print(t.linearize())</code></pre>
+<pre class="python"><code>(-32,[(2,[]),(1,[(23,[(4,[]),(-2,[])]),(12,[])])])
+True
+False
+(0,[(0,[]),(0,[(0,[(0,[]),(0,[])]),(0,[])])])
+(1024,[(4,[]),(1,[(529,[(16,[]),(4,[])]),(144,[])])])
+[-32, 2, 1, 23, 4, -2, 12]</code></pre></li>
+</ol>
+</div>
+<div id="kapitel-12" class="section level1">
+<h1>Kapitel 12</h1>
+<ol style="list-style-type: decimal">
+<li><p>Till exempel:</p>
+<pre class="python"><code>def jaccard_index(l1, l2):
+    s1 = set(l1)
+    s2 = set(l2)
+    return float(len(s1.intersection(s2)) / len(s1.union(s2)))</code></pre></li>
+<li><p>Tänk på att testa lite olika specialfall; tomma listor, tomt
+snitt, identiska mängder, fel argument. När man testar funktioner är det
+inte bara viktigt att se att de gör rätt, utan även returnerar fel där
+det är förväntat. Det beror på att när man bygger på funktioner så kan
+det hända att man intruducera buggar som gör att koden råkar köra utan
+fel för indata som det är tänkt att funktionen inte ska fungera för.</p>
+<p>Om du har skrivit dina lösningar i en fil som heter
+<code>kap12.py</code>, skapa då en fil (ex <code>test_kap12.py</code>)
+som till exempel se ut såhär:</p>
+<pre class="python"><code>import unittest
+import kap12
+
+class TestJaccard(unittest.TestCase):
+    def test_identical_jaccard_index(self):
+        l1 = [2,0,1]
+        l2 = [2,1,0,0,1]
+        self.assertEqual(kap12.jaccard_index(l1,l2),1.0, &quot;Should be 1.0&quot;)
+
+    def test_disjoint_jaccard_index(self):
+        l1 = [1,2,3]
+        l2 = [0,0,0]
+        self.assertEqual(kap12.jaccard_index(l1,l2),0, &quot;Should be 0&quot;)
+
+    def test_empty_jaccard_index(self):
+        l1 = [1,2,3]
+        l2 = []
+        self.assertEqual(kap12.jaccard_index(l1,l2),0, &quot;Should be 0&quot;)
+
+    def test_wrong_argument_jaccard_index(self):
+        # check that jaccard_index fails with TypeError when
+        # argument is not iterable
+        with self.assertRaises(TypeError):
+            l1 = [1,2,3]
+            l2 = 1
+            kap12.jaccard_index(l1,l2)
+
+    def test_empty_lists_jaccard_index(self):
+        # check that jaccard_index fails with ZeroDivisionError when
+        # empty sets
+        with self.assertRaises(ZeroDivisionError):
+            l1 = []
+            l2 = []
+            kap12.jaccard_index(l1,l2)
+
+unittest.main()</code></pre></li>
+<li><p>Till exempel:</p>
+<pre class="python"><code>def make_weighted_operation(l1, l2, f):
+    # returns total number of elements shared
+    return sum([f(l1.count(item), l2.count(item)) for item in set(l1 + l2)])
+
+def weighted_jaccard_index(l1, l2):
+    # for intersection
+    count_intersect = make_weighted_operation(l1, l2, min)
+    # for union
+    count_union = make_weighted_operation(l1, l2, max)
+    return float(count_intersect) / count_union</code></pre>
+<p>Ovan kod är dock beräkningstung då funktionen måste stega igenom
+listan för att räkna antalet förekomster av elementet <code>item</code>
+för varje unikt <code>item</code>. För totala mängden element
+<code>n</code>, och för <code>m</code> unika <code>item</code>s sker
+alltså <span class="math inline">\(m \cdot n\)</span> iterationer.
+Lösningen nedan sparar vikterna i uppslagstabell och kräver därför bara
+ett fåtal loopar (7 st funktionsanrop) som alla är av storlek
+<code>n</code>. Vi har under denna kod illustrerat tiden det tar för de
+två olika lösningarna.</p>
+<pre class="python"><code>def make_weighted_set(l):
+    w_set = {}
+    for element in l:
+         if element not in w_set:
+             w_set[element] = 1
+         else:
+             w_set[element] += 1
+    return w_set
+
+def weighted_jaccard_index_faster(list1, list2):
+
+    w_set1 = make_weighted_set(list1)
+    w_set2 = make_weighted_set(list2)
+
+    key_union = set(list(w_set1.keys()) + list(w_set2.keys()))
+    min_total = 0
+    max_total = 0
+    for key in key_union:
+        # get retrieves the element if present, otherwise returns the value
+        # that is specified in the second argument (in this case 0)
+        min_total += min(w_set1.get(key,0),w_set2.get(key,0))
+        max_total += max(w_set1.get(key,0),w_set2.get(key,0))
+
+    return min_total/max_total</code></pre>
+<pre class="python"><code>from time import time
+import random
+l1 = [random.randint(1, 1000) for i in range(100000)]
+l2 = [random.randint(1, 1000) for i in range(100000)]
+
+t_start = time()
+print(weighted_jaccard_index(l1, l2))
+print(&quot;Elapsed:&quot;, time() - t_start)
+
+t_start = time()
+print(weighted_jaccard_index_faster(l1, l2))
+print(&quot;Elapsed:&quot;, time() - t_start)</code></pre>
+<p>ger</p>
+<pre class="python"><code>0.8919685933213508
+Elapsed: 4.24 seconds
+0.8919685933213508
+Elapsed: 0.02 seconds</code></pre>
+<pre class="python"><code>from time import time
+import random
+l1 = [random.randint(1, 10000) for i in range(1000000)]
+l2 = [random.randint(1, 10000) for i in range(1000000)]
+
+t_start = time()
+print(weighted_jaccard_index(l1, l2))
+print(&quot;Elapsed:&quot;, time() - t_start)
+
+t_start = time()
+print(weighted_jaccard_index_faster(l1, l2))
+print(&quot;Elapsed:&quot;, time() - t_start)</code></pre>
+<p>ger</p>
+<pre class="python"><code>Elapsed: 459.42 seconds
+0.8938228234057563
+Elapsed: 0.28 seconds</code></pre></li>
+<li><p>Testfilen kan ha samma struktur som i uppgift 2, men kom ihåg att
+enhetstesta alla funktionerna separat. Till exempel för första lösningen
+ovan.</p>
+<pre class="python"><code>import unittest
+import kap12
+
+class TestWeightedJaccard(unittest.TestCase):
+    def test_identical_wjaccard_index(self):
+        l1 = [2, 0, 1]
+        l2 = [2, 1, 0, 0, 1]
+        self.assertEqual(kap12.weighted_jaccard_index(
+            l1, l2), 3/5, &quot;Should be 3/5&quot;)
+
+    def test_disjoint_wjaccard_index(self):
+        l1 = [1, 2, 3]
+        l2 = [0, 0, 0]
+        self.assertEqual(kap12.weighted_jaccard_index(l1,l2), 0, &quot;Should be 0&quot;)
+
+    def test_empty_wjaccard_index(self):
+        l1 = [1, 2, 3]
+        l2 = []
+        self.assertEqual(kap12.weighted_jaccard_index(l1,l2), 0, &quot;Should be 0&quot;)
+
+    def test_wrong_argument_wjaccard_index(self):
+        # check that jaccard_index fails with TypeError when
+        # argument is not iterable
+        with self.assertRaises(TypeError):
+            l1 = [1, 2, 3]
+            l2 = 1
+            kap12.weighted_jaccard_index(l1, l2)
+
+    def test_empty_lists_wjaccard_index(self):
+        # check that jaccard_index fails with TypeError when
+        # argument is not iterable
+        with self.assertRaises(ZeroDivisionError):
+            l1 = []
+            l2 = []
+            kap12.weighted_jaccard_index(l1, l2)
+
+    def test_make_weighted_operation_min(self):
+        l1 = [1, 2, 3]
+        l2 = [0, 0, 0]
+        f = lambda x, y: min(x, y)
+        self.assertEqual(kap12.make_weighted_operation(
+            l1, l2, f), 0, &quot;Should be 0&quot;)
+
+    def test_make_weighted_operation_max(self):
+        l1 = [1, 2, 3]
+        l2 = [0, 0, 0]
+        f = lambda x, y: max(x, y)
+        self.assertEqual(kap12.make_weighted_operation(
+            l1, l2, f), 6, &quot;Should be 6&quot;)
+
+    def test_make_weighted_operation_empty(self):
+        l1 = []
+        l2 = []
+        f = lambda x, y: max(x, y)
+        self.assertEqual(kap12.make_weighted_operation(
+            l1, l2, f), 0, &quot;Should be 6&quot;)
+
+unittest.main()</code></pre></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

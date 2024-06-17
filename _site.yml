@@ -28,6 +28,8 @@ navbar:
       href: kapitel11.html
     - text: "12: Defensiv programmering"
       href: kapitel12.html
+    - text: "Exempellösningar"
+      href: appendix.html
       
       
 output_dir: 'docs'
