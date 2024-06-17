@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -390,8 +404,8 @@ med listor men kan indexeras med andra typer än heltal.</p>
 data från en fil. Vi ska i kapitlet även titta på hur detta kan göras.
 Slutligen kommer vi även titta lite mer på vad man kan göra med loopar i
 Python.</p>
-<div id="uppslagstabeller" class="section level1">
-<h1>Uppslagstabeller</h1>
+<div id="uppslagstabeller" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Uppslagstabeller</h1>
 <p>Uppslagstabeller (eng. <em>dictionaries</em>) är en datastruktur som
 blivit en arbetshäst för scriptspråk. De är enkla att använda och bra
 till mycket. Uppslagstabellen är som en lista, men man indexerar med
@@ -456,8 +470,9 @@ class="uri">https://docs.python.org/3/tutorial/datastructures.html#dictionaries<
 href="https://docs.python.org/3/library/stdtypes.html#mapping-types-dict"
 class="uri">https://docs.python.org/3/library/stdtypes.html#mapping-types-dict</a></li>
 </ul>
-<div id="viktiga-egenskaper" class="section level2">
-<h2>Viktiga egenskaper</h2>
+<div id="viktiga-egenskaper" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Viktiga
+egenskaper</h2>
 <ul>
 <li>En uppslagning är billig (dvs snabb).</li>
 <li>Det är enkelt att ändra innehåll.</li>
@@ -465,8 +480,8 @@ class="uri">https://docs.python.org/3/library/stdtypes.html#mapping-types-dict</
 en uppslagstabell under iteration).</li>
 </ul>
 </div>
-<div id="andra-namn" class="section level2">
-<h2>Andra namn</h2>
+<div id="andra-namn" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Andra namn</h2>
 <ul>
 <li>Hashtabell</li>
 <li>Hash map</li>
@@ -475,8 +490,8 @@ en uppslagstabell under iteration).</li>
 särställning som i scriptspråken. Scriptspråken har gjort
 uppslagstabeller lättanvända.</p>
 </div>
-<div id="fler-exempel" class="section level2">
-<h2>Fler exempel</h2>
+<div id="fler-exempel" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Fler exempel</h2>
 <p>Tomma uppslagstabellen kan skrivas <code>{}</code>, detta är
 syntaktiskt socker för <code>dict()</code>.</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -503,8 +518,10 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImhwID0ge31cbmhwWydEQTIwMDQnXSA9IDdcbnBy
 {&#39;DA2004&#39;: 7.5, &#39;MM2001&#39;: 30, &#39;UG1001&#39;: 1}
 {&#39;DA2004&#39;: 7.5, &#39;MM2001&#39;: 30}</code></pre>
 </div>
-<div id="iterera-över-uppslagstabeller" class="section level2">
-<h2>Iterera över uppslagstabeller</h2>
+<div id="iterera-över-uppslagstabeller" class="section level2"
+number="1.4">
+<h2><span class="header-section-number">1.4</span> Iterera över
+uppslagstabeller</h2>
 <p>Vi kan använda <code class="python">for</code> för att iterera över
 nycklarna:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -535,8 +552,10 @@ Number of ECTS points for MM2001: 30</code></pre>
 som består av antingen nycklar, värden eller tupler med
 nyckel-värde-par.</p>
 </div>
-<div id="funktioner-för-uppslagstabeller" class="section level2">
-<h2>Funktioner för uppslagstabeller</h2>
+<div id="funktioner-för-uppslagstabeller" class="section level2"
+number="1.5">
+<h2><span class="header-section-number">1.5</span> Funktioner för
+uppslagstabeller</h2>
 <p>Vi kan även manipulera uppslagstabeller med liknande funktioner som
 för listor:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -557,13 +576,13 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGhwLmdldCgnREEyMDA0JywgNDIpKSAj
 42</code></pre>
 </div>
 </div>
-<div id="filhantering" class="section level1">
-<h1>Filhantering</h1>
+<div id="filhantering" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Filhantering</h1>
 <p>Filer innehåller information som ligger på hårddisken, till exempel
 textfiler, bilder eller filmer, etc. Du kommer åt filer genom att
 interagera med operativsystemet. Detta kan göras direkt från Python.</p>
-<div id="läsa-från-filer" class="section level2">
-<h2>Läsa från filer</h2>
+<div id="läsa-från-filer" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Läsa från filer</h2>
 För att till exempel läsa från en fil <code>data.txt</code> skaffar vi
 först ett “handtag” (eng. <em>handle</em>). Det gör man med
 <code>open()</code>, som tar ett filnamn som obligatoriskt argument.
@@ -594,8 +613,9 @@ redan använt oss av <code>read</code> eller <code>readlines</code> så
 kommer <code>readline</code> att inte göra något, eftersom
 handtaget/filpekaren redan har kommit till slutet av filen.</p>
 </div>
-<div id="skriva-till-filer" class="section level2">
-<h2>Skriva till filer</h2>
+<div id="skriva-till-filer" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Skriva till
+filer</h2>
 Om vi vill skriva till en fil <code>out_data.txt</code> måste återigen
 använda <code>open</code> för att skapa ett filhandtag, men nu måste man
 skicka med strängen “w” som andra argument (<code>w</code> för
@@ -622,8 +642,8 @@ programmeringsspråk.</p>
 <p>Observera att det inte är möjligt att skriva till en fil som är
 öppnad för läsning, och inte heller tvärtom.</p>
 </div>
-<div id="stänga-filer" class="section level2">
-<h2>Stänga filer</h2>
+<div id="stänga-filer" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Stänga filer</h2>
 <p>När vi är klara med en fil bör vi stänga den:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImguY2xvc2UoKVxub3V0cHV0LmNsb3NlKCkifQ==
@@ -639,8 +659,8 @@ annat program inte behöver vänta!</li>
 <p>När ett program avslutas så stängs öppna filer automatiskt, men det
 anses ändå vara god programmering att tydligt stänga en fil.</p>
 </div>
-<div id="ett-exempel" class="section level2">
-<h2>Ett exempel</h2>
+<div id="ett-exempel" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Ett exempel</h2>
 <p>Tänk dig en fil <code>people.txt</code> med komma-separerad
 information: <code>efternamn,förnamn,födelseår</code>.</p>
 <pre><code>Svensson,Lisa,1815
@@ -656,8 +676,10 @@ innehålla</p>
 <pre><code>Erik Olsson
 Anders Mörtberg</code></pre>
 </div>
-<div id="ett-praktiskt-idiom-with-open" class="section level2">
-<h2>Ett praktiskt idiom: <code>with open</code></h2>
+<div id="ett-praktiskt-idiom-with-open" class="section level2"
+number="2.5">
+<h2><span class="header-section-number">2.5</span> Ett praktiskt idiom:
+<code>with open</code></h2>
 <p>Python-konstruktionen <code class="python">with open</code> har
 blivit populär och anses idag vara idiomatisk för att arbeta med filer.
 Anledningen är att idiomet förbättrar läsbarheten för program och
@@ -686,8 +708,10 @@ sätt:</p>
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IndpdGggb3BlbigncGVvcGxlLnR4dCcsICdyJykgYXMgaF9pbiwgb3BlbignbW9kZXJuLnR4dCcsICd3JykgYXMgaF9vdXQ6XG4gICAgZm9yIG4gaW4gaF9pbjpcbiAgICAgICAgbG5hbWUsZm5hbWUseWVhciA9IG4uc3BsaXQoJywnKVxuICAgICAgICBpZiBpbnQoeWVhcikgPiAxOTAwOlxuICAgICAgICAgICAgcHJpbnQoZid7Zm5hbWV9IHtsbmFtZX0nLCBmaWxlPWhfb3V0KVx0In0=
 </div>
 </div>
-<div id="att-tänka-på-kring-filhantering" class="section level2">
-<h2>Att tänka på kring filhantering</h2>
+<div id="att-tänka-på-kring-filhantering" class="section level2"
+number="2.6">
+<h2><span class="header-section-number">2.6</span> Att tänka på kring
+filhantering</h2>
 <ul>
 <li>Läsa och skriva filer är långsamt.
 <ul>
@@ -708,8 +732,9 @@ för säkerhet och bekvämlighet!</li>
 </ul></li>
 </ul>
 </div>
-<div id="tre-speciella-filer" class="section level2">
-<h2>Tre speciella filer</h2>
+<div id="tre-speciella-filer" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Tre speciella
+filer</h2>
 <p>På Unix-system (det inkluderar olika Linux-varianter och MacOS) så
 finns alltid tre filer öppna, och det har förts över till PC-system
 också:</p>
@@ -737,8 +762,9 @@ och användarkommunikation.</p>
 Unix-traditionen, men är än idag mycket användbart.</p>
 </div>
 </div>
-<div id="mer-om-loopar-nästling" class="section level1">
-<h1>Mer om loopar: nästling</h1>
+<div id="mer-om-loopar-nästling" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Mer om loopar:
+nästling</h1>
 <p>Syntaxen för en <code class="python">for</code>-loop bygger på att
 den indragna “kroppen” på loopen har en eller flera satser. Man kan
 förstås använda <em>fler</em> loopar:</p>
@@ -786,8 +812,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZvciBpIGluIHJhbmdlKDEsOCk6XG4gICAgaWYg
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IjRcbjhcbjEyXG44XG4xNlxuMjRcbjEyXG4yNFxuMzYifQ==
 </div>
 </div>
-<div id="algoritmiskt-tänkande" class="section level1">
-<h1>Algoritmiskt tänkande</h1>
+<div id="algoritmiskt-tänkande" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Algoritmiskt
+tänkande</h1>
 <p>När man lär sig programmering är en av de stora utmaningarna att
 skapa sig en djup förståelse för datorn och programmeringsspråket, för
 hur annars ska man veta vad man ska instruera datorn?</p>
@@ -806,8 +833,9 @@ som lämnas outtalat. Människor delar så mycket erfarenhet och
 bakomliggande kunskap att alla detaljer inte behöver kommuniceras. Du
 och din dator delar däremot inte mycket erfarenheter; för att få datorn
 att göra det du vill måste du förklara dig in i minsta detalj.</p>
-<div id="recept-är-inte-algoritmer" class="section level2">
-<h2>Recept är inte algoritmer</h2>
+<div id="recept-är-inte-algoritmer" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Recept är inte
+algoritmer</h2>
 <p></p>
 <p>Recept brukar användas som en analogi för algoritmer och används
 ibland för att illustrera algoritmiskt tänkande. Analogin är bra som
@@ -868,8 +896,10 @@ snabbt bli lite frustrerande, men det kan vara vad som krävs för att
 beskriva för en robot hur man gräddar pannkakor på “traditionellt
 sätt”.</p>
 </div>
-<div id="top-down-down-up-och-att-göra-rätt" class="section level2">
-<h2><em>Top-down</em>, <em>down-up</em>, och att göra rätt</h2>
+<div id="top-down-down-up-och-att-göra-rätt" class="section level2"
+number="4.2">
+<h2><span class="header-section-number">4.2</span> <em>Top-down</em>,
+<em>down-up</em>, och att göra rätt</h2>
 <p>När vi förbättrade pannkaksreceptet så började vi med en ganska grov
 beskrivning av vad som ska göras och förfinade första punkten. Det är
 ett vanligt arbetssätt, särskilt när man är lite osäker på vad som ska
@@ -910,8 +940,9 @@ utanför den här kursen att lösa den utmaningen, men det är värt att
 påpeka att även om du programmerar för egen del så kan du upptäcka att
 det finns fler aspekter på en uppgift än du förstått från början.</p>
 </div>
-<div id="arbeta-med-uppgiften" class="section level2">
-<h2>Arbeta med uppgiften!</h2>
+<div id="arbeta-med-uppgiften" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Arbeta med
+uppgiften!</h2>
 <p>Några saker att tänka på, som kan uppfattas som triviala, men är
 värdefulla att gå igenom, särskilt när man jobbar tillsammans med
 andra:</p>
@@ -972,8 +1003,9 @@ fungerar och inte fungerar så är det ett bra sätt att lära sig
 programmering.</p>
 </div>
 </div>
-<div id="representation-av-data" class="section level1">
-<h1>Representation av data</h1>
+<div id="representation-av-data" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Representation av
+data</h1>
 <p>Ofta behöver man inte fundera på hur data lagras i en dator. När man
 jobbar med till exempel heltal så räcker det att ha en abstrakt bild av
 att tal lagras som nollor och ettor, för vi kan ju lätt se hur man kan
@@ -989,8 +1021,8 @@ och hitta sätt att använda språkets datastrukturer och andra finesser
 för att hitta en lämplig <em>datarepresentation</em>. I det här kapitlet
 diskuterar vi några exempel på hur man kan arbeta med
 datarepresentation.</p>
-<div id="lärandemål" class="section level2">
-<h2>Lärandemål</h2>
+<div id="lärandemål" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Lärandemål</h2>
 <ul>
 <li>Representation av heltal, flyttal, strängar, och boolska värden</li>
 <li>Andra data
@@ -1001,8 +1033,9 @@ datarepresentation.</p>
 </ul></li>
 </ul>
 </div>
-<div id="primitiva-datatyper" class="section level2">
-<h2>Primitiva datatyper</h2>
+<div id="primitiva-datatyper" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Primitiva
+datatyper</h2>
 <p>Många data representeras på ett rättframt sätt i programmeringsspråk
 eftersom det finns inbyggda typer för dem. De mest grundläggande typerna
 brukar kallas <em>primitiva datatyper</em> och i Python är det
@@ -1015,8 +1048,8 @@ ett enskilt tecken ska lagras i en <code>str</code>.</p>
 <p>Listor och uppslagstabeller kallas <em>sammansatta datatyper</em>,
 eftersom de i någon mening består av primitiva datatyper.</p>
 </div>
-<div id="datastrukturer" class="section level2">
-<h2>Datastrukturer</h2>
+<div id="datastrukturer" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Datastrukturer</h2>
 <p>En datastruktur är en konstruktion som kan samla flera primitiva
 datatyper till en enhet. Du har redan stött på listor och
 uppslagstabeller som är utformade för att samla olika mängder av data så
@@ -1027,8 +1060,10 @@ delar av data. I ett senare kapitel introducerar vi <em>tupler</em>
 (kapitel 6) samt begreppen <em>klass</em> och <em>objekt</em> som ger
 oss ett sätt att skapa egna datastrukturer. Klasser används gärna för
 att göra program mer lättlästa.</p>
-<div id="representera-abstraktioner" class="section level3">
-<h3>Representera abstraktioner</h3>
+<div id="representera-abstraktioner" class="section level3"
+number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Representera
+abstraktioner</h3>
 <p>De flesta uppfattar det nog inte som så konstigt att begrepp som
 <em>namn</em>, <em>adress</em>, och <em>text</em> är lämpliga att lagra
 som strängar. Det kan däremot vara svårare att se hur mer abstrakta
@@ -1067,8 +1102,9 @@ class="math inline">\(y\)</span>), och bestämmer hur vi kan använda
 enkla datastrukturer för den faktiska lagringen.</p>
 </div>
 </div>
-<div id="exempel-personnummer" class="section level2">
-<h2>Exempel: personnummer</h2>
+<div id="exempel-personnummer" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Exempel:
+personnummer</h2>
 <p>I många IT-system i det offentliga behöver man arbeta med
 personnummer. Hur representerar dem bäst? Eftersom man kan skriva ett
 personnummer med 10 eller 12 siffror så kan man överväga att betrakta
@@ -1107,8 +1143,8 @@ datumtyp.</p>
 <p>Kanske är det enklaste att låta personnummer representeras av
 strängar?</p>
 </div>
-<div id="exempel-polynom" class="section level2">
-<h2>Exempel: polynom</h2>
+<div id="exempel-polynom" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Exempel: polynom</h2>
 <p>Om man arbetar med polynom (vilket inte bara matematiker kan behöva
 göra) så behöver man en representation för dem. Det är inte praktiskt
 att lagra <span class="math inline">\(4x^2-3x+7\)</span> som en sträng,
@@ -1195,8 +1231,8 @@ class="math inline">\(6x-2\)</span></p>
 beräkningar på abstrakta begrepp.</p>
 </div>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Givet de två listorna nedan </p>
 <pre class="python"><code>a = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]
@@ -1333,7 +1369,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

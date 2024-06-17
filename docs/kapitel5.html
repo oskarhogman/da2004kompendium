@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -396,15 +410,17 @@ class="python">except</code>.</p>
 <p>Vi ska även i slutet av kapitlet titta på ett helt annat koncept:
 listomfattningar. Detta är ett smidigt sätt att skapa och modifiera
 listor, som ofta är mycket mer kompakt än att skriva en loop.</p>
-<div id="felhantering-och-särfall" class="section level1">
-<h1>Felhantering och särfall</h1>
+<div id="felhantering-och-särfall" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Felhantering och
+särfall</h1>
 <p>Ett naivt sätt att hantera fel i program är att returnera en felkod i
 form av ett tal eller en sträng. Vi ska nu börja med att titta på hur
 detta kan se ut, men sen snabbt gå över till att titta på hur fel kan
 hanteras bättre med hjälp av särfall.</p>
 <div id="felhantering-med-hjälp-av-returnerade-felkoder"
-class="section level2">
-<h2>Felhantering med hjälp av returnerade felkoder</h2>
+class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Felhantering med
+hjälp av returnerade felkoder</h2>
 <p>Att förlita sig på returvärden för felhantering ger komplexa program
 som tenderar att bli svårlästa. Många funktionsanrop måste följas av
 <code class="python">if</code>-satser för att se om ett fel uppstod som
@@ -425,8 +441,8 @@ språk stödjer därför specifika sätt att hantera fel på genom så kallade
 “särfall” (eng: <em>exceptions</em>, ibland översatt till
 “undantag”).</p>
 </div>
-<div id="särfall" class="section level2">
-<h2>Särfall</h2>
+<div id="särfall" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Särfall</h2>
 Python använder sig av de reserverade orden <code
 class="python">try</code> och <code class="python">except</code> för att
 dela in koden i block som vi inte litar på, vi kan kalla dem osäkra
@@ -451,8 +467,9 @@ antingen avsluta exekveringen av programmet eller så kan felet behandlas
 på något annat sätt (t.ex. ignoreras, även om man ska vara försiktig med
 att strunta i fel som ger ett särfall).</p>
 <div id="exempel-läsa-in-ett-heltal-från-användaren"
-class="section level3">
-<h3>Exempel: läsa in ett heltal från användaren</h3>
+class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Exempel: läsa in
+ett heltal från användaren</h3>
 <p>Betrakta följande kodsnutt:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IndoaWxlIFRydWU6XG4gICAgYW5zd2VyID0gaW5wdXQoXCJXcml0ZSBhIG51bWJlciAod3JpdGUgMCB0byBxdWl0KTogXCIpXG4gICAgeCA9IGludChhbnN3ZXIpXG4gICAgaWYgeCA9PSAwOlxuICAgICAgICBwcmludChcIkJ5ZSBieWUhXCIpXG4gICAgICAgIGJyZWFrXG4gICAgZWxzZTpcbiAgICAgICAgcHJpbnQoXCJUaGUgc3F1YXJlIG9mIHRoZSBudW1iZXIgaXM6IFwiICsgc3RyKHggKiogMikpIn0=
@@ -494,8 +511,9 @@ identifierat att det bara är typkonverteringen som kan orsaka
 problem.</p>
 </div>
 <div id="exempel-beräkna-längden-av-rader-i-en-fil"
-class="section level3">
-<h3>Exempel: beräkna längden av rader i en fil</h3>
+class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Exempel: beräkna
+längden av rader i en fil</h3>
 <p>Låt oss säga att vi vill beräkna längden på alla rader i en fil:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBsZW5fZmlsZShmaWxlbmFtZSk6XG4gICAgd2l0aCBvcGVuKGZpbGVuYW1lLCAncicpIGFzIGg6XG4gICAgICAgIGZvciBzIGluIGg6XG4gICAgICAgICAgICBwcmludChsZW4ocykpXG5cbmxlbl9maWxlKFwiZm9vLnR4dFwiKSJ9
@@ -512,8 +530,10 @@ signalerar fel med är mer till för programmerare. Genom att hantera fel
 som kan uppstå vid till exempel felhantering kan man göra sitt program
 mer användarvänligt.</p>
 </div>
-<div id="olika-åtgärder-för-specifika-särfall" class="section level3">
-<h3>Olika åtgärder för specifika särfall</h3>
+<div id="olika-åtgärder-för-specifika-särfall" class="section level3"
+number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Olika åtgärder för
+specifika särfall</h3>
 <p></p>
 <p>Det är mycket som kan gå fel och olika särfall kan man vilja hantera
 på olika sätt. I nästa exempel så görs separata åtgärder för om något
@@ -535,8 +555,10 @@ O
 <p>så genereras och fångas ett särfall. Vilket? Kan du provocera fram de
 två andra särfallen?</p>
 </div>
-<div id="särfall-för-kontrollflöde" class="section level3">
-<h3>Särfall för kontrollflöde</h3>
+<div id="särfall-för-kontrollflöde" class="section level3"
+number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> Särfall för
+kontrollflöde</h3>
 <p>Man kan även använda särfall för kontrollflöde i sitt program. Låt
 oss säga att vi vill beräkna kvoten mellan varje element i två listor
 (och ignorera alla element i slutet av den längre listan), men inte
@@ -549,8 +571,9 @@ class="python">if</code>-sats och testat om <code>ys[i] == 0</code>. Mer
 om detta senare.</p>
 </div>
 </div>
-<div id="allmänt-om-särfall" class="section level2">
-<h2>Allmänt om särfall</h2>
+<div id="allmänt-om-särfall" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Allmänt om
+särfall</h2>
 <p>Det anses vara idiomatisk Python att använda sig av <code
 class="python">try-except</code>. Det är inte ovanligt att när man läser
 om Python-kod ser <em>EAFP</em>, som står för <em>It’s Easier to Ask
@@ -602,8 +625,10 @@ felutskrift. Det är inte snyggt att låta ett program fortsätta om felet
 Vissa fel ska helt enkelt avbryta ett program.</li>
 </ul>
 </div>
-<div id="hantera-egna-stabilitetsproblem" class="section level2">
-<h2>Hantera egna stabilitetsproblem</h2>
+<div id="hantera-egna-stabilitetsproblem" class="section level2"
+number="1.4">
+<h2><span class="header-section-number">1.4</span> Hantera egna
+stabilitetsproblem</h2>
 <p>Det är inte nödvändigtvis en svaghet att problem uppstår. Det är
 svårt, om inte helt omöjligt, att t.ex.:</p>
 <ul>
@@ -665,8 +690,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBteV9hbGdvcml0aG0oeCwgaCk6XG4gICAg
 </div>
 </div>
 <div id="vad-du-skriver-påverkar-hur-du-jobbar-med-särfall"
-class="section level2">
-<h2>Vad du skriver påverkar hur du jobbar med särfall</h2>
+class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Vad du skriver
+påverkar hur du jobbar med särfall</h2>
 <p>Man kan säga att det finns olika scenarier för användning av
 särfall.</p>
 <ul>
@@ -703,11 +729,12 @@ särfall.</p></li>
 <p>Python talar om <em>att</em> ett fel uppstått. Du som programmerare
 kan tala om <em>varför</em> ett fel har uppstått.</p>
 </div>
-<div id="vanliga-misstag" class="section level2">
-<h2>Vanliga misstag</h2>
+<div id="vanliga-misstag" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Vanliga misstag</h2>
 <div id="if-sats-istället-för-särfall-för-flödeskontroll"
-class="section level3">
-<h3><code>if</code>-sats istället för särfall för flödeskontroll</h3>
+class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span>
+<code>if</code>-sats istället för särfall för flödeskontroll</h3>
 <p>Det kan vara lockande att använda <code class="python">except</code>
 för flödeskontroll, men ofta är det bättre att istället använda <code
 class="python">if</code>-satser. Till exempel i denna kod:</p>
@@ -728,8 +755,8 @@ hjälpfunktionen bestämma vad man ska göra.
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBlbGVtX2FjY2Vzcyh4cyxpKTogICAjIEJcdTAwZTR0dHJlIHZlcnNpb25cbiAgICBpZiBpID49IGxlbih4cyk6XG4gICAgICAgIHJhaXNlIEluZGV4RXJyb3JcbiAgICByZXR1cm4geHNbaV0ifQ==
 </div>
 </div>
-<div id="överanvändning" class="section level3">
-<h3>Överanvändning</h3>
+<div id="överanvändning" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Överanvändning</h3>
 <p>Använd inte särfall för att tackla att kod inte fungerar som du hade
 tänkt dig.</p>
 <p>I exemplet nedan skapas en ny uppslagstabell <code>d</code> för
@@ -750,8 +777,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhdGEgPSB7MSA6IFwiTWFrZSBiZWRcIixcbiAg
 </div>
 </div>
 </div>
-<div id="listomfattningar" class="section level1">
-<h1>Listomfattningar</h1>
+<div id="listomfattningar" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Listomfattningar</h1>
 <p>Listomfattning (eng: <em>list comprehension</em>) är en teknik för
 att skapa listor som också är populär bland funktionella
 programmeringsspråk och därför ofta tas upp i det sammanhanget.
@@ -800,8 +827,9 @@ skriver den lätt med en listomfattning.</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB6aXAoeHMseXMpOlxuICAgIGlmIGxlbih4cykgIT0gbGVuKHlzKTpcbiAgICAgICAgcHJpbnQoXCJ6aXAgdW5lcXVhbCBsZW5ndGhzIVwiKVxuICAgICAgICByZXR1cm4gW11cbiAgICByZXR1cm4gWyAoeHNbaV0seXNbaV0pIGZvciBpIGluIHJhbmdlKGxlbih4cykpIF0ifQ==
 </div>
-<div id="dict-omfattningar" class="section level2">
-<h2><code>dict</code>-omfattningar</h2>
+<div id="dict-omfattningar" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span>
+<code>dict</code>-omfattningar</h2>
 <p>Listomfattning är den traditionella tekniken, men i Python har man
 generaliserat dessa till uppslagstabeller (och mängder som kommer i
 senare kapitel). Man kan alltså skapa uppslagstabeller med
@@ -822,8 +850,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImxzdCA9IFsnMScsICc0MicsICcxMyddXG5teV9k
 <pre class="python"><code>{&#39;key_1&#39;: 1, &#39;key_42&#39;: 42, &#39;key_13&#39;: 13}</code></pre>
 </div>
 </div>
-<div id="felsökning" class="section level1">
-<h1>Felsökning</h1>
+<div id="felsökning" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Felsökning</h1>
 <p>När man programmerar drabbas man av misstag, missförstånd, och
 felbedömningar. Det skapar fel i koden, som ibland kallas för “buggar”
 och är en försvenskning av det engelska ordet “bug” som betyder insekt,
@@ -849,8 +877,8 @@ uppslagstabeller är det därför inte en lösning att lägga till kod så att
 inget händer om en nyckel inte hittas i uppslagstabellen, utan man bör
 istället fastställa varför nyckeln används eller varför nyckeln inte
 finns inlagd.</p>
-<div id="exempel-på-fel" class="section level2">
-<h2>Exempel på fel</h2>
+<div id="exempel-på-fel" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Exempel på fel</h2>
 <p>Fel kommer ofta av missförstånd. Man kanske missförstår en detalj i
 en algoritm eller har en felaktig idé om hur indata faktiskt ser ut.
 Ibland har man missförstått det programmeringsspråk man arbetar i och
@@ -858,8 +886,10 @@ det är lätt hänt eftersom det finns många detaljer att hålla reda
 på.</p>
 <p>Vi kan titta på några exempel på återkommande fel, för att visa vad
 man kan behöva vara uppmärksam på.</p>
-<div id="exempel-problem-vid-sortering" class="section level3">
-<h3>Exempel: problem vid sortering</h3>
+<div id="exempel-problem-vid-sortering" class="section level3"
+number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Exempel: problem
+vid sortering</h3>
 Antag att du behöver sortera en lista med tal och experimenterar med den
 här snutten kod:
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -884,8 +914,10 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImxzdCA9IFsxMCwgMywgNF1cbmxzdCA9IHNvcnRl
 <p>Detta fungerar eftersom <code>sorted</code> returnerar en ny kopia av
 listan, men sorterad.</p>
 </div>
-<div id="exempel-dåligt-returvärde" class="section level3">
-<h3>Exempel: dåligt returvärde</h3>
+<div id="exempel-dåligt-returvärde" class="section level3"
+number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Exempel: dåligt
+returvärde</h3>
 <p>En av våra tumregler är att man alltid ska returnera ett resultat
 från en funktion. Man ska ha goda skäl för att inte returnera något.
 Anledningen är att undvika ett vanligt nybörjarmisstag, som även
@@ -916,8 +948,10 @@ eftersom det inte finns en retur-sats, vilket ger returvärdet
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBsYXJnZXN0X3RocmVlKGxzdCk6XG4gICAgbHN0ID0gc29ydGVkKGxzdClcbiAgICByZXR1cm4gbHN0Wy0zOl0ifQ==
 </div>
 </div>
-<div id="exempel-iteratorer-är-inte-listor" class="section level3">
-<h3>Exempel: iteratorer är inte listor</h3>
+<div id="exempel-iteratorer-är-inte-listor" class="section level3"
+number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Exempel: iteratorer
+är inte listor</h3>
 Inspirerat av lösningen ovan kanske man tänker sig en liknande uppgift,
 löst på liknande sätt. Antag att vi vill skriva ut en lista i omvänd
 ordning och se visa maxvärdet.
@@ -940,8 +974,9 @@ ibland.</p>
 <p>Hur rättar du felet?</p>
 </div>
 </div>
-<div id="förstå-felmeddelandet" class="section level2">
-<h2>Förstå felmeddelandet</h2>
+<div id="förstå-felmeddelandet" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Förstå
+felmeddelandet</h2>
 <p>Ett första steg till att bli bra på felsökning är att läsa
 felmeddelanden noga. Om programmet avslutar med ett fel så brukar
 felmeddelandet tala om ganska tydligt varför det avslutar. Återigen,
@@ -985,8 +1020,10 @@ inför felsökningen.</p>
 så kan viss terminologi vara alltför teknisk, men även om man inte
 förstår allt så kan man ändå hitta värdefulla ledtrådar.</p>
 </div>
-<div id="leta-fel-med-spårutskrifter" class="section level2">
-<h2>Leta fel med spårutskrifter</h2>
+<div id="leta-fel-med-spårutskrifter" class="section level2"
+number="3.3">
+<h2><span class="header-section-number">3.3</span> Leta fel med
+spårutskrifter</h2>
 <p>Spårutskrifter är en beprövad och välanvänd teknik för att leta fel.
 Idén är enkel: lägg in <code>print</code>-satser som avslöjar värden på
 variabler och visar både hur variabelvärden ändras och hur programflödet
@@ -1033,8 +1070,8 @@ bort dem också, men de används ändå vitt och brett av erfarna
 programmerare. I scriptspråk som Python är kostnaden med spårutskrifter
 ändå ganska låg eftersom man tenderar att arbeta ganska interaktivt med
 koden, mer än i vissa andra språk, och det är lätt att testa kod.</p>
-<div id="loggning" class="section level3">
-<h3>Loggning</h3>
+<div id="loggning" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Loggning</h3>
 <p>Om man finner att spårutskrifterna är användbara, så kanske man
 entusiastiskt börjar planera för särskilda funktioner för
 spårutskrifter, avstängbara, där man kan få dem skrivna till en separat
@@ -1070,8 +1107,9 @@ exempel inte har någon funktion. Modulen stödjer mer avancerad
 användning än vad vi visar här.</p>
 </div>
 </div>
-<div id="leta-fel-med-debugger" class="section level2">
-<h2>Leta fel med debugger</h2>
+<div id="leta-fel-med-debugger" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Leta fel med
+debugger</h2>
 <p>Programmerarens kanske bästa hjälpmedel är <em>debuggern</em>, på
 svenska även känd som <em>avlusare</em>. Det är ett program som används
 för att köra ditt program på ett kontrollerat sätt, med möjlighet att
@@ -1086,8 +1124,8 @@ som du använder så kan du räkna med att det finns flera återkommande och
 användbara finesser, och som dessutom återfinns för de flesta
 programmeringsspråk. Vi ska titta på några av de grundläggande
 finesserna.</p>
-<div id="brytpunkter" class="section level3">
-<h3>Brytpunkter</h3>
+<div id="brytpunkter" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Brytpunkter</h3>
 <p>En brytpunkt markeras ofta med en röd symbol i kodens vänsterkant och
 den betyder helt enkelt “stanna innan denna rad exekveras”. Du kan
 alltså starta ditt program med debuggern och när körningen kommer till
@@ -1102,8 +1140,8 @@ variabler med lite komplicerade datastrukturer så brukar brytpunkter
 vara enklare att arbeta med. En fördel är att du kan undersöka
 datastrukturer och behöver inte i förväg välja ut vad som ska visas.</p>
 </div>
-<div id="stegning" class="section level3">
-<h3>Stegning</h3>
+<div id="stegning" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Stegning</h3>
 <p>Brytpunkter ger dig ögonblicksbilder av programmet och det är inte
 alltid tillräckligt för att förklara vad som går fel. Därför är det
 praktiskt att kunna stega sig fram i programmet, rad för rad, och
@@ -1126,8 +1164,9 @@ på funktionen” (i Spyder: “step return”), som är ett bra sätt att komma
 framåt på ett snabbare men fortfarande kontrollerat sätt.</p>
 </div>
 </div>
-<div id="strategier-för-felsökning" class="section level2">
-<h2>Strategier för felsökning</h2>
+<div id="strategier-för-felsökning" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Strategier för
+felsökning</h2>
 <p>Även om man behärskar tekniker för felsökning så kan det vara svårt
 eller långsamt att hitta det verkliga misstaget. Det är värt att tänka
 igenom hur man kan avslöja det underliggande felet.</p>
@@ -1143,8 +1182,8 @@ hitta misstag.</p>
 <p>Med eller utan enhetstestning, det kommer alltid vara viktigt att
 använda bra strategier för att hitta sina fel. Vi ska nu gå igenom några
 strategier.</p>
-<div id="avgränsa-fel" class="section level3">
-<h3>Avgränsa fel</h3>
+<div id="avgränsa-fel" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Avgränsa fel</h3>
 <p>Om ett program kraschar på rad 917 efter att ha exekverat ett flertal
 olika funktioner så kan misstaget ligga på just den raden eller raden
 innan, men man ska inte utgå ifrån att felet är nära rad 917. Fel kan
@@ -1162,8 +1201,8 @@ till felet.</p>
 så är förstås den nya koden huvudmisstänkt och ska, oavsett var de
 ligger, granskas först.</p>
 </div>
-<div id="skriv-om" class="section level3">
-<h3>Skriv om</h3>
+<div id="skriv-om" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Skriv om</h3>
 <p>En del fel är alldeles framför ögonen, men man ser dem inte pga
 felaktiga antaganden eller bara ren förvirring. Förvirring och
 tillfälllig blindhet för vissa misstag är att vänta, eftersom man ofta
@@ -1182,8 +1221,8 @@ eller med en lite annorlunda algoritm, kan bota den tillfälliga
 blindheten mot enkla misstag som stavfel, eller avslöja underliggande
 antaganden som man inte först reagerat på.</p>
 </div>
-<div id="granska-indata" class="section level3">
-<h3>Granska indata</h3>
+<div id="granska-indata" class="section level3" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Granska indata</h3>
 <p>En del problem beror på att indata innehåller konstigheter som det
 kan vara svårt att lägga märke till. Moderna standarder har botat det
 här i hög grad, men man kan fortfarande stöta på problem som till
@@ -1212,8 +1251,9 @@ ska skrivhuvudet flyttas längst till vänster.</p>
 etablerat kod för att läsa data, och det kan du läsa om i ett senare
 kapitel.</p>
 </div>
-<div id="välj-dina-testdata" class="section level3">
-<h3>Välj dina testdata</h3>
+<div id="välj-dina-testdata" class="section level3" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Välj dina
+testdata</h3>
 <p>När man letar fel så ska man välja sina testdata med omsorg.</p>
 <ul>
 <li>Arbeta med små testdata. Om ditt mål att analysera en stor datafil
@@ -1234,8 +1274,8 @@ spara dem för framtida behov.</p>
 </div>
 </div>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Vad händer om vi anropar funktionen <code>divide_by_elems</code>
 (funktionen given i ) med en sträng som argument för <code>x</code>?
@@ -1346,7 +1386,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

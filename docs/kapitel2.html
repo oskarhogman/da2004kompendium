@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -380,8 +394,9 @@ div.tocify {
 
 
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-<div id="syntax-och-semantik" class="section level1">
-<h1>Syntax och semantik</h1>
+<div id="syntax-och-semantik" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Syntax och
+semantik</h1>
 <p>Inom programmering pratar man ofta om <em>syntax</em> och
 <em>semantik</em>:</p>
 <ul>
@@ -428,8 +443,8 @@ skriva “bra” kod. Om det är tydligt vad man <em>vill</em> att koden ska
 göra när någon (eller man själv) läser koden, blir det mycket lättare
 att hitta semantiska fel.</p>
 </div>
-<div id="datatyper" class="section level1">
-<h1>Datatyper</h1>
+<div id="datatyper" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Datatyper</h1>
 <p>Alla värden i Python har en typ. Vi har redan använt oss av olika
 typer när vi till exempel tilldelat variabler värden som heltal, flyttal
 och strängar. De vanligaste typerna i Python som vi kommer att använda
@@ -484,8 +499,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15X2ludCA9IDFcbm15X2Zsb2F0ID0gMS4wXG5t
 float
 str
 str</code></pre>
-<div id="typomvandling" class="section level2">
-<h2>Typomvandling</h2>
+<div id="typomvandling" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Typomvandling</h2>
 <p>Man kan omvandla en typ till en annan, men det finns regler om hur
 specifika typer omvandlas och till vilka typer de kan omvandlas. Ofta
 behöver man inte ens tänka på att en typ omvandlas, utan det funkar
@@ -533,8 +548,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFnZSA9IGludChpbnB1dChcdTIwMWNEaW4gXHUw
 </div>
 </div>
 </div>
-<div id="booleska-uttryck-i-python" class="section level1">
-<h1>Booleska uttryck i Python</h1>
+<div id="booleska-uttryck-i-python" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Booleska uttryck i
+Python</h1>
 <p>En operator är en symbol som använd på en eller flera värden,
 operander, ger ett nytt värde. Vi har tidigare sett exempel på typiska
 aritmetiska operatorer (<code>+</code>, <code>-</code>,<code>*</code>,
@@ -561,8 +577,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImJvb2woMClcbmJvb2woMC4wKVxuYm9vbCgnJylc
 False
 False
 False</code></pre>
-<div id="jämförelseoperatorer" class="section level2">
-<h2>Jämförelseoperatorer</h2>
+<div id="jämförelseoperatorer" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span>
+Jämförelseoperatorer</h2>
 <p>Dessa operationer jämför indata genom följande relationer:</p>
 <ul>
 <li>Likhet: <code>x == y</code></li>
@@ -584,8 +601,9 @@ False
 False</code></pre>
 <p>Sök på internet om hur Python jämför strängar!</p>
 </div>
-<div id="logiska-operatorer" class="section level2">
-<h2>Logiska operatorer</h2>
+<div id="logiska-operatorer" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Logiska
+operatorer</h2>
 <p>Python använder sig av de logiska operatorerna <code>and</code>,
 <code>or</code> och <code>not</code>.</p>
 <ul>
@@ -639,8 +657,9 @@ allting). Syftet är förstås att få snabbare program genom att inte
 beräkna uttryck som inte behövs.</p>
 </div>
 </div>
-<div id="tilldelningsoperatorer" class="section level1">
-<h1>Tilldelningsoperatorer</h1>
+<div id="tilldelningsoperatorer" class="section level1" number="4">
+<h1><span class="header-section-number">4</span>
+Tilldelningsoperatorer</h1>
 <p>Vi har redan sett att <code>=</code> används för tilldelning. En
 smidig funktionalitet i Python är att man kan kombinera detta med
 aritmetiska operatorer och få så kallade “tilldelningsoperatorer”:</p>
@@ -648,8 +667,8 @@ aritmetiska operatorer och få så kallade “tilldelningsoperatorer”:</p>
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggKz0gMyAgICAjIHggPSB4ICsgM1xueCAtPSAzICAgICMgeCA9IHggLSAzXG54ICo9IDMgICAgIyB4ID0geCAqIDNcbnggLz0gMyAgICAjIHggPSB4IC8gM1xueCAlPSAzICAgICMgeCA9IHggJSAzXG54IC8vPSAzICAgIyB4ID0geCAvLyAzXG54ICoqPSAzICAgIyB4ID0geCAqKiAzIn0=
 </div>
 </div>
-<div id="funktioner" class="section level1">
-<h1>Funktioner</h1>
+<div id="funktioner" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Funktioner</h1>
 <p>I och med att ens program blir större och kanske mer komplicerat, så
 märker man snabbt att det finns ett behov att kunna strukturera upp sin
 kod. Det kan man börja göra med hjälp av <em>funktioner</em>. Vi har
@@ -718,8 +737,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBzaG93X3VzZXJfbWVudSgpOlxuICAgIHBy
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB1c2VyX2Nob2ljZSgpOlxuICAgIHNob3dfdXNlcl9tZW51KClcbiAgICByZXR1cm4gaW5wdXQoJ1doaWNoIGFzc2lnbm1lbnQgZG8geW91IHdhbnQgdG8gZG8/ICcpIn0=
 </div>
-<div id="om-funktioner" class="section level2">
-<h2>Om funktioner</h2>
+<div id="om-funktioner" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Om funktioner</h2>
 <p>Exemplen ovan introducerar flera nya syntaktiska koncept i Python. En
 funktion har en definition (även kallad “kropp”) och ett huvud (även
 kallad “signatur”).</p>
@@ -795,8 +814,9 @@ det står att ni ska skriva en funktion som <em>returnerar</em> något så
 ska <code class="python">return</code> användas och inte <code
 class="python">print</code>.</p>
 </div>
-<div id="multipla-returvärden" class="section level2">
-<h2>Multipla returvärden</h2>
+<div id="multipla-returvärden" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Multipla
+returvärden</h2>
 <p>Hur gör man om man vill returnera flera värden? Det finns flera
 dåliga sätt att lösa detta, men ett bra: multipla returvärden.</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -807,8 +827,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBpbnRlZ2VyX2Rpdihub21pbmF0b3IsIGRl
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InF1b3RpZW50LCByZW1haW5kZXIgPSBpbnRlZ2VyX2RpdigxNywgMTApIn0=
 </div>
 </div>
-<div id="standardvärden" class="section level2">
-<h2>Standardvärden</h2>
+<div id="standardvärden" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Standardvärden</h2>
 <p>Det är vanligt att man skriver funktioner med parametrar som nästan
 alltid sätts till samma värde. Python låter dig ange explicit sådana
 vanliga värden: dessa kallas <em>standardvärden</em> (eng.: <em>default
@@ -822,8 +842,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmKHg9MSk6XG4gICAgcmV0dXJuIHggKyB4
 <code>x=1</code>, även om vi inte gett det som argument. När vi på nästa
 rad kallar <code>f(3)</code>, så sätts <code>x=3</code>.</p>
 </div>
-<div id="nyckelordsparametrar" class="section level2">
-<h2>Nyckelordsparametrar</h2>
+<div id="nyckelordsparametrar" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span>
+Nyckelordsparametrar</h2>
 <p>Python låter dig namnge parametrar även i anropen. Till exempel så
 ger <code>integer_div(denominator=10, nominator=17)</code> ger samma
 effekt som anropet <code>integer_div(17, 10)</code>.</p>
@@ -850,8 +871,10 @@ you</code></pre>
 <p>For att se mer information skriv <code>help(print)</code> i
 Spyder-konsolen (iPython).</p>
 </div>
-<div id="dokumentation-av-funktioner" class="section level2">
-<h2>Dokumentation av funktioner</h2>
+<div id="dokumentation-av-funktioner" class="section level2"
+number="5.5">
+<h2><span class="header-section-number">5.5</span> Dokumentation av
+funktioner</h2>
 <p>Det finns två sätt att dokumentera i Python:</p>
 <ul>
 <li>Dokumentationssträngar
@@ -898,8 +921,10 @@ som används, vilka antaganden man har om parametrar, och vad som gäller
 för returvärdet.</p>
 </div>
 </div>
-<div id="globala-och-lokala-variabler" class="section level1">
-<h1>Globala och lokala variabler</h1>
+<div id="globala-och-lokala-variabler" class="section level1"
+number="6">
+<h1><span class="header-section-number">6</span> Globala och lokala
+variabler</h1>
 <p>Variabler i Python kan vara antingen <em>globala</em> eller
 <em>lokala</em>. Namnet syftar till var en variabel är “synlig” för kod,
 och var variabeln kan modifieras/ändras. I följande exempel är
@@ -949,8 +974,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSA1XG5cbmRlZiBmb28oKTpcbiAgICB4ID0g
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSA1XG5cbmRlZiBmb28oeCk6XG4gICAgcHJpbnQoXCJMb2NhbCB4OlwiLCB4KVxuXG5mb28oMTIpXG5wcmludChcIkdsb2JhbCB4OlwiLCB4KSJ9
 </div>
 </div>
-<div id="villkorssatser" class="section level1">
-<h1>Villkorssatser</h1>
+<div id="villkorssatser" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Villkorssatser</h1>
 <p>Det händer ofta att man vill exekvera ett visst kodblock endast om
 något uttryck eller något test är sant. Detta görs med så kallade
 <em>villkorssatser</em>, eller “<code>if</code>-satser”. I Python görs
@@ -1020,8 +1045,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB4b3IoeCwgeSk6XG4gICAgcmV0dXJuIG5v
 <p>Vilken version av funktionen <code>xor</code> är lättast att
 läsa?</p>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li>Vilket eller vilka av alternativen nedan ska man tänka på när man
 väljer ett namn på en funktion eller variabel?</li>
@@ -1174,7 +1199,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

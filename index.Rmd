@@ -15,7 +15,7 @@ Om du hittar något misstag, mejla gärna vilken del av texten och vad som är f
 
 ---
 
-## Tack
+## Tack {.unlisted .unnumbered}
 
 Det är många som hjälpt oss med att påpeka misstag och förbättra texten. 
 Särskilda insatser har gjorts av

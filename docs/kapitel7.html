@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -380,8 +394,8 @@ div.tocify {
 
 
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-<div id="moduler" class="section level1">
-<h1>Moduler</h1>
+<div id="moduler" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Moduler</h1>
 <p>Många programmeringsspråk har ett “modulsystem”, så även Python.
 Dessa är smidiga när man skriver större program och egna bibliotek. De
 kan användas för:</p>
@@ -412,8 +426,9 @@ variabel-/funktionsnamn.</p>
 <li>Allt som ska användas (från en annan fil) måste
 <em>importeras</em>.</li>
 </ul>
-<div id="import-av-moduler" class="section level2">
-<h2>Import av moduler</h2>
+<div id="import-av-moduler" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Import av
+moduler</h2>
 <p>Man kan importera moduler på ett antal olika sätt:</p>
 <ul>
 <li><p><code class="python">import modulename</code>: Tillåter att
@@ -478,8 +493,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZyb20gbWF0aCBpbXBvcnQgZmFjdG9yaWFsIGFz
 modulen <code>math</code> har en funktion <code>comb</code> som är
 snabbare än den som presenteras här.</p>
 </div>
-<div id="skriva-egna-moduler" class="section level2">
-<h2>Skriva egna moduler</h2>
+<div id="skriva-egna-moduler" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Skriva egna
+moduler</h2>
 <p>Låt oss säga att vi har följande Python kod i en fil
 <code>circle.py</code>:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -503,8 +519,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZyb20gbWF0aCBpbXBvcnQgcGlcbnByaW50KHBp
 </div>
 <pre class="python"><code>3.141592653589793</code></pre>
 </div>
-<div id="main-funktioner" class="section level2">
-<h2><code>main()</code>-funktioner</h2>
+<div id="main-funktioner" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span>
+<code>main()</code>-funktioner</h2>
 <p>Ett vanligt idiom:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFwiSGVsbG9cIilcblxuZGVmIG1haW4oKTpcbiAgICBwcmludChcInB5dGhvbiBtYWluIGZ1bmN0aW9uXCIpXG5cbmlmIF9fbmFtZV9fID09ICdfX21haW5fXyc6XG4gICAgbWFpbigpXG5cbnByaW50KFwiX19uYW1lX18gdmFsdWU6IFwiLCBfX25hbWVfXykifQ==
@@ -519,8 +536,10 @@ sätts till modulnamnet, så <code>if</code>-satsen kommer då inte att
 köras.</p>
 </div>
 </div>
-<div id="populära-bibliotek-och-moduler" class="section level1">
-<h1>Populära bibliotek och moduler</h1>
+<div id="populära-bibliotek-och-moduler" class="section level1"
+number="2">
+<h1><span class="header-section-number">2</span> Populära bibliotek och
+moduler</h1>
 <p>Python kommer laddat med batterier: det finns massor av bra och
 användbara moduler som är en del av Python-implementationen. Dessa
 moduler kallas tillsammans Pythons standardbibliotek. För en lång lista
@@ -550,8 +569,9 @@ läsa in igen.</p></li>
 beräkningar.</p></li>
 <li><p>…: Utforska själv!</p></li>
 </ul>
-<div id="json-och-serialisering" class="section level2">
-<h2>JSON och serialisering</h2>
+<div id="json-och-serialisering" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> JSON och
+serialisering</h2>
 <p>Problem: Jobbigt att skriva och läsa filer! Särskilt med stora
 datastrukturer (tänk: nästlade listor och/eller uppslagstabeller).</p>
 <p>Lösning: <em>serialisering</em></p>
@@ -564,8 +584,10 @@ igen.</p>
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBqc29uXG5sZWdlbmRzID0gWyBbJ0xvdmVsYWNlJywgJ0FkYScsIDE4MTVdXG4gICAgICAgICAgLCBbJ0JhYmJhZ2UnLCAnQ2hhcmxlcycsIDE3OTFdXG4gICAgICAgICAgLCBbJ0JldXJsaW5nJywgJ0FybmUnLCAxOTA1XV1cblxuIyBTa2FwYSBkYXRhZmlsOlxud2l0aCBvcGVuKCdsZWdlbmRzLmpzb24nLCAndycpIGFzIG91dGZpbGU6XG4gICAgb3V0ZmlsZS53cml0ZShqc29uLmR1bXBzKGxlZ2VuZHMpKVxuXG4jIFNlbmFyZS4uLiBTa3JpdiB1dCBmXHUwMGY2ZGVsc2VzXHUwMGU1cjpcbndpdGggb3BlbignbGVnZW5kcy5qc29uJywgJ3InKSBhcyBkYXRhX2g6XG4gICAgZXh0ZXJuYWxfZGF0YSA9IGpzb24ubG9hZChkYXRhX2gpXG4gICAgZm9yIHggaW4gZXh0ZXJuYWxfZGF0YTpcbiAgICAgICAgcHJpbnQoeFsyXSkgICAgICAgICAgICAgIyBQcmludCBiaXJ0aCB5ZWFyIn0=
 </div>
 </div>
-<div id="numpy-för-vektorer-och-matriser" class="section level2">
-<h2>NumPy: för vektorer och matriser</h2>
+<div id="numpy-för-vektorer-och-matriser" class="section level2"
+number="2.2">
+<h2><span class="header-section-number">2.2</span> NumPy: för vektorer
+och matriser</h2>
 <p>Med <code>numpy</code> (<a href="https://www.numpy.org/"
 class="uri">https://www.numpy.org/</a>) får du ett paket för
 vetenskapliga beräkningar i Python. Det kommer med mycket effektiv
@@ -627,8 +649,9 @@ beräkningar och hantera “stor” data med Python.</p>
 </div>
 </div>
 <div id="tumregler-för-programstruktur-och-bra-kod"
-class="section level1">
-<h1>Tumregler för programstruktur och bra kod</h1>
+class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Tumregler för
+programstruktur och bra kod</h1>
 <p>Det är svårt att skriva bra kod. Med “bra” kod menas kod som är lätt
 att läsa, förstå sig på, använda och underhålla. Genom att skriva bra
 kod kan vi även undvika att introducera buggar. Det är dock svårt att
@@ -650,8 +673,9 @@ på nätet: <a href="https://www.pythonchecker.com/"
 class="uri">https://www.pythonchecker.com/</a>. Det finns också IDE:er
 med liknande stöd, och bibliotek som <code>pylint</code> som man kan
 köra i ett terminalfönster.</p>
-<div id="programmeringsriktlinjer" class="section level2">
-<h2>Programmeringsriktlinjer</h2>
+<div id="programmeringsriktlinjer" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span>
+Programmeringsriktlinjer</h2>
 <p>Här kommer en lista (i ingen specifik ordning) över saker som vi
 tycker gör kod bättre:</p>
 <ul>
@@ -794,8 +818,9 @@ undvikas. Till exempel är följande en helt redundant kommentar:</p>
 så varför skriva det i en kommentar?</p></li>
 </ul>
 </div>
-<div id="tecken-på-mindre-bra-kod" class="section level2">
-<h2>Tecken på mindre bra kod</h2>
+<div id="tecken-på-mindre-bra-kod" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Tecken på mindre bra
+kod</h2>
 <ul>
 <li><p>“Copy-paste-kod”: det är lätt att introducera buggar om man
 kopierar rader och klistrar in dom igen. Programmet blir även svårläst
@@ -851,8 +876,8 @@ importera funktionen i en annan fil.</p>
 </ul>
 </div>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Importera biblioteket <code>random</code> (se <a
 href="https://docs.python.org/3/library/random.html"
@@ -1022,7 +1047,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

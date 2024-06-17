@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -434,8 +448,8 @@ AttributeError: &#39;C&#39; object has no attribute &#39;print_result&#39;</code
 <p>Felet uppstår på grund av att <code>print_result()</code> inte är
 definerad för <code>C</code>, som ärvt från <code>A</code>. Klass
 <code>D</code> däremot har ärvt metoden från <code>B</code>.</p>
-<div id="klassdiagram" class="section level1">
-<h1>Klassdiagram</h1>
+<div id="klassdiagram" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Klassdiagram</h1>
 <p>Ett klassdiagram visualiserar hur klasser hänger ihop. Det innehåller
 ingen information om objekt. Man kan ange att en klass ärver från en
 annan (relationen “is-a”, dvs “är en”) och att en klass innehåller
@@ -460,8 +474,9 @@ innehåller <code>[10, 20]</code>, <code>c.vals</code> innehåller
 <code>[5, 10, 10]</code>. Klassdiagrammet i förklarar relationer mellan
 klasser <em>oavsett</em> tidpunkt.</p>
 </div>
-<div id="substitutionsprincipen" class="section level1">
-<h1>Substitutionsprincipen</h1>
+<div id="substitutionsprincipen" class="section level1" number="2">
+<h1><span class="header-section-number">2</span>
+Substitutionsprincipen</h1>
 <p>Det är erkänt svårt att bestämma bra klasser. Många böcker har
 skrivits på ämnet, med många olika tillvägagångssätt för att bestämma
 vilken klass-struktur man ska ha. Det här kan bli väldigt komplicerat
@@ -477,8 +492,9 @@ princip, men det är lätt att vilja plocka bort funktionalitet i
 subklasser och det finns många exempel som bryter mot principen.</p>
 </div>
 <div id="funktioner-som-ger-information-om-klasser"
-class="section level1">
-<h1>Funktioner som ger information om klasser</h1>
+class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Funktioner som ger
+information om klasser</h1>
 <p>Två användbara inbyggda funktioner när det gäller klasser är <code
 class="python">isinstance</code> och <code
 class="python">issubclass</code>. Den första funktionen testar om ett
@@ -529,8 +545,9 @@ True
 True
 True</code></pre>
 </div>
-<div id="exempel-geometriska-figurer" class="section level1">
-<h1>Exempel: Geometriska figurer</h1>
+<div id="exempel-geometriska-figurer" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Exempel: Geometriska
+figurer</h1>
 <p>Som ett exempel på arv ska vi nu implementera klasser som
 representerar geometriska objekt (figurer) som samlar vanliga/typiska
 operationer som man kan vilja göra på dessa figurer. Meningen är att med
@@ -690,8 +707,9 @@ The area of the square is: 36.0
 The diagonal of the square is: 8.48528137423857
 The coordinates of the square corners are:
  ((-3.0, -3.0), (-3.0, 3.0), (3.0, 3.0), (3.0, -3.0))</code></pre>
-<div id="implementera-jämförelser" class="section level2">
-<h2>Implementera jämförelser</h2>
+<div id="implementera-jämförelser" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Implementera
+jämförelser</h2>
 <p>Som vi gick igenom i , så kan man genom att använda sig av specifika
 privata metoder implementera jämförelser för sin egen typ (klass). Dessa
 metoder fungerar väldigt bra att ärva från en basklass när någon logisk
@@ -746,8 +764,9 @@ style="width:50.0%" />
 </div>
 </div>
 </div>
-<div id="exempel-monster-go" class="section level1">
-<h1>Exempel: Monster Go</h1>
+<div id="exempel-monster-go" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Exempel: Monster
+Go</h1>
 <p>Följande exempel är inspirerat av Pokemon Go och är ett lite större
 exempel. Exemplet är lite konstruerat, men det är för att framhäva
 viktiga poänger som illustrerar värdet av objekt-orienterad
@@ -758,8 +777,9 @@ programmering.</p>
 <li>Illustrera värdet av abstraktion: dölja
 implementationsdetaljer.</li>
 </ul>
-<div id="en-basklass-progmon" class="section level2">
-<h2>En basklass: ProgMon</h2>
+<div id="en-basklass-progmon" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> En basklass:
+ProgMon</h2>
 <p>Klassen <code>ProgMon</code> innehåller attribut och metoder som ska
 vara gemensamma för alla objekt. Vi försöker alltså även här följa
 Liskovs substitutionsprincip.</p>
@@ -772,8 +792,8 @@ instansattributen <code>_attack</code>).</p>
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFByb2dNb24oKTpcbiAgICBkZWYgX19pbml0X18oc2VsZik6XG4gICAgICAgIHNlbGYuX2F0dGFjayA9IDAuMFxuICAgICAgICBzZWxmLl9kZWZlbnNlID0gMC4wXG4gICAgICAgIHNlbGYuX2NhZmZlaW5hdGVkID0gRmFsc2VcbiAgICAgICAgc2VsZi5fdW5pdF90ZXN0aW5nID0gRmFsc2VcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gXCI8UHJvZ01vbiBvYmplY3Q+XCJcblxuICAgIGRlZiBnZXRfYXR0YWNrKHNlbGYpOlxuICAgICAgICBpZiBzZWxmLl9jYWZmZWluYXRlZDpcbiAgICAgICAgICAgIHJldHVybiAyICogc2VsZi5fYXR0YWNrXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICByZXR1cm4gc2VsZi5fYXR0YWNrXG5cbiAgICBkZWYgZ2V0X2RlZmVuc2Uoc2VsZik6XG4gICAgICAgIGlmIHNlbGYuX3VuaXRfdGVzdGluZzpcbiAgICAgICAgICAgIHJldHVybiAyICogc2VsZi5fZGVmZW5zZVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmV0dXJuIHNlbGYuX2RlZmVuc2VcblxuICAgIGRlZiBmaWdodChzZWxmLCBvdGhlcl9wcm9nbW9uKTpcbiAgICAgICAgJycnXG4gICAgICAgIEF0dGFjayBpcyB0aGUgYmVzdCBmb3JtIG9mIGRlZmVuc2UhXG4gICAgICAgIFJldHVybnMgKFRydWUsIEZhbHNlKSBpZiBzZWxmIHdpbnMsIChGYWxzZSwgVHJ1ZSkgaWYgb3RoZXJfcHJvZ21vblxuICAgICAgICB3aW5zIGFuZCAoRmFsc2UsIEZhbHNlKSBvdGhlcndpc2UuXG4gICAgICAgICcnJ1xuICAgICAgICBpZiBzZWxmLmdldF9hdHRhY2soKSA+IG90aGVyX3Byb2dtb24uZ2V0X2RlZmVuc2UoKTpcbiAgICAgICAgICAgIHJldHVybiAoVHJ1ZSwgRmFsc2UpXG4gICAgICAgIGVsaWYgb3RoZXJfcHJvZ21vbi5nZXRfYXR0YWNrKCkgPiBzZWxmLmdldF9kZWZlbnNlKCk6XG4gICAgICAgICAgICByZXR1cm4gKEZhbHNlLCBUcnVlKVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmV0dXJuIChGYWxzZSwgRmFsc2UpIn0=
 </div>
 </div>
-<div id="tre-subklasser" class="section level2">
-<h2>Tre subklasser</h2>
+<div id="tre-subklasser" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Tre subklasser</h2>
 <p>I subklasserna <code>Hacker</code>, <code>Newbie</code>, och
 <code>Guru</code> lägger vi in specialisering (data och beteende som är
 specifika för klassen). Vi gör detta genom att ändra värden för de
@@ -791,8 +811,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImggPSBIYWNrZXIoKVxubiA9IE5ld2JpZSgpXG5n
 <p><strong>Obs:</strong> Gemensam funktionalitet i basklassen gör att vi
 undviker duplicering av kod.</p>
 </div>
-<div id="anpassning" class="section level2">
-<h2>Anpassning</h2>
+<div id="anpassning" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Anpassning</h2>
 <p>Antag att man inte gillar tanken på att en <code>Guru</code> försöker
 vinna kamper. Vi kan implementera en “Don’t win, don’t lose” för en
 <code>Guru</code> som initierar en “fight”, genom att definiera en ny
@@ -805,14 +825,17 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEd1cnUoUHJvZ01vbik6XG4gICAgZGVm
 <p>Observera att vi ändrar beteendet hos en subklass genom att definiera
 om en metod i subklassen.</p>
 </div>
-<div id="abstraktion-undviker-detaljkunskap" class="section level2">
-<h2>Abstraktion undviker detaljkunskap</h2>
+<div id="abstraktion-undviker-detaljkunskap" class="section level2"
+number="5.4">
+<h2><span class="header-section-number">5.4</span> Abstraktion undviker
+detaljkunskap</h2>
 <p>Basklassen <code>ProgMon</code> definierar ett <em>gränssnitt</em>
 som ger en praktisk abstraktion: du behöver inte kunna några detaljer om
 basklassen eller dess subklasser om du använder gränssnittet.</p>
 </div>
-<div id="exempel-en-hacker-dojo" class="section level2">
-<h2>Exempel: en hacker dojo</h2>
+<div id="exempel-en-hacker-dojo" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Exempel: en hacker
+dojo</h2>
 <p>Antag att vi skapar en klass för en “Hacker Dojo”, där ProgMon:s
 samlas för att träna. Man ska kunna utmana en Hacker Dojo, vilket kräver
 att man vinner en kamp mot varje medlem för att kunna säga att man
@@ -836,8 +859,8 @@ gränssnittet från <code>ProgMon</code>. Vi får automatiskt den lite
 annorlunda specialiseringen från <code>Guru</code>. Eller snarare: vi
 behöver inte oroa oss för sådana detaljer.</p>
 </div>
-<div id="ändrade-detaljer" class="section level2">
-<h2>Ändrade detaljer</h2>
+<div id="ändrade-detaljer" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Ändrade detaljer</h2>
 <p>En av de stora vinsterna med objektorientering (men inte unikt för
 OO) är abstraktion. Genom att sätta ihop bra gränssnitt (dvs väl valda
 metoder) “framtidssäkrar” vi ett program: det blir lätt att ändra
@@ -859,8 +882,8 @@ style="width:80.0%" />
 </div>
 </div>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Skapa en klass <code>Equilateral</code> som ärver från
 <code>Triangle</code> i exemplet ovan och metodöverlagrar
@@ -1005,7 +1028,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

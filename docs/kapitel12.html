@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -400,8 +414,8 @@ och att andra konstigheter sker under programutveckling. Genom att
 class="python">assert</code> på många platser i ett program kan man
 upptäcka felen tidigare, närmare felkällan, och därmed förenkla
 felsökningen.</p>
-<div id="assert" class="section level1">
-<h1>Assert</h1>
+<div id="assert" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Assert</h1>
 <p>Instruktionen <code class="python">assert condition</code> anger att
 uttrycket <code>condition</code> förutsattes vara sant. Om uttrycket är
 sant händer inget, det är det förväntade uppträdandet, men om det är
@@ -416,8 +430,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFzc2VydCBsZW4oZGF0YV9saXN0KSA+IDBcbmFz
 <p>Dessa rader ställer tre tänkbara krav på tillståndet i ett program.
 Instruktionen <code class="python">assert</code> ska utläsas som “detta
 gäller”.</p>
-<div id="avbrott-och-felmeddelande" class="section level2">
-<h2>Avbrott och felmeddelande</h2>
+<div id="avbrott-och-felmeddelande" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Avbrott och
+felmeddelande</h2>
 <p>Säg att vi har skrivit en divisionsfunktion på följande sätt:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkaXZpZGUoeCx5KTpcbiAgICBhc3NlcnQgeSAhPSAwXG4gICAgcmV0dXJuIHggLyB5In0=
@@ -440,8 +455,8 @@ AssertionError</code></pre>
 programmeringsfel, inte för att hantera körfel (som t.ex., namngiven fil
 finns ej, minnet räcker inte, man har rekurserat för djupt, o.s.v.).</p>
 </div>
-<div id="generellt" class="section level2">
-<h2>Generellt</h2>
+<div id="generellt" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Generellt</h2>
 <p>Det generella fallet kan skrivas</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFzc2VydCBjb25kaXRpb24gWywgY29tbWVudF9zdHJpbmddIn0=
@@ -465,8 +480,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkaXZpZGUoeCx5KTpcbiAgICBhc3NlcnQg
     assert y != 0, &quot;Second argument cannot be 0 when dividing&quot;
 AssertionError: Second argument cannot be 0 when dividing</code></pre>
 </div>
-<div id="tumregler-för-assert" class="section level2">
-<h2>Tumregler för <code>assert</code></h2>
+<div id="tumregler-för-assert" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Tumregler för
+<code>assert</code></h2>
 <p><code class="python">assert</code> är implementerat med hjälp av
 särfall, men syftet är att uttrycka antaganden i koden, inte att hantera
 oväntade tillstånd.</p>
@@ -490,16 +506,20 @@ class="python">assert</code> i sin kod. Om snabbhet är viktigt kan man
 starta sitt program med <code>python -O kod.py</code> istället för
 <code>python kod.py</code>; flaggan <code>-O</code> deaktiverar alla
 <code class="python">assert</code>-instruktioner.</p>
-<div id="exempel-1-remove_trailing_spaces" class="section level3">
-<h3>Exempel 1: <code>remove_trailing_spaces</code></h3>
+<div id="exempel-1-remove_trailing_spaces" class="section level3"
+number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Exempel 1:
+<code>remove_trailing_spaces</code></h3>
 <p>Nedan följer ett exempel på <code class="python">assert</code> i
 <code>remove_trailing_spaces</code>:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiByZW1vdmVfdHJhaWxpbmdfc3BhY2VzKHMsIHNwYWNlcz1cIiBcXHRcIik6XG4gICAgYXNzZXJ0IGxlbihzcGFjZXMpID4gMFxuICAgIGkgPSBsZW4ocylcbiAgICB3aGlsZSBpID4gMCBhbmQgc1tpLTFdIGluIHNwYWNlczpcbiAgICAgICAgaSAtPSAxXG4gICAgcmV0dXJuIHNbMDppXSJ9
 </div>
 </div>
-<div id="exempel-2-newton_raphson" class="section level3">
-<h3>Exempel 2: <code>newton_raphson</code></h3>
+<div id="exempel-2-newton_raphson" class="section level3"
+number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Exempel 2:
+<code>newton_raphson</code></h3>
 <p>Nedan följer ett exempel på <code class="python">assert</code> i en
 funktion för att beräkna roten av en funktion med hjälp av
 Newton-Raphsons algoritm:</p>
@@ -517,8 +537,9 @@ av klasserna <em>eller</em> dess subklasser.</p>
 extra dokumentation kring de antagande som görs i programmet.</p>
 </div>
 </div>
-<div id="villkor-och-invarianter" class="section level2">
-<h2>Villkor och invarianter</h2>
+<div id="villkor-och-invarianter" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Villkor och
+invarianter</h2>
 <p>Vi kan dela upp <code class="python">assert</code>-användandet i tre
 sorter:</p>
 <ul>
@@ -529,8 +550,8 @@ funktion returnerar (eng. <em>postconditions</em>)</li>
 <li><strong>loop invarianter</strong>: uttryck som ska vara sanna i en
 loop (eng. <em>loop invariants</em>)</li>
 </ul>
-<div id="exempel-3" class="section level3">
-<h3>Exempel 3</h3>
+<div id="exempel-3" class="section level3" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Exempel 3</h3>
 <p>Låt oss säga att vi har en databas som kopplar unika identifierare
 (representerade som <code>int</code>) med namn (representerade som
 <code>str</code>). För att det ska gå snabbt att slå upp någon genom
@@ -564,8 +585,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIE15REI6XG5cbiAgICBkZWYgX19pbml0
 </div>
 </div>
 </div>
-<div id="testning" class="section level1">
-<h1>Testning</h1>
+<div id="testning" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Testning</h1>
 <p>Det är svårt att garantera att ens kod är korrekt. Man kan resonera
 matematiskt om kod och algoritmer, men även då är det lätt att det blir
 fel. Oavsett hur mycket man planerar, tänker och granskar, så är det bra
@@ -603,8 +624,9 @@ projekt. I det här avsnittet tittar vi på några olika sätt att arbeta
 med tester.</p>
 <p>Ni kan läsa mer på: <a href="https://realpython.com/python-testing/"
 class="uri">https://realpython.com/python-testing/</a></p>
-<div id="testning-med-assert" class="section level2">
-<h2>Testning med <code>assert</code></h2>
+<div id="testning-med-assert" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Testning med
+<code>assert</code></h2>
 <p>Kodtestning kan göras både manuellt och automatiskt. För enkel
 manuell testning kan vi använda <code class="python">assert</code>.</p>
 <p>I labb 2 var uppgiften att skriva funktioner manipulerade eller
@@ -626,8 +648,9 @@ ser resultatet av det första <code class="python">assert</code> som inte
 håller och inte för alla andra som inte går igenom. Ett bättre sätt för
 testning av mer komplexa program är <em>enhetstester</em>.</p>
 </div>
-<div id="enhetstester-med-unittest" class="section level2">
-<h2>Enhetstester med <code>unittest</code></h2>
+<div id="enhetstester-med-unittest" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Enhetstester med
+<code>unittest</code></h2>
 <p>Modulen <code>unittest</code> har funnits med i Pythons
 standardbibliotek sen version 2.1 och används av många projekt, både
 kommersiella och open-source. För att använda <code>unittest</code>
@@ -715,8 +738,10 @@ testning för varje ändring som någon vill göra till kodbasen (denna
 utvecklingsteknik kallas för “kontinuerlig integration” (eng.
 <em>continuous integration</em>).</p>
 </div>
-<div id="slumptestning-à-la-quickcheck" class="section level2">
-<h2>Slumptestning (à la QuickCheck):</h2>
+<div id="slumptestning-à-la-quickcheck" class="section level2"
+number="2.3">
+<h2><span class="header-section-number">2.3</span> Slumptestning (à la
+QuickCheck):</h2>
 <p>Det är svårt att skriva bra tester för hand. Ett alternativ som kan
 vara väldigt smidigt är att använda ett bibliotek som genererar tester
 åt en automatiskt, dvs genom så kallad “slumptestning”. För denna typ av
@@ -729,8 +754,8 @@ href="https://hypothesis.readthedocs.io/">hypothesis</a>
 biblioteket.</p>
 </div>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Jaccard-index (<span class="math inline">\(J\)</span>) är ett
 mått på hur lika två mängder <code>A</code> och <code>B</code> är och är
@@ -853,7 +878,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

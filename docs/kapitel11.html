@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -380,8 +394,8 @@ div.tocify {
 
 
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-<div id="olika-typer-av-arv" class="section level1">
-<h1>Olika typer av arv</h1>
+<div id="olika-typer-av-arv" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Olika typer av arv</h1>
 <p>I förra kapitlet såg vi olika exempel på arv i Python. Olika former
 av arv har olika namn inom objektorientering:</p>
 <ol style="list-style-type: decimal">
@@ -419,8 +433,8 @@ och <code>C</code></div>
 oskyldigt och man kan undra varför inte alla språk stödjer det. Men rent
 generellt är det lätt hänt att multipelt arv ger kaos på grund av så
 kallade <em>diamantproblem</em>.</p>
-<div id="diamantproblem" class="section level2">
-<h2>Diamantproblem</h2>
+<div id="diamantproblem" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Diamantproblem</h2>
 <p>Betrakta följande kod:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEE6XG4gICAgZGVmIGYoc2VsZik6XG4gICAgICAgIHByaW50KFwiZiBvZiBBIGNhbGxlZFwiKVxuXG5jbGFzcyBCKEEpOlxuICAgIGRlZiBmKHNlbGYpOlxuICAgICAgICBwcmludChcImYgb2YgQiBjYWxsZWRcIilcblxuY2xhc3MgQyhBKTpcbiAgICBkZWYgZihzZWxmKTpcbiAgICAgICAgcHJpbnQoXCJmIG9mIEMgY2FsbGVkXCIpXG5cbmNsYXNzIEQoQixDKTpcbiAgICBwYXNzXG5cbmQgPSBEKClcbmQuZigpIn0=
@@ -450,8 +464,9 @@ lätt orsakar kaos i kod med multipelt arv och varför många språk inte
 tillåter det.</p>
 </div>
 </div>
-<div id="exempel-algebraiska-uttryck" class="section level1">
-<h1>Exempel: Algebraiska uttryck</h1>
+<div id="exempel-algebraiska-uttryck" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Exempel: Algebraiska
+uttryck</h1>
 <p>Vi ska nu titta på ett till exempel på arv. Poängen med detta exempel
 är att illustrera två saker:</p>
 <ol style="list-style-type: decimal">
@@ -567,8 +582,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEV4cHI6XG5cbiAgICAjIGRlZmF1bHQg
 x * (y + 7)
 x * y * (3 + z)</code></pre>
 </div>
-<div id="exempel-binära-träd" class="section level1">
-<h1>Exempel: Binära träd</h1>
+<div id="exempel-binära-träd" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Exempel: Binära
+träd</h1>
 <p>Vi kan generalisera datatypen för algebraiska uttryck till
 godtyckliga binära träd. På detta sätt kan vi skriva våra funktioner en
 gång för alla och kommer inte behöva skriva om dem för varje typ av
@@ -602,8 +618,8 @@ False
 exempel visar hur vi på ett enkelt sätt kan kombinera klasser och
 rekursion för att representera och modifiera strukturerad data.</p>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Vilka av exemplen i kapitel 10 är exempel på enkelt, mångnivå,
 hierarkiskt och hybrid arv?</p></li>
@@ -702,7 +718,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

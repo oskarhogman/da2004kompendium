@@ -4,30 +4,33 @@ navbar:
   left:
     - text: "Förord"
       href: index.html
-    - text: "1: Kom igång med Python"
-      href: kapitel1.html
-    - text: "2: Grunder i Python-programmering"
-      href: kapitel2.html
-    - text: "3: Listor och iteration"
-      href: kapitel3.html
-    - text: "4: Uppslagstabeller, filhantering och mer om loopar"
-      href: kapitel4.html
-    - text: "5: Felhantering, särfall, listomfattning och felsökning"
-      href: kapitel5.html
-    - text: "6: Sekvenser och generatorer"
-      href: kapitel6.html
-    - text: "7: Moduler, bibliotek och programstruktur"
-      href: kapitel7.html
-    - text: "8: Funktionell programmering"
-      href: kapitel8.html
-    - text: "9: Objektorientering 1: Klasser"
-      href: kapitel9.html
-    - text: "10: Objektorientering 2: Arv"
-      href: kapitel10.html
-    - text: "11: Objektorientering 3: Mer om arv"
-      href: kapitel11.html
-    - text: "12: Defensiv programmering"
-      href: kapitel12.html
+    - text: "Kapitel"
+      menu:
+      - text: "1: Kom igång med Python"
+        href: kapitel1.html
+      - text: "2: Grunder i Python-programmering"
+        href: kapitel2.html
+      - text: "3: Listor och iteration"
+        href: kapitel3.html
+      - text: "4: Uppslagstabeller, filhantering och mer om loopar"
+        href: kapitel4.html
+      - text: "5: Felhantering, särfall, listomfattning och felsökning"
+        href: kapitel5.html
+      - text: "6: Sekvenser och generatorer"
+        href: kapitel6.html
+      - text: "7: Moduler, bibliotek och programstruktur"
+        href: kapitel7.html
+      - text: "8: Funktionell programmering"
+        href: kapitel8.html
+      - text: "9: Objektorientering 1: Klasser"
+        href: kapitel9.html
+      - text: "10: Objektorientering 2: Arv"
+        href: kapitel10.html
+      - text: "11: Objektorientering 3: Mer om arv"
+        href: kapitel11.html
+      - text: "12: Defensiv programmering"
+        href: kapitel12.html
+  right:
     - text: "Exempellösningar"
       href: appendix.html
       
@@ -38,6 +41,6 @@ output:
   html_document:
     theme: flatly
     toc: yes
-    number_section: false
+    number_section: true
     toc_float:
-      collapsed: true
+      collapsed: false

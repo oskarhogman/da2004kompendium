@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -394,8 +408,8 @@ class="python">for</code> och <code class="python">while</code> loopar.
 Listor och loopar är väldigt användbara tillsammans, exempelvis kan man
 skriva ett program som läser in tal från användaren, sparar dem i en
 lista och beräknar medelvärdet av de inmatade talen.</p>
-<div id="listor" class="section level1">
-<h1>Listor</h1>
+<div id="listor" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Listor</h1>
 <p>Python har stöd för listor av element med olika typ. Dessa skrivs
 inom hakparenteser (“<code>[</code>” och “<code>]</code>”) och elementen
 i listan separeras med komma:</p>
@@ -406,8 +420,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdCA9IFsnaGVqJywyLCdkdSddIn0=
 men den är mindre beräkningseffektiv. Dock är Pythons listor mer
 lättanvända. Detta är typiskt för scriptspråk: det är enklare att
 använda datastrukturer, på bekostnad av effektivitet.</p>
-<div id="listindexering" class="section level2">
-<h2>Listindexering</h2>
+<div id="listindexering" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Listindexering</h2>
 <p>Man kan hämta ut elementen ur en lista genom <code>mylist[i]</code>
 där <code>i</code> är ett heltal:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -468,8 +482,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KG15bGlzdFswOjQ6Ml0pXG5wcmludCht
 <pre class="python"><code>[&#39;hej&#39;, &#39;dududu&#39;]
 [5, True]</code></pre>
 </div>
-<div id="listfunktioner" class="section level2">
-<h2>Listfunktioner</h2>
+<div id="listfunktioner" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Listfunktioner</h2>
 <p>Man kan addera listor och multiplicera dem med tal för att upprepa
 dem:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -578,8 +592,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15bGlzdC5yZXZlcnNlKClcbnByaW50KG15bGlz
 </div>
 <pre class="python"><code>[5, True, &#39;du&#39;, &#39;hej&#39;]</code></pre>
 <div id="sammanfattning-av-användbara-listfunktioner"
-class="section level3">
-<h3>Sammanfattning av användbara listfunktioner</h3>
+class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Sammanfattning av
+användbara listfunktioner</h3>
 <ul>
 <li><code class="python">mylist.append(x)</code>: lägg till
 <code>x</code> i slutet av <code>mylist</code>.</li>
@@ -619,8 +634,9 @@ class="uri">https://docs.python.org/3/library/stdtypes.html#lists</a></p>
 </div>
 </div>
 <div id="praktisk-funktion-för-att-skapa-listor-range"
-class="section level2">
-<h2>Praktisk funktion för att skapa listor: <code>range</code></h2>
+class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Praktisk funktion för
+att skapa listor: <code>range</code></h2>
 <p>Ett sätt att skapa heltalslistor är att använda <code
 class="python">range</code>:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -646,8 +662,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KHJhbmdlKDAsMTApKSJ9
 </div>
 <pre class="python"><code>range(0, 10)</code></pre>
 </div>
-<div id="listors-egenskaper" class="section level2">
-<h2>Listors egenskaper</h2>
+<div id="listors-egenskaper" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Listors
+egenskaper</h2>
 <p>Listor har många styrkor, bland annat:</p>
 <ol style="list-style-type: decimal">
 <li>Enkla och effektiva att iterera över (mer om detta i nästa
@@ -671,8 +688,9 @@ lista som innehåller element av olika typ och försöker hämta ut
 största/minsta värde (se ).</p>
 </div>
 </div>
-<div id="for-loopar" class="section level1">
-<h1><code>for</code> loopar</h1>
+<div id="for-loopar" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> <code>for</code>
+loopar</h1>
 <p><code class="python">for</code> används för att iterera över
 uppräkningar av olika slag, framförallt listor. Dessa uppräkningar
 kallas <em>sekvenser</em> i Python och även strängar är sekvenser (av
@@ -721,8 +739,9 @@ AA
 00
 44</code></pre>
 <div id="funktion-som-returnerar-konsonanterna-i-en-sträng"
-class="section level2">
-<h2>Funktion som returnerar konsonanterna i en sträng</h2>
+class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Funktion som
+returnerar konsonanterna i en sträng</h2>
 <p>Låt oss nu implementera en lite mer komplicerad funktion som
 returnerar en strängs konsonanter. Innan man börjar skriva koden bör man
 fundera hur funktionen ska fungera. Givet en sträng <code>s</code> så
@@ -739,8 +758,10 @@ för att spara de konsonanter vi hittat i <code>s</code>. Detta är ett
 väldigt vanligt sätt att programmera på och något vi kommer se mer av i
 kursen.</p>
 </div>
-<div id="dela-upp-en-sträng-i-ord-split" class="section level2">
-<h2>Dela upp en sträng i ord: <code>split</code></h2>
+<div id="dela-upp-en-sträng-i-ord-split" class="section level2"
+number="2.2">
+<h2><span class="header-section-number">2.2</span> Dela upp en sträng i
+ord: <code>split</code></h2>
 <p></p>
 <p>Låt oss skriva en funktion som tar en sträng och bryter upp den i
 smådelar när man hittar ett blanksteg som separator. Det vill säga vi
@@ -770,9 +791,10 @@ argument.</p>
 <code>split</code> inbyggd i Python!</p>
 </div>
 <div id="flödeskontroll-pass-continue-break-och-return"
-class="section level2">
-<h2>Flödeskontroll: <code>pass</code>, <code>continue</code>,
-<code>break</code> och <code>return</code></h2>
+class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Flödeskontroll:
+<code>pass</code>, <code>continue</code>, <code>break</code> och
+<code>return</code></h2>
 <p>Man kan kontrollera och avsluta iteration med <code
 class="python">pass</code>, <code class="python">continue</code>, <code
 class="python">break</code> och <code class="python">return</code>.</p>
@@ -816,8 +838,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmaXJzdF9ldmVuX251bWJlcihsKTpcbiAg
 </div>
 <pre class="python"><code>24</code></pre>
 </div>
-<div id="pythons-for-är-annorlunda" class="section level2">
-<h2>Pythons <code>for</code> är annorlunda</h2>
+<div id="pythons-for-är-annorlunda" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Pythons
+<code>for</code> är annorlunda</h2>
 <p>Det kan vara bra att vara medveten om att Pythons <code
 class="python">for</code> loop är mer generell än i de flesta andra
 språk. Till exempel förväntas loopen gå över heltalsvärden i många äldre
@@ -829,8 +852,9 @@ strängar, men vi kommer att se att även andra typer i Python stödjer
 det.</p>
 </div>
 <div id="ett-vanligt-problem-med-listor-i-python-muterbarhet"
-class="section level2">
-<h2>Ett vanligt problem med listor i Python: muterbarhet</h2>
+class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Ett vanligt problem
+med listor i Python: muterbarhet</h2>
 <p>Ett vanligt problem med listor i Python som vi kommer se flera gånger
 i kursen är att man kan råka ändra på listan som man itererar över utan
 att vilja det. Detta är en väldigt vanlig källa till buggar, både för
@@ -865,8 +889,9 @@ listvariabel för att undvika att råka ändra på den när man inte vill
 det.</p>
 </div>
 </div>
-<div id="while-loopar" class="section level1">
-<h1><code>while</code> loopar</h1>
+<div id="while-loopar" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> <code>while</code>
+loopar</h1>
 <p>Ibland finns det inte någon självklar struktur att iterera över, men
 man vill ända repetera ett kodblock flera gånger. Då finns <code
 class="python">while</code> loopen. Den fungerar så att man kör ett
@@ -902,8 +927,9 @@ Let us keep going!
 Write &#39;exit&#39; to quit
 Write something: exit
 Goodbye!</code></pre>
-<div id="while-loopar-över-listor" class="section level2">
-<h2><code>while</code> loopar över listor</h2>
+<div id="while-loopar-över-listor" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> <code>while</code>
+loopar över listor</h2>
 <p>Listor är speciella och kan användas som booleska uttryck. Den tomma
 listan motsvarar <code>False</code> och alla andra listor motsvarar
 <code>True</code>.</p>
@@ -925,9 +951,10 @@ Ho
 listan med <code>[]</code>. Detta är alltså ett till exempel där Python
 har förändrat en lista i en loop.</p>
 </div>
-<div id="ta-bort-blanksteg-i-slutet-av-en-sträng"
-class="section level2">
-<h2>Ta bort blanksteg i slutet av en sträng</h2>
+<div id="ta-bort-blanksteg-i-slutet-av-en-sträng" class="section level2"
+number="3.2">
+<h2><span class="header-section-number">3.2</span> Ta bort blanksteg i
+slutet av en sträng</h2>
 <p>Så här kan man ta bort blanksteg i slutet av en sträng med hjälp av
 en <code class="python">while</code> loop och slicing:</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -940,8 +967,9 @@ tecken från slutet av listan som är blanksteg och när vi är klara
 returnerar vi en slice av de ursprungliga listan där vi tagit bort alla
 blanksteg i slutet.</p>
 </div>
-<div id="kap3:GCD" class="section level2">
-<h2>Största gemensamma delare: <code>GCD</code></h2>
+<div id="kap3:GCD" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Största gemensamma
+delare: <code>GCD</code></h2>
 <p>Den <em>största gemensamma delaren</em> (eng.: <em>greatest common
 divisor</em>, GCD) av två tal är det största heltal som delar dem.
 Exempelvis är <code>3</code> GCD av <code>15</code> och
@@ -968,8 +996,8 @@ b must be bigger than a in GCD(a,b)
 GCD: None</code></pre>
 </div>
 </div>
-<div id="uppgifter" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Vad är resultatet av <code>[1,2] + ['a', 'b']</code>?</p></li>
 <li><p>Vad händer om man använder <code>min</code>/<code>max</code> på
@@ -1107,7 +1135,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

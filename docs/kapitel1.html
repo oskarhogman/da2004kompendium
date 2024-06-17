@@ -282,6 +282,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -322,48 +328,56 @@ div.tocify {
         <li>
   <a href="index.html">Förord</a>
 </li>
-<li>
-  <a href="kapitel1.html">1: Kom igång med Python</a>
-</li>
-<li>
-  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
-</li>
-<li>
-  <a href="kapitel3.html">3: Listor och iteration</a>
-</li>
-<li>
-  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
-</li>
-<li>
-  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
-</li>
-<li>
-  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
-</li>
-<li>
-  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
-</li>
-<li>
-  <a href="kapitel8.html">8: Funktionell programmering</a>
-</li>
-<li>
-  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
-</li>
-<li>
-  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
-</li>
-<li>
-  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
-</li>
-<li>
-  <a href="kapitel12.html">12: Defensiv programmering</a>
-</li>
-<li>
-  <a href="appendix.html">Exempellösningar</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kapitel
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kapitel1.html">1: Kom igång med Python</a>
+    </li>
+    <li>
+      <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+    </li>
+    <li>
+      <a href="kapitel3.html">3: Listor och iteration</a>
+    </li>
+    <li>
+      <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+    </li>
+    <li>
+      <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+    </li>
+    <li>
+      <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+    </li>
+    <li>
+      <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+    </li>
+    <li>
+      <a href="kapitel8.html">8: Funktionell programmering</a>
+    </li>
+    <li>
+      <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+    </li>
+    <li>
+      <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+    </li>
+    <li>
+      <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+    </li>
+    <li>
+      <a href="kapitel12.html">12: Defensiv programmering</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="appendix.html">Exempellösningar</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -380,8 +394,9 @@ div.tocify {
 
 
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-<div id="programmering-och-python" class="section level1">
-<h1>Programmering och Python</h1>
+<div id="programmering-och-python" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Programmering och
+Python</h1>
 <p>Detta kompendium handlar om <em>programmering</em>, det vill säga att
 skriva program som en dator sedan kan köra för att lösa olika typer av
 problem. I kompendiet använder vi programmeringsspråket <em>Python</em>,
@@ -412,8 +427,9 @@ växtmån.</li>
 <li>Vim</li>
 </ul></li>
 </ul>
-<div id="att-programmera-i-python" class="section level2">
-<h2>Att programmera i Python</h2>
+<div id="att-programmera-i-python" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Att programmera i
+Python</h2>
 <p>När man programmerar i Python skriver man kod i en
 <code>.py</code>-fil. Denna kod laddas sedan i Python-tolken (eng.
 <em>interpreter</em>).</p>
@@ -445,10 +461,11 @@ DA2004</code></pre>
 i konsolen inramad med turkos bakgrund.</p>
 </div>
 </div>
-<div id="stil-i-kompendiet" class="section level1">
-<h1>Stil i kompendiet</h1>
-<div id="kodrepresentation" class="section level2">
-<h2>Kodrepresentation</h2>
+<div id="stil-i-kompendiet" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Stil i kompendiet</h1>
+<div id="kodrepresentation" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span>
+Kodrepresentation</h2>
 <p>Vi kommer att beskriva programmering med svenska termer, men när man
 programmerar är det bra att använda engelska för variabelnamn,
 kommentarer, dokumentation, och utskrifter. Att använda engelska är
@@ -462,14 +479,14 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFwid2VsY29tZSB0byBEQTIwMDRcIilc
 <pre class="python"><code>welcome to DA2004
 4</code></pre>
 </div>
-<div id="uppgifter" class="section level2">
-<h2>Uppgifter</h2>
+<div id="uppgifter" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Uppgifter</h2>
 <p>När det gäller uppgifter i kompendiet kommer vi att markera uppgifter
 som vi anser vara svårare med symbolen  först i uppgiftstexten.</p>
 </div>
 </div>
-<div id="variabler" class="section level1">
-<h1>Variabler</h1>
+<div id="variabler" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Variabler</h1>
 <p>En av grundstenarna i programmering är <em>variabler</em>. En vanlig
 intutitiv modell för variabler är att se dem som lådor med namn som man
 kan stoppa in värden i.</p>
@@ -506,8 +523,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRpc3RhbmNlID0gNjdcbnRpbWVfdXNlZCA9IDEu
 erfarenheten är att det i längden lönar sig att skriva kod som är tydlig
 (eller till och med övertydlig). Om man har valt sina identifierare rätt
 så blir det ofta lätt att förstå koden.</p>
-<div id="kommentarer" class="section level2">
-<h2>Kommentarer</h2>
+<div id="kommentarer" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Kommentarer</h2>
 Om man vill förtydliga vad en variabel betyder, eller vad som är tänkt
 att ske i ett komplicerat kodavsnitt, så kan man lägga till kommentarer:
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
@@ -517,8 +534,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRpc3RhbmNlID0gNjcgICAgIyBFc3RpbWF0ZWQg
 allt fram till nästa rad ignoreras helt av Python-tolken. En kommentar
 kan börja var som helst på en rad.</p>
 </div>
-<div id="fler-värden" class="section level2">
-<h2>Fler värden</h2>
+<div id="fler-värden" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Fler värden</h2>
 <p>Vi kan arbeta med olika sorters värden.</p>
 <div data-datacamp-exercise="" data-height="300" data-encoded="true">
 eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSAxN1xueSA9ICdEQTIwMDQnXG56ID0gMjIvN1xucSA9IDIyLy83XG5cbnByaW50KHgpXG5wcmludCh5KVxucHJpbnQoeilcbnByaW50KHEpXG5wcmludCh4LCB5LCB6LCBxKSJ9
@@ -553,8 +570,9 @@ tidigare) så kommer de att skrivas över med värdena <code>2</code> och
 <code>3</code>.</p>
 </div>
 </div>
-<div id="stränghantering-och-print" class="section level1">
-<h1>Stränghantering och <code>print</code></h1>
+<div id="stränghantering-och-print" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Stränghantering och
+<code>print</code></h1>
 <p>Strängar kan skrivas inom antingen enkelfnuttar <code>'</code> eller
 dubbelfnuttar <code>"</code> (jo, programmerare brukar kalla tecknen så
 istället för apostrof och citattecken!). Man kan på så sätt enkelt
@@ -587,8 +605,9 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KCdoZWonLCdwXHUwMGU1JywnZGlnJyki
 </div>
 <pre class="python"><code>hej på dig</code></pre>
 </div>
-<div id="aritmetiska-operationer" class="section level1">
-<h1>Aritmetiska operationer</h1>
+<div id="aritmetiska-operationer" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Aritmetiska
+operationer</h1>
 <p>Python stödjer de normala räknesätten:</p>
 <ul>
 <li>addition (<code>+</code>)</li>
@@ -643,8 +662,8 @@ TypeError: unsupported operand type(s) for +: &#39;int&#39; and &#39;str&#39;</c
 <p>Här ser vi exempel på olika felmeddelanden som kan uppstå om man
 skriver något galet.</p>
 </div>
-<div id="input" class="section level1">
-<h1>Input</h1>
+<div id="input" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Input</h1>
 Vi har sett att <code>print</code> kan användas för att skriva ut värden
 på skärmen. Funktionen <code>input</code> kan användas för att läsa in
 data från en användare. Om man ger en sträng som parameter så ges den
@@ -660,10 +679,12 @@ Hej Johan</code></pre>
 vid datorn. När man trycker på retur-tangenten returnerar
 <code>input</code> en sträng med det som användaren skrivit.</p>
 </div>
-<div id="speciella-ord-och-namn-i-python" class="section level1">
-<h1>Speciella ord och namn i Python</h1>
-<div id="reserverade-ord" class="section level2">
-<h2>Reserverade ord</h2>
+<div id="speciella-ord-och-namn-i-python" class="section level1"
+number="7">
+<h1><span class="header-section-number">7</span> Speciella ord och namn
+i Python</h1>
+<div id="reserverade-ord" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Reserverade ord</h2>
 <p>Det finns ett antal <em>reserverade ord</em> i Python, alltså ord som
 tillhör programmeringsspråket:</p>
 <pre><code>  and except lambda with as finally nonlocal while assert False None
@@ -680,8 +701,8 @@ eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFuZCA9IDEyIn0=
 SyntaxError: invalid syntax</code></pre>
 <p>Det finns annars ganska få krav på hur namnen kan väljas.</p>
 </div>
-<div id="identifierare" class="section level2">
-<h2>Identifierare</h2>
+<div id="identifierare" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Identifierare</h2>
 <p>Identifierare är namn på resurser. Alla variabelnamn är exempel på
 identifierare, det vill säga, de håller en “resurs” eller ett värde. Det
 finns dock identifierare som inte är variabler. Till exempel kommer vi
@@ -700,8 +721,8 @@ läsa. Att döpa en variabel som innehåller någons ålder till
 <code>age</code> är mycket mer informativt än till exempel bara
 <code>x</code>.</p>
 </div>
-<div id="litteraler" class="section level2">
-<h2>Litteraler</h2>
+<div id="litteraler" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Litteraler</h2>
 <p>En litteral är ett konstant värde som man skriver i programkoden.
 Till exempel <code>17</code>, <code>2.5</code>, och <code>'SU'</code> är
 alla litteraler.</p>
@@ -718,8 +739,8 @@ värde på konstanten. Om man använder en variabel, som definieras på en
 rad, så är det endast en plats som man antagligen behöver editera.</p>
 </div>
 </div>
-<div id="uppgifter-1" class="section level1">
-<h1>Uppgifter</h1>
+<div id="uppgifter-1" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Uppgifter</h1>
 <ol style="list-style-type: decimal">
 <li><p>Vad händer om vi kör nedanstående kod och varför blir det som det
 blir? Undersök!</p>
@@ -832,7 +853,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify
