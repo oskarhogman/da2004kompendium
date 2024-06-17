@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 7</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+<li>
+  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+</li>
+<li>
+  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+</li>
+<li>
+  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+</li>
+<li>
+  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+</li>
+<li>
+  <a href="kapitel8.html">8: Funktionell programmering</a>
+</li>
+<li>
+  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+</li>
+<li>
+  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+</li>
+<li>
+  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+</li>
+<li>
+  <a href="kapitel12.html">12: Defensiv programmering</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 7</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<div id="moduler" class="section level1">
+<h1>Moduler</h1>
+<p>Många programmeringsspråk har ett “modulsystem”, så även Python.
+Dessa är smidiga när man skriver större program och egna bibliotek. De
+kan användas för:</p>
+<ul>
+<li>Kodåtervinning – importera kod som andra programmerare (eller du
+själv) har skrivit.</li>
+<li>Struktur – det är svårt att arbeta med mycket kod i en fil, så sprid
+istället ut den över flera filer.</li>
+<li>Samarbete – det är mycket lättare att skriva kod tillsammans som ett
+team om den är uppdaterad i flera filer så att att alla inte behöver
+ändra i samma fil.</li>
+</ul>
+<p>Med hjälp av moduler kan du börja förstå ett stort projekt som
+bestående av självständiga enheter. Du ska inte behöva förstå alla
+detaljer i en modul, det ska räcka att förstå dess <em>gränssnitt</em>.
+Gränssnittet är de funktioner och variabler som är tänkta att vara
+synliga för andra programmare som använder sig av modulen.</p>
+<p>Stora program blir snabbt oöverskådliga. Väl valda moduler kan då bli
+viktiga för att bättre förstå ditt och andras program.</p>
+<p>En teknisk fördel med moduler är att de hjälper dig att hantera
+<em>namnrymden</em> (eng. <em>name space</em>). Många kan vilja använda
+samma identifierare för t.ex. funktioner i ett stort program (exempelvis
+<code>sort</code>). Moduler döljer implementationen och
+variabel-/funktionsnamn.</p>
+<p>Principer:</p>
+<ul>
+<li>Varje Python-fil är en modul.</li>
+<li>Allt som ska användas (från en annan fil) måste
+<em>importeras</em>.</li>
+</ul>
+<div id="import-av-moduler" class="section level2">
+<h2>Import av moduler</h2>
+<p>Man kan importera moduler på ett antal olika sätt:</p>
+<ul>
+<li><p><code class="python">import modulename</code>: Tillåter att
+funktioner/variabler används med punktnotation (dvs allt från
+<code>modulename</code> är importerat “qualified”).</p>
+<p>dc_light_exercise_unnamed-chunk-2</p></li>
+<li><p><code class="python">from modulename import f1, f2, ...</code>:
+Tillåter användning av <code>f1</code> och <code>f2</code> i ditt
+program utan punktnotation.</p>
+<p>dc_light_exercise_unnamed-chunk-3</p></li>
+<li><p><code>from modulename import *</code>: Gör allt från
+<code>modulename</code> tillgängligt utan punktnotation.</p>
+<p><strong>Varning:</strong> detta anses orsaka dålig läsbarhet och det
+blir även svårt att veta vilka delar av en modul en annan modul beror
+på.</p>
+<p><strong>Obs:</strong> identifierare som börjar med <code>_</code>
+importeras inte. De anses “privata” till modulen.</p>
+<p><strong>Notera:</strong> vissa moduler bygger på att man
+<code>*</code>-importerar, då de <em>behöver</em> (eller är skrivna så
+att) skriva över inbyggda funktioner i Python för att fungera.</p></li>
+<li><p><code>import modulename as X</code>: Lättare hantera långa
+modulnamn när man använder punktnotation. Exempel:</p>
+<p>dc_light_exercise_unnamed-chunk-4</p></li>
+<li><p><code>from modulename import X as Y</code>: För att undvika
+namnkrockar. Exempel:</p>
+<p>dc_light_exercise_unnamed-chunk-5</p></li>
+<li><p>Moduler kan grupperas i <em>paket</em> (eng. <em>packages</em>),
+vilka ska förstås som hierarkiskt ordnade grupper av moduler.</p>
+<p>dc_light_exercise_unnamed-chunk-6</p></li>
+</ul>
+<p>Vilket sätt att importera moduler ska man då använda? Det beror
+förstås på omständigheterna. Ett praktiskt exempel finns här nedan, där
+en funktion för att beräkna binomialkoefficienter definieras på fyra
+olika sätt. Man brukar dock rekommendera att inte använda
+<code>from m import *</code> eftersom risken för namnkrockar ökar och
+det blir otydligt vad du använder från den importerade modulen.</p>
+<ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBtYXRoXG5kZWYgYmlub20xKG4sIGspOlxuICAgIHJldHVybiBtYXRoLmZhY3RvcmlhbChuKSAvIChtYXRoLmZhY3RvcmlhbChrKSAqIG1hdGguZmFjdG9yaWFsKG4taykpIn0=
+</div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBtYXRoIGFzIG1cbmRlZiBiaW5vbTIobiwgayk6XG4gICAgcmV0dXJuIG0uZmFjdG9yaWFsKG4pIC8gKG0uZmFjdG9yaWFsKGspICogbS5mYWN0b3JpYWwobi1rKSkifQ==
+</div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZyb20gbWF0aCBpbXBvcnQgZmFjdG9yaWFsXG5kZWYgYmlub20zKG4sIGspOlxuICAgIHJldHVybiBmYWN0b3JpYWwobikgLyhmYWN0b3JpYWwoaykqZmFjdG9yaWFsKG4taykpIn0=
+</div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZyb20gbWF0aCBpbXBvcnQgZmFjdG9yaWFsIGFzIGZhY1xuZGVmIGJpbm9tNChuLCBrKTpcbiAgICByZXR1cm4gZmFjKG4pIC8oZmFjKGspKmZhYyhuLWspKSJ9
+</div>
+<p>Vilket alternativ av (a) till (d) är mest lättläst, tycker du? Tips:
+modulen <code>math</code> har en funktion <code>comb</code> som är
+snabbare än den som presenteras här.</p>
+</div>
+<div id="skriva-egna-moduler" class="section level2">
+<h2>Skriva egna moduler</h2>
+<p>Låt oss säga att vi har följande Python kod i en fil
+<code>circle.py</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InBpID0gMy4xNFxuXG5kZWYgYXJlYShyYWRpdXMpOlxuICAgIHJldHVybiBwaSAqIChyYWRpdXMgKiogMilcblxuZGVmIGNpcmN1bWZlcmVuY2UocmFkaXVzKTpcbiAgICByZXR1cm4gMiAqIHBpICogcmFkaXVzIn0=
+</div>
+<p>Vi kan då importera den i en annan fil:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBjaXJjbGVcblxucHJpbnQoY2lyY2xlLnBpKVxucHJpbnQoY2lyY2xlLmFyZWEoMikpXG5cbmltcG9ydCBjaXJjbGUgYXMgQ1xuXG5wcmludChDLnBpID09IGNpcmNsZS5waSlcblxudGF1ID0gQy5waSAqIDJcblxuZGVmIGNpcmN1bWZlcmVuY2UocmFkaXVzKTpcbiAgICByZXR1cm4gdGF1ICogcmFkaXVzXG5cbnByaW50KEMuY2lyY3VtZmVyZW5jZSgyKSA9PSBjaXJjdW1mZXJlbmNlKDIpKSJ9
+</div>
+<p><strong>Notera 1:</strong> filen <code>circle.py</code> måste hittas
+av Python när programmet letar efter potentiella moduler att importera.
+Den första platsen Python letar på är i samma mapp som det
+program/<code>.py</code>-fil man kör ligger i; det enklaste sättet är
+därför att ha sin modulfil (här <code>circle.py</code>) i <em>samma</em>
+mapp som huvudprogrammmet/filen som importerar modulen.</p>
+<strong>Notera 2:</strong> för att använda ett värde på <span
+class="math inline">\(\pi\)</span> så importerar man normalt
+<code>math.pi</code>, som kommer med bra precision.
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZyb20gbWF0aCBpbXBvcnQgcGlcbnByaW50KHBpKSJ9
+</div>
+<pre class="python"><code>3.141592653589793</code></pre>
+</div>
+<div id="main-funktioner" class="section level2">
+<h2><code>main()</code>-funktioner</h2>
+<p>Ett vanligt idiom:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFwiSGVsbG9cIilcblxuZGVmIG1haW4oKTpcbiAgICBwcmludChcInB5dGhvbiBtYWluIGZ1bmN0aW9uXCIpXG5cbmlmIF9fbmFtZV9fID09ICdfX21haW5fXyc6XG4gICAgbWFpbigpXG5cbnByaW50KFwiX19uYW1lX18gdmFsdWU6IFwiLCBfX25hbWVfXykifQ==
+</div>
+<p>Om och endast om man startar programmet med denna fil så anropas
+<code>main</code>. Om man använder filen som en modul så körs inte
+<code>main</code>. Du kan alltså skriva moduler som innehåller
+exempelprogram och/eller testkod som inte påverkar vad som händer vid
+<code>import</code>. Anledningen att <code>main</code> inte körs om man
+importerar filen som en modul är att variabeln <code>__name__</code>
+sätts till modulnamnet, så <code>if</code>-satsen kommer då inte att
+köras.</p>
+</div>
+</div>
+<div id="populära-bibliotek-och-moduler" class="section level1">
+<h1>Populära bibliotek och moduler</h1>
+<p>Python kommer laddat med batterier: det finns massor av bra och
+användbara moduler som är en del av Python-implementationen. Dessa
+moduler kallas tillsammans Pythons standardbibliotek. För en lång lista
+samt dokumentation se: <a href="https://docs.python.org/3/library/"
+class="uri">https://docs.python.org/3/library/</a>.</p>
+<ul>
+<li><p><code>math</code> – Matematik: trigonometri, logaritmer,
+osv.</p></li>
+<li><p><code>sys</code> – Avancerad filhantering, med mera…</p></li>
+<li><p><code>os</code> – Undvik att vara beroende av Win/Mac/Linux (typ
+undvik problem med “<code>/</code>” i filnamn i Linux/Mac
+vs. “<code>\</code>” i filnamn för Windows).</p></li>
+<li><p><code>argparse</code> – Används för parametrar när man startar
+program på kommandoraden.</p></li>
+<li><p><code>itertools</code> – Bra för avancerade och snabba
+iterationer.</p></li>
+<li><p><code>functools</code> – Fler högre ordningens
+funktioner.</p></li>
+<li><p><code>datetime</code> – Datum och tidstyper.</p></li>
+<li><p><code>pickle</code> – Serialisering av Python objekt.</p></li>
+<li><p><code>csv</code> – Det är svårare än du tror att läsa en
+komma-separerad fil!</p></li>
+<li><p><code>json</code> – Spara data i JSON-format för att lätt kunna
+läsa in igen.</p></li>
+<li><p><code>matplotlib</code> – Visualisera data.</p></li>
+<li><p><code>numpy</code> och <code>scipy</code> – För
+beräkningar.</p></li>
+<li><p>…: Utforska själv!</p></li>
+</ul>
+<div id="json-och-serialisering" class="section level2">
+<h2>JSON och serialisering</h2>
+<p>Problem: Jobbigt att skriva och läsa filer! Särskilt med stora
+datastrukturer (tänk: nästlade listor och/eller uppslagstabeller).</p>
+<p>Lösning: <em>serialisering</em></p>
+<p>Idé: Dumpa datastruktur på fil i standardformat som lätt kan läsas in
+igen.</p>
+<p>Finns standard pythonmoduler för detta (<code>marshal</code> och
+<code>pickle</code>).</p>
+<p>Bra portabel lösning: JSON – JavaScript Object Notation</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBqc29uXG5sZWdlbmRzID0gWyBbJ0xvdmVsYWNlJywgJ0FkYScsIDE4MTVdXG4gICAgICAgICAgLCBbJ0JhYmJhZ2UnLCAnQ2hhcmxlcycsIDE3OTFdXG4gICAgICAgICAgLCBbJ0JldXJsaW5nJywgJ0FybmUnLCAxOTA1XV1cblxuIyBTa2FwYSBkYXRhZmlsOlxud2l0aCBvcGVuKCdsZWdlbmRzLmpzb24nLCAndycpIGFzIG91dGZpbGU6XG4gICAgb3V0ZmlsZS53cml0ZShqc29uLmR1bXBzKGxlZ2VuZHMpKVxuXG4jIFNlbmFyZS4uLiBTa3JpdiB1dCBmXHUwMGY2ZGVsc2VzXHUwMGU1cjpcbndpdGggb3BlbignbGVnZW5kcy5qc29uJywgJ3InKSBhcyBkYXRhX2g6XG4gICAgZXh0ZXJuYWxfZGF0YSA9IGpzb24ubG9hZChkYXRhX2gpXG4gICAgZm9yIHggaW4gZXh0ZXJuYWxfZGF0YTpcbiAgICAgICAgcHJpbnQoeFsyXSkgICAgICAgICAgICAgIyBQcmludCBiaXJ0aCB5ZWFyIn0=
+</div>
+</div>
+<div id="numpy-för-vektorer-och-matriser" class="section level2">
+<h2>NumPy: för vektorer och matriser</h2>
+<p>Med <code>numpy</code> (<a href="https://www.numpy.org/"
+class="uri">https://www.numpy.org/</a>) får du ett paket för
+vetenskapliga beräkningar i Python. Det kommer med mycket effektiv
+lagring av vektorer och matriser, m.h.a. “arrays”. Pythons
+<code>list</code> har gränssnitt som (bl.a.) en array, men är mycket mer
+flexibelt. Det kostar dock i effektivitet. Arrayer i <code>numpy</code>
+är närmare datorns egen representation, vilket gör beräkningar mer
+effektiva (bättre användning av minne och beräkningstid). Effektiviteten
+kommer på bekostnad av flexibilitet, men i många tillämpningar är det
+mer än väl värt.</p>
+<p>Skapa vektorer och matriser med <code>numpy</code>-arrayer:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBudW1weSBhcyBucCAgICAgICAgIyBpZGlvbWF0aXNrIFB5dGhvbiBhdHQgaW1wb3J0ZXJhIG51bXB5IHNvbSBucFxuXG5hID0gbnAuYXJyYXkoWzEsMiwzLDRdKSAgICMgRnJcdTAwZTVuIHZhbmxpZyBsaXN0YVxuYiA9IG5wLm9uZXMoKDIsMikpICAgICAgICAjIDJ4Mi1tYXRyaXMgbWVkIGV0dG9yLCBub3RlcmEgdHVwZWxuIVxuYyA9IG5wLnplcm9zKCgxMCwxMCkpICAgICAjIDEweDEwLW5vbGwtbWF0cmlzXG5kID0gbnAubGluc3BhY2UoMCwgMSwgMTYpICMgMTYgZWxlbWVudCBmclx1MDBlNW4gMCB0aWxsIDEsIGZseXR0YWwhXG5lID0gbnAucmVzaGFwZShkLCAoNCw0KSkgICMgR2VyIDR4NC1tYXRyaXMgbWVkIHRhbCBmclx1MDBlNW4gMCB0aWxsIDFcbmYgPSBucC5pZGVudGl0eSgyKSAgICAgICAgIyBFbmhldHNtYXRycywgMngyXG5cbnByaW50KGEpXG5wcmludCgnT25seSBvbmVzOicsIGIpXG5wcmludCgnTGFyZ2UgbWF0cml4IG9mIHplcm9zOicsIGMpXG5wcmludChkKVxucHJpbnQoZSlcbnByaW50KCdVbml0eSBtYXRyaXg6JywgZikifQ==
+</div>
+<pre class="python"><code>[1 2 3 4]
+Only ones: [[1. 1.]
+ [1. 1.]]
+Large matrix of zeros: [[0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]]
+[0.         0.06666667 0.13333333 0.2        0.26666667 0.33333333
+ 0.4        0.46666667 0.53333333 0.6        0.66666667 0.73333333
+ 0.8        0.86666667 0.93333333 1.        ]
+[[0.         0.06666667 0.13333333 0.2       ]
+ [0.26666667 0.33333333 0.4        0.46666667]
+ [0.53333333 0.6        0.66666667 0.73333333]
+ [0.8        0.86666667 0.93333333 1.        ]]
+Unity matrix: [[1. 0.]
+ [0. 1.]]</code></pre>
+<p>Notera att <code>np</code> är ett etablerat alias, och
+<code>import</code> görs oftast som i exemplet, inklusive i
+<code>numpy</code>-dokumentationen.</p>
+<p><strong>Tips</strong>: prova exempelvis
+<code>help(np.linspace)</code> för att se hur den fungerar.</p>
+<p>Man har naturligtvis tillgång till operationer på matriser, som t.ex.
+matrismultiplikation:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im0gPSBucC5hcnJheShbWzEsMl0sIFszLDRdXSlcbnYgPSBucC5hcnJheShbMSwgMC41XSlcbnByb2R1Y3QgPSBucC5tYXRtdWwobSwgdikifQ==
+</div>
+<pre class="python"><code>[[2. 5.]]</code></pre>
+<p><code>numpy</code> betraktar generöst en array som en vektor på ett
+sätt som passar in. Här ovan tolkas alltså <code>v</code> som en
+kolonnvektor, och om man istället skriver <code>np.matmul(v, m)</code>
+tolkas den som radvektor.</p>
+<p>Det finns en särskild datastruktur för matriser definierad i numpy,
+men den bör man idag undvika eftersom den planeras att plockas bort:
+rekommendationen är att alltid använda <code>np.array</code>.</p>
+<p><code>numpy</code> är en del av <code>scipy</code> (<a
+href="https://www.scipy.org/" class="uri">https://www.scipy.org/</a>)
+som innehåller en massa olika paket för att göra vetenskapliga
+beräkningar och hantera “stor” data med Python.</p>
+</div>
+</div>
+<div id="tumregler-för-programstruktur-och-bra-kod"
+class="section level1">
+<h1>Tumregler för programstruktur och bra kod</h1>
+<p>Det är svårt att skriva bra kod. Med “bra” kod menas kod som är lätt
+att läsa, förstå sig på, använda och underhålla. Genom att skriva bra
+kod kan vi även undvika att introducera buggar. Det är dock svårt att
+säga exakt vad som gör kod bra, men förhoppningsvis har ni fått se lite
+exempel på både bra och mindre bra kod under kursens gång. Många
+programmerare har olika definitioner på vad som gör kod bra (på samma
+sätt som om det är väldigt subjektivt vad som är “bra konst” eller “bra
+litteratur”).</p>
+<p>Man kan hitta en massa specifika Python-tips på: <a
+href="https://docs.python-guide.org/writing/style/"
+class="uri">https://docs.python-guide.org/writing/style/</a>. Det finns
+en stilguide, med det stela namnet <a
+href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a>, som är
+skriven av Guido van Rossum, skaparen av Python. När du börjar
+programmera i andra språk är det en bra idé att se vilka principer som
+gäller där.</p>
+<p>Det finns verktyg för automatisk granskning av kod. Ett sådant finns
+på nätet: <a href="https://www.pythonchecker.com/"
+class="uri">https://www.pythonchecker.com/</a>. Det finns också IDE:er
+med liknande stöd, och bibliotek som <code>pylint</code> som man kan
+köra i ett terminalfönster.</p>
+<div id="programmeringsriktlinjer" class="section level2">
+<h2>Programmeringsriktlinjer</h2>
+<p>Här kommer en lista (i ingen specifik ordning) över saker som vi
+tycker gör kod bättre:</p>
+<ul>
+<li><p>Undvik långa rader, mindre än 79 tecken per rad är bra. Om en rad
+är för lång är det väldigt svårt att läsa den. <a
+href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> kräver denna
+begränsning.</p></li>
+<li><p>En kodsnutt per rad. Följande kod är dålig:</p>
+<p>dc_light_exercise_unnamed-chunk-18</p>
+<p>Följande kod är mycket bättre:</p>
+<p>dc_light_exercise_unnamed-chunk-19</p></li>
+<li><p>Eftersträva att skriva korta funktioner. De flesta funktioner bör
+få plats på en halv laptopskärm med teckenstorlek 12. I vissa fall kan
+de självklart bli längre, men tänk då noga på om det går (eller blir
+tydligare) att faktorisera ut koden i mindre funktioner först. Om
+funktioner är väldigt långa är det svårt att få överblick och hålla reda
+på allt funktionen gör.</p></li>
+<li><p>Dela upp kod i funktioner som gör <strong>en</strong> sak och gör
+det bra. Detta gör det mycket lättare att läsa, testa och förstå
+koden.</p>
+<p>Exempel: “läs in flera datamängder, gör beräkningar på varje
+datamängd, skriv ut en sammanfattning” bör delas upp på följande
+sätt:</p>
+<ul>
+<li>En funktion för inläsning av datamängder.</li>
+<li>En funktion som gör beräkningen på en datamängd.</li>
+<li>En huvudfunktion som anropar de två andra funktionerna och skriver
+ut sammanfattningen.</li>
+</ul></li>
+<li><p>Funktioner bör returnera något. Det blir då möjligt att testa dom
+och det är lättare att förstå vad de gör eller förväntas göra. Det finns
+dock tillfällen då en funktion inte behöver returnera något (utskrifter,
+listmanipulation, osv), men förväntningen bör ändå vara att funktioner
+returnerar något. Ett vanligt nybörjarfel är att man använder globala
+variabler för att hantera dataflödet i sitt program och då “behövs inte”
+returvärden. För nybörjaren kan alltså brist på returvärden vara en
+indikation på dålig programstruktur.</p></li>
+<li><p>Varje funktion ska ha en dokumentationssträng.</p></li>
+<li><p>Separera <strong>beräkning</strong> från
+<strong>interaktion</strong>: funktioner som gör beräkningar bör inte ha
+<code>print</code>/<code>input</code>. Funktioner som hanterar
+interaktion bör inte göra komplexa beräkningar. Interaktion är såväl
+enkla utskrifter som frågor till användaren. Man vill ofta återanvända
+beräknande funktioner, men inte deras diagnostiska utskrifter.</p></li>
+<li><p>Tänk först på hur programmet bör struktureras och vilka
+abstraktioner som bör användas innan ni börjar koda. Gruppera
+funktionalitet och attribut i klasser—på så sätt uppnås abstraktion och
+det blir lättare att ändra i programmet senare.</p></li>
+<li><p>Dela upp i små enheter, d.v.s. dela upp i lämpliga funktioner och
+klasser. Detta kallas för <em>modulär</em> kod då varje logisk del i
+koden kan studeras som en egen liten modul som sedan kombineras med
+andra moduler för att skapa komplexa program. Det gör programmet mycket
+mer överskådligt och lättförståeligt.</p></li>
+<li><p>Returnera <strong>inte</strong> värden av typ <code>int</code>
+eller <code>bool</code> som strängar, d.v.s. som <code>'2'</code> eller
+<code>'True'</code>. Det gör det svårare att testa och använda
+funktionerna senare. Det är även lätt att introducera buggar på så sätt,
+exempelvis:</p>
+<p>dc_light_exercise_unnamed-chunk-20</p></li>
+<li><p>Returnera inte “magiska” värden för att markera fel eller
+problem. Använd hellre särfall. Exempelvis:
+“<code>return 1000000</code>” är dålig markör för “konvergerade inte”.
+<strong>Undantag:</strong> <code>None</code> kan vara ett acceptabelt
+magiskt värde.</p></li>
+<li><p>Multipla returvärden är praktiska! Bättre än strängar som
+innehåller flera värden.</p></li>
+<li><p>Variabler/konstanter är bättre än hårdkodade litteraler. Till
+exempel om vi skriver ett grafiskt program och vill ha ett fönster med
+storlek <code>600 x 600</code>, då är det bättre att först skriva </p>
+<pre class="python"><code>   width , height  = 600 , 600</code></pre>
+<p>och sen använda <code>width</code>/<code>height</code> istället för
+att upprepa <code>600</code> överallt. På så sätt blir det lättare att
+ändra programmet i framtiden om vi vill ha andra dimensioner på
+fönstret. Det blir också lättare att läsa koden om det står
+<code>width</code> istället för ett godtyckligt nummer.</p></li>
+<li><p>Undvik globala variabler då de ofta leder till “spagettikod”
+(d.v.s. rörig kod där vitt skilda delar av programmet kan påverka
+varandra). Man ska kunna förstå en funktion utan att titta på andra
+delar av ett program. Det är direkt olämpligt att manipulera globala
+variabler i funktioner (d.v.s. använda nyckelordet <code
+class="python">global</code>).</p></li>
+<li><p>Inkludera tester för att både testa och specificera hur program
+är tänkta att fungera. Detta är lättare att göra om programmet är
+uppdelat i mindre funktioner som gör <strong>en</strong> sak och
+<strong>returnerar</strong> den.</p></li>
+<li><p>Enkel kod är lättare att läsa. Undvik därför att skriva onödigt
+komplicerade kodsnuttar. Till exempel är “<code
+class="python">if b == True:</code>” mer komplicerat än bara “<code
+class="python">if b:</code>”. Det är som med vanlig svenska: det är
+dålig stil att stapla många små ord på varandra. På samma sätt som enkla
+meningar blir lättare att förstå, så är enkel kod lättare att
+förstå.</p>
+<p>Här är ett exempel på ett onödigt komplicerat program:
+dc_light_exercise_unnamed-chunk-21</p>
+<p>Mycket bättre:</p>
+<p>dc_light_exercise_unnamed-chunk-22</p>
+<p>Ett bra knep är att alltid läsa igenom sin kod flera gånger och
+reflektera över hur den kan förenklas.</p></li>
+<li><p>Var försiktiga med muterbara datatyper (många buggar uppstår då
+listor råkas tömmas genom exempelvis <code>pop()</code>!). Speciellt
+farligt är det att ha muterbara typer som globala variabler eller
+klassattribut.</p></li>
+<li><p>Dela upp större projekt i logiska enheter i olika
+filer/mappar.</p></li>
+<li><p>Det ska framgå av identifieraren vad en variabel lagrar eller vad
+en funktion är till för. Som exempel, om du har raden </p>
+<pre class="python"><code>x = 17  # critical value, abort if exceeding</code></pre>
+<p>så är det nog bättre att byta <code>x</code> mot något annat, kanske
+så här:</p>
+<pre class="python"><code>critical_value = 17  # abort if exceeding</code></pre>
+<p>Ett till exempel: istället för</p>
+<pre class="python"><code>nc = 1.7       # normalization constant</code></pre>
+<p>bör man skriva:</p>
+<pre class="python"><code>normalization_constant = 1.7</code></pre>
+<p>Här behövs det då ingen en kommentar.</p></li>
+<li><p>Det finns tillfällen när funktionsnamnen får vara oinformativa:
+t.ex. <code>main</code>, pga konventioner</p></li>
+<li><p>Undvik generiska identifierare. Använd identifierare som är
+beskrivande.</p>
+<ul>
+<li><em>Dåliga</em>: <code>start</code>, <code>compute</code>,
+<code>f</code>, <code>foo</code></li>
+<li><em>Bra</em>: <code>remove_outliers</code>,
+<code>newton_raphson</code>, <code>compute_integral</code></li>
+</ul></li>
+<li><p>Kod ändras. Om funktionens syfte ändras så bör du byta
+identifierare! Om din funktionen heter <code>print_integral</code> men
+inte gör några utskrifter så är det förvirrande.</p></li>
+<li><p>Kommentarer är bra, men ska inte ersätta enkel kod med bra namn
+på identifierare. Om koden behöver kommenteras för att vara förståelig
+så betyder det troligtvis att man gör något komplicerat. Bra användning
+av kommentarer är att förklara varför man använder en specifik
+datastruktur (t.ex. varför man använder ett <code>set</code> istället
+för <code>list</code>, etc.) eller hur det är tänkt att en funktion ska
+användas.</p>
+<p>Kommentarer som inte bidrar något mer än vad koden redan säger bör
+undvikas. Till exempel är följande en helt redundant kommentar:</p>
+<pre class="python"><code>rows = []       # Create an empty list</code></pre>
+<p>Alla som kan lite Python förstår ju att kodraden skapar en tom lista,
+så varför skriva det i en kommentar?</p></li>
+</ul>
+</div>
+<div id="tecken-på-mindre-bra-kod" class="section level2">
+<h2>Tecken på mindre bra kod</h2>
+<ul>
+<li><p>“Copy-paste-kod”: det är lätt att introducera buggar om man
+kopierar rader och klistrar in dom igen. Programmet blir även svårläst
+om det blir väldigt långt. Kan man introducera en loop eller funktion
+istället?</p></li>
+<li><p>Är det svårt att skapa bra tester? Då har du nog inte delat upp
+ditt program i små delar som gör <strong>en</strong> specifik sak. Tänk
+över designen och introducera bättre funktioner och
+abstraktioner.</p></li>
+<li><p>Djup indentering: om man har väldigt nästlade <code
+class="python">if</code>-satser så är koden svårläst och bör delas upp i
+mindre delar. En vanlig orsak till djup indentering är att man har flera
+olika logiska fall—skapa då funktioner för de olika fallen. På så vis
+blir fallanalysen tydligare och de olika funktionsanropen indikerar vad
+som sker i fallen.</p>
+<p>Här är ett exempel på “dålig” kod:</p>
+<p>dc_light_exercise_unnamed-chunk-23</p>
+<p>Detta kodblock är indenterat i fyra nivåer. Det är inte så farligt,
+men man kan strukturera det bättre:</p>
+<p>dc_light_exercise_unnamed-chunk-24</p>
+<p>Här har vi brutit ut en särskild funktion,
+<code>collatz_primes(n)</code>, som används i en <code
+class="python">for</code>-loop, och den funktionen har bara tre
+indenteringsnivåer (<code class="python">while</code>-slingan, <code
+class="python">for</code>-slingan och <code
+class="python">if</code>-satsen).</p>
+<p>Vi kan ta det ett steg till och lägga uppdateringen av variabeln
+<code>n</code> och beräkningen om det är ett primtal i egna
+funktioner:</p>
+<p>dc_light_exercise_unnamed-chunk-25</p>
+<p>Vilken version tycker du är lättast att läsa och förstå?</p></li>
+<li><p>Saknas det parametrar och <code class="python">return</code> i
+funktioner som ska göra beräkningar? Då gör de troligtvis en massa
+konstigheter. Funktioners syfte är vanligen att ta indata och beräkna
+något. Beräkningen behöver vara inte vara matematisk utan kan vara enkel
+behandling av data. Det är mindre vanligt att funktioner helt saknar
+parametrar, men det finns förstås undantag, till exempel för utskrift av
+en meny eller initialisering av datastrukturer. Hos nybörjare är det
+dock inte ovanligt att man finner det bekvämt att lägga data i en eller
+flera globala variabler som funktioner sedan arbetar med. En sån
+konstruktion gör det svårt att se hur funktioner beror på varandra; man
+måste läsa funktionerna noggrant för att identifiera programflödet. Man
+kan sen inte heller använda funktionen i en annan modul om den inte tar
+någon parameter.</p>
+<p>Koden nedan fungerar om vi lägger <code>is_prime</code> i annan modul
+<code>m</code> (d.v.s. fil) och kallar på den med
+<code>m.is_prime(x)</code>.</p>
+<p>dc_light_exercise_unnamed-chunk-26</p>
+<p>Koden nedan är sämre skriven och fungerar endast om vi har den
+globala variabeln <code>x</code> i samma fil. Detta gör att vi inte kan
+importera funktionen i en annan fil.</p>
+<p>dc_light_exercise_unnamed-chunk-27</p></li>
+</ul>
+</div>
+</div>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Importera biblioteket <code>random</code> (se <a
+href="https://docs.python.org/3/library/random.html"
+class="uri">https://docs.python.org/3/library/random.html</a>) för att
+generera 10 slumpnässiga <em>heltal</em> mellan 1 och 100 och 10
+slumpnässiga <em>flyttal</em> mellan 1 och 100.</p>
+<p><em>Tips:</em> Läs dokumentationen. Vilka funktioner är lämpligast
+att använda?</p></li>
+<li><p>Betrakta koden nedan som läser in ett tal och avgör om det är ett
+perfekt tal eller ett primtal. Skriv om koden så att den får bättre
+struktur.</p>
+<p><em>Tips:</em> Dela upp koden i funktioner. Vilka bitar i koden
+tenderar att bli naturliga funktioner? Vad bör funktionerna ta för
+parametrar och returnera för att vara återanvändbara utanför modulen? Ha
+gärna en huvudfunktion <code>main(x)</code> som tar talet <code>x</code>
+som parameter.</p>
+<pre class="python"><code># checks if a number is (1) perfect (2) prime
+x = int(input(&quot;Provide a number to analyze: \n&quot;))
+sum = 0
+for i in range(1, x):
+    if (x % i == 0):
+        sum = sum + i
+
+if x &gt;= 2:
+    prime = True
+    for y in range(2,x):
+        if not (x % y):
+            prime = False
+else:
+    prime = False
+
+if sum == x:
+    print(&quot;The number is perfect&quot;)
+else:
+    print(&quot;The number is not perfect&quot;)
+if prime:
+    print(&quot;The number is prime&quot;)
+else:
+    print(&quot;The number is not prime&quot;)</code></pre></li>
+<li><p>Lägg till i ditt omstrukturerade program från uppgift 2 valet att
+låta användaren bestämma om hen ska ange ett tal eller om programmet ska
+slumpa fram ett tal. Var i programmet bör vi placera denna nya
+kod?</p></li>
+<li><p>Nedan kod läser in en DNA-sträng (t.ex.
+<code>'AGCTAGCGGTAGC'</code>) och letar först upp den vanligast
+förekommande strängen av längd <code>k</code>. Sedan skriver programmet
+ut alla parvisa avstånd mellan delsträngen på vår DNA-sträng. Till
+exempel för <code>k = 3</code> returnerar koden nedan
+<code>[4, 6]</code> då det är <code>4</code> respektive <code>6</code>
+nukleotider mellan startpositionerna för den vanligast förekommande
+delsekvensen <code>'AGC'</code>.</p>
+<p><strong>Uppgift:</strong> Skriv om programmet så att det blir mer
+läsbart. Vilka bitar i koden utgör lämpliga funktioner? Se till så att
+de både tar lämpliga parametrar och returnerar lämpliga datastukturer.
+Funktionerna ska kunna kallas på individuellt från annan modul.</p>
+<pre class="python"><code># Given a sequence as input find distances between the copies of
+# the most frequent substring
+
+seq = input(&quot;Enter a DNA string: &quot;)
+k = 3
+substrings = {}
+for i in range(len(seq) - k + 1):
+    substring = seq[i: i+k]
+    if substring in substrings:
+        substrings[substring] += 1
+    else:
+        substrings[substring] = 1
+
+max_count = 0
+most_freq_substring = &quot;&quot;
+for substring, count in substrings.items():
+    if count &gt; max_count:
+        most_freq_substring = substring
+        max_count = count
+
+
+positions = []
+for i in range(len(seq) - k + 1):
+    substring = seq[i: i+k]
+    if substring == most_freq_substring:
+        positions.append(i)
+
+distances = []
+for p1,p2 in zip(positions[:-1], positions[1:]):
+    distances.append(p2 - p1)
+
+print(distances)</code></pre></li>
+<li><p> Du har fem nummer i en lista <code>[13, 24, 42, 66, 78]</code>
+och vill beräkna alla möjliga sätt ett nummer kan skrivas som en
+“direkt” sammanslagning av <code>2</code> element ur listan; med en
+“direkt sammanslagning” av två element (heltal) menas här t.ex.
+<code>13, 78 -&gt; 1378</code> och <code>66, 42 -&gt; 6642</code>. Dvs,
+du vill ta reda på alla permutationer av två element ur listan så och
+slå samman varje permutation till ett tal.</p>
+<p><em>Tips:</em> Titta på standardmodulen <code>itertools</code> för
+permutationerna. För att slå samman heltal, försöka att först explicit
+typomvandla talen i listan till <code>str</code>, sen konkatenera
+permutationerna m.h.a strängfunktionen <code>.join()</code> och till
+sista typomvandla tillbaka till <code>int</code>.</p>
+<p>Utdata bör bli (om alla tal sparats i en lista som man printar):</p>
+<pre class="python"><code>[1324, 1342, 1366, 1378, 2413, 2442, 2466, 2478, 4213, 4224, 4266, 4278, 6613,
+ 6624, 6642, 6678, 7813, 7824, 7842, 7866]</code></pre></li>
+<li><p>Skriv om laboration 1 (temperaturkonvertering) så att
+funktionerna hamnar i separat modul med namnet
+<code>temp_functions.py</code> och dokumentera funktionerna med en
+dokumentationssträng (se ). Huvudprogrammet ska importera funktionerna i
+<code>temp_functions.py</code> samt hantera fel med <code
+class="python">try</code>/<code class="python">except</code>.</p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
