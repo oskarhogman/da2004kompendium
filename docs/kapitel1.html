@@ -611,17 +611,22 @@ rad, så är det endast en plats som man antagligen behöver editera.</p>
 <ol style="list-style-type: decimal">
 <li><p>Vad händer om vi kör nedanstående kod och varför blir det som det
 blir? Undersök!</p>
-<p>dc_light_exercise_unnamed-chunk-22
-<!-- #Svar:  byte av värde  --></p></li>
+<pre class="python"><code>x,y = 2,3
+x,y = y,x
+print(x)
+print(y)</code></pre>
+<!-- #Svar:  byte av värde  --></li>
 <li><p>Nedan har vi kod som definierar variablerna <code>x</code> och
 <code>y</code> med tilldelade värden. Hitta på ett aritmetiskt uttryck i
 <code>x</code> och <code>y</code> som ger värdet</p>
 <ol start="100" style="list-style-type: decimal">
-<li>dc_light_exercise_unnamed-chunk-23
+<li></li>
+</ol>
+<pre class="python"><code>x = 4
+y = -3</code></pre>
 <!-- #Svar:  (x - y - y)**2  --></li>
-</ol></li>
 <li><p>Låt</p>
-<p>dc_light_exercise_unnamed-chunk-24</p>
+<pre class="python"><code>s = &#39;hej&#39;</code></pre>
 <p>Skriv kod som skriver ut
 <code>'hejhejhejhejhejhejhejhejhejhejhejhejhejhejhejhej'</code> (det
 vill säga, <code>hej</code> sexton gånger på raken).</p></li>
@@ -629,7 +634,7 @@ vill säga, <code>hej</code> sexton gånger på raken).</p></li>
 <!-- #Svar:  s*16  -->
 <ol start="4" style="list-style-type: decimal">
 <li><p>Låt</p>
-<p>dc_light_exercise_unnamed-chunk-25</p>
+<pre class="python"><code>s = &#39;hej&#39;</code></pre>
 <p>Skriv kod som skriver ut
 <code>'hejhejhejhejhejhejhejhejhejhejhejhejhejhejhejhej'</code> genom
 att bara använda operatorn <code>+</code>, men så få gånger som
@@ -641,7 +646,9 @@ möjligt.</p></li>
 samt sparar resultatet i två variabler. Skriv sedan ut dessa. Ta
 inspiration från stycket ‘Input’ ovan (). Till exempel ska det fungera
 så här: </p>
-<p>dc_light_exercise_unnamed-chunk-26</p></li>
+<pre class="python"><code>Vad heter du i förnamn?    # Skriv in ditt förnamn här, tex &#39;Johan&#39;
+Vad heter du i efternamn?  # Skriv in ditt efternamn här, tex &#39;Jansson&#39;
+Hej Johan Jansson</code></pre></li>
 <li><p>Skriv kod som frågar användaren om dess ålder (spara i variabeln
 <code>age</code>) samt favorittal (spara i variabeln <code>num</code>).
 Vad händer om du adderar dessa variabler? Blir det vad du förväntar dig?

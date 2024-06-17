@@ -461,7 +461,7 @@ på en rad, så är det endast en plats som man antagligen behöver editera.
 1. Vad händer om vi kör nedanstående kod och varför blir det som det
    blir? Undersök!
 
-    ```{python}
+    ```python
     x,y = 2,3
     x,y = y,x
     print(x)
@@ -474,7 +474,7 @@ på en rad, så är det endast en plats som man antagligen behöver editera.
    tilldelade värden.
    Hitta på ett aritmetiskt uttryck i `x` och `y` som ger värdet
    100.
-    ```{python}
+    ```python
     x = 4
     y = -3
     ```
@@ -482,7 +482,7 @@ på en rad, så är det endast en plats som man antagligen behöver editera.
 
 3. Låt
 
-    ```{python}
+    ```python
     s = 'hej'
     ```
 
@@ -494,7 +494,7 @@ på en rad, så är det endast en plats som man antagligen behöver editera.
 
 4. Låt
 
-    ```{python}
+    ```python
     s = 'hej'
     ```
 
@@ -511,7 +511,7 @@ på en rad, så är det endast en plats som man antagligen behöver editera.
    ska det fungera så här:
    \pyout
 
-    ```{python}
+    ```python
     Vad heter du i förnamn?    # Skriv in ditt förnamn här, tex 'Johan'
     Vad heter du i efternamn?  # Skriv in ditt efternamn här, tex 'Jansson'
     Hej Johan Jansson
