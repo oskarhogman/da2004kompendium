@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 11</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+<li>
+  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+</li>
+<li>
+  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning och felsökning</a>
+</li>
+<li>
+  <a href="kapitel6.html">6: Sekvenser och generatorer</a>
+</li>
+<li>
+  <a href="kapitel7.html">7: Moduler, bibliotek och programstruktur</a>
+</li>
+<li>
+  <a href="kapitel8.html">8: Funktionell programmering</a>
+</li>
+<li>
+  <a href="kapitel9.html">9: Objektorientering 1: Klasser</a>
+</li>
+<li>
+  <a href="kapitel10.html">10: Objektorientering 2: Arv</a>
+</li>
+<li>
+  <a href="kapitel11.html">11: Objektorientering 3: Mer om arv</a>
+</li>
+<li>
+  <a href="kapitel12.html">12: Defensiv programmering</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 11</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<div id="olika-typer-av-arv" class="section level1">
+<h1>Olika typer av arv</h1>
+<p>I förra kapitlet såg vi olika exempel på arv i Python. Olika former
+av arv har olika namn inom objektorientering:</p>
+<ol style="list-style-type: decimal">
+<li><p>Enkelt arv (eng. <em>single inheritance</em>): klass
+<code>B</code> ärver endast från klass <code>A</code>.</p></li>
+<li><p>Mångnivåarv (eng. <em>multilevel inheritance</em>): klass
+<code>B</code> ärver från <code>A</code> och klass <code>C</code> ärver
+sen från klass <code>B</code>.</p></li>
+<li><p>Hierarkiskt arv (eng. <em>hierarchical inheritance</em>): klass
+<code>A</code> är superklass till <code>B</code>, <code>C</code>,
+<code>D</code>…</p></li>
+<li><p>Multipelt arv (eng. <em>multiple inheritance</em>): klass
+<code>C</code> ärver från <em>både</em> <code>A</code> och
+<code>B</code> (men de ärver inte från varandra).</p></li>
+<li><p>Hybridarv (eng. <em>hybrid inheritance</em>): en mix av två eller
+fler typer av arv.</p></li>
+</ol>
+<p>Vi såg även att man kan illustrera olika typer av arv med hjälp av
+klassdiagram. Förra kapitlet innehöll exempel på enkelt, mångnivå-,
+hierarkiskt och hybrid-arv, så vi ska nu titta på multipelt arv.</p>
+<p>Det är inte alla programmeringsspråk som tillåter multipelt arv, men
+det gör Python. Betrakta följande exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEE6XG4gICBwYXNzICAgICMgc29tZSBjb2RlXG5cbmNsYXNzIEI6XG4gICBwYXNzICAgICMgc29tZSBtb3JlIGNvZGVcblxuY2xhc3MgQyhBLCBCKTpcbiAgIHBhc3MgICAgIyBldmVuIG1vcmUgY29kZSJ9
+</div>
+<p>Vi kan illustrera detta med hjälp av ett klassdiagram:</p>
+<div class="float">
+<embed src="./kapitel/images/kap11_multiple.pdf" style="width:30.0%" />
+<div class="figcaption">Klassdiagram för <code>A</code>, <code>B</code>
+och <code>C</code></div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Här har <code>C</code> alltså två superklasser, <code>A</code> och
+<code>B</code>, vilka inte ärver från varandra. Detta kan verka
+oskyldigt och man kan undra varför inte alla språk stödjer det. Men rent
+generellt är det lätt hänt att multipelt arv ger kaos på grund av så
+kallade <em>diamantproblem</em>.</p>
+<div id="diamantproblem" class="section level2">
+<h2>Diamantproblem</h2>
+<p>Betrakta följande kod:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEE6XG4gICAgZGVmIGYoc2VsZik6XG4gICAgICAgIHByaW50KFwiZiBvZiBBIGNhbGxlZFwiKVxuXG5jbGFzcyBCKEEpOlxuICAgIGRlZiBmKHNlbGYpOlxuICAgICAgICBwcmludChcImYgb2YgQiBjYWxsZWRcIilcblxuY2xhc3MgQyhBKTpcbiAgICBkZWYgZihzZWxmKTpcbiAgICAgICAgcHJpbnQoXCJmIG9mIEMgY2FsbGVkXCIpXG5cbmNsYXNzIEQoQixDKTpcbiAgICBwYXNzXG5cbmQgPSBEKClcbmQuZigpIn0=
+</div>
+<p>Detta kallas för ett diamantproblem då får man en romb om man ritar
+upp klassdiagrammet:</p>
+<div class="float">
+<embed src="./kapitel/images/kap11_diamond.pdf" style="width:30.0%" />
+<div class="figcaption">Klassdiagram för <code>A</code>, <code>B</code>,
+<code>C</code> och <code>D</code></div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Kör vi koden ovan får vi </p>
+<pre class="python"><code>f of B called</code></pre>
+Men om vi istället kör följande där arvet är <code>D(C,B)</code> får vi:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEE6XG4gICAgZGVmIGYoc2VsZik6XG4gICAgICAgIHByaW50KFwiZiBvZiBBIGNhbGxlZFwiKVxuXG5jbGFzcyBCKEEpOlxuICAgIGRlZiBmKHNlbGYpOlxuICAgICAgICBwcmludChcImYgb2YgQiBjYWxsZWRcIilcblxuY2xhc3MgQyhBKTpcbiAgICBkZWYgZihzZWxmKTpcbiAgICAgICAgcHJpbnQoXCJmIG9mIEMgY2FsbGVkXCIpXG5cbmNsYXNzIEQoQyxCKTpcbiAgICBwYXNzXG5cbmQgPSBEKClcbmQuZigpIn0=
+</div>
+<pre class="python"><code>f of C called</code></pre>
+<p>Så utdata har nu ändrats då man ärver i en annan ordning! Denna typ
+av beroenden vill man helst inte behöva tänka på när man programmerar
+och därför tycker man att det är ett problem. Diamantproblem kan uppstå
+med multipelt arv. Man kan lätt föreställa sig hur kod snabbt blir
+oöverskådlig om man har många klasser med en massa metoder och attribut
+vilka ärver från varandra på detta sätt. Denna typ av problem är vad som
+lätt orsakar kaos i kod med multipelt arv och varför många språk inte
+tillåter det.</p>
+</div>
+</div>
+<div id="exempel-algebraiska-uttryck" class="section level1">
+<h1>Exempel: Algebraiska uttryck</h1>
+<p>Vi ska nu titta på ett till exempel på arv. Poängen med detta exempel
+är att illustrera två saker:</p>
+<ol style="list-style-type: decimal">
+<li><p>Hur man kan använda klasser för att <em>strukturera</em>
+data.</p></li>
+<li><p>Hur man kan använda rekursion i kombination med klasser.</p></li>
+</ol>
+<p>Denna kombination är väldigt kraftfull och låter oss lösa många olika
+typer av programmeringsproblem på ett enkelt sätt. Vi börjar med att
+skriva ett program för att representera och modifiera algebraiska
+uttryck. Dessa uttryck kan innehålla tal, variabler, <code>+</code>,
+<code>*</code> och <em>matchade</em> paranteser. Ett exempel på ett
+algebraiskt uttryck är <code>x * y + 7</code> och ett annat är
+<code>x * (y + 7)</code>.</p>
+<p>Hur ska vi tänka för att representera dessa i Python? En naiv lösning
+skulle kunna vara att helt enkelt använda strängar, så
+<code>x * y + 7</code> skulle representeras som strängen
+<code>"x * y + 7"</code>. Men låt oss säga att vi vill byta ut
+<code>x</code> till <code>3</code> och <code>y</code> till
+<code>2</code> och sedan beräkna värdet av uttrycket… Detta blir
+<em>väldigt</em> komplicerat med strängar!</p>
+<p>Ett annat problem med strängar är hur man ska hantera paranteser.
+Enligt konventionen att <code>*</code> binder starkare än <code>+</code>
+så ska ju <code>x * y + 7</code> tolkas som <code>(x * y) + 7</code> och
+inte <code>x * (y + 7)</code>. Har man inte koll på detta kommer man ju
+få fel svar när man utvärderar uttryck. Ett mycket smidigare sätt är att
+använda <em>träd</em>. På så sätt kan vi representera algebraiska
+uttryck med två dimensioner istället för bara en!</p>
+<p>Ett träd är en datastruktur där ett element antingen är ett löv eller
+en nod med ett antal grenar som leder till “underträd” (eng.
+<em>subtree</em>). Så <code>(x * y) + 7</code> kan representeras
+entydigt som ett träd med översta noden <code>+</code> och två underträd
+som innehåller <code>x * y</code> och <code>7</code>. Värdet
+<code>7</code> är ett löv i trädet då det inte har några underträd.
+Uttrycket <code>x * y</code> är även det ett träd, denna gång med noden
+<code>*</code> längst upp och <code>x</code> och <code>y</code> som löv.
+Vi kan rita detta som:</p>
+<pre><code>       +
+      / \
+     *   7
+    / \
+   x   y</code></pre>
+<p><em>Obs</em>: dataloger ritar träd upp-och-ned jämfört med riktiga
+träd!</p>
+<p>Uttrycket <code>x * (y + 7)</code> är istället följande träd:</p>
+<pre><code>       *
+      / \
+     x   +
+        / \
+       y   7</code></pre>
+<p>Denna typ av träd kallas <em>binära</em> träd då alla noder har två
+eller noll underträd. Låt oss nu representera denna typ av träd med
+algebraiska uttryck i Python! Vi börjar med en tom superklass för
+uttryck som i sin tur har 3 subklasser (en för siffror, en för variabler
+och en för <code>+</code>):</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEV4cHI6XG4gICAgcGFzc1xuXG5jbGFzcyBDb25zdGFudChFeHByKTpcblxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCB2YWx1ZSk6XG4gICAgICAgIHNlbGYuX3ZhbHVlID0gdmFsdWVcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gc3RyKHNlbGYuX3ZhbHVlKVxuXG5jbGFzcyBWYXIoRXhwcik6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZiwgbmFtZSk6XG4gICAgICAgIHNlbGYuX25hbWUgPSBuYW1lXG5cbiAgICBkZWYgX19zdHJfXyhzZWxmKTpcbiAgICAgICAgcmV0dXJuIHNlbGYuX25hbWVcblxuY2xhc3MgUGx1cyhFeHByKTpcblxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCBsZWZ0LCByaWdodCk6XG4gICAgICAgIHNlbGYuX2xlZnQgPSBsZWZ0XG4gICAgICAgIHNlbGYuX3JpZ2h0ID0gcmlnaHRcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gc3RyKHNlbGYuX2xlZnQpICsgXCIgKyBcIiArIHN0cihzZWxmLl9yaWdodClcblxucHJpbnQoUGx1cyhDb25zdGFudCgzKSxWYXIoXCJ4XCIpKSkifQ==
+</div>
+<pre class="python"><code>3 + x</code></pre>
+<p>Notera att anropet till <code>str</code> är <em>rekursivt</em> i
+<code>__str__</code> för <code>Plus</code>. Här anropas <code>str</code>
+metoden för vänstra och högra underträdet. Vilken funktion som sen
+kommer köras beror på vad dessa är.</p>
+<p>Låt oss nu lägga till <code>*</code>, detta kan göras genom:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIFRpbWVzKEV4cHIpOlxuXG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIGxlZnQsIHJpZ2h0KTpcbiAgICAgICAgc2VsZi5fbGVmdCA9IGxlZnRcbiAgICAgICAgc2VsZi5fcmlnaHQgPSByaWdodFxuXG4gICAgZGVmIF9fc3RyX18oc2VsZik6XG4gICAgICAgIHJldHVybiBzdHIoc2VsZi5fbGVmdCkgKyBcIiAqIFwiICsgc3RyKHNlbGYuX3JpZ2h0KVxuXG5wcmludChQbHVzKFRpbWVzKFZhcihcInhcIiksVmFyKFwieVwiKSksQ29uc3RhbnQoNykpKSJ9
+</div>
+<pre class="python"><code>x * y + 7</code></pre>
+<p>Men denna definition är ju exakt samma som <code>Plus</code>,
+bortsett från att vi skriver ut <code>*</code> istället för
+<code>+</code>. Kopiera och klistra in kod är farligt då man lätt
+introducerar buggar! En bättre lösning är att istället introducera en ny
+klass för binära operatorer vilken <code>Plus</code> och
+<code>Times</code> sen ärver ifrån:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEJpbk9wKEV4cHIpOlxuXG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIGxlZnQsIHJpZ2h0KTpcbiAgICAgICAgc2VsZi5fbGVmdCA9IGxlZnRcbiAgICAgICAgc2VsZi5fcmlnaHQgPSByaWdodFxuXG5jbGFzcyBQbHVzKEJpbk9wKTpcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gc3RyKHNlbGYuX2xlZnQpICsgXCIgKyBcIiArIHN0cihzZWxmLl9yaWdodClcblxuY2xhc3MgVGltZXMoQmluT3ApOlxuXG4gICAgZGVmIF9fc3RyX18oc2VsZik6XG4gICAgICAgIHJldHVybiBzdHIoc2VsZi5fbGVmdCkgKyBcIiAqIFwiICsgc3RyKHNlbGYuX3JpZ2h0KVxuXG5wcmludChQbHVzKFRpbWVzKFZhcihcInhcIiksVmFyKFwieVwiKSksQ29uc3RhbnQoNykpKSJ9
+</div>
+<pre class="python"><code>x * y + 7</code></pre>
+<p>Detta verkar ju fungera bra, men det blir fel om vi skriver:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFRpbWVzKFZhcihcInhcIiksUGx1cyhWYXIoXCJ5XCIpLENvbnN0YW50KDcpKSkpIn0=
+</div>
+<pre class="python"><code>x * y + 7</code></pre>
+<p>Vi får exakt samma som ovan! Detta är knas då vi glömt bort att sätta
+in paranteser. En naiv lösning på detta problem är att alltid sätta in
+parenteser runt underuttyrck i <code>Plus</code> och
+<code>Times</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEJpbk9wKEV4cHIpOlxuXG4gICAgZGVmIF9faW5pdF9fKHNlbGYsIGxlZnQsIHJpZ2h0KTpcbiAgICAgICAgc2VsZi5fbGVmdCA9IGxlZnRcbiAgICAgICAgc2VsZi5fcmlnaHQgPSByaWdodFxuXG5jbGFzcyBQbHVzKEJpbk9wKTpcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gXCIoXCIgKyBzdHIoc2VsZi5fbGVmdCkgKyBcIikgKyAoXCIgKyBzdHIoc2VsZi5fcmlnaHQpICsgXCIpXCJcblxuY2xhc3MgVGltZXMoQmluT3ApOlxuXG4gICAgZGVmIF9fc3RyX18oc2VsZik6XG4gICAgICAgIHJldHVybiBcIihcIiArIHN0cihzZWxmLl9sZWZ0KSArIFwiKSAqIChcIiArIHN0cihzZWxmLl9yaWdodCkgKyBcIilcIlxuXG5wcmludChQbHVzKFRpbWVzKFZhcihcInhcIiksVmFyKFwieVwiKSksQ29uc3RhbnQoNykpKVxuXG5wcmludChUaW1lcyhWYXIoXCJ4XCIpLFBsdXMoVmFyKFwieVwiKSxDb25zdGFudCg3KSkpKSJ9
+</div>
+<pre class="python"><code>((x) * (y)) + (7)
+(x) * ((y) + (7))</code></pre>
+<p>Detta är ju rätt, men vi har satt in onödigt många paranteser! Vad vi
+egentligen vill få ut är:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFBsdXMoVGltZXMoVmFyKFwieFwiKSxWYXIoXCJ5XCIpKSxDb25zdGFudCg3KSkpXG5cbnByaW50KFRpbWVzKFZhcihcInhcIiksUGx1cyhWYXIoXCJ5XCIpLENvbnN0YW50KDcpKSkpIn0=
+</div>
+<pre class="python"><code>x * y + 7
+x * (y + 7)</code></pre>
+<p>Hur kan vi lösa detta?</p>
+<p><em>Lösning</em>: dekorera alla uttryck med hur hårt de binder. Med
+denna extra information kan vi avgöra om vi ska skriva ut paranteser
+runt underuttryck eller inte. Vi gör detta genom att lägga till en
+klassvariabel <code>prec</code> (för <em>precedence</em>) till
+<code>Expr</code> klassen och sen skriva över den i <code>Plus</code>
+och <code>Times</code>. Vi har sedan en hjälpfunktion
+<code>parens</code> som avgör om paranteser ska skrivas ut runt ett
+uttryck eller inte.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEV4cHI6XG5cbiAgICAjIGRlZmF1bHQgcHJlY2VkZW5jZSB2ZXJ5IGhpZ2ggc28gdGhhdCB3ZSBkb24ndCBwdXQgcGFyYW50aGVzZXNcbiAgICBwcmVjID0gMTAwMFxuXG5jbGFzcyBDb25zdGFudChFeHByKTpcblxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCB2YWx1ZSk6XG4gICAgICAgIHNlbGYuX3ZhbHVlID0gdmFsdWVcblxuICAgIGRlZiBfX3N0cl9fKHNlbGYpOlxuICAgICAgICByZXR1cm4gc3RyKHNlbGYuX3ZhbHVlKVxuXG5jbGFzcyBWYXIoRXhwcik6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZiwgbmFtZSk6XG4gICAgICAgIHNlbGYuX25hbWUgPSBuYW1lXG5cbiAgICBkZWYgX19zdHJfXyhzZWxmKTpcbiAgICAgICAgcmV0dXJuIHNlbGYuX25hbWVcblxuY2xhc3MgQmluT3AoRXhwcik6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZiwgbGVmdCwgcmlnaHQpOlxuICAgICAgICBzZWxmLl9sZWZ0ID0gbGVmdFxuICAgICAgICBzZWxmLl9yaWdodCA9IHJpZ2h0XG5cbiMgRnVuY3Rpb24gZm9yIGluc2VydGluZyBwYXJlbnRoZXNlcyBhcm91bmQgYSBzdHJpbmcgaWYgcHJlY2VkZW5jZSBwMVxuIyBpcyBzbWFsbGVyIHRoYW4gcHJlY2VkZW5jZSBwMlxuZGVmIHBhcmVucyhwMSxwMixzKTpcbiAgICBpZiBwMSA8IHAyOlxuICAgICAgICByZXR1cm4gXCIoXCIgKyBzICsgXCIpXCJcbiAgICBlbHNlOlxuICAgICAgICByZXR1cm4gc1xuXG5jbGFzcyBQbHVzKEJpbk9wKTpcblxuICAgIHByZWMgPSAxXG5cbiAgICBkZWYgX19zdHJfXyhzZWxmKTpcbiAgICAgICAgczEgPSBwYXJlbnMoc2VsZi5fbGVmdC5wcmVjLHNlbGYucHJlYyxzdHIoc2VsZi5fbGVmdCkpXG4gICAgICAgIHMyID0gcGFyZW5zKHNlbGYuX3JpZ2h0LnByZWMsc2VsZi5wcmVjLHN0cihzZWxmLl9yaWdodCkpXG4gICAgICAgIHJldHVybiBzMSArIFwiICsgXCIgKyBzMlxuXG5jbGFzcyBUaW1lcyhCaW5PcCk6XG5cbiAgICBwcmVjID0gMlxuXG4gICAgZGVmIF9fc3RyX18oc2VsZik6XG4gICAgICAgIHMxID0gcGFyZW5zKHNlbGYuX2xlZnQucHJlYyxzZWxmLnByZWMsc3RyKHNlbGYuX2xlZnQpKVxuICAgICAgICBzMiA9IHBhcmVucyhzZWxmLl9yaWdodC5wcmVjLHNlbGYucHJlYyxzdHIoc2VsZi5fcmlnaHQpKVxuICAgICAgICByZXR1cm4gczEgKyBcIiAqIFwiICsgczJcblxuXG5wcmludChQbHVzKFRpbWVzKFZhcihcInhcIiksVmFyKFwieVwiKSksQ29uc3RhbnQoNykpKVxuXG5wcmludChUaW1lcyhWYXIoXCJ4XCIpLFBsdXMoVmFyKFwieVwiKSxDb25zdGFudCg3KSkpKVxuXG5wcmludChUaW1lcyhWYXIoXCJ4XCIpLFRpbWVzKFZhcihcInlcIiksUGx1cyhDb25zdGFudCgzKSxWYXIoXCJ6XCIpKSkpKSJ9
+</div>
+<pre class="python"><code>x * y + 7
+x * (y + 7)
+x * y * (3 + z)</code></pre>
+</div>
+<div id="exempel-binära-träd" class="section level1">
+<h1>Exempel: Binära träd</h1>
+<p>Vi kan generalisera datatypen för algebraiska uttryck till
+godtyckliga binära träd. På detta sätt kan vi skriva våra funktioner en
+gång för alla och kommer inte behöva skriva om dem för varje typ av
+binära träd vi kan tänkas behöva.</p>
+<p>Ett binärt träd är antingen en förgrening (med nodvärde och
+vänster/höger underträd) eller ett löv (med värde). Vi lägger in
+följande funktionalitet i dessa:</p>
+<ul>
+<li><p><code>__str__</code>: konvertera till en sträng.</p></li>
+<li><p><code>member(x)</code>: testa om <code>x</code> finns i
+trädet.</p></li>
+<li><p><code>map_tree(f)</code>: applicera funktionen <code>f</code> på
+alla värden i trädet (notera att detta är en högre ordningens funktion
+då den tar en funktion som argument).</p></li>
+<li><p><code>linearize()</code>: konvertera trädet till en
+lista.</p></li>
+</ul>
+<p>I detta exempel är huvudklassen <code>BinTree</code> tomt, men det är
+ändå bra att ha med om man en dag vill lägga in något i den som vi
+gjorde med <code>prec</code> värdet för algebraiska uttryck.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImNsYXNzIEJpblRyZWU6XG4gICAgcGFzc1xuXG5jbGFzcyBCcmFuY2goQmluVHJlZSk6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZiwgbm9kZSwgbGVmdCwgcmlnaHQpOlxuICAgICAgICBzZWxmLl9ub2RlID0gbm9kZVxuICAgICAgICBzZWxmLl9sZWZ0ID0gbGVmdFxuICAgICAgICBzZWxmLl9yaWdodCA9IHJpZ2h0XG5cbiAgICBkZWYgX19zdHJfXyhzZWxmKTpcbiAgICAgICAgbiAsIGwgLCByID0gc3RyKHNlbGYuX25vZGUpICwgc3RyKHNlbGYuX2xlZnQpICwgc3RyKHNlbGYuX3JpZ2h0KVxuICAgICAgICByZXR1cm4gXCIoXCIgKyBuICsgXCIsXCIgKyBsICsgXCIsXCIgKyByICsgXCIpXCJcblxuICAgIGRlZiBtZW1iZXIoc2VsZiwgeCk6XG4gICAgICAgIHJldHVybiBzZWxmLl9ub2RlID09IHggb3Igc2VsZi5fbGVmdC5tZW1iZXIoeCkgb3Igc2VsZi5fcmlnaHQubWVtYmVyKHgpXG5cbiAgICBkZWYgbWFwX3RyZWUoc2VsZixmKTpcbiAgICAgICAgcmV0dXJuIEJyYW5jaChmKHNlbGYuX25vZGUpLHNlbGYuX2xlZnQubWFwX3RyZWUoZiksc2VsZi5fcmlnaHQubWFwX3RyZWUoZikpXG5cbiAgICBkZWYgbGluZWFyaXplKHNlbGYpOlxuICAgICAgICByZXR1cm4gc2VsZi5fbGVmdC5saW5lYXJpemUoKSArIFtzZWxmLl9ub2RlXSArIHNlbGYuX3JpZ2h0LmxpbmVhcml6ZSgpXG5cbmNsYXNzIExlYWYoQmluVHJlZSk6XG5cbiAgICBkZWYgX19pbml0X18oc2VsZiwgdmFsKTpcbiAgICAgICAgc2VsZi5fdmFsID0gdmFsXG5cbiAgICBkZWYgX19zdHJfXyhzZWxmKTpcbiAgICAgICAgcmV0dXJuIFwiKFwiICsgc3RyKHNlbGYuX3ZhbCkgKyBcIilcIlxuXG4gICAgZGVmIG1lbWJlcihzZWxmLCB4KTpcbiAgICAgICAgcmV0dXJuIHNlbGYuX3ZhbCA9PSB4XG5cbiAgICBkZWYgbWFwX3RyZWUoc2VsZiwgZik6XG4gICAgICAgIHJldHVybiBMZWFmKGYoc2VsZi5fdmFsKSlcblxuICAgIGRlZiBsaW5lYXJpemUoc2VsZik6XG4gICAgICAgIHJldHVybiBbc2VsZi5fdmFsXVxuXG50ID0gQnJhbmNoKC0zMixMZWFmKDIpLEJyYW5jaCgxLEJyYW5jaCgyMyxMZWFmKDQpLExlYWYoLTIpKSxMZWFmKDEyKSkpXG5cbnByaW50KHQpXG5wcmludCh0Lm1lbWJlcigxMikpXG5wcmludCh0Lm1lbWJlcigtMTIzKSlcblxucHJpbnQodC5tYXBfdHJlZShsYW1iZGEgeDogMCkpXG5wcmludCh0Lm1hcF90cmVlKGxhbWJkYSB4OiB4ICoqIDIpKVxuXG5wcmludCh0LmxpbmVhcml6ZSgpKSJ9
+</div>
+<pre class="python"><code>(-32,(2),(1,(23,(4),(-2)),(12)))
+True
+False
+(0,(0),(0,(0,(0),(0)),(0)))
+(1024,(4),(1,(529,(16),(4)),(144)))
+[2, -32, 4, 23, -2, 1, 12]</code></pre>
+<p>Notera att alla funktioner som vi definierat är rekursiva. Detta
+exempel visar hur vi på ett enkelt sätt kan kombinera klasser och
+rekursion för att representera och modifiera strukturerad data.</p>
+</div>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Vilka av exemplen i kapitel 10 är exempel på enkelt, mångnivå,
+hierarkiskt och hybrid arv?</p></li>
+<li><p>Flytta <code>__str__</code> metoden för <code>Plus</code> och
+<code>Times</code> till <code>BinOp</code> på lämpligt sätt så att vi
+inte har någon kodduplikation. Exemplen ska fortfarande skrivas ut på
+rätt sätt.</p></li>
+<li><p>Lägg till en klass <code>Exp</code> för exponentiering av
+algebraiska uttryck. Den ska binda hårdare är både <code>+</code> och
+<code>*</code>, samt skrivas ut som operatorn <code>**</code> (dvs på
+samma sätt som i Python).</p></li>
+<li><p>Lägg till en funktion <code>big_constant_sum(n,e)</code> där
+<code>n</code> är ett positivt heltal och <code>e</code> ett algebraiskt
+uttryck. Funktionen ska skapa ett uttryck där <code>e</code> adderas med
+sig själv <code>n</code> gånger. Om <code>n</code> är <code
+class="python">0</code> så ska konstanten <code class="python">0</code>
+returneras. Så funktionen ska alltså returnera summan <span
+class="math display">\[
+\sum_{i = 0}^{n-1} e
+\]</span></p></li>
+<li><p>Lägg till en funktion <code>big_sum(n,e)</code> där
+<code>n</code> är ett positivt heltal och <code>e</code> en funktion
+från heltal till algebraiska uttryck. Funktionen ska skapa ett uttryck
+som representerar <span class="math display">\[
+\sum_{i = 0}^{n} e_i
+\]</span></p></li>
+<li><p>Definera evaluering av algebraiska uttryck givet en
+uppslagstabell <code>d</code> från variabler till siffror. För att göra
+detta ska ni lägga till en metod <code>evaluate(d)</code> till
+<code>Constant</code>, <code>Var</code>, <code>Plus</code>,
+<code>Times</code> och <code>Exp</code>. Ni kan anta att alla variabler
+i uttrycket finns definierade i <code>d</code>.</p></li>
+<li><p> Implementera rosträd. Dessa är en typ av träd där varje nod
+innehåller ett värde och en lista med fler rosträd. Ett löv med värdet
+<code class="python">5</code> representeras genom <code
+class="python">RoseTree(5,[])</code>. Implementera en klass för rosträd
+som har samma metoder som <code>BinTree</code>.</p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
