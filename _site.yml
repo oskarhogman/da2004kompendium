@@ -6,5 +6,7 @@ navbar:
       href: index.html
     - text: "1: Kom igång med Python"
       href: kapitel1.html
+    - text: "2: Grunder i Python-programmering"
+      href: kapitel2.html
       
 output_dir: 'docs'

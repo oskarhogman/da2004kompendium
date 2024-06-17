@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 2</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 2</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<div id="syntax-och-semantik" class="section level1">
+<h1>Syntax och semantik</h1>
+<p>Inom programmering pratar man ofta om <em>syntax</em> och
+<em>semantik</em>:</p>
+<ul>
+<li><em>Syntax</em> handlar om regler för <em>hur</em> man skriver.</li>
+<li><em>Semantik</em> handlar om <em>betydelsen</em> av vad man
+skriver.</li>
+</ul>
+<p>Som ett exempel kan vi tänka på följande mening på Engelska:</p>
+<blockquote>
+<p><em>Colorless green ideas sleep furiously.</em></p>
+</blockquote>
+<p>Mening är syntaktiskt korrekt, dvs den innehåller inget
+<em>grammatiskt</em> fel, men <em>innebörden</em> är inte något
+meningsfullt: semantiken är nonsens.</p>
+<p>Syntax är speciellt viktigt, och kan vara svårt, när man börjar lära
+sig att programmera. Precis som i ett vanligt språk så handlar det om
+att lära sig reglerna för vad som är korrekt. Om man använder Python
+handlar det till exempel om vad som är en giltig identifierare, var och
+hur man måste indentera kod-block, hur man skriver
+<code>if</code>-satser och <code>for</code>-loopar (vi kommer att gå
+igenom dessa i senare kapitel), och så vidare. Syntax är specifikt för
+ett visst programmeringsspråk, även om det ofta finns många likheter
+mellan språk. Python har till exempel många likheter med språket C. Att
+lära sig syntaxen går relativt snabbt genom övning, och fokus flyttas
+sedan till semantiken: vad händer i programmet (eller vad <em>borde</em>
+hända i programmet)?</p>
+<p>Om du ser någonting i stil med <code>SyntaxError</code> i ett
+felmeddelande när du exekverar Python-kod så betyder det att du har
+skrivit något litet fel och att Python inte kan förstå din kod. I dessa
+fall får man ofta ett ganska instruktivt felmeddelande, eftersom Python
+kan säga till om vad som går fel. Till exempel kan följande
+felmeddelande fås: </p>
+<pre class="python"><code>    3a = 2
+     ^
+SyntaxError: invalid syntax
+</code></pre>
+<p>Felmeddelandet visar var den ogiltiga syntaxen förekommer: resultatet
+av ett ogiltigt namn för en identifierare.</p>
+<p>Semantiska fel är svårare att hitta, eftersom Python inte säger till
+om något fel. Allt är giltig kod. Resultatet av semantiska fel är att
+programmet inte gör vad man förväntar sig. Detta kan undvikas genom att
+skriva välorganiserad, väldokumenterad och välstrukturerad kod, dvs att
+skriva “bra” kod. Om det är tydligt vad man <em>vill</em> att koden ska
+göra när någon (eller man själv) läser koden, blir det mycket lättare
+att hitta semantiska fel.</p>
+</div>
+<div id="datatyper" class="section level1">
+<h1>Datatyper</h1>
+<p>Alla värden i Python har en typ. Vi har redan använt oss av olika
+typer när vi till exempel tilldelat variabler värden som heltal, flyttal
+och strängar. De vanligaste typerna i Python som vi kommer att använda
+är:</p>
+<ul>
+<li><code>str</code> – strängar, dvs bokstäver (eller generellt tecken)
+inom <code>'</code> eller <code>"</code></li>
+<li><code>int</code> – heltal, av obegränsad storlek
+<ul>
+<li>I de flesta programmeringsspråk är heltal begränsade till 32 bitar,
+vilket ger möjliga värden från <span
+class="math inline">\(-2^{32}\)</span> till <span
+class="math inline">\(2^31-1\)</span>.</li>
+</ul></li>
+<li><code>float</code> – flyttal, en approximation av reella tal
+<ul>
+<li><p>För approximering av reella tal i intervallet <span
+class="math inline">\([-10^{308}, 10^{308}]\)</span>, med 15 siffrors
+decimal precision.</p></li>
+<li><p>En <code>float</code> kodas med 64 bitar, varav en bit ger tecken
+(negativt/positivt), 11 används för exponenten <span
+class="math inline">\(x\)</span> och 52 för “mantissan” <span
+class="math inline">\(m\)</span> för att ge talet <span
+class="math inline">\(m2^x\)</span>.</p></li>
+<li><p>Detaljer kan fås genom <code>import sys</code> och objektet
+<code>sys.float_info</code></p></li>
+<li><p>Varför är resultatet inte alltid exakt vad man förväntar sig? Jo,
+Python representerar flyttal genom bråk i bas 2. För detaljer se: <a
+href="https://docs.python.org/3/tutorial/floatingpoint.html"
+class="uri">https://docs.python.org/3/tutorial/floatingpoint.html</a></p>
+<p>Generellt gäller att det inte går att representera <em>alla</em>
+reella tal <em>exakt</em> på en dator, vilken talrepresentation som än
+väljs. <em>Vissa</em> reella tal kan representeras exakt medan andra får
+blir en approximation: fler bitar resulterar i en bättre
+approximation.</p></li>
+</ul></li>
+<li><code>complex</code> – skrivs <code>1+2j</code>
+<ul>
+<li>Representeras med två flyttal</li>
+</ul></li>
+<li><code>bool</code> – Booleska värden (dvs ‘sant’ eller ‘falskt’),
+representeras av de reserverade orden <code>True</code> och
+<code>False</code>.</li>
+<li><code>NoneType</code> – för värdet <code>None</code></li>
+</ul>
+<p>Man kan i Python se vilken typ en variabel eller litteral har genom
+att använda sig av <code>type</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15X2ludCA9IDFcbm15X2Zsb2F0ID0gMS4wXG5teV9zdHJpbmcgPSBcIjFcIlxucHJpbnQodHlwZShteV9pbnQpKVxucHJpbnQodHlwZShteV9mbG9hdCkpXG5wcmludCh0eXBlKG15X3N0cmluZykpXG5wcmludCh0eXBlKCdoZWxsbycpKSJ9
+</div>
+<pre class="python"><code>int
+float
+str
+str</code></pre>
+<div id="typomvandling" class="section level2">
+<h2>Typomvandling</h2>
+<p>Man kan omvandla en typ till en annan, men det finns regler om hur
+specifika typer omvandlas och till vilka typer de kan omvandlas. Ofta
+behöver man inte ens tänka på att en typ omvandlas, utan det funkar
+ganska mycket som man rent intuitivt tänker sig. En sådan typomvandling
+kallas <em>implicit</em>. Till exempel är det sällan ett problem att
+blanda numeriska typer i ett uttryck:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15X2ludCA9IDFcbm15X2Zsb2F0ID0gMS4wXG5jID0gbXlfaW50ICsgbXlfZmxvYXRcbnByaW50KHR5cGUoYykpIn0=
+</div>
+<pre class="python"><code>float</code></pre>
+<p>Här omvandlas alltså värdet i <code>my_int</code> till ett flyttal
+som sedan adderas till flyttalet som finns i <code>my_float</code>, och
+resulterar i ett flyttal <code>c</code>.</p>
+<p>Som visats tidigare så finns det situationer där en sådan
+konvertering inte fungerar. Skulle man till exempel utvärdera uttrycket
+<code>my_int + my_string</code> skulle man få ett
+<code>TypeError</code>. Man kan då använda sig av <em>explicit
+konvertering</em>, vilket man gör genom att ge typen man vill omvandla
+ett värde till värdet som argument. Om vi skulle vilja typomvandla
+<code>x</code>, så skulle vi kunna göra:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InN0cih4KVxuaW50KHgpXG5mbG9hdCh4KVxuY29tcGxleCh4KVxuYm9vbCh4KSJ9
+</div>
+Vi kan nu använda oss av explicit konvertering för att göra:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImMgPSBteV9pbnQgKyBpbnQobXlfc3RyaW5nKVxucHJpbnQodHlwZShjKSkifQ==
+</div>
+<pre class="python"><code>int</code></pre>
+<p>I detta fall kan värdet i <code>my_string</code> omvandlas till en
+<code>int</code> för att sedan adderas till <code>my_int</code>.</p>
+<strong>Varning:</strong> explicit typomvandling funkar inte alltid
+“magiskt”:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImludChcImhlbGxvIVwiKSJ9
+</div>
+<pre class="python"><code>ValueError: invalid literal for int() with base 10: &#39;hello!&#39;</code></pre>
+<p>Här vet inte Python hur <code>'hello!'</code> ska omvandlas till ett
+heltal.</p>
+<p>Explicit konvertering är ofta viktigt när man använder
+<code>input()</code>, som vid lyckad inläsning ger typen
+<code>str</code>. I vissa fall vill man inte att ens variabel ska vara
+en <code>str</code>, som nedan:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFnZSA9IGludChpbnB1dChcdTIwMWNEaW4gXHUwMGU1bGRlcjogXHUyMDFjKSlcbmFkZGVkX2FnZSA9IGFnZSArIDEwICMgd291bGQgbm90IHdvcmsgaWYgYWdlIHdhcyBvZiB0eXBlIHN0clxucHJpbnQoYWRkZWRfYWdlKSJ9
+</div>
+</div>
+</div>
+<div id="booleska-uttryck-i-python" class="section level1">
+<h1>Booleska uttryck i Python</h1>
+<p>En operator är en symbol som använd på en eller flera värden,
+operander, ger ett nytt värde. Vi har tidigare sett exempel på typiska
+aritmetiska operatorer (<code>+</code>, <code>-</code>,<code>*</code>,
+<code>/</code>, …). Resultatets typ beror av operandernas typer.
+Booleska uttryck använder sig av operatorer som resulterar i att en
+<code>bool</code> returneras, dvs <code>True</code> eller
+<code>False</code>. Sådana uttryck är väldigt användbara när man ska
+utvärdera om något är sant eller falsk givet ett test.</p>
+Det är värt att påpeka att det <em>mesta</em> i Python anses vara
+<em>sant</em>. Vi kan undersöka detta genom att använda typomvandling
+till <code>bool</code>:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImJvb2woMylcbmJvb2woLTQyNy4yKVxuYm9vbCgnaGVsbG8nKSJ9
+</div>
+<pre class="python"><code>True
+True
+True</code></pre>
+Värden som anses vara <em>falska</em> är typiskt “tomma” värden, vad de
+än har för typ:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImJvb2woMClcbmJvb2woMC4wKVxuYm9vbCgnJylcbmJvb2woTm9uZSkifQ==
+</div>
+<pre class="python"><code>False
+False
+False
+False</code></pre>
+<div id="jämförelseoperatorer" class="section level2">
+<h2>Jämförelseoperatorer</h2>
+<p>Dessa operationer jämför indata genom följande relationer:</p>
+<ul>
+<li>Likhet: <code>x == y</code></li>
+<li>Olikhet: <code>x != y</code></li>
+<li>Strikt större än: <code>x &gt; y</code></li>
+<li>Strikt mindre än: <code>x &lt; y</code></li>
+<li>Större än eller lika: <code>x &gt;= y</code></li>
+<li>Mindre än eller lika: <code>x &lt;= y</code></li>
+</ul>
+Dessa fungerar som man förväntat för siffror (experimentera!), men som
+många operatorer i Python är det inte <em>endast</em> <code>int</code>
+eller <code>float</code> man kan jämföra. Till exempel:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KCdoZWxsbyBzaGFyaycgPCAnaGVsbG8gc2hhcmsnKVxucHJpbnQoJ2hlbGxvIHNoYXJrJyA8ICdoZWxsbyBzaG9yaycpXG5wcmludCgnaGVsbG8gc2hhcmsnIDwgJ2hlbGxvJylcbnByaW50KCdoZWxsbyBzaGFyaycgPCAnSGVsbG8gc2hvcmsnKSJ9
+</div>
+<pre class="python"><code>False
+True
+False
+False</code></pre>
+<p>Sök på internet om hur Python jämför strängar!</p>
+</div>
+<div id="logiska-operatorer" class="section level2">
+<h2>Logiska operatorer</h2>
+<p>Python använder sig av de logiska operatorerna <code>and</code>,
+<code>or</code> och <code>not</code>.</p>
+<ul>
+<li>Är <code>x</code> <em>och</em> <code>y</code> sant?:
+<code>x and y</code><br />
+<code>x and y</code> är <code>True</code> endast om både <code>x</code>
+och <code>y</code> är <code>True</code>.</li>
+<li>Är <code>x</code> <em>eller</em> <code>y</code> sant?:
+<code>x or y</code><br />
+<code>x or y</code> är <code>True</code> endast om någon av
+<code>x</code> och <code>y</code> är <code>True</code>.</li>
+<li>Negera ett värde: <code>not x</code><br />
+<code>not x</code> är <code>True</code> om <code>x</code> är
+<code>False</code> och <code>False</code> annars.</li>
+</ul>
+<p>Detta kan skrivas med sanningsvärdestabeller. Vi kan till exempel
+använda oss av logiska operatorer för att definiera ett uttryck som är
+ett exklusiv-eller, <code>xor</code>, som utvärderas till sant om exakt
+en av <code>x</code> eller <code>y</code> är sann:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBUcnVlXG55ID0gRmFsc2Vcbnhvcl9yZXN1bHQgPSAobm90ICgoeCBhbmQgeSkgb3IgKG5vdCB4IGFuZCBub3QgeSkpKVxucHJpbnQoeG9yX3Jlc3VsdCkifQ==
+</div>
+<pre class="python"><code>True</code></pre>
+<p>Python behandlar <code>and</code> och <code>or</code> lite speciellt
+om (båda) operanderna inte är av typen <code>bool</code>: en
+<code>and</code>/<code>or</code>-sats evalueras då inte till
+<code>bool</code>. En <code>and</code>-sats ger tillbaka den
+<em>andra</em> operanden om båda operanderna är sanna, men ger tillbaka
+värdet av den <em>falska</em> operanden om uttrycket innehåller en
+sådan. En <code>or</code>-sats ger tillbaka det <em>första</em> värdet
+om första operanden är sann, annars värdet av andra operanden. Några
+exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Iig0MiBhbmQgJ2hlbGxvJylcbig0MiBhbmQgJycpXG4oRmFsc2UgYW5kICcnKVxuKDQyLjcgb3IgMTMpXG4oJzQyJyBvciBOb25lKVxuKEZhbHNlIG9yIDApIn0=
+</div>
+<pre class="python"><code>&#39;hello&#39;
+&#39;&#39;
+False
+42.7
+42
+0</code></pre>
+<p>De här evalueringsreglerna kan förefalla konstiga, men har att göra
+med hur mycket av satsen som behöver utvärderas för att garanterat veta
+resultatet av hela uttrycket. Om första operanden till <code>and</code>
+är falsk, då behöver man inte beräkna värdet på det andra operanden;
+oavsett om den evaluerar till <code>True</code> eller <code>False</code>
+så ska resultatet motsvara <code>False</code>. Tekniken kallas ibland
+“kortslutning” (eng: <em>short circuiting</em>), eller mer generellt
+“lat evaluering” (eftersom det kan ses som “lathet” att inte beräkna
+allting). Syftet är förstås att få snabbare program genom att inte
+beräkna uttryck som inte behövs.</p>
+</div>
+</div>
+<div id="tilldelningsoperatorer" class="section level1">
+<h1>Tilldelningsoperatorer</h1>
+<p>Vi har redan sett att <code>=</code> används för tilldelning. En
+smidig funktionalitet i Python är att man kan kombinera detta med
+aritmetiska operatorer och få så kallade “tilldelningsoperatorer”:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggKz0gMyAgICAjIHggPSB4ICsgM1xueCAtPSAzICAgICMgeCA9IHggLSAzXG54ICo9IDMgICAgIyB4ID0geCAqIDNcbnggLz0gMyAgICAjIHggPSB4IC8gM1xueCAlPSAzICAgICMgeCA9IHggJSAzXG54IC8vPSAzICAgIyB4ID0geCAvLyAzXG54ICoqPSAzICAgIyB4ID0geCAqKiAzIn0=
+</div>
+</div>
+<div id="funktioner" class="section level1">
+<h1>Funktioner</h1>
+<p>I och med att ens program blir större och kanske mer komplicerat, så
+märker man snabbt att det finns ett behov att kunna strukturera upp sin
+kod. Det kan man börja göra med hjälp av <em>funktioner</em>. Vi har
+redan använt oss av flera av Pythons inbyggda funktioner, till exempel
+<code>print</code>. Funktioner inom programmering har, som namnet
+antyder, likheter med matematiska funktioner: de tar ett eller flera
+argument och ger tillbaka ett returvärde. Inom programmering
+<em>behöver</em> dock inte en funktion ta några argument eller lämna
+tillbaka ett värde.</p>
+<p>Syftet med funktioner är att:</p>
+<ul>
+<li>Samla kod i lätthanterliga och återanvändbara delar.</li>
+<li>Undvika upprepning av kod.</li>
+<li>Förenkla avancerade program.</li>
+<li>Öka <em>modulariteten</em>, dvs att programmet delas upp i mindre
+delar som är lättare att förstå än stora monolitiska program.</li>
+<li>Göra programmet mer lättläst.
+<ul>
+<li>Tydliggör beroenden i koden: “indata” som argument, resultat efter
+<code class="python">return</code>. Det här påminner om en funktion i
+matematiken.</li>
+<li>Bra del av koden för dokumentation.</li>
+<li>Bra del av koden för att försäkra sig om kod gör det den ska (till
+exempel genom testning).</li>
+</ul></li>
+</ul>
+<p>Funktioner är därför ett mycket viktigt verktyg för att skriva bra
+kod.</p>
+<p>Innan man kan använda en funktion, så måste funktionen
+<em>definieras</em>. Det gör man genom att använda sig av det
+reserverade ordet <code class="python">def</code> för att ge funktionen
+ett namn (identifierare) och specificera argument. Nedan är ett exempel
+på en enkel funktion <code>f</code> som tar ett värde <code>x</code> som
+argument och adderar värdet till sig själv:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmKHgpOlxuICAgIHJldHVybiB4ICsgeCJ9
+</div>
+<p>Denna funktion skulle matematiskt kunna skrivas som <span
+class="math inline">\(f(x) = x +
+x\)</span>. Notera att instruktionen <code class="python">return</code>
+tydligt talar om att “här är resultatet”. När man väl definierat
+funktionen, så kan den kallas på följande sätt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImYoMi4wKSJ9
+</div>
+<pre class="python"><code>4.0</code></pre>
+<p>Lägg märke till att Python inte bryr sig om vilken typ argumentet
+har, så länge alla operationer och uttryck i funktionen går att
+genomföra. Ovan används ett flyttal, men vi kan också göra:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImYoMilcbmYoJ2hlbGxvJykifQ==
+</div>
+<pre class="python"><code>4
+&#39;hellohello&#39;</code></pre>
+Precis som matematiska funktioner, så kan funktioner i Python ha flera
+argument:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBsb25nX25hbWUoY291cnNlX2NvZGUsIGNvdXJzZV9uYW1lKTpcbiAgICBsbmFtZSA9IGNvdXJzZV9jb2RlICsgY291cnNlX25hbWVcbiAgICByZXR1cm4gbG5hbWUifQ==
+</div>
+<p>Vad är resultatet av <code>long_name('DA','2004')</code>?</p>
+<p>Funktioner behöver inte ta några argument</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBzaG93X3VzZXJfbWVudSgpOlxuICAgIHByaW50KCdNZW51OicpXG4gICAgcHJpbnQoJzEuIEFkZCB1c2VyJylcbiAgICBwcmludCgnMi4gTGlzdCB1c2VycycpXG4gICAgcHJpbnQoJzMuIFF1aXQnKSJ9
+</div>
+<p>och kan också anropa andra funktioner:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB1c2VyX2Nob2ljZSgpOlxuICAgIHNob3dfdXNlcl9tZW51KClcbiAgICByZXR1cm4gaW5wdXQoJ1doaWNoIGFzc2lnbm1lbnQgZG8geW91IHdhbnQgdG8gZG8/ICcpIn0=
+</div>
+<div id="om-funktioner" class="section level2">
+<h2>Om funktioner</h2>
+<p>Exemplen ovan introducerar flera nya syntaktiska koncept i Python. En
+funktion har en definition (även kallad “kropp”) och ett huvud (även
+kallad “signatur”).</p>
+<ul>
+<li>Huvudet har består av funktionsnamnet och en parameterlista
+(“funktionens argument”).
+<ul>
+<li>Syntax: <code
+class="python">def funktionsnamn(argument1, argument2, ...):</code></li>
+</ul></li>
+<li>Ordet parameter har två betydelser.
+<ul>
+<li>Variabler i huvudet kallas <em>formella parametrar</em>. Formella
+parametrar är platshållare för de värden som kommer att ges vid ett
+funktionsanrop.</li>
+<li>De värden man ger vid ett anrop till en funktion kallas
+<em>anropsparametrar</em>.</li>
+</ul></li>
+<li>Kroppen har en dokumentationssträng (frivillig) följt av kod, och är
+<em>indragen</em>.</li>
+</ul>
+<p>Indragningen är viktig i Python! Python är ett “indenteringskänsligt”
+språk, dvs fel indrag ger syntaxfel. Vi använder här ordet
+<em>indentering</em> när vi menar indrag i källkoden. Indenteringen är
+det som specificerar det <em>kodblock</em> som hör till
+funktionskroppen. Även om man kan använda sig av vilken indentering man
+vill i Python (till exempel, två mellanslag eller en tab), så länge man
+är konsekvent, så är <em>standard</em>-indenteringen fyra
+mellanslag.</p>
+<p>Att indenteringen ska vara fyra mellanslag specificeras i Pythons
+stilguide, känd som <a
+href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a>, som också
+innehåller mycket annan nyttig information om hur man skriver bra
+Python-kod.</p>
+<p>En modern programmeringseditor sätter in fyra mellanslag när använder
+tab-tangenten. En liten varning dock för att äldre eller mer primitiva
+editorer kanske inte hanterar tab-tangenten på ett bra sätt. Det kan ge
+problem beroende på hur editorn är konfigurerad vilket gör att er kod
+kan se olika ut på olika datorer.</p>
+<p>Funktionskroppen avslutas ofta med en <code
+class="python">return</code>-instruktion, till exempel <code
+class="python">return x</code>. Om <code class="python">return</code>
+saknas så returneras värdet <code>None</code>. Det är bra att veta att
+<code class="python">return</code> kan förekomma fler gånger i en
+funktion, men om en <code class="python">return</code>-sats exekveras så
+avslutas alltid funktionen.</p>
+<p>Det är viktigt att förstå skillnaden på funktioner som returnerar
+något och de som bara till exempel skriver ut något. Betrakta följande
+kodsnutt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmMSh4KTpcbiAgICByZXR1cm4geCArIHhcblxuZGVmIGYyKHgpOlxuICAgIHByaW50KHggKyB4KSJ9
+</div>
+<p>Skillnaden är att <code>f1</code> <em>returnerar</em> värdet på
+<code>x + x</code> medan <code>f2</code> bara <em>skriver ut</em>
+värdet. Om vi nu försöker skriva ut resultatet av <code>f1(2)</code>
+blir det som vi förväntat oss:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGYxKDIpKSJ9
+</div>
+<pre class="python"><code>4</code></pre>
+<p>men om vi försöker skriva ut resultatet av <code>f2(2)</code> händer
+följande:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KGYyKDIpKSJ9
+</div>
+<pre class="python"><code>4
+None</code></pre>
+<p>Anledningen är att <code>4</code> först skrivs ut av funktionen
+<code>f2</code>, men sen när vi skriver resultatet av <code>f2</code> så
+skrivs <code>None</code> ut då det är vad <code>f2</code> faktiskt
+returnerar! Det är väldigt viktigt att förstå den här skillnaden och när
+det står att ni ska skriva en funktion som <em>returnerar</em> något så
+ska <code class="python">return</code> användas och inte <code
+class="python">print</code>.</p>
+</div>
+<div id="multipla-returvärden" class="section level2">
+<h2>Multipla returvärden</h2>
+<p>Hur gör man om man vill returnera flera värden? Det finns flera
+dåliga sätt att lösa detta, men ett bra: multipla returvärden.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBpbnRlZ2VyX2Rpdihub21pbmF0b3IsIGRlbm9taW5hdG9yKTpcbiAgICBxID0gbm9taW5hdG9yIC8vIGRlbm9taW5hdG9yXG4gICAgciA9IG5vbWluYXRvciAlIGRlbm9taW5hdG9yXG4gICAgcmV0dXJuIHEsIHIifQ==
+</div>
+<p>Denna funktion kan man sedan anropa så här:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InF1b3RpZW50LCByZW1haW5kZXIgPSBpbnRlZ2VyX2RpdigxNywgMTApIn0=
+</div>
+</div>
+<div id="standardvärden" class="section level2">
+<h2>Standardvärden</h2>
+<p>Det är vanligt att man skriver funktioner med parametrar som nästan
+alltid sätts till samma värde. Python låter dig ange explicit sådana
+vanliga värden: dessa kallas <em>standardvärden</em> (eng.: <em>default
+values</em>) eller <em>skönsvärden</em>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmKHg9MSk6XG4gICAgcmV0dXJuIHggKyB4XG5cbnByaW50KGYoKSlcblxucHJpbnQoZigzKSkifQ==
+</div>
+<pre class="python"><code>2
+6</code></pre>
+<p>I första utskriften kan vi se att <code>f</code> har kallats med
+<code>x=1</code>, även om vi inte gett det som argument. När vi på nästa
+rad kallar <code>f(3)</code>, så sätts <code>x=3</code>.</p>
+</div>
+<div id="nyckelordsparametrar" class="section level2">
+<h2>Nyckelordsparametrar</h2>
+<p>Python låter dig namnge parametrar även i anropen. Till exempel så
+ger <code>integer_div(denominator=10, nominator=17)</code> ger samma
+effekt som anropet <code>integer_div(17, 10)</code>.</p>
+<p>Vad händer om vi gör:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImludGVnZXJfZGl2KGRlbm9taW5hdG9yPTEwLCBub21pbmF0b3I9MTcpIn0=
+</div>
+<p>Python kopplar identifierarna på de formella parametrarna till
+identifierarna på argumenten, så ovan resulterar i precis samma
+output.</p>
+<p>Ett exempel på en funktion som vi använt som har fler
+nyckelordsparametrar är <code>print</code>:</p>
+<ul>
+<li><code>sep=' '</code> — dvs ett mellanslag som separator</li>
+<li><code>end='\n'</code> — “backslash-n” betyder radbrytning.</li>
+<li><code>file=sys.stdout</code> — låt utdata gå till terminalen</li>
+</ul>
+<p>Exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KCdoZWxsbycsJ3lvdScsc2VwPSdcXG4nKSJ9
+</div>
+<pre class="python"><code>hello
+you</code></pre>
+<p>For att se mer information skriv <code>help(print)</code> i
+Spyder-konsolen (iPython).</p>
+</div>
+<div id="dokumentation-av-funktioner" class="section level2">
+<h2>Dokumentation av funktioner</h2>
+<p>Det finns två sätt att dokumentera i Python:</p>
+<ul>
+<li>Dokumentationssträngar
+<ul>
+<li>Sätts överst i funktionskroppen inom <code
+class="python">""" """</code> eller <code
+class="python">''' '''</code></li>
+<li>Primära dokumentationsmetoden</li>
+<li>Knyts till funktionen. Prova <code>help(print)</code> i
+Python-tolken, eller Ctrl-i i Spyder när markören står vid
+funktionsanrop eller Python-instruktion.</li>
+</ul></li>
+<li>Kommentarer
+<ul>
+<li>Används för att förklara beräkningssteg, typiskt enskilda rader
+eller små block med kod.</li>
+<li>Kommentarer är till för att förstå <em>hur</em> en funktion
+fungerar. Man ska kunna använda en funktion utan att läsa
+kommentarer.</li>
+</ul></li>
+</ul>
+<p>Dokumentationssträngar är beskrivna i <a
+href="https://www.python.org/dev/peps/pep-0257/">PEP-257</a>:</p>
+<blockquote>
+<p>The docstring […] should summarize its behavior and document its
+arguments, return value(s), side effects, exceptions raised, and
+restrictions on when it can be called (all if applicable). Optional
+arguments should be indicated. It should be documented whether keyword
+arguments are part of the interface.</p>
+</blockquote>
+<p>Exempel på enradig dokumentationssträng:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBzcXVhcmUoYSk6XG4gICAgJycnUmV0dXJucyBhcmd1bWVudCBhIHNxdWFyZWQuJycnXG4gICAgcmV0dXJuIGEqYVxuXG5wcmludCAoc3F1YXJlLl9fZG9jX18pXG5cbmhlbHAoc3F1YXJlKSJ9
+</div>
+<p>Exempel på flerradig dokumentationssträng:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBzcXVhcmUoeCk6XG4gICAgXCJcIlwiRGVzY3JpcHRpb24gb2Ygc3F1YXJlIGZ1bmN0aW9uXG5cbiAgICBQYXJhbWV0ZXJzOlxuICAgIHggKGludCk6IGlucHV0IG51bWJlclxuXG4gICAgUmV0dXJuczpcbiAgICBpbnQ6U3F1YXJlIG9mIHhcblx0XCJcIlwiXG5cbiAgICByZXR1cm4geCp4XG5cbnByaW50KHNxdWFyZS5fX2RvY19fKVxuXG5oZWxwKHNxdWFyZSkifQ==
+</div>
+<p>En allmän princip för dokumentation är att förklara det som inte
+framgår av identifierare. Om en funktion heter
+<code>compute_integral</code> så behöver inte dokumentationssträngen
+säga samma sak. Däremot kan det vara bra att skriva om vilken algoritm
+som används, vilka antaganden man har om parametrar, och vad som gäller
+för returvärdet.</p>
+</div>
+</div>
+<div id="globala-och-lokala-variabler" class="section level1">
+<h1>Globala och lokala variabler</h1>
+<p>Variabler i Python kan vara antingen <em>globala</em> eller
+<em>lokala</em>. Namnet syftar till var en variabel är “synlig” för kod,
+och var variabeln kan modifieras/ändras. I följande exempel är
+<code>x</code> en global variabel då den har definierats på toppnivå
+(d.v.s. “längst ut”).</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBcIk15IGdsb2JhbCBzdHJpbmdcIlxuXG5kZWYgZm9vKCk6XG4gICAgcHJpbnQoXCJ4IHByaW50ZWQgZnJvbSBpbnNpZGUgZm9vOlwiLCB4KVxuXG5mb28oKVxucHJpbnQoXCJ4IHByaW50ZWQgZnJvbSBvdXRzaWRlIGZvbzpcIiwgeCkifQ==
+</div>
+<p>Funktionen kan inte modifiera <code>x</code>, utan värdet som
+<code>x</code> innehåller är bara läsbart:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSA0MlxuXG5kZWYgZm9vKCk6XG4gICAgeCA9IHggKiAyXG4gICAgcHJpbnQoXCJ4IHByaW50ZWQgZnJvbSBpbnNpZGUgZm9vOlwiLCB4KVxuZm9vKCkifQ==
+</div>
+<pre class="python"><code>UnboundLocalError: local variable &#39;x&#39; referenced before assignment</code></pre>
+<p>För att kunna ändra på värdet i <code>x</code>, så måste vi säga åt
+funktionen att den kan ändra på den globala variabeln. Det här gör man
+med det reserverade ordet <code class="python">global</code>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSA0MlxuXG5kZWYgZm9vKCk6XG4gICAgZ2xvYmFsIHhcbiAgICB4ID0geCAqIDJcbiAgICBwcmludCh4KVxuZm9vKCkifQ==
+</div>
+<p>Globala variabler som ändras av funktioner på detta sätt kan lätt
+leda till mycket röriga program, det man ibland kallar “spagettikod.”.
+Det blir svårt att hålla reda på var värdet på <code>x</code> ändras, så
+var försiktig om du använder globala variabler på detta sätt. Det finns
+scenarion när globala variabler är användbara, exempelvis globala
+räknare. Det är då extra viktigt att ha ett informativt namn på den
+globala variabeln så att man inte råkar ändra den av misstag!</p>
+<p>Lokala variabler är variabler som definieras inuti i en funktion:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmb28oKTpcbiAgICB5ID0gXCJNeSBsb2NhbCBzdHJpbmdcIlxuICAgIHByaW50KHkpXG5cbmZvbygpIn0=
+</div>
+<p>Variabeln <code>y</code> syns inte utanför funktionen (det är därför
+det kallas för <em>lokala</em> variabler):</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmb28oKTpcbiAgICB5ID0gXCJsb2NhbFwiXG5cbmZvbygpXG5wcmludCh5KSJ9
+</div>
+<pre class="python"><code>NameError: name &#39;y&#39; is not defined</code></pre>
+<p>Var <code>x</code> är synlig är dess <em>räckvidd</em> (eng.
+<em>scope</em>). Om <code>x</code> är definierat utanför funktionen och
+vi sedan skriver över den i funktionen så är dess värde oförändrat
+utanför funktionen:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSA1XG5cbmRlZiBmb28oKTpcbiAgICB4ID0gMTBcbiAgICBwcmludChcIkxvY2FsIHg6XCIsIHgpXG5cbmZvbygpXG5wcmludChcIkdsb2JhbCB4OlwiLCB4KSJ9
+</div>
+<p>Samma sak händer med funktionsargument:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSA1XG5cbmRlZiBmb28oeCk6XG4gICAgcHJpbnQoXCJMb2NhbCB4OlwiLCB4KVxuXG5mb28oMTIpXG5wcmludChcIkdsb2JhbCB4OlwiLCB4KSJ9
+</div>
+</div>
+<div id="villkorssatser" class="section level1">
+<h1>Villkorssatser</h1>
+<p>Det händer ofta att man vill exekvera ett visst kodblock endast om
+något uttryck eller något test är sant. Detta görs med så kallade
+<em>villkorssatser</em>, eller “<code>if</code>-satser”. I Python görs
+detta med <code class="python">if</code>, <code
+class="python">elif</code> (som står för <em>else if</em>) och <code
+class="python">else</code>.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFuc3dlciA9IGlucHV0KCdXcml0ZSBcImRvbmVcIiBpZiB5b3UgYXJlIGRvbmU6ICcpXG5pZiBhbnN3ZXIgPT0gJ2RvbmUnOlxuICAgcXVpdCgpXG5wcmludCgnT2theSwgSSBndWVzcyB5b3Ugd2VyZSBub3QgZmluaXNoZWQgeWV0LicpIn0=
+</div>
+<p><strong>Obs:</strong> lägg märke till dubbla likhetstecken! Det är
+skillnad på <em>jämförelse</em> och <em>tilldelning</em> (dvs
+<code>==</code> och <code>=</code>).</p>
+<p>Exemplet ovan kan även skrivas:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFuc3dlciA9IGlucHV0KCdXcml0ZSBcImRvbmVcIiBpZiB5b3UgYXJlIGRvbmU6ICcpXG5pZiBhbnN3ZXIgPT0gJ2RvbmUnOlxuICAgIHF1aXQoKVxuZWxzZTpcbiAgICBwcmludCgnT2theSwgSSBndWVzcyB5b3Ugd2VyZSBub3QgZmluaXNoZWQgeWV0LicpIn0=
+</div>
+<p>Notera att <code>print</code>-satsen är indragen lika långt som
+<code>quit</code>. Precis som för funktioner så gäller det att det
+indenterade kodblocket exekveras.</p>
+<p>Indenteringsfel är svåra att se ibland:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFuc3dlciA9IGlucHV0KCdXcml0ZSBcImRvbmVcIiBpZiB5b3UgYXJlIGRvbmU6ICcpXG5pZiBhbnN3ZXIgPT0gJ2RvbmUnOlxuICAgcXVpdCgpXG5lbHNlOlxuXHRwcmludCgnT2theSwgSSBndWVzcyB5b3Ugd2VyZSBub3QuLi4nKVxuICAgcHJpbnQoJy4uIHF1aXRlIGZpbmlzaGVkIHlldC4nKSAjIGluZGVudGF0aW9uIGVycm9yIn0=
+</div>
+<p>Ett till exempel med <code class="python">else</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im5hbW4gPSBpbnB1dCgnV2hhdCBpcyB5b3VyIG5hbWU/ICcpXG5pZiBuYW1uID09ICdBbmRlcnMnOlxuICAgcHJpbnQoJ0hlbGxvIEFuZGVycyEnKVxuZWxzZTpcbiAgIHByaW50KCdIZWxsbywgd2hvZXZlciB5b3UgYXJlIScpIn0=
+</div>
+<p>Man kan använda sig av <em>nästlade</em> villkorssatser, dvs en
+villkorssats inuti en villkorssats:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InRlbXAgPSBpbnQoaW5wdXQoJ1doYXQgaXMgdGhlIHRlbXBlcmF0dXJlPyAnKSlcbmlmIHRlbXAgPCAtMzA6XG4gICBwcmludCgnVGhhdCBpcyB2ZXJ5IGNvbGQhJylcbmVsc2U6XG4gICBpZiB0ZW1wIDwgMDpcbiAgICAgIHByaW50KCdUaGF0IGlzIHByZXR0eSBjb2xkLi4uJylcbiAgIGVsc2U6XG4gICAgICBpZiB0ZW1wID09IDA6XG4gICAgICAgICBwcmludCgnWmVybycpXG4gICAgICBlbHNlOlxuICAgICAgICAgaWYgdGVtcCA8IDMwOlxuICAgICAgICAgICAgcHJpbnQoJ1RoYXQgaXMgYSBjb21mb3J0YWJsZSB0ZW1wZXJhdHVyZScpXG4gICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcHJpbnQoJ1dvdyEgU3VwZXIgd2FybScpIn0=
+</div>
+<p>I ovan fall är koden inte särskilt lättläst. Ett bättre alternativ är
+att använda <code class="python">elif</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InRlbXAgPSBpbnQoaW5wdXQoJ1doYXQgaXMgdGhlIHRlbXBlcmF0dXJlPyAnKSlcbmlmIHRlbXAgPCAtMzA6XG4gICBwcmludCgnVGhhdCBpcyB2ZXJ5IGNvbGQhJylcbmVsaWYgdGVtcCA8IDA6XG5cdHByaW50KCdUaGF0IGlzIHByZXR0eSBjb2xkLi4uJylcbmVsaWYgdGVtcCA9PSAwOlxuXHRwcmludCgnWmVybycpXG5lbGlmIHRlbXAgPCAzMDpcblx0cHJpbnQoJ1RoYXQgaXMgYSBjb21mb3J0YWJsZSB0ZW1wZXJhdHVyZScpXG5lbHNlOlxuXHRwcmludCgnV293ISBTdXBlciB3YXJtJykifQ==
+</div>
+<p>Läsbarhet är viktigt! Det reserverade ordet <code
+class="python">elif</code> är strikt talat ej nödvändigt då det alltid
+kan definieras med nästlade <code class="python">if</code>-<code
+class="python">else</code>, men koden blir lättare att läsa. Denna typ
+av funktionalitet kallas ibland <em>syntaktiskt socker</em>.</p>
+<p>Vad är skillnaden på beteendet för</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBpbnQoaW5wdXQoJ0d1ZXNzIGEgbnVtYmVyISAnKSlcbmlmIHggPT0gNDI6XG4gICAgcHJpbnQoJ0NvcnJlY3QhJylcbmlmIHggPiA0MjpcbiAgICBwcmludCgnVG9vIGhpZ2guLi4nKVxuZWxzZTpcbiAgICBwcmludCgnVG9vIGxvdy4uLicpIn0=
+</div>
+<p>och</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSBpbnQoaW5wdXQoJ0d1ZXNzIGEgbnVtYmVyISAnKSlcbmlmIHggPT0gNDI6XG4gICAgcHJpbnQoJ0NvcnJlY3QhJylcbmVsaWYgeCA+IDQyOlxuICAgIHByaW50KCdUb28gaGlnaC4uLicpXG5lbHNlOlxuICAgIHByaW50KCdUb28gbG93Li4uJykifQ==
+</div>
+<p>Vad händer om man ger <code>42</code> som svar till
+<code>input</code>?</p>
+<p>Slutligen så kan vi använda oss av villkorssatser för att skriva om
+<code>xor</code>-uttrycket från <a href="#logiska-operatorer">Logiska
+operatorer</a> och definiera en funktion:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB4b3IoeCwgeSk6XG4gICAgaWYgeCBhbmQgeTpcbiAgICAgICAgcmV0dXJuIEZhbHNlXG4gICAgZWxpZiBub3QgeCBhbmQgbm90IHk6XG4gICAgICAgIHJldHVybiBGYWxzZVxuICAgIGVsc2U6XG4gICAgICAgIHJldHVybiBUcnVlXG5cbnByaW50KHhvcihUcnVlLFRydWUpKVxucHJpbnQoeG9yKFRydWUsRmFsc2UpKVxucHJpbnQoeG9yKEZhbHNlLFRydWUpKVxucHJpbnQoeG9yKEZhbHNlLEZhbHNlKSkifQ==
+</div>
+<pre class="python"><code>False
+True
+True
+False</code></pre>
+En kortare version kan med det logiska uttryck vi skrev tidigare:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB4b3IoeCwgeSk6XG4gICAgcmV0dXJuIG5vdCAoKHggYW5kIHkpIG9yIChub3QgeCBhbmQgbm90IHkpKSJ9
+</div>
+<p>Vilken version av funktionen <code>xor</code> är lättast att
+läsa?</p>
+</div>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li>Vilket eller vilka av alternativen nedan ska man tänka på när man
+väljer ett namn på en funktion eller variabel?</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Namnet ska vara kort</li>
+<li>Namnet ska vara beskrivande</li>
+<li>Namnet ska vara unikt i funktionen och/eller skriptet</li>
+<li>Namnet ska vara skrivet med stora bokstäver</li>
+<li>Inget av ovanstående</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Skriv kod som läser in ett heltal från användare och skriver ut
+<code>Odd</code> om talet är udda och <code>Even</code> om talet är
+jämnt.</p></li>
+<li><p>Gör sanningstabeller för de booleska operatorerna
+<code>and</code> och <code>or</code> (d.v.s. fyll i <code>?</code> i
+tabellen nedan):</p></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th align="left">x</th>
+<th align="center">y</th>
+<th align="center">x <code>and</code> y</th>
+<th align="center">x <code>or</code> y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>True</code></td>
+<td align="center"><code>True</code></td>
+<td align="center">?</td>
+<td align="center">?</td>
+</tr>
+<tr class="even">
+<td align="left"><code>True</code></td>
+<td align="center"><code>False</code></td>
+<td align="center">?</td>
+<td align="center">?</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>False</code></td>
+<td align="center"><code>True</code></td>
+<td align="center">?</td>
+<td align="center">?</td>
+</tr>
+<tr class="even">
+<td align="left"><code>False</code></td>
+<td align="center"><code>False</code></td>
+<td align="center">?</td>
+<td align="center">?</td>
+</tr>
+</tbody>
+</table>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Försök, utan att köra koden, utvärdera dessa fyra uttryck för
+alla möjliga booleska värden på <code>x</code>, <code>y</code> och
+<code>z</code>: </p>
+<pre class="python"><code>(not x) or (not y)
+x and (y or z)
+(x != z) and not y
+x and z</code></pre>
+<p>Kör sedan koden för att bekräfta dina svar.</p></li>
+<li><p>Skriv en Python-funktion som motsvarar den matematiska funktionen
+<span class="math inline">\(f(x, y) = x/y\)</span>. Vi vill att
+funktionen ska säga till om man delar ett tal skiljt från <span
+class="math inline">\(0\)</span> med <span
+class="math inline">\(0\)</span>. I detta fall så ska funktionen skriva
+ut <code>The result is infinite...</code>, men <em>inte</em> returnera
+något explicit värde. Om man delar <span
+class="math inline">\(0/0\)</span>, så ska funktionen skriva ut
+<code>Indeterminate form...</code> och inte heller returnera
+något.</p></li>
+<li><p>Låt: </p>
+<pre class="python"><code>   x = True
+   y = False</code></pre>
+<p>Vilka uttryck nedan får värdet <code class="python">True</code>?
+Varför?</p>
+<pre class="python"><code>   (x and y) or (not x and not y)
+   (x or y) and (not x or not y)
+   x or y or not x or not y
+   not(not x and not (x and y))</code></pre></li>
+<li><p>Definiera <code>nand</code>, <code>nor</code> och
+<code>xnor</code> som Python-funktioner.</p>
+<p><em>Tips</em>: <a
+href="https://en.wikipedia.org/wiki/Logic_gate#Symbols">https://en.wikipedia.org/wiki/Logic_gate#Symbols</a>.</p></li>
+<li><p>Prova funktionerna <code>nand</code>, <code>nor</code> och
+<code>xnor</code> med argument som <em>inte</em> är av typen
+<code>bool</code>. Är resultaten som du väntade dig? Om inte,
+varför?</p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

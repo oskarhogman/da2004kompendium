@@ -1,0 +1,1027 @@
+---
+title: "Kapitel 2"
+output: html_document
+date: "2024-06-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, include=FALSE}
+tutorial::go_interactive()
+```
+\chapter{Grunder i Python-programmering}
+\label{chap:2}
+
+# Syntax och semantik
+
+Inom programmering pratar man ofta om _syntax_ och _semantik_:
+
+* _Syntax_ handlar om regler för *hur* man skriver.
+* _Semantik_ handlar om *betydelsen* av vad man skriver.
+
+Som ett exempel kan vi tänka på följande mening på Engelska:
+
+> _Colorless green ideas sleep furiously._
+
+Mening är syntaktiskt korrekt, dvs den innehåller inget _grammatiskt_
+fel, men _innebörden_ är inte något meningsfullt: semantiken är
+nonsens.
+
+Syntax är speciellt viktigt, och kan vara svårt, när man börjar lära sig att programmera. Precis som
+i ett vanligt språk så handlar det om att lära sig reglerna för vad som är korrekt. Om man använder
+Python handlar det till exempel om vad som är en giltig identifierare, var och hur man måste
+indentera kod-block, hur man skriver `if`-satser och `for`-loopar (vi kommer att gå igenom dessa i
+senare kapitel), och så vidare. Syntax är specifikt för ett visst programmeringsspråk, även om det ofta finns
+många likheter mellan språk. Python har till exempel många likheter med språket C.  Att lära sig
+syntaxen går relativt snabbt genom övning, och fokus flyttas sedan till semantiken: vad händer i
+programmet (eller vad *borde* hända i programmet)?
+
+Om du ser någonting i stil med `SyntaxError` i ett felmeddelande när
+du exekverar Python-kod så betyder det att du har skrivit något litet
+fel och att Python inte kan förstå din kod. I dessa fall får man ofta
+ett ganska instruktivt felmeddelande, eftersom Python kan säga till om
+vad som går fel. Till exempel kan följande felmeddelande fås:
+\pyout
+```python
+    3a = 2
+     ^
+SyntaxError: invalid syntax
+
+```
+Felmeddelandet visar var den ogiltiga syntaxen förekommer: resultatet
+av ett ogiltigt namn för en identifierare.
+
+Semantiska fel är svårare att hitta, eftersom Python inte säger till
+om något fel. Allt är giltig kod. Resultatet av semantiska fel är att
+programmet inte gör vad man förväntar sig. Detta kan undvikas genom
+att skriva välorganiserad, väldokumenterad och välstrukturerad kod,
+dvs att skriva "bra" kod. Om det är tydligt vad man _vill_ att koden
+ska göra när någon (eller man själv) läser koden, blir det mycket
+lättare att hitta semantiska fel.
+
+# Datatyper
+
+Alla värden i Python har en typ. Vi har redan använt oss av olika
+typer när vi till exempel tilldelat variabler värden som heltal, flyttal och
+strängar. De vanligaste typerna i Python som vi kommer att använda är:
+
+* `str` – strängar, dvs bokstäver (eller generellt tecken) inom `'` eller `"`
+* `int` – heltal, av obegränsad storlek
+    - I de flesta programmeringsspråk är heltal begränsade till 32 bitar, vilket ger möjliga värden från $-2^{32}$ till $2^31-1$.
+* `float` – flyttal, en approximation av reella tal
+    - För approximering av reella tal i intervallet $[-10^{308}, 10^{308}]$, med 15 siffrors decimal precision.
+    - En `float` kodas med 64 bitar, varav en bit ger tecken (negativt/positivt), 11 används för exponenten $x$ och 52 för "mantissan" $m$ för att ge talet $m2^x$.
+    - Detaljer kan fås genom `import sys` och objektet
+      `sys.float_info`
+    - Varför är resultatet inte alltid exakt vad man förväntar sig?
+      Jo, Python representerar flyttal genom bråk i bas 2. För
+      detaljer se:
+      <https://docs.python.org/3/tutorial/floatingpoint.html>
+
+	  Generellt gäller att det inte går att representera _alla_ reella
+      tal _exakt_ på en dator, vilken talrepresentation som än
+      väljs. _Vissa_ reella tal kan representeras exakt medan andra
+      får blir en approximation: fler bitar resulterar i en bättre
+      approximation.
+* `complex` – skrivs `1+2j`
+    - Representeras med två flyttal
+* `bool` – Booleska värden (dvs 'sant' eller 'falskt'), representeras
+  av de reserverade orden `True` och `False`.
+* `NoneType` – för värdet `None`
+
+Man kan i Python se vilken typ en variabel eller litteral har genom
+att använda sig av `type`:
+
+\pyin
+```{python}
+my_int = 1
+my_float = 1.0
+my_string = "1"
+print(type(my_int))
+print(type(my_float))
+print(type(my_string))
+print(type('hello'))
+```
+\pyout
+```python
+int
+float
+str
+str
+```
+
+## Typomvandling
+
+Man kan omvandla en typ till en annan, men det finns regler om hur
+specifika typer omvandlas och till vilka typer de kan omvandlas. Ofta
+behöver man inte ens tänka på att en typ omvandlas, utan det funkar
+ganska mycket som man rent intuitivt tänker sig. En sådan
+typomvandling kallas _implicit_. Till exempel är det sällan ett problem att
+blanda numeriska typer i ett uttryck:
+
+\pyin
+```{python}
+my_int = 1
+my_float = 1.0
+c = my_int + my_float
+print(type(c))
+```
+\pyout
+```python
+float
+```
+
+Här omvandlas alltså värdet i `my_int` till ett flyttal som sedan
+adderas till flyttalet som finns i `my_float`, och resulterar i ett
+flyttal `c`.
+
+Som visats tidigare så finns det situationer där en sådan konvertering
+inte fungerar. Skulle man till exempel utvärdera uttrycket `my_int +
+my_string` skulle man få ett `TypeError`. Man kan då använda sig av
+_explicit konvertering_, vilket man gör genom att ge typen man vill
+omvandla ett värde till värdet som argument. Om vi skulle vilja
+typomvandla `x`, så skulle vi kunna göra:
+
+\pyin
+```{python}
+str(x)
+int(x)
+float(x)
+complex(x)
+bool(x)
+```
+
+Vi kan nu använda oss av explicit konvertering för att göra:
+\pyin
+```{python}
+c = my_int + int(my_string)
+print(type(c))
+
+```
+\pyout
+```python
+int
+```
+I detta fall kan värdet i `my_string` omvandlas till en `int` för att
+sedan adderas till `my_int`.
+
+**Varning:** explicit typomvandling funkar inte alltid "magiskt":
+\pyin
+```{python}
+int("hello!")
+```
+\pyout
+```python
+ValueError: invalid literal for int() with base 10: 'hello!'
+```
+Här vet inte Python hur `'hello!'` ska omvandlas till ett heltal.
+
+Explicit konvertering är ofta viktigt när man använder `input()`, som
+vid lyckad inläsning ger typen `str`. I vissa fall vill man inte att
+ens variabel ska vara en `str`, som nedan:
+
+\pyin
+```{python}
+age = int(input(“Din ålder: “))
+added_age = age + 10 # would not work if age was of type str
+print(added_age)
+```
+
+# Booleska uttryck i Python
+
+En operator är en symbol som använd på en eller flera värden, operander, ger ett nytt värde.
+Vi har tidigare sett exempel på typiska aritmetiska operatorer (`+`,
+`-`,`*`, `/`, ...). Resultatets typ beror av operandernas typer.
+Booleska uttryck använder sig av
+operatorer som resulterar i att en `bool` returneras, dvs `True` eller
+`False`. Sådana uttryck är väldigt användbara när man ska utvärdera om
+något är sant eller falsk givet ett test.
+
+Det är värt att påpeka att det _mesta_ i Python anses vara _sant_. Vi
+kan undersöka detta genom att använda typomvandling till `bool`:
+\pyin
+```{python}
+bool(3)
+bool(-427.2)
+bool('hello')
+```
+\pyout
+```python
+True
+True
+True
+```
+
+Värden som anses vara _falska_ är typiskt "tomma" värden, vad de än
+har för typ:
+\pyin
+```{python}
+bool(0)
+bool(0.0)
+bool('')
+bool(None)
+```
+\pyout
+```python
+False
+False
+False
+False
+```
+
+## Jämförelseoperatorer
+
+Dessa operationer jämför indata genom följande relationer:
+
+- Likhet: `x == y`
+- Olikhet: `x != y`
+- Strikt större än: `x > y`
+- Strikt mindre än: `x < y`
+- Större än eller lika: `x >= y`
+- Mindre än eller lika: `x <= y`
+
+Dessa fungerar som man förväntat för siffror (experimentera!), men som
+många operatorer i Python är det inte _endast_ `int` eller `float`
+man kan jämföra. Till exempel:
+\pyin
+```{python}
+print('hello shark' < 'hello shark')
+print('hello shark' < 'hello shork')
+print('hello shark' < 'hello')
+print('hello shark' < 'Hello shork')
+```
+\pyout
+```python
+False
+True
+False
+False
+```
+Sök på internet om hur Python jämför strängar!
+
+## Logiska operatorer
+
+Python använder sig av de logiska operatorerna `and`, `or` och `not`.
+
+- Är `x` _och_ `y` sant?: `x and y`\
+`x and y` är `True` endast om både `x` och `y` är `True`.
+- Är `x` _eller_ `y` sant?: `x or y`\
+`x or y` är `True` endast om någon av `x` och `y` är `True`.
+- Negera ett värde: `not x`\
+`not x` är `True` om `x` är `False` och `False` annars.
+
+Detta kan skrivas med sanningsvärdestabeller. Vi kan till exempel använda
+oss av logiska operatorer för att definiera ett uttryck som är ett
+exklusiv-eller, `xor`, som utvärderas till sant om exakt en av `x`
+eller `y` är sann:
+
+\pyin
+```{python}
+x = True
+y = False
+xor_result = (not ((x and y) or (not x and not y)))
+print(xor_result)
+```
+\pyout
+```python
+True
+```
+
+Python behandlar `and` och `or` lite speciellt om (båda) operanderna
+inte är av typen `bool`: en `and`/`or`-sats evalueras då inte till `bool`. 
+En `and`-sats ger tillbaka den _andra_ operanden om
+båda operanderna är sanna, men ger tillbaka värdet av den _falska_
+operanden om uttrycket innehåller en sådan. En `or`-sats ger tillbaka
+det _första_ värdet om första operanden är sann, annars värdet av andra operanden.
+Några exempel:
+
+\pyin
+```{python}
+(42 and 'hello')
+(42 and '')
+(False and '')
+(42.7 or 13)
+('42' or None)
+(False or 0)
+```
+\pyout
+```python
+'hello'
+''
+False
+42.7
+42
+0
+```
+
+De här evalueringsreglerna kan förefalla konstiga, men har att göra med hur
+mycket av satsen som behöver utvärderas för att garanterat veta resultatet av
+hela uttrycket. Om första operanden till `and` är falsk, då behöver man inte
+beräkna värdet på det andra operanden; oavsett om den evaluerar till `True`
+eller `False` så ska resultatet motsvara `False`.  Tekniken kallas ibland
+"kortslutning" (eng: _short circuiting_), eller mer generellt "lat evaluering"
+(eftersom det kan ses som "lathet" att inte beräkna allting).  Syftet är förstås
+att få snabbare program genom att inte beräkna uttryck som inte behövs.
+
+
+
+
+
+# Tilldelningsoperatorer
+
+Vi har redan sett att `=` används för tilldelning. En smidig
+funktionalitet i Python är att man kan kombinera detta med aritmetiska
+operatorer och få så kallade "tilldelningsoperatorer":
+
+\pyin
+```{python}
+x += 3    # x = x + 3
+x -= 3    # x = x - 3
+x *= 3    # x = x * 3
+x /= 3    # x = x / 3
+x %= 3    # x = x % 3
+x //= 3   # x = x // 3
+x **= 3   # x = x ** 3
+```
+
+# Funktioner
+
+I och med att ens program blir större och kanske mer komplicerat, så
+märker man snabbt att det finns ett behov att kunna strukturera upp
+sin kod. Det kan man börja göra med hjälp av *funktioner*. Vi har
+redan använt oss av flera av Pythons inbyggda funktioner,
+till exempel `print`. Funktioner inom programmering har, som namnet antyder,
+likheter med matematiska funktioner: de tar ett eller flera argument
+och ger tillbaka ett returvärde. Inom programmering _behöver_ dock
+inte en funktion ta några argument eller lämna tillbaka ett värde.
+
+Syftet med funktioner är att:
+
+- Samla kod i lätthanterliga och återanvändbara delar.
+- Undvika upprepning av kod.
+- Förenkla avancerade program.
+- Öka *modulariteten*, dvs att programmet delas upp i mindre delar som är
+  lättare att förstå än stora monolitiska program.
+- Göra programmet mer lättläst.
+  * Tydliggör beroenden i koden: "indata" som argument, resultat efter
+    `return`{.python}. Det här påminner om en funktion i matematiken.
+  * Bra del av koden för dokumentation.
+  * Bra del av koden för att försäkra sig om kod gör det den ska
+    (till exempel genom testning).
+
+Funktioner är därför ett mycket viktigt verktyg för att skriva bra
+kod.
+
+Innan man kan använda en funktion, så måste funktionen
+_definieras_. Det gör man genom att använda sig av det reserverade
+ordet `def`{.python} för att ge funktionen ett namn (identifierare)
+och specificera argument. Nedan är ett exempel på en enkel funktion
+`f` som tar ett värde `x` som argument och adderar värdet till sig
+själv:
+
+\pyin
+```{python}
+def f(x):
+    return x + x
+```
+Denna funktion skulle matematiskt kunna skrivas som $f(x) = x +
+x$. Notera att instruktionen `return`{.python} tydligt talar om att "här är resultatet". 
+När man väl definierat funktionen, så kan den kallas på följande
+sätt:
+
+\pyin
+```{python}
+f(2.0)
+```
+\pyout
+```python
+4.0
+```
+
+Lägg märke till att Python inte bryr sig om vilken typ argumentet har,
+så länge alla operationer och uttryck i funktionen går att
+genomföra. Ovan används ett flyttal, men vi kan också göra:
+
+\pyin
+```{python}
+f(2)
+f('hello')
+```
+\pyout
+```python
+4
+'hellohello'
+```
+
+Precis som matematiska funktioner, så kan funktioner i Python ha flera
+argument:
+\pyin
+```{python}
+def long_name(course_code, course_name):
+    lname = course_code + course_name
+    return lname
+```
+
+Vad är resultatet av `long_name('DA','2004')`?
+
+Funktioner behöver inte ta några argument
+
+\pyin
+```{python}
+def show_user_menu():
+    print('Menu:')
+    print('1. Add user')
+    print('2. List users')
+    print('3. Quit')
+```
+
+och kan också anropa andra funktioner:
+
+\pyin
+```{python}
+def user_choice():
+    show_user_menu()
+    return input('Which assignment do you want to do? ')
+```
+
+## Om funktioner
+
+Exemplen ovan introducerar flera nya syntaktiska koncept i Python. En
+funktion har en definition (även kallad "kropp") och ett huvud (även
+kallad "signatur").
+
+* Huvudet har består av funktionsnamnet och en parameterlista
+  ("funktionens argument").
+  - Syntax: `def funktionsnamn(argument1, argument2, ...):`{.python}
+* Ordet parameter har två betydelser.
+  - Variabler i huvudet kallas _formella parametrar_. Formella
+    parametrar är platshållare för de värden som kommer att ges vid
+    ett funktionsanrop.
+  - De värden man ger vid ett anrop till en funktion kallas
+    _anropsparametrar_.
+* Kroppen har en dokumentationssträng (frivillig) följt av kod, och är
+  _indragen_.
+
+Indragningen är viktig i Python! Python är ett "indenteringskänsligt"
+språk, dvs fel indrag ger syntaxfel. Vi använder här ordet
+_indentering_ när vi menar indrag i källkoden. Indenteringen är det
+som specificerar det _kodblock_ som hör till funktionskroppen. Även om
+man kan använda sig av vilken indentering man vill i Python (till exempel,
+två mellanslag eller en tab), så länge man är konsekvent, så är
+_standard_-indenteringen fyra mellanslag.
+
+Att indenteringen ska vara fyra mellanslag specificeras i Pythons
+stilguide, känd som
+[PEP-8](https://www.python.org/dev/peps/pep-0008/), som också
+innehåller mycket annan nyttig information om hur man skriver bra
+Python-kod.
+
+En modern programmeringseditor sätter in fyra mellanslag när använder
+tab-tangenten.  En liten varning dock för att äldre eller mer primitiva editorer
+kanske inte hanterar tab-tangenten på ett bra sätt.  Det kan ge problem beroende
+på hur editorn är konfigurerad vilket gör att er kod kan se olika ut på olika
+datorer.
+
+Funktionskroppen avslutas ofta med en `return`{.python}-instruktion, till exempel `return x`{.python}. 
+Om `return`{.python} saknas så returneras värdet `None`. Det är bra att veta att
+`return`{.python} kan förekomma fler gånger i en funktion, men om en
+`return`{.python}-sats exekveras så avslutas alltid funktionen.
+
+Det är viktigt att förstå skillnaden på funktioner som returnerar
+något och de som bara till exempel skriver ut något. Betrakta följande
+kodsnutt:
+
+\pyin
+```{python}
+def f1(x):
+    return x + x
+
+def f2(x):
+    print(x + x)
+```
+
+Skillnaden är att `f1` *returnerar* värdet på `x + x` medan `f2` bara
+*skriver ut* värdet. Om vi nu försöker skriva ut resultatet av `f1(2)`
+blir det som vi förväntat oss:
+
+\pyin
+```{python}
+print(f1(2))
+```
+\pyout
+```python
+4
+```
+
+men om vi försöker skriva ut resultatet av `f2(2)` händer följande:
+
+\pyin
+```{python}
+print(f2(2))
+```
+\pyout
+```python
+4
+None
+```
+
+Anledningen är att `4` först skrivs ut av funktionen `f2`, men sen när
+vi skriver resultatet av `f2` så skrivs `None` ut då det är vad `f2`
+faktiskt returnerar! Det är väldigt viktigt att förstå den här
+skillnaden och när det står att ni ska skriva en funktion som
+*returnerar* något så ska `return`{.python} användas och inte `print`{.python}.
+
+## Multipla returvärden
+
+Hur gör man om man vill returnera flera värden? Det finns flera dåliga
+sätt att lösa detta, men ett bra: multipla returvärden.
+
+\pyin
+```{python}
+def integer_div(nominator, denominator):
+    q = nominator // denominator
+    r = nominator % denominator
+    return q, r
+```
+
+Denna  funktion kan man sedan anropa så här:
+
+\pyin
+```{python}
+quotient, remainder = integer_div(17, 10)
+```
+
+## Standardvärden
+
+Det är vanligt att man skriver funktioner med parametrar som nästan
+alltid sätts till samma värde. Python låter dig ange explicit sådana
+vanliga värden: dessa kallas _standardvärden_ (eng.: _default values_) eller _skönsvärden_.
+
+\pyin
+```{python}
+def f(x=1):
+    return x + x
+
+print(f())
+
+print(f(3))
+```
+\pyout
+```python
+2
+6
+```
+
+I första utskriften kan vi se att `f` har kallats med `x=1`, även om
+vi inte gett det som argument. När vi på nästa rad kallar `f(3)`, så
+sätts `x=3`.
+
+## Nyckelordsparametrar
+
+Python låter dig namnge parametrar även i anropen. Till exempel så ger
+`integer_div(denominator=10, nominator=17)` ger samma effekt som
+anropet `integer_div(17, 10)`.
+
+Vad händer om vi gör:
+
+\pyin
+```{python}
+integer_div(denominator=10, nominator=17)
+```
+
+Python kopplar identifierarna på de formella parametrarna till
+identifierarna på argumenten, så ovan resulterar i precis samma
+output.
+
+Ett exempel på en funktion som vi använt som har fler
+nyckelordsparametrar är `print`:
+
+* `sep=' '` — dvs ett mellanslag som separator
+* `end='\n'` — "backslash-n" betyder radbrytning.
+* `file=sys.stdout` — låt utdata gå till terminalen
+
+Exempel:
+
+\pyin
+```{python}
+print('hello','you',sep='\n')
+```
+\pyout
+```python
+hello
+you
+```
+
+For att se mer information skriv `help(print)` i Spyder-konsolen
+(iPython).
+
+## Dokumentation av funktioner
+
+Det finns två sätt att dokumentera i Python:
+
+* Dokumentationssträngar
+	- Sätts överst i funktionskroppen inom `""" """`{.python} eller
+      `''' '''`{.python}
+    - Primära dokumentationsmetoden
+    - Knyts till funktionen. Prova `help(print)` i Python-tolken,
+      eller Ctrl-i i Spyder när markören står vid funktionsanrop eller
+      Python-instruktion.
+* Kommentarer
+    - Används för att förklara beräkningssteg, typiskt enskilda rader
+      eller små block med kod.
+	- Kommentarer är till för att förstå _hur_ en funktion fungerar.
+      Man ska kunna använda en funktion utan att läsa kommentarer.
+
+Dokumentationssträngar är beskrivna i
+[PEP-257](https://www.python.org/dev/peps/pep-0257/):
+
+> The docstring [...] should summarize its behavior and document its
+> arguments, return value(s), side effects, exceptions raised, and
+> restrictions on when it can be called (all if applicable). Optional
+> arguments should be indicated. It should be documented whether
+> keyword arguments are part of the interface.
+
+Exempel på enradig dokumentationssträng:
+
+\pyin
+```{python}
+def square(a):
+    '''Returns argument a squared.'''
+    return a*a
+
+print (square.__doc__)
+
+help(square)
+
+```
+
+Exempel på flerradig dokumentationssträng:
+
+\pyin
+```{python}
+def square(x):
+    """Description of square function
+
+    Parameters:
+    x (int): input number
+
+    Returns:
+    int:Square of x
+	"""
+
+    return x*x
+
+print(square.__doc__)
+
+help(square)
+```
+
+En allmän princip för dokumentation är att förklara det som inte
+framgår av identifierare. Om en funktion heter `compute_integral` så
+behöver inte dokumentationssträngen säga samma sak. Däremot kan det
+vara bra att skriva om vilken algoritm som används, vilka antaganden
+man har om parametrar, och vad som gäller för returvärdet.
+
+# Globala och lokala variabler
+
+Variabler i Python kan vara antingen *globala* eller *lokala*. Namnet
+syftar till var en variabel är "synlig" för kod, och var variabeln kan
+modifieras/ändras. I följande exempel är `x` en global variabel då den
+har definierats på toppnivå (d.v.s. "längst ut").
+
+\pyin
+```{python}
+x = "My global string"
+
+def foo():
+    print("x printed from inside foo:", x)
+
+foo()
+print("x printed from outside foo:", x)
+```
+
+Funktionen kan inte modifiera `x`, utan värdet som `x` innehåller är
+bara läsbart:
+
+\pyin
+```{python}
+x = 42
+
+def foo():
+    x = x * 2
+    print("x printed from inside foo:", x)
+foo()
+```
+\pyout
+```python
+UnboundLocalError: local variable 'x' referenced before assignment
+```
+
+För att kunna ändra på värdet i `x`, så måste vi säga åt funktionen
+att den kan ändra på den globala variabeln. Det här gör man med det
+reserverade ordet `global`{.python}.
+
+\pyin
+```{python}
+x = 42
+
+def foo():
+    global x
+    x = x * 2
+    print(x)
+foo()
+```
+
+Globala variabler som ändras av funktioner på detta sätt
+kan lätt leda till mycket röriga program, det man ibland kallar "spagettikod.". Det blir svårt att
+hålla reda på var värdet på `x` ändras,  så var försiktig
+om du använder globala variabler på detta sätt. Det finns 
+scenarion när globala variabler är användbara, exempelvis globala
+räknare. Det är då extra viktigt att ha ett informativt namn på den
+globala variabeln så att man inte råkar ändra den av misstag!
+
+Lokala variabler är variabler som definieras inuti i en funktion:
+
+\pyin
+```{python}
+def foo():
+    y = "My local string"
+    print(y)
+
+foo()
+```
+
+Variabeln `y` syns inte utanför funktionen (det är därför det kallas
+för *lokala* variabler):
+
+\pyin
+```{python}
+def foo():
+    y = "local"
+
+foo()
+print(y)
+```
+\pyout
+```python
+NameError: name 'y' is not defined
+```
+
+
+Var `x` är synlig är dess _räckvidd_ (eng. _scope_). Om `x` är
+definierat utanför funktionen och vi sedan skriver över den i
+funktionen så är dess värde oförändrat utanför funktionen:
+
+\pyin
+```{python}
+x = 5
+
+def foo():
+    x = 10
+    print("Local x:", x)
+
+foo()
+print("Global x:", x)
+```
+
+Samma sak händer med funktionsargument:
+
+\pyin
+```{python}
+x = 5
+
+def foo(x):
+    print("Local x:", x)
+
+foo(12)
+print("Global x:", x)
+```
+
+# Villkorssatser
+
+Det händer ofta att man vill exekvera ett visst kodblock endast om
+något uttryck eller något test är sant. Detta görs med så kallade
+_villkorssatser_, eller "`if`-satser". I Python görs detta med
+`if`{.python}, `elif`{.python} (som står för _else if_) och
+`else`{.python}.
+
+\pyin
+```{python}
+answer = input('Write "done" if you are done: ')
+if answer == 'done':
+   quit()
+print('Okay, I guess you were not finished yet.')
+```
+
+**Obs:** lägg märke till dubbla likhetstecken! Det är skillnad på
+_jämförelse_ och _tilldelning_ (dvs `==` och `=`).
+
+Exemplet ovan kan även skrivas:
+
+\pyin
+```{python}
+answer = input('Write "done" if you are done: ')
+if answer == 'done':
+    quit()
+else:
+    print('Okay, I guess you were not finished yet.')
+```
+
+Notera att `print`-satsen är indragen lika långt som
+`quit`. Precis som för funktioner så gäller det att det indenterade
+kodblocket exekveras.
+
+Indenteringsfel är svåra att se ibland:
+
+\pyin
+```{python}
+answer = input('Write "done" if you are done: ')
+if answer == 'done':
+   quit()
+else:
+	print('Okay, I guess you were not...')
+   print('.. quite finished yet.') # indentation error
+```
+
+Ett till exempel med `else`{.python}:
+
+\pyin
+```{python}
+namn = input('What is your name? ')
+if namn == 'Anders':
+   print('Hello Anders!')
+else:
+   print('Hello, whoever you are!')
+```
+
+Man kan använda sig av _nästlade_ villkorssatser, dvs en villkorssats
+inuti en villkorssats:
+
+\pyin
+```{python}
+temp = int(input('What is the temperature? '))
+if temp < -30:
+   print('That is very cold!')
+else:
+   if temp < 0:
+      print('That is pretty cold...')
+   else:
+      if temp == 0:
+         print('Zero')
+      else:
+         if temp < 30:
+            print('That is a comfortable temperature')
+         else:
+            print('Wow! Super warm')
+```
+
+I ovan fall är koden inte särskilt lättläst. Ett bättre alternativ
+är att använda `elif`{.python}:
+
+\pyin
+```{python}
+temp = int(input('What is the temperature? '))
+if temp < -30:
+   print('That is very cold!')
+elif temp < 0:
+	print('That is pretty cold...')
+elif temp == 0:
+	print('Zero')
+elif temp < 30:
+	print('That is a comfortable temperature')
+else:
+	print('Wow! Super warm')
+```
+
+Läsbarhet är viktigt! Det reserverade ordet `elif`{.python} är strikt talat ej nödvändigt då
+det alltid kan definieras med nästlade `if`{.python}-`else`{.python}, 
+men koden blir lättare att
+läsa. Denna typ av funktionalitet kallas ibland *syntaktiskt socker*.
+
+Vad är skillnaden på beteendet för
+
+\pyin
+```{python}
+x = int(input('Guess a number! '))
+if x == 42:
+    print('Correct!')
+if x > 42:
+    print('Too high...')
+else:
+    print('Too low...')
+```
+
+och
+
+\pyin
+```{python}
+x = int(input('Guess a number! '))
+if x == 42:
+    print('Correct!')
+elif x > 42:
+    print('Too high...')
+else:
+    print('Too low...')
+```
+
+Vad händer om man ger `42` som svar till `input`?
+
+Slutligen så kan vi använda oss av villkorssatser för att skriva om
+`xor`-uttrycket från
+[Logiska operatorer](#logiska-operatorer) och definiera en funktion:
+
+\pyin
+```{python}
+def xor(x, y):
+    if x and y:
+        return False
+    elif not x and not y:
+        return False
+    else:
+        return True
+
+print(xor(True,True))
+print(xor(True,False))
+print(xor(False,True))
+print(xor(False,False))
+```
+
+\pyout
+```python
+False
+True
+True
+False
+```
+En kortare version kan med det logiska uttryck vi skrev tidigare:
+\pyin
+```{python}
+def xor(x, y):
+    return not ((x and y) or (not x and not y))
+```
+Vilken version av funktionen `xor` är lättast att läsa?
+
+# Uppgifter
+
+1. Vilket eller vilka av alternativen nedan ska man tänka på när man väljer ett namn på en funktion eller variabel?
+  a) Namnet ska vara kort
+  b) Namnet ska vara beskrivande
+  c) Namnet ska vara unikt i funktionen och/eller skriptet
+  d) Namnet ska vara skrivet med stora bokstäver
+  e) Inget av ovanstående
+
+2. Skriv kod som läser in ett heltal från användare och skriver ut
+   `Odd` om talet är udda och `Even` om talet är jämnt.
+
+3. Gör sanningstabeller för de booleska operatorerna `and` och `or`
+   (d.v.s. fyll i `?` i tabellen nedan):
+
+x         y          x `and` y          x `or` y
+------   ------     --------------     --------------
+`True`   `True`     ?                  ?
+`True`   `False`    ?                  ?
+`False`  `True`     ?                  ?
+`False`  `False`    ?                  ?
+
+4. Försök, utan att köra koden, utvärdera dessa fyra uttryck för alla
+   möjliga booleska värden på `x`, `y` och `z`:
+   \pyin
+   ```python
+   (not x) or (not y)
+   x and (y or z)
+   (x != z) and not y
+   x and z
+   ```
+   Kör sedan koden för att bekräfta dina svar.
+
+5. Skriv en Python-funktion som motsvarar den matematiska funktionen
+   $f(x, y) = x/y$. Vi vill att funktionen ska säga till om man delar
+   ett tal skiljt från $0$ med $0$. I detta fall så ska funktionen
+   skriva ut `The result is infinite...`, men _inte_ returnera något
+   explicit värde. Om man delar $0/0$, så ska funktionen skriva ut
+   `Indeterminate form...` och inte heller returnera något.
+
+6. Låt:
+   \pyin
+   ```python
+      x = True
+      y = False
+   ```
+   Vilka uttryck nedan får värdet `True`{.python}? Varför?
+
+   \pyin
+   ```python
+      (x and y) or (not x and not y)
+      (x or y) and (not x or not y)
+      x or y or not x or not y
+      not(not x and not (x and y))
+   ```
+
+7. Definiera `nand`, `nor` och `xnor` som Python-funktioner.
+
+   _Tips_: [https://en.wikipedia.org/wiki/Logic_gate#Symbols](https://en.wikipedia.org/wiki/Logic_gate#Symbols).
+
+8. Prova funktionerna `nand`, `nor` och `xnor` med argument som _inte_
+   är av typen `bool`. Är resultaten som du väntade dig? Om inte,
+   varför?
