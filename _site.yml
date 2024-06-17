@@ -18,3 +18,10 @@ navbar:
       href: kapitel6.html
       
 output_dir: 'docs'
+
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+    toc_float:
+      collapsed: true
