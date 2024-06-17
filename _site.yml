@@ -2,9 +2,9 @@ name: "DA2004 Kompendium"
 navbar:
   title: "DA2004 Programmersteknik"
   left:
-    - text: "Home"
+    - text: "Preface"
       href: index.html
     - text: "Kapitel 1"
-      href: kapitel1.htlm
+      href: kapitel1.html
       
 output_dir: 'docs'
