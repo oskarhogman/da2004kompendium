@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 1</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 1</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<div id="programmering-och-python" class="section level1">
+<h1>Programmering och Python</h1>
+<p>Detta kompendium handlar om <em>programmering</em>, det vill säga att
+skriva program som en dator sedan kan köra för att lösa olika typer av
+problem. I kompendiet använder vi programmeringsspråket <em>Python</em>,
+men många av de underliggande idéerna går att överföra till andra språk
+(Java, JavaScript, C/C++, Ruby, Scala, Haskell, OCaml…). Python är ett
+väldigt populärt programmeringsspråk (testa att Googla <em>“most popular
+programming languages”</em>) som kan användas att skriva mjukvara till i
+princip alla sorters tillämpningar. Det används även friskt på många av
+de största IT-företagen, som Instagram, Google, YouTube, Spotify,
+Amazon…</p>
+<p><strong>Vi kommer att använda version 3.8, eller senare, av
+Python</strong>. Vi rekommenderar även en installation av
+<em>Anaconda</em>, ett verktyg för att hantera paket och omgivningar för
+Python. Installationsinstruktioner finns på kurshemsidan samt genom en
+videotutorial som ligger på YouTube.</p>
+<p>En <em>programmeringseditor</em> stödjer “syntax highlighting” och
+operationer som gör det lättare att programmera. Vi kommer att använda
+oss av <em>Spyder</em> som följer med installationen av
+<em>Anaconda</em> i denna kurs.</p>
+<p>Exempel på andra programmeringseditorer:</p>
+<ul>
+<li>MS Visual Studio Code — gratis och idag mycket spridd. Du har
+växtmån.</li>
+<li>PyCharm — stark integration med Python</li>
+<li>För entusiaster (kan vara svåra att komma igång med):
+<ul>
+<li>Emacs</li>
+<li>Vim</li>
+</ul></li>
+</ul>
+<div id="att-programmera-i-python" class="section level2">
+<h2>Att programmera i Python</h2>
+<p>När man programmerar i Python skriver man kod i en
+<code>.py</code>-fil. Denna kod laddas sedan i Python-tolken (eng.
+<em>interpreter</em>).</p>
+<p>Startar man Spyder-applikationen inifrån Anaconda Navigator får man
+ett fönster med tre paneler: ‘editor’, ‘help’, och ‘console’. I
+kompendiet är kod som är skriven i editorn inramad med grå bakgrund. Vi
+kan till exempel skriva följande tre rader i Spyders editor:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KDE3KVxucHJpbnQoMS4xKVxucHJpbnQoJ0RBMjAwNCcpIn0=
+</div>
+<p>Om vi trycker på den gröna triangeln uppe till vänster eller
+tangentbordskommando <code>F5</code> tolkas denna kod i Python-tolken
+och skrivs ut i konsolen, rutan i Spyder (och liknande program) där man
+kan evaluera Python-uttryck. Om man inte sparat filen så dyker det först
+upp en ruta med “Save file”. Spara filen på valfritt ställe på
+hårddisken, men kom ihåg att ha bra struktur så att du hittar filerna
+senare. Ett smidigt sätt är att skapa mappen “DA2004” och ha alla
+lämpliga undermappar (t.ex. “labb 1”) där man sparar filerna för varje
+del av kursen.</p>
+<p>Vi döper filen till <code>f1.py</code> och när vi kör den får vi
+följande i konsolen på macOS (det ser lite annorlunda ut på Linux och
+Windows):</p>
+<pre class="python"><code>runfile(&#39;/Users/kxs624/kurser/DA2004/f1.py&#39;,
+    wdir=&#39;/Users/kxs624/kurser/DA2004/&#39;)
+17
+1.1
+DA2004</code></pre>
+<p><strong>Obs:</strong> i kompendiet är kod och resultat som skrivs ut
+i konsolen inramad med turkos bakgrund.</p>
+</div>
+</div>
+<div id="stil-i-kompendiet" class="section level1">
+<h1>Stil i kompendiet</h1>
+<div id="kodrepresentation" class="section level2">
+<h2>Kodrepresentation</h2>
+<p>Vi kommer att beskriva programmering med svenska termer, men när man
+programmerar är det bra att använda engelska för variabelnamn,
+kommentarer, dokumentation, och utskrifter. Att använda engelska är
+vedertagen praxis då man ofta jobbar i internationella miljöer.</p>
+<p>När det är underförstått att vi skriver kod i texteditorn som vi vill
+exekvera, “köra”, och skriva ut i konsolen kommer vi visa den grå och
+turkosa miljön efter varandra på följande sätt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFwid2VsY29tZSB0byBEQTIwMDRcIilcbnByaW50KDIqMikifQ==
+</div>
+<pre class="python"><code>welcome to DA2004
+4</code></pre>
+</div>
+<div id="uppgifter" class="section level2">
+<h2>Uppgifter</h2>
+<p>När det gäller uppgifter i kompendiet kommer vi att markera uppgifter
+som vi anser vara svårare med symbolen  först i uppgiftstexten.</p>
+</div>
+</div>
+<div id="variabler" class="section level1">
+<h1>Variabler</h1>
+<p>En av grundstenarna i programmering är <em>variabler</em>. En vanlig
+intutitiv modell för variabler är att se dem som lådor med namn som man
+kan stoppa in värden i.</p>
+Här är ett exempel där vi räknar ut medelhastigheten för en resa över
+67~km på 1,5 timmar.
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InMgPSA2N1xudCA9IDEuNVxudiA9IHMgLyB0XG5wcmludCh2KSJ9
+</div>
+<p>Vi <em>tilldelar</em> värdet 67 till variabeln <code>s</code> och
+värdet 1,5 till variabeln <code>t</code>. Lägg märke till att
+decimalkomma måste skrivas på engelskt sätt, med en punkt. Därefter
+tilldelas variabeln <code>v</code> resultatet av beräkningen
+<code>s / t</code>. I Spyder, VS Code, eller motsvarande brukar man
+kunna se att variabeln <code>v</code> nu har värdet 44.666666666666664,
+men instruktionen <code>print(v)</code> gör också att värdet skrivs
+ut.</p>
+<p>Ordningen på instruktioner är viktig, så beräkningen kan inte göras
+innan variablerna till höger om <code>=</code> är definierade.</p>
+<p>Exemplet ovan kan skrivas tydligare! Variablerna vi använde kanske
+fungerar bra för den som är van vid att just <span
+class="math inline">\(s\)</span>, <span class="math inline">\(t\)</span>
+och <span class="math inline">\(v\)</span> används för sträcka, tid,
+respektive hastighet, men i de flesta sammanhang kan man inte hoppas på
+igenkänning av det slaget.</p>
+I allmänhet bör man välja variabler som är förklarande, eller till och
+med ‘’självdokumenterande’’. Det vill säga, man ska inte behöva förklara
+vad som menas med en variabel utan det ska framgå ändå. Om vi skriver om
+exemplet ovan med ambitionen att långt senare kunna återkomma till koden
+och genast förstå vad som menas, så kan det se ut så här:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRpc3RhbmNlID0gNjdcbnRpbWVfdXNlZCA9IDEuNVxuYXZlcmFnZV92ZWxvY2l0eSA9IGRpc3RhbmNlIC8gdGltZV91c2VkXG5wcmludChhdmVyYWdlX3ZlbG9jaXR5KSJ9
+</div>
+<p>De långa identifierarna kan upplevas som jobbiga att skriva, men
+erfarenheten är att det i längden lönar sig att skriva kod som är tydlig
+(eller till och med övertydlig). Om man har valt sina identifierare rätt
+så blir det ofta lätt att förstå koden.</p>
+<div id="kommentarer" class="section level2">
+<h2>Kommentarer</h2>
+Om man vill förtydliga vad en variabel betyder, eller vad som är tänkt
+att ske i ett komplicerat kodavsnitt, så kan man lägga till kommentarer:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRpc3RhbmNlID0gNjcgICAgIyBFc3RpbWF0ZWQgZnJvbSBtYXBcbnRpbWVfdXNlZCA9IDEuNSAgIyBNZWFzdXJlZCBieSBHUFNcbmF2ZXJhZ2VfdmVsb2NpdHkgPSBkaXN0YW5jZSAvIHRpbWVfdXNlZFxucHJpbnQoYXZlcmFnZV92ZWxvY2l0eSkifQ==
+</div>
+<p>Tecknet <code>#</code> markerar att ‘’här börjar en kommentar’’ och
+allt fram till nästa rad ignoreras helt av Python-tolken. En kommentar
+kan börja var som helst på en rad.</p>
+</div>
+<div id="fler-värden" class="section level2">
+<h2>Fler värden</h2>
+<p>Vi kan arbeta med olika sorters värden.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InggPSAxN1xueSA9ICdEQTIwMDQnXG56ID0gMjIvN1xucSA9IDIyLy83XG5cbnByaW50KHgpXG5wcmludCh5KVxucHJpbnQoeilcbnByaW50KHEpXG5wcmludCh4LCB5LCB6LCBxKSJ9
+</div>
+<pre class="python"><code>17
+&#39;DA2004&#39;
+3.14
+3
+17 DA2004 3.142857142857143 3</code></pre>
+<p>I exemplet ovan har vi använt följande <em>typer</em> av värden:</p>
+<ul>
+<li><code>x</code> och <code>q</code> är heltal (eng.
+<code>int</code>),</li>
+<li><code>y</code> är en sträng (eng. <code>string</code>), vilket
+betyder en serie bokstäver,</li>
+<li><code>z</code> tilldelades kvoten av två heltal och blir då ett
+<em>flyttal</em> (eng. <code>float</code>), som är ett sätt att
+approximera reella tal.</li>
+</ul>
+<p>Python har fler primitiva typer vilka vi kommer återkomma till.</p>
+<p>Man kan även tilldela flera variabler på en gång:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IngsIHkgPSAyLCAzXG5wcmludCh4KVxucHJpbnQoeSkifQ==
+</div>
+<pre class="python"><code>2
+3</code></pre>
+<p>Här används alltså kommatecken för att separera variabler och
+värden.</p>
+<p>Notera att om <code>x</code> och <code>y</code> redan har definierats
+ovan i koden (t.ex. som <code>17</code> och <code>'DA2004'</code>
+tidigare) så kommer de att skrivas över med värdena <code>2</code> och
+<code>3</code>.</p>
+</div>
+</div>
+<div id="stränghantering-och-print" class="section level1">
+<h1>Stränghantering och <code>print</code></h1>
+<p>Strängar kan skrivas inom antingen enkelfnuttar <code>'</code> eller
+dubbelfnuttar <code>"</code> (jo, programmerare brukar kalla tecknen så
+istället för apostrof och citattecken!). Man kan på så sätt enkelt
+blanda <code>'</code> och <code>"</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFwiaGVqXCIpXG5wcmludCgnaGVqJykifQ==
+</div>
+<pre class="python"><code>hej
+hej</code></pre>
+<p>Eftersom fnuttar kan betyda “start på sträng” och “slut på sträng”
+kan man inte stoppa in dem hur som helst i strängar, och det är därför
+som man valt att använda två varianter i Python. Se följande
+exempel:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFwiU2EgZHUgJ2hlaic/IFwiKVxucHJpbnQoJ0phLCBqYWcgc2EgXCJoZWpcIi4nKSJ9
+</div>
+<pre class="python"><code>Sa du &#39;hej&#39;?
+Ja, jag sa &quot;hej&quot;.</code></pre>
+<p>Radbrytningar skrivs med <code>\n</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KFwiSGlwcFxcbmhpcHBcXG5odXJyYSFcIikifQ==
+</div>
+<pre class="python"><code>Hipp
+hipp
+hurra!</code></pre>
+<p>Vill man skriva ut flera värden med mellanslag mellan ger man flera
+argument till <code>print</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByaW50KCdoZWonLCdwXHUwMGU1JywnZGlnJykifQ==
+</div>
+<pre class="python"><code>hej på dig</code></pre>
+</div>
+<div id="aritmetiska-operationer" class="section level1">
+<h1>Aritmetiska operationer</h1>
+<p>Python stödjer de normala räknesätten:</p>
+<ul>
+<li>addition (<code>+</code>)</li>
+<li>subtraktion (<code>-</code>)</li>
+<li>multiplikation (<code>*</code>)</li>
+<li>division (<code>/</code>)</li>
+<li>heltalsdivision (<code>//</code>)</li>
+<li>exponentiering (<code>**</code>)</li>
+<li>modulus/rest (<code>%</code>)</li>
+</ul>
+Prova att <em>evaluera</em> följande uttryck:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IjIrMyAgICMgZ2VyIDVcbjItMyAgICMgZ2VyIC0xXG4yKjMgICAjIGdlciA2XG4yLzMgICAjIGdlciAwLjY2NjY2NjY2NjY2NjY2NjZcbjIvLzMgICMgZ2VyIDBcbjIqKjMgICMgZ2VyIDhcbjIlMyAgICMgZ2VyIDIifQ==
+</div>
+<p>Dessa fungerar både för heltal och för flyttal. Man kan även använda
+<code>+</code> på strängar för att sammanfoga dem:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IidoZWonICsgJ2R1JyAgICMgZ2VyICdoZWpkdScifQ==
+</div>
+<p>Det läggs dock inte in något mellanslag mellan orden, så det måste
+man lägga in själv:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IidoZWonICsgJyAnICsgJ2R1JyAgICMgZ2VyICdoZWogZHUnIn0=
+</div>
+<p>De olika räknesätten binder på förväntat sätt, det vill säga, de
+vedertagna räknereglerna gäller när man evaluerar aritmetiska uttryck
+och man behöver inte använda parenteser i onödan. Exempelvis är
+<code>2 * 3 + 4</code> detsamma som <code>(2 * 3) + 4</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IjIgKiAzICsgNCAgICAjIGdlciAxMFxuKDIgKiAzKSArIDQgICMgZ2VyIDEwXG4yICogKDMgKyA0KSAgIyBnZXIgMTQifQ==
+</div>
+<p>I vissa fall kan man använda dem med olika typer av indata på samma
+gång:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IjIuMCAqKiAzIC0gMi4xMzEyICAgIyBnZXIgNS44Njg4XG4yICogJ2hlaicgICAgICAgICAgICMgZ2VyICdoZWpoZWonIn0=
+</div>
+<p>Men man kan till exempel inte addera en siffra till en sträng eller
+multiplicera två strängar:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IidoZWonICogJ2hvcHAnIn0=
+</div>
+<pre class="python"><code>Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: can&#39;t multiply sequence by non-int of type &#39;str&#39;</code></pre>
+En annan otillåten operation:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IjIgKyAnaGVqJyJ9
+</div>
+<pre class="python"><code>Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: unsupported operand type(s) for +: &#39;int&#39; and &#39;str&#39;</code></pre>
+<p>Här ser vi exempel på olika felmeddelanden som kan uppstå om man
+skriver något galet.</p>
+</div>
+<div id="input" class="section level1">
+<h1>Input</h1>
+Vi har sett att <code>print</code> kan användas för att skriva ut värden
+på skärmen. Funktionen <code>input</code> kan användas för att läsa in
+data från en användare. Om man ger en sträng som parameter så ges den
+som “prompt”, det vill säga text visar att nu ska man skriva något. Ett
+exempel:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im5hbW4gPSBpbnB1dChcIlZhZCBoZXRlciBkdT9cXG5cIilcbnByaW50KFwiSGVqIFwiICsgbmFtbikifQ==
+</div>
+<p>Detta lilla program ger i konsolen</p>
+<pre class="python"><code>Vad heter du? 
+Hej Johan</code></pre>
+<p>Den första raden skrivs ut av Python, och den andra av den som sitter
+vid datorn. När man trycker på retur-tangenten returnerar
+<code>input</code> en sträng med det som användaren skrivit.</p>
+</div>
+<div id="speciella-ord-och-namn-i-python" class="section level1">
+<h1>Speciella ord och namn i Python</h1>
+<div id="reserverade-ord" class="section level2">
+<h2>Reserverade ord</h2>
+<p>Det finns ett antal <em>reserverade ord</em> i Python, alltså ord som
+tillhör programmeringsspråket:</p>
+<pre><code>  and except lambda with as finally nonlocal while assert False None
+  yield break for not class from or continue global pass def if raise
+  del import return elif in True else is try</code></pre>
+<p>Om man försöker använda ett reserverat ord som variabelnamn får man
+ett felmeddelande:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImFuZCA9IDEyIn0=
+</div>
+<pre class="python"><code>File &quot;/Users/kxs624/.spyder-py3/DA2004/ht20/f1.py&quot;, line 1
+  and = 12
+      ^
+SyntaxError: invalid syntax</code></pre>
+<p>Det finns annars ganska få krav på hur namnen kan väljas.</p>
+</div>
+<div id="identifierare" class="section level2">
+<h2>Identifierare</h2>
+<p>Identifierare är namn på resurser. Alla variabelnamn är exempel på
+identifierare, det vill säga, de håller en “resurs” eller ett värde. Det
+finns dock identifierare som inte är variabler. Till exempel kommer vi
+gå igenom funktioner, klasser och objekt senare i kursen. Dessa typer
+namnges med funktionsnamn, klassnamn och objektnamn som alla är
+identifierare.</p>
+<p>Identifierare i Python:</p>
+<ul>
+<li>Kan bestå av bokstäver, siffror, och <code>_</code>.</li>
+<li>Får inte börja med siffra.</li>
+</ul>
+<p>Python skiljer på versaler och gemener; <code>Year</code> och
+<code>year</code> är inte samma identifierare.</p>
+<p>Det är viktigt att välja identifierare så att koden blir lätt att
+läsa. Att döpa en variabel som innehåller någons ålder till
+<code>age</code> är mycket mer informativt än till exempel bara
+<code>x</code>.</p>
+</div>
+<div id="litteraler" class="section level2">
+<h2>Litteraler</h2>
+<p>En litteral är ett konstant värde som man skriver i programkoden.
+Till exempel <code>17</code>, <code>2.5</code>, och <code>'SU'</code> är
+alla litteraler.</p>
+<p>Undvik helst att ha litteraler spridda över programmet! Att använda
+en litteral i ett uttryck kallas ibland för att “hårdkoda” ett värde,
+och avser det faktum att värde är fixerat på den platsen i koden. Det är
+bättre att använda sig av en variabel som definierats på lämplig plats,
+kanske högst upp i programmet. En variabel är ofta lättare att förstå,
+givet att man har en lämplig identifierare, än en konstant som dyker upp
+i programmet. Dessutom så minskar risken för programmeringsfel. Om en
+konstant används på flera platser i ett program så kanske man inte
+kommer ihåg att ändra på alla platser om man har anledning att byta
+värde på konstanten. Om man använder en variabel, som definieras på en
+rad, så är det endast en plats som man antagligen behöver editera.</p>
+</div>
+</div>
+<div id="uppgifter-1" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Vad händer om vi kör nedanstående kod och varför blir det som det
+blir? Undersök!</p>
+<p>dc_light_exercise_unnamed-chunk-22
+<!-- #Svar:  byte av värde  --></p></li>
+<li><p>Nedan har vi kod som definierar variablerna <code>x</code> och
+<code>y</code> med tilldelade värden. Hitta på ett aritmetiskt uttryck i
+<code>x</code> och <code>y</code> som ger värdet</p>
+<ol start="100" style="list-style-type: decimal">
+<li>dc_light_exercise_unnamed-chunk-23
+<!-- #Svar:  (x - y - y)**2  --></li>
+</ol></li>
+<li><p>Låt</p>
+<p>dc_light_exercise_unnamed-chunk-24</p>
+<p>Skriv kod som skriver ut
+<code>'hejhejhejhejhejhejhejhejhejhejhejhejhejhejhejhej'</code> (det
+vill säga, <code>hej</code> sexton gånger på raken).</p></li>
+</ol>
+<!-- #Svar:  s*16  -->
+<ol start="4" style="list-style-type: decimal">
+<li><p>Låt</p>
+<p>dc_light_exercise_unnamed-chunk-25</p>
+<p>Skriv kod som skriver ut
+<code>'hejhejhejhejhejhejhejhejhejhejhejhejhejhejhejhej'</code> genom
+att bara använda operatorn <code>+</code>, men så få gånger som
+möjligt.</p></li>
+</ol>
+<!-- #Svar:  s2 = s+s; s4 = s2+s2; s8 = s4+s4; s16= s8+s8  -->
+<ol start="5" style="list-style-type: decimal">
+<li><p>Skriv kod som frågar användaren om dess förnamn och efternamn
+samt sparar resultatet i två variabler. Skriv sedan ut dessa. Ta
+inspiration från stycket ‘Input’ ovan (). Till exempel ska det fungera
+så här: </p>
+<p>dc_light_exercise_unnamed-chunk-26</p></li>
+<li><p>Skriv kod som frågar användaren om dess ålder (spara i variabeln
+<code>age</code>) samt favorittal (spara i variabeln <code>num</code>).
+Vad händer om du adderar dessa variabler? Blir det vad du förväntar dig?
+Vad drar du för slutsatser om <code>age</code> och
+<code>num</code>?</p></li>
+</ol>
+<!-- * Installera Python-miljön och Anaconda.
+* Experimentera med att använda `python` som miniräknare.
+* Läs kapitel 1 och 2 i kursboken om du har den.
+* Börja läsa på [https://www.learnpython.org/](https://www.learnpython.org/)
+* Börja jobba på första labben! -->
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
