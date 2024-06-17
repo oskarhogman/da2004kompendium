@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-17" />
+
+<title>Kapitel 5</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DA2004 Programmersteknik</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Förord</a>
+</li>
+<li>
+  <a href="kapitel1.html">1: Kom igång med Python</a>
+</li>
+<li>
+  <a href="kapitel2.html">2: Grunder i Python-programmering</a>
+</li>
+<li>
+  <a href="kapitel3.html">3: Listor och iteration</a>
+</li>
+<li>
+  <a href="kapitel4.html">4: Uppslagstabeller, filhantering och mer om loopar</a>
+</li>
+<li>
+  <a href="kapitel5.html">5: Felhantering, särfall, listomfattning, och felsökning</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kapitel 5</h1>
+<h4 class="date">2024-06-17</h4>
+
+</div>
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<p>Det blir fel ibland, även när man kör program, och felen måste då
+hanteras. När man programmerar är det typiskt status på en funktion man
+är intresserad av: gick beräkningen bra eller har det uppstått ett fel?
+Hur fortsätter vi efter felet?</p>
+<p>Hittills i kompendiet har vi definierat funktioner som returnerar
+resultat (värden), samt att något instruktivt meddelande kanske har
+skrivits ut med hjälp av att anropa <code>print</code>. Alternativt har
+programmet bara kraschat eller fastnat i en oändlig loop.</p>
+<p>I detta kapitel kommer vi att undersöka hur osäker kod vid fel kan
+påkalla, eller “lyfta”, ett <strong>särfall</strong>. Detta kan hanteras
+på ett lämpligt sätt med hjälp av <strong>felhantering</strong> vilket i
+Python görs med <code class="python">try</code> och <code
+class="python">except</code>.</p>
+<p>Vi ska även i slutet av kapitlet titta på ett helt annat koncept:
+listomfattningar. Detta är ett smidigt sätt att skapa och modifiera
+listor, som ofta är mycket mer kompakt än att skriva en loop.</p>
+<div id="felhantering-och-särfall" class="section level1">
+<h1>Felhantering och särfall</h1>
+<p>Ett naivt sätt att hantera fel i program är att returnera en felkod i
+form av ett tal eller en sträng. Vi ska nu börja med att titta på hur
+detta kan se ut, men sen snabbt gå över till att titta på hur fel kan
+hanteras bättre med hjälp av särfall.</p>
+<div id="felhantering-med-hjälp-av-returnerade-felkoder"
+class="section level2">
+<h2>Felhantering med hjälp av returnerade felkoder</h2>
+<p>Att förlita sig på returvärden för felhantering ger komplexa program
+som tenderar att bli svårlästa. Många funktionsanrop måste följas av
+<code class="python">if</code>-satser för att se om ett fel uppstod som
+man måste anpassa sig efter. Om ett fel uppstod kan det bli knepigt att
+återgå till en bra plats i programmet. Erfarenheten är att programmerare
+undviker den ökade komplexiteten i sitt program genom att ignorera de
+returnerade felkoderna vilket ger instabila program som lätt kraschar.
+Denna typ av felhantering förekommer ofta i t.ex. C, Fortran och andra
+äldre programmeringsspråk.</p>
+<p>Ett exempel på denna gamla teknik följer nedan där vi anropar en
+funktion som ska modifiera en lista. Alla returkoder förutom 0
+signalerar att något fel har skett.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkaXZpZGVfbGlzdChsLHgpOlxuICAgIGlmIHR5cGUoeCkgIT0gaW50IG9yIHR5cGUoeCkgIT0gZmxvYXQ6XG4gICAgICAgIHJldHVybiAxMVxuICAgIGVsaWYgeCA9PSAwOlxuICAgICAgICByZXR1cm4gLTFcbiAgICBlbHNlOlxuICAgICAgICAjIGNoZWNrIHRoYXQgZWxlbWVudHMgaW4gbGlzdCBhcmUgaW50ZWdlcnNcbiAgICAgICAgaWYgbm90IGFsbChbIHR5cGUoaXRlbSkgPT0gaW50IGZvciBpdGVtIGluIGxdKTpcbiAgICAgICAgICAgIHJldHVybiAxMlxuICAgICAgICBmb3IgaSBpbiByYW5nZShsZW4obCkpOlxuICAgICAgICAgICAgbFtpXSA9IGxbaV0veCAjIHdlIGFyZSBtb2RpZnlpbmcgdGhlIGxpc3QgaXRlbXMgaGVyZVxuICAgICAgICByZXR1cm4gMFxuXG5yZXR1cm5fY29kZSA9IGRpdmlkZV9saXN0KGwseClcbmlmIHJldHVybl9jb2RlID09IC0xOlxuICAgICMgZG8gc29tZXRoaW5nXG5lbGlmIHJldHVybl9jb2RlID09IDExOlxuICAgICMgZG8gc29tZXRoaW5nIGVsc2UuLi5cbmVsaWYgcmV0dXJuX2NvZGUgPT0gMTI6XG4gICAgIyBkbyBzb21ldGhpbmcgZWxzZS4uLlxuZWxpZiByZXR1cm5fY29kZSA9PSAwOlxuICAgICMgZ29vZCEifQ==
+</div>
+<p>Denna kod är ganska rörig och onödigt komplicerad. Många moderna
+språk stödjer därför specifika sätt att hantera fel på genom så kallade
+“särfall” (eng: <em>exceptions</em>, ibland översatt till
+“undantag”).</p>
+</div>
+<div id="särfall" class="section level2">
+<h2>Särfall</h2>
+Python använder sig av de reserverade orden <code
+class="python">try</code> och <code class="python">except</code> för att
+dela in koden i block som vi inte litar på, vi kan kalla dem osäkra
+passager, och block som exekveras vid ett särfall med syfte att hantera
+problemet. Här är grundstrukturen:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InRyeTpcbiAgICMgdW5zYWZlIGNvZGVcbiAgIC4uLlxuZXhjZXB0OlxuICAgIyBhY3Rpb25cbiAgIC4uLlxuXG4jIFJlc3Qgb2YgdGhlIGNvZGVcbi4uLiJ9
+</div>
+<p>Konstruktionen <code class="python">try</code> lägger man alltså runt
+ett kodblock som kan betraktas som en osäker passage (<code
+class="python"># unsafe code</code> ovan) och efter <code
+class="python">except</code> lägger man de åtgärder som man hanterar
+eventuella problem med. Indenteringen är viktig här, precis som vid
+funktionsdefinitioner, villkorssatser och kontrollflöden. Blocket som
+hör till <code class="python">except</code>-satsen (<code
+class="python"># action</code>) exekveras endast om ett fel har gett ett
+särfall i den osäkra passagen under <code
+class="python">try</code>-satsen: om inget fel har uppstått fortsätter
+koden utan att <code class="python">except</code>-blocket körs. Om ett
+fel uppstår, så kan åtgärderna under <code class="python">except</code>
+antingen avsluta exekveringen av programmet eller så kan felet behandlas
+på något annat sätt (t.ex. ignoreras, även om man ska vara försiktig med
+att strunta i fel som ger ett särfall).</p>
+<div id="exempel-läsa-in-ett-heltal-från-användaren"
+class="section level3">
+<h3>Exempel: läsa in ett heltal från användaren</h3>
+<p>Betrakta följande kodsnutt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IndoaWxlIFRydWU6XG4gICAgYW5zd2VyID0gaW5wdXQoXCJXcml0ZSBhIG51bWJlciAod3JpdGUgMCB0byBxdWl0KTogXCIpXG4gICAgeCA9IGludChhbnN3ZXIpXG4gICAgaWYgeCA9PSAwOlxuICAgICAgICBwcmludChcIkJ5ZSBieWUhXCIpXG4gICAgICAgIGJyZWFrXG4gICAgZWxzZTpcbiAgICAgICAgcHJpbnQoXCJUaGUgc3F1YXJlIG9mIHRoZSBudW1iZXIgaXM6IFwiICsgc3RyKHggKiogMikpIn0=
+</div>
+<p>Vad händer om användaren skriver in något annat än ett tal?</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IldyaXRlIGEgbnVtYmVyICh3cml0ZSAwIHRvIHF1aXQpOiBoZWoifQ==
+</div>
+<pre class="python"><code>ValueError: invalid literal for int() with base 10: &#39;hej&#39;</code></pre>
+<p>Detta är, som vi sett tidigare, en konsekvens av att resultatet av
+<code>input</code> alltid har typen <code>str</code>, och att det inte
+alltid går att explicit typomvandla från <code>str</code> till <code
+class="python">int</code>. Här är <code class="python">ValueError</code>
+ett särfall: värdet av inparametern (<code class="python">'hej'</code>)
+till <code>int</code> är felaktigt. Om man istället använder sig av
+<code class="python">try/except</code>-sats så kan felet hanteras på
+rätt sätt:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IndoaWxlIFRydWU6XG4gICAgdHJ5OlxuICAgICAgICBhbnN3ZXIgPSBpbnB1dChcIldyaXRlIGEgbnVtYmVyICh3cml0ZSAwIHRvIHF1aXQpOiBcIilcbiAgICAgICAgeCA9IGludChhbnN3ZXIpXG4gICAgICAgIGlmIHggPT0gMDpcbiAgICAgICAgICAgIHByaW50KFwiQnllIGJ5ZSFcIilcbiAgICAgICAgICAgIGJyZWFrXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICBwcmludChcIlRoZSBzcXVhcmUgb2YgdGhlIG51bWJlciBpczogXCIgKyBzdHIoeCAqKiAyKSlcbiAgICBleGNlcHQgVmFsdWVFcnJvcjpcbiAgICAgICAgcHJpbnQoXCJZb3UgbXVzdCB3cml0ZSBhIG51bWJlciFcIikifQ==
+</div>
+<p>I koden ovan fångas alla särfall av typ <code
+class="python">ValueError</code> som lyfts i <code
+class="python">try</code>-blocket. Om ett annat typ av särfall skulle
+påträffas skulle programmet avslutas. Man kan även fånga <em>alla</em>
+fel med endast <code class="python">except</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IndoaWxlIFRydWU6XG4gICAgdHJ5OlxuICAgICAgICBhbnN3ZXIgPSBpbnB1dChcIldyaXRlIGEgbnVtYmVyICh3cml0ZSAwIHRvIHF1aXQpOiBcIilcbiAgICAgICAgeCA9IGludChhbnN3ZXIpXG4gICAgICAgIGlmIHggPT0gMDpcbiAgICAgICAgICAgIHByaW50KFwiQnllIGJ5ZSFcIilcbiAgICAgICAgICAgIGJyZWFrXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICBwcmludChcIlRoZSBzcXVhcmUgb2YgdGhlIG51bWJlciBpczogXCIgKyBzdHIoeCAqKiAyKSlcbiAgICBleGNlcHQ6XG4gICAgICAgIHByaW50KFwiWW91IG11c3Qgd3JpdGUgYSBudW1iZXIhXCIpIn0=
+</div>
+<p>För att koden ska bli så överskådlig och tydlig som möjligt, vill man
+dock helst skriva så lite kod som möjligt innanför <code
+class="python">try</code>-blocket. Genom att vara specifik i sin avsikt
+kan exemplet ovan förbättras till följande:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IndoaWxlIFRydWU6XG4gICAgYW5zd2VyID0gaW5wdXQoXCJXcml0ZSBhIG51bWJlciAod3JpdGUgMCB0byBxdWl0KTogXCIpXG4gICAgdHJ5OlxuICAgICAgICB4ID0gaW50KGFuc3dlcilcbiAgICBleGNlcHQgVmFsdWVFcnJvcjpcbiAgICAgICAgcHJpbnQoXCJZb3UgbXVzdCB3cml0ZSBhIG51bWJlciFcIilcbiAgICAgICAgY29udGludWVcblxuICAgIGlmIHggPT0gMDpcbiAgICAgICAgcHJpbnQoXCJCeWUgYnllIVwiKVxuICAgICAgICBicmVha1xuICAgIGVsc2U6XG4gICAgICAgIHByaW50KFwiVGhlIHNxdWFyZSBvZiB0aGUgbnVtYmVyIGlzOiBcIiArIHN0cih4ICoqIDIpKSJ9
+</div>
+<p>Med <code>continue</code> ser vi till att starta om
+<code>while</code>-loopen, innan <code>x</code> börjar användas. Vi har
+identifierat att det bara är typkonverteringen som kan orsaka
+problem.</p>
+</div>
+<div id="exempel-beräkna-längden-av-rader-i-en-fil"
+class="section level3">
+<h3>Exempel: beräkna längden av rader i en fil</h3>
+<p>Låt oss säga att vi vill beräkna längden på alla rader i en fil:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBsZW5fZmlsZShmaWxlbmFtZSk6XG4gICAgd2l0aCBvcGVuKGZpbGVuYW1lLCAncicpIGFzIGg6XG4gICAgICAgIGZvciBzIGluIGg6XG4gICAgICAgICAgICBwcmludChsZW4ocykpXG5cbmxlbl9maWxlKFwiZm9vLnR4dFwiKSJ9
+</div>
+<p>Om filen <code>foo.txt</code> inte finns får vi följande</p>
+<pre class="python"><code>FileNotFoundError: [Errno 2] No such file or directory: &#39;foo.txt&#39;</code></pre>
+<p>Det är bättre att skriva:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBsZW5fZmlsZShmaWxlbmFtZSk6XG4gICAgdHJ5OlxuICAgICAgICB3aXRoIG9wZW4oZmlsZW5hbWUsICdyJykgYXMgaDpcbiAgICAgICAgICAgIGZvciBzIGluIGg6XG5cdCAgICAgICAgICAgIHByaW50KGxlbihzKSlcbiAgICBleGNlcHQgRmlsZU5vdEZvdW5kRXJyb3I6XG4gICAgICAgIHByaW50KFwiQ291bGQgbm90IG9wZW4gZmlsZSBcIiArIGZpbGVuYW1lICsgXCIgZm9yIHJlYWRpbmcuXCIpXG5cbmxlbl9maWxlKFwiZm9vLnR4dFwiKSJ9
+</div>
+<p>Fördelen är att vi får ett program som kommunicerar med ett mer
+lättläst felmeddelande till användare. Det “vanliga” sättet som Python
+signalerar fel med är mer till för programmerare. Genom att hantera fel
+som kan uppstå vid till exempel felhantering kan man göra sitt program
+mer användarvänligt.</p>
+</div>
+<div id="olika-åtgärder-för-specifika-särfall" class="section level3">
+<h3>Olika åtgärder för specifika särfall</h3>
+<p></p>
+<p>Det är mycket som kan gå fel och olika särfall kan man vilja hantera
+på olika sätt. I nästa exempel så görs separata åtgärder för om något
+går fel vid filinläsningen, om ett tal delas på noll, eller om den
+inlästa strängen från filen inte kan typomvandlas till ett heltal.
+Notera att åtgärden inte behöver placeras nära platsen där felet
+uppstår.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkaXZpZGVfYnlfZWxlbXMoZmlsZW5hbWUseCk6XG4gICAgcXVvdGllbnRzID0gW11cbiAgICB3aXRoIG9wZW4oZmlsZW5hbWUsICdyJykgYXMgaDpcbiAgICAgICAgZm9yIG4gaW4gaDpcbiAgICAgICAgICAgIGZyYWMgPSB4IC8gaW50KG4pXG4gICAgICAgICAgICBxdW90aWVudHMuYXBwZW5kKGZyYWMpXG4gICAgcmV0dXJuIHF1b3RpZW50c1xuXG5cbnRyeTpcbiAgICBkYXRhID0gZGl2aWRlX2J5X2VsZW1zKCdudW1iZXJzLnR4dCcsIDIpXG5leGNlcHQgSU9FcnJvcjpcbiAgICBwcmludChcImRpdmlkZV9ieV9lbGVtczogQSBmaWxlLXJlbGF0ZWQgcHJvYmxlbSBvY2N1cmVkLlwiKVxuZXhjZXB0IFplcm9EaXZpc2lvbkVycm9yOlxuICAgIHByaW50KFwiZGl2aWRlX2J5X2VsZW1zOiBEaXZpc2lvbiBieSB6ZXJvLlwiKVxuZXhjZXB0IFZhbHVlRXJyb3I6XG4gICAgcHJpbnQoXCJkaXZpZGVfYnlfZWxlbXM6IENoYXJhY3RlciBjb3VsZCBub3QgYmUgY29udmVydGVkIHRvIGludC5cIilcblxucHJpbnQoZGF0YSkifQ==
+</div>
+<p>Om koden ovan skulle köras med en fil <code>numbers.txt</code> som
+innehåller följande: </p>
+<pre id="numbers"><code>1
+2
+O
+4
+3
+0</code></pre>
+<p>så genereras och fångas ett särfall. Vilket? Kan du provocera fram de
+två andra särfallen?</p>
+</div>
+<div id="särfall-för-kontrollflöde" class="section level3">
+<h3>Särfall för kontrollflöde</h3>
+<p>Man kan även använda särfall för kontrollflöde i sitt program. Låt
+oss säga att vi vill beräkna kvoten mellan varje element i två listor
+(och ignorera alla element i slutet av den längre listan), men inte
+krascha om det blir division med noll. Då kan vi skriva följande:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBjb21wdXRlX3JhdGlvcyh4cyx5cyk6XG4gICAgcmF0aW9zID0gW11cbiAgICBmb3IgaSBpbiByYW5nZShtaW4obGVuKHhzKSxsZW4oeXMpKSk6XG4gICAgICAgIHRyeTpcbiAgICAgICAgICAgIHJhdGlvcy5hcHBlbmQoeHNbaV0veXNbaV0pXG4gICAgICAgIGV4Y2VwdCBaZXJvRGl2aXNpb25FcnJvcjpcbiAgICAgICAgICAgIHJhdGlvcy5hcHBlbmQoZmxvYXQoJ05hTicpKSAjIE5hTiA9IE5vdCBhIE51bWJlclxuICAgIHJldHVybiByYXRpb3NcblxucHJpbnQoY29tcHV0ZV9yYXRpb3MoWzIsMyw0XSxbMiwwLDVdKSlcbnByaW50KGNvbXB1dGVfcmF0aW9zKFsyLDMsNCwwXSxbMiwwLDVdKSkifQ==
+</div>
+<p>I detta fall hade vi dock lika gärna kunnat använda en <code
+class="python">if</code>-sats och testat om <code>ys[i] == 0</code>. Mer
+om detta senare.</p>
+</div>
+</div>
+<div id="allmänt-om-särfall" class="section level2">
+<h2>Allmänt om särfall</h2>
+<p>Det anses vara idiomatisk Python att använda sig av <code
+class="python">try-except</code>. Det är inte ovanligt att när man läser
+om Python-kod ser <em>EAFP</em>, som står för <em>It’s Easier to Ask
+Forgiveness than Permission</em>. Det här kontrasteras mot <em>Look
+Before You Leap (LBYL)</em>. Det är inte menat att man ska
+<em>överanvända</em> <code class="python">try-except</code>: särfall som
+uppstår kan ibland ge den tydligaste informationen. Varje möjliga
+särfall i kod är inte menat att behandlas. Men osäkra passager där man
+har en tydlig åtgärd i åtanke är ett bra användningsområde.</p>
+<p>Så vad är en osäker passage i ett program? Typiskt är:</p>
+<ul>
+<li>All filhantering.</li>
+<li>Kommunikation med användare.</li>
+<li>Kod som annonserar osäkerhet i dokumentationen (“throws exception
+if…”).</li>
+<li>Kod som man vet eller upptäcker är osäker (t.ex. om man
+implementerar en algoritm som är instabil).</li>
+</ul>
+<p>Det finns flera vanliga åtgärder när man fångat ett särfall:</p>
+<ul>
+<li><strong>Skriv ut felmeddelande och avsluta:</strong> det gör man
+till exempel om data saknas eller om felet är så allvarligt att det inte
+finns rimliga sätt att fortsätta.</li>
+<li><strong>Skriv ut varning, ignorera felet, och fortsätt:</strong> om
+man har konstiga indata som man kan bortse ifrån, och beräkningarna kan
+fortsätta ändå.</li>
+<li><strong>Hantera felet och fortsätt:</strong> fungerar bra för en del
+förutsägbara fel, om man t.ex. får en dålig inmatning från en användare
+kan man ju be om ett nytt försök.</li>
+<li><strong>Skapa ett nytt särfall:</strong> det är lämpligt om du har
+kod där flera fel kan uppstå, men där felet kan sammanfattas bättre i
+ett visst sammanhang. Om en algoritm är instabil så kanske <code
+class="python">ArithmeticError</code> är ett bättre fel än <code
+class="python">ZeroDivisionError</code>, eftersom användaren av
+algoritmen känner till algoritmens svaghet men kanske inte kan associera
+det med division med noll.</li>
+</ul>
+<p>Det finns också åtgärder man ska undvika:</p>
+<ul>
+<li><strong>Ignorera inte felet!</strong> Det värsta man kan ha efter
+<code class="python">except</code> är instruktionen <code
+class="python">pass</code>. Som användare blir det väldigt svårt att
+veta vad och var någonting går fel. Python har lyft ett särfall, men man
+har som programmerare bestämt att strunta i detta. Resultatet blir ofta
+att man får konstiga följdfel på en helt annan plats i koden.</li>
+<li>För <strong>allvarliga</strong> fel <em>räcker inte</em> en
+felutskrift. Det är inte snyggt att låta ett program fortsätta om felet
+är så allvarligt att man vet att det kommer uppstå ett annat fel senare.
+Vissa fel ska helt enkelt avbryta ett program.</li>
+</ul>
+</div>
+<div id="hantera-egna-stabilitetsproblem" class="section level2">
+<h2>Hantera egna stabilitetsproblem</h2>
+<p>Det är inte nödvändigtvis en svaghet att problem uppstår. Det är
+svårt, om inte helt omöjligt, att t.ex.:</p>
+<ul>
+<li>Förutse formatet på <em>all</em> möjlig indata.</li>
+<li>Se till att <em>alla</em> användare (inklusive du själv) anropar
+funktioner helt rätt.</li>
+</ul>
+<p>I Python finns många specifika särfall definierade (se <a
+href="https://docs.python.org/3/library/exceptions.html">dokumentationen</a>
+för en detaljerad beskrivning):</p>
+<ul>
+<li><code class="python">Exception</code></li>
+<li><code class="python">ArithmeticError</code></li>
+<li><code class="python">IOError</code></li>
+<li><code class="python">IndexError</code></li>
+<li><code class="python">MemoryError</code></li>
+<li><code class="python">ZeroDivisionError</code></li>
+<li>m.m.fl.</li>
+</ul>
+<p>I Python är särfall inte bara en textsträng eller felkod som skrivs,
+särfallet är en klass (klasser kommer att behandlas i mer detalj senare
+i kompendiet). Det gör det möjligt att lätt skapa egna
+särfallsvarianter, som är baserade på de existerande särfallen.</p>
+<p>Man kan även lyfta ett generellt särfall med det reserverade ordet
+<code class="python">raise</code> (det är härifrån termen “lyfta”
+kommer). I t.ex. Java och C++, åstadkoms detta med hjälp av
+<code>throw</code>. Om vi t.ex. vill ta ut första elementet ur en lista
+och kasta ett fel om listan är tom kan vi skriva:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBoZWFkKHhzKTpcbiAgIGlmIG5vdCB4czpcbiAgICAgIHJhaXNlIEV4Y2VwdGlvbihcImhlYWQ6IGlucHV0IGxpc3QgaXMgZW1wdHlcIilcbiAgIGVsc2U6XG4gICAgICByZXR1cm4geHNbMF1cblxudHJ5OlxuICAgIHByaW50KGhlYWQoW10pKVxuZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOlxuICAgIHByaW50KHN0cihlKSlcblxucHJpbnQoaGVhZChbXSkpIn0=
+</div>
+<pre class="python"><code>head: input list is empty
+# specific information about where the exception was caught
+Exception: head: input list is empty</code></pre>
+<p>Notera att koden fortsätter efter <em>första</em> gången
+<code>head</code> anropades i <code
+class="python">try-except</code>-blocket: endast <em>strängen</em> med
+felmeddelandet skrivs ut. Man kan “spara” särfallet i en variabel som
+man vidare kan använda (för t.ex. information, eller om man vill lyfta
+särfallet <em>efter</em> man utfört en viss operation som att spara
+något till en fil) genom <code
+class="python">except Exception as e</code>, där <code>e</code> är
+identifieraren för det fångade särfallet. Strängen med felmeddelandet
+fås genom <code>str(e)</code>. <em>Andra</em> gången <code>head</code>
+anropas så lyfts särfallet som stöts på i funktionen: samma information
+skrivs ut igen men man ser att det är <code
+class="python">Exception</code> som sköter särfallet snarare än <code
+class="python">except</code>-blocket och programmet
+<em>avslutas</em>.</p>
+<p>Nyckelordet <code class="python">raise</code> är användbart för att
+skriva mer detaljerade felmeddelanden, eller när ett “fel” uppstår som
+inte täcks av Pythons felhantering. Ett exempel på ett sådant fel är om
+en algoritm som vi skrivit måste bibehålla ett värde på en parameter
+<code>h</code> större än <code>0.01</code> om algoritmen ska fungera
+(tänk t.ex. steglängd på x-axeln för att hitta nollställe till polynom).
+Vi kan då skriva något i stil med</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBteV9hbGdvcml0aG0oeCwgaCk6XG4gICAgd2hpbGUgVHJ1ZTpcbiAgICAgICAgaWYgaCA8IDAuMDE6XG4gICAgICAgICAgICByYWlzZSBBcml0aG1ldGljRXJyb3IoJ1N0ZXBzaXplIGggc2hvdWxkIG5vdCBiZSBzbWFsbGVyIHRoYW4gMC4wMS5cXFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBUaGUgdmFsdWUgb2YgaCB3YXM6JywgaClcblxuICAgICAgICAjIGNoZWNrIHBvbHlub21pYWwgcm9vdFxuICAgICAgICAuLi5cblxuICAgICAgICAjIHVwZGF0ZSBoXG4gICAgICAgIC4uLiJ9
+</div>
+</div>
+<div id="vad-du-skriver-påverkar-hur-du-jobbar-med-särfall"
+class="section level2">
+<h2>Vad du skriver påverkar hur du jobbar med särfall</h2>
+<p>Man kan säga att det finns olika scenarier för användning av
+särfall.</p>
+<ul>
+<li><p><strong>Applikationsprogrammering:</strong> Om du skriver ett
+program som använder kod från olika moduler, såväl egna och som andras,
+så kommer det finnas funktioner och metoder som genererar särfall. Det
+blir då viktigt att använda <code class="python">try-except</code> för
+att ta om hand om de särfall som kan uppstå. Programmet ska inte
+avslutas på grund av problem som kunnat förutses och som det kanske
+finns enkla lösningar till. Man kan också vilja undvika att användaren
+av ditt program (du själv eller andra) ska behöva se och tolka
+felmeddelanden.</p>
+<p>Några exempel:</p>
+<ul>
+<li>Om ett särfall uppstår på grund av dålig indata, då ska man tala om
+det på ett tydligt sätt. Att släppa igenom ett felmeddelande från ett
+särfall är inte användarvänligt, eftersom den egentliga orsaken ofta
+inte alls förklarar varför särfallet uppstått.</li>
+<li>Om ett särfall uppstår på grund av, exempelvis, numerisk
+instabilitet eller osäkerheter i omgivningen (som att en fil med ett
+visst namn redan finns) så vill man antagligen hantera det på ett bra
+sätt istället för att slänga ett särfall i ansiktet på användaren.</li>
+</ul></li>
+<li><p><strong>Stödprogrammering:</strong> Det är mycket vanligt att man
+skriver kod som är stöd till det program man verkligen vill skriva. Om
+ditt mål är att skriva en egen variant av Matlab så behöver du många
+funktioner som gör beräkningar; om du vill analysera data lagrade i ett
+komplicerat format kanske det är bra att ha en modul som just hanterar
+data så att du senare kan fokusera på beräkningarna. Dessa stödrutiner
+kan stöta på problem som måste signaleras till användaren och det görs
+lämpligen genom att använda <code>raise</code> till att skapa ett
+särfall.</p></li>
+</ul>
+<p>Python talar om <em>att</em> ett fel uppstått. Du som programmerare
+kan tala om <em>varför</em> ett fel har uppstått.</p>
+</div>
+<div id="vanliga-misstag" class="section level2">
+<h2>Vanliga misstag</h2>
+<div id="if-sats-istället-för-särfall-för-flödeskontroll"
+class="section level3">
+<h3><code>if</code>-sats istället för särfall för flödeskontroll</h3>
+<p>Det kan vara lockande att använda <code class="python">except</code>
+för flödeskontroll, men ofta är det bättre att istället använda <code
+class="python">if</code>-satser. Till exempel i denna kod:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBlbGVtX2FjY2Vzcyh4cyxpKTpcbiAgICB0cnk6XG4gICAgICAgIGlmIGkgPj0gbGVuKHhzKTpcbiAgICAgICAgICAgIHJhaXNlIEluZGV4RXJyb3JcbiAgICBleGNlcHQgSW5kZXhFcnJvcjpcbiAgICAgICAgcHJpbnQoXCJJbmRleCBpcyBvdXQgb2YgcmFuZ2UuXCIpXG4gICAgcmV0dXJuIHhzW2ldIn0=
+</div>
+Det är ju ingen poäng med att först skapa ett särfall och sedan genast
+fånga det. Ett annat misstag i just detta exempel är att om det uppstår
+ett fel, så <em>fortsätter</em> programmet efter en felutskrift, här med
+att försöka komma åt element <code>i</code> trots att <code>i</code> är
+för stort. Om man fångar ett särfall så ska man hantera det på något
+sätt. Det är ofta rimligt att avsluta programmet med ett felmeddelande
+och <code>quit()</code>. I det här fallet, när <code
+class="python">elem_access</code> verkar vara en hjälpfunktion, är det
+bättre att bara skapa ett särfall vid problem och låta användaren av
+hjälpfunktionen bestämma vad man ska göra.
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBlbGVtX2FjY2Vzcyh4cyxpKTogICAjIEJcdTAwZTR0dHJlIHZlcnNpb25cbiAgICBpZiBpID49IGxlbih4cyk6XG4gICAgICAgIHJhaXNlIEluZGV4RXJyb3JcbiAgICByZXR1cm4geHNbaV0ifQ==
+</div>
+</div>
+<div id="överanvändning" class="section level3">
+<h3>Överanvändning</h3>
+<p>Använd inte särfall för att tackla att kod inte fungerar som du hade
+tänkt dig.</p>
+<p>I exemplet nedan skapas en ny uppslagstabell <code>d</code> för
+nycklar <code>e</code>, tagna från en lista, genom att anropa en
+funktion som använder informationen i uppslagstabellen
+<code>data</code>. Tydligen har programmeraren märkt att alla värden
+från <code>selected</code> inte finns med i <code>data</code> och därför
+skyddat sig genom att fånga de <code class="python">KeyError</code>’s
+som kan uppstå:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhdGEgPSB7MSA6IFwiTWFrZSBiZWRcIixcbiAgICAgICAgMiA6IFwiU2hvd2VyXCIsXG4gICAgICAgIDQgOiBcIkVhdCBicmVha2Zhc3RcIn1cbnNlbGVjdGVkID0gWzEsMywyXVxuXG5kID0ge31cbmZvciBlbGVtIGluIHNlbGVjdGVkOlxuICAgIHRyeTpcbiAgICAgICAgZFtlbGVtXSA9IHBlcmZvcm1fdGFzayhkYXRhW2VsZW1dKVxuICAgIGV4Y2VwdCBLZXlFcnJvcjpcbiAgICAgICAgcHJpbnQoKSAgICAgICMgQmFkIGxpbmUgb2YgY29kZSEifQ==
+</div>
+Det är bättre att använda en <code class="python">if</code>-sats för att
+undvika felen:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRhdGEgPSB7MSA6IFwiTWFrZSBiZWRcIixcbiAgICAgICAgMiA6IFwiU2hvd2VyXCIsXG4gICAgICAgIDQgOiBcIkVhdCBicmVha2Zhc3RcIn1cbnNlbGVjdGVkID0gWzEsMywyXVxuXG5kID0ge31cbmZvciBlbGVtIGluIHNlbGVjdGVkOlxuICAgIGlmIGVsZW0gaW4gZGF0YTpcbiAgICAgICAgZFtlbGVtXSA9IHBlcmZvcm1fdGFzayhkYXRhW2VsZW1dKSJ9
+</div>
+</div>
+</div>
+</div>
+<div id="listomfattningar" class="section level1">
+<h1>Listomfattningar</h1>
+<p>Listomfattning (eng: <em>list comprehension</em>) är en teknik för
+att skapa listor som också är populär bland funktionella
+programmeringsspråk och därför ofta tas upp i det sammanhanget.
+Listomfattning är praktiskt för att initiera listor med värden att jobba
+vidare med. En fördel, som kanske ligger bakom listomfattningars
+populäritet, är att de kan vara mycket tydliga tack vare sin nära
+koppling till matematisk notation. Betrakta till exempel mängden av
+kvadrater av tal upp till <code>10</code>:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Ilt4KioyIGZvciB4IGluIHJhbmdlKDEwKV0ifQ==
+</div>
+<pre class="python"><code>[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</code></pre>
+<p>Man kan också filtrera bort elementen — inte alla behöver
+presenteras. Till exempel alla udda heltal upp till <code>20</code> kan
+skrivas så här:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Ilt4IGZvciB4IGluIHJhbmdlKDIwKSBpZiB4ICUgMiA9PSAxXSJ9
+</div>
+<pre class="python"><code>[1, 3, 5, 7, 9, 11, 13, 15, 17, 19]</code></pre>
+<p>(Man kan korta ner det uttrycket lite till, kan du se hur?)</p>
+<p>Vi kan även anropa på funktioner som konverterar element enligt något
+system</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB0cmFuc2Zvcm0oeCk6XG4gICAgaWYgeCAlIDIgPT0gMDpcbiAgICAgICAgcmV0dXJuIFwiRXZlblwiXG4gICAgaWYgeCAlIDMgPT0gMDpcbiAgICAgICAgcmV0dXJuIFRydWVcbiAgICBlbHNlOlxuICAgICAgICByZXR1cm4geFxucHJpbnQoW3RyYW5zZm9ybSh4KSBmb3IgeCBpbiByYW5nZSgyMCldKSJ9
+</div>
+<pre class="python"><code>[&#39;Even&#39;, 1, &#39;Even&#39;, True, &#39;Even&#39;, 5, &#39;Even&#39;, 7, &#39;Even&#39;, True]</code></pre>
+<p><strong>Sammanfattning</strong>: en listomfattning har tre delar:</p>
+<ul>
+<li>resultatdelen, med ett uttryck som ger elementen i resultatet,</li>
+<li>generatordelen, där <code class="python">for</code> används för att
+plocka fram värden till resultatdelen, och</li>
+<li>predikatdelen, som bestämmer vilka element som ska presenteras.</li>
+</ul>
+<p>Mer komplicerat exempel med nästlad loop:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6IlsoYSxiKSBmb3IgYSBpbiByYW5nZSgyLDgpIGZvciBiIGluIHJhbmdlKDIsOCkgaWYgYSAlIGIgPT0gMF0ifQ==
+</div>
+<pre class="python"><code>[(2, 2), (3, 3), (4, 2), (4, 4), (5, 5), (6, 2), (6, 3), (6, 6), (7, 7)]</code></pre>
+<p>Smidigt för att få alla kombinationer av element i två listor. Notera
+att utdata är en lista av <strong>tupler</strong>, dvs par av
+element.</p>
+<p>En användbar funktion som tar två listor med samma längd och gör en
+lista av tupler där man parat ihop elementen på samma index med varandra
+är <code>zip</code> (finns dock redan implementerat i python). Man
+skriver den lätt med en listomfattning.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiB6aXAoeHMseXMpOlxuICAgIGlmIGxlbih4cykgIT0gbGVuKHlzKTpcbiAgICAgICAgcHJpbnQoXCJ6aXAgdW5lcXVhbCBsZW5ndGhzIVwiKVxuICAgICAgICByZXR1cm4gW11cbiAgICByZXR1cm4gWyAoeHNbaV0seXNbaV0pIGZvciBpIGluIHJhbmdlKGxlbih4cykpIF0ifQ==
+</div>
+<div id="dict-omfattningar" class="section level2">
+<h2><code>dict</code>-omfattningar</h2>
+<p>Listomfattning är den traditionella tekniken, men i Python har man
+generaliserat dessa till uppslagstabeller (och mängder som kommer i
+senare kapitel). Man kan alltså skapa uppslagstabeller med
+<code>dict</code>-omfattning (eng.
+<code>dict</code><em>-comprehensions</em>). Man måste i dessa fall se
+till att man skapar både nycklar och värden:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im15X2RpY3QgPSB7eDogeCAqKiAyIGZvciB4IGluICgyLCA0LCA2KX1cbnByaW50KG15X2RpY3QpIn0=
+</div>
+<pre class="python"><code>{2: 4, 4: 16, 6: 36}</code></pre>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InNxdWFyZXMgPSB7c3RyKHgpICsgJ14yJzogeCAqKiAyIGZvciB4IGluIHJhbmdlKDQpfVxucHJpbnQoc3F1YXJlcykifQ==
+</div>
+<pre class="python"><code>{&#39;0^2&#39;: 0, &#39;1^2&#39;: 1, &#39;2^2&#39;: 4, &#39;3^2&#39;: 9}</code></pre>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImxzdCA9IFsnMScsICc0MicsICcxMyddXG5teV9kaWN0MiA9IHsna2V5XycgKyB4OiBpbnQoeCkgZm9yIHggaW4gbHN0fVxucHJpbnQobXlfZGljdDIpIn0=
+</div>
+<pre class="python"><code>{&#39;key_1&#39;: 1, &#39;key_42&#39;: 42, &#39;key_13&#39;: 13}</code></pre>
+</div>
+</div>
+<div id="felsökning" class="section level1">
+<h1>Felsökning</h1>
+<p>När man programmerar drabbas man av misstag, missförstånd, och
+felbedömningar. Det skapar fel i koden, som ibland kallas för “buggar”
+och är en försvenskning av det engelska ordet “bug” som betyder insekt,
+men har också använts som benämning på fel i tekniska system redan innan
+datorer började byggas. Buggar kan få program att krascha, det vill säga
+att programmet avbryts abrupt eftersom det inte går att fortsätta, eller
+bara orsaka ett felaktigt resultat som kanske inte ens märks. Man ska
+därför vara glad över felmeddelanden: det är ju betydligt värre med fel
+som man inte är medveten om.</p>
+<p>Vi kan dela in programmeringsfel som språkliga misstag och körfel
+(“runtime errors”). Språkliga misstag fångas av kompilatorn och är
+oftast lätta att förstå när man har lärt sig programmeringsspråket. Det
+kan vara svårare med körfelen, eftersom man ofta upptäcker symptom, det
+vill säga konsekvenser av misstag eller problem. Det felmeddelande man
+får talar alltså inte alltid om vilket det egentliga felet är, utan är
+ett symptom på det egentliga felet. Som exempel: om ditt program
+kraschar på grund av att en uppslagstabell saknar den nyckel som används
+för en uppslagning, så är kanske uppslagningen i sig inte felet, utan
+det kan vara att fel nyckel används eller så har nyckeln inte har lagts
+in. Det är sällan rätt att “bota” symptom på fel när man programmerar,
+utan det är viktigt att lösa det underliggande problemet. I exemplet med
+uppslagstabeller är det därför inte en lösning att lägga till kod så att
+inget händer om en nyckel inte hittas i uppslagstabellen, utan man bör
+istället fastställa varför nyckeln används eller varför nyckeln inte
+finns inlagd.</p>
+<div id="exempel-på-fel" class="section level2">
+<h2>Exempel på fel</h2>
+<p>Fel kommer ofta av missförstånd. Man kanske missförstår en detalj i
+en algoritm eller har en felaktig idé om hur indata faktiskt ser ut.
+Ibland har man missförstått det programmeringsspråk man arbetar i och
+det är lätt hänt eftersom det finns många detaljer att hålla reda
+på.</p>
+<p>Vi kan titta på några exempel på återkommande fel, för att visa vad
+man kan behöva vara uppmärksam på.</p>
+<div id="exempel-problem-vid-sortering" class="section level3">
+<h3>Exempel: problem vid sortering</h3>
+Antag att du behöver sortera en lista med tal och experimenterar med den
+här snutten kod:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImxzdCA9IFsxMCwgMywgNF1cbmxzdCA9IGxzdC5zb3J0KClcbmZvciBlbGVtIGluIGxzdDpcbiAgICBwcmludChlbGVtKSJ9
+</div>
+<p>Om man kör det här lilla programmet får man ett felmeddelande vid
+for-loopen: <code>TypeError: 'NoneType' object is not iterable</code>.
+Varför det? Det är ju uppenbart att det finns element i listan? Felet
+uppstår på grund av ett missförstånd om hur <code>sort</code> fungerar.
+Uttrycket <code>lst.sort()</code> returnerar <code>None</code>, men
+ändrar ordningen på elementen i <code>lst</code>, och då blir ju rad två
+i koden olycklig eftersom <code>lst</code> tilldelas
+<code>None</code>.</p>
+<p>Lägg märke till att felet görs på rad två, men detekteras på rad tre.
+Det här är vanligt: när vi observerar fel så är det ofta symptom på fel
+som gjorts tidigare.</p>
+Ett sätt rätta till felet ovan är att byta till funktionen
+<code>sorted</code>:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImxzdCA9IFsxMCwgMywgNF1cbmxzdCA9IHNvcnRlZChsc3QpXG5mb3IgZWxlbSBpbiBsc3Q6XG4gICAgcHJpbnQoZWxlbSkifQ==
+</div>
+<p>Detta fungerar eftersom <code>sorted</code> returnerar en ny kopia av
+listan, men sorterad.</p>
+</div>
+<div id="exempel-dåligt-returvärde" class="section level3">
+<h3>Exempel: dåligt returvärde</h3>
+<p>En av våra tumregler är att man alltid ska returnera ett resultat
+från en funktion. Man ska ha goda skäl för att inte returnera något.
+Anledningen är att undvika ett vanligt nybörjarmisstag, som även
+rutinerade programmerare kan göra.</p>
+<p>Antag att vi vill ha en liten funktion som tar fram de tre största
+värdena ur en lista. Vi provar oss fram och konstaterar att det löses
+enkelt med två rader kod:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImxzdCA9IFsxMCwzLDQsNSwxLDJdXG5sc3QgPSBzb3J0ZWQobHN0KVxucHJpbnQobHN0Wy0zOl0pIn0=
+</div>
+<pre class="python"><code>[4, 5, 10]</code></pre>
+Bra, då gör vi det till en funktion:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBsYXJnZXN0X3RocmVlKGxzdCk6XG4gICAgbHN0ID0gc29ydGVkKGxzdClcbiAgICBwcmludChsc3RbLTM6XSkifQ==
+</div>
+<p>Funktionen testar vi, som man bör, men då blir det fel.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImEsIGIsIGMgPSBsYXJnZXN0X3RocmVlKFsxMCwzLDQsNSwxLDJdKSJ9
+</div>
+<pre class="python"><code>[4, 5, 10]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: cannot unpack non-iterable NoneType object</code></pre>
+<p>Resultatet skrivs ut, men tilldelningen av returvärdet fungerar inte,
+eftersom det inte finns en retur-sats, vilket ger returvärdet
+<code>None</code>. Man ska alltid returnera de intressanta värdena!</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBsYXJnZXN0X3RocmVlKGxzdCk6XG4gICAgbHN0ID0gc29ydGVkKGxzdClcbiAgICByZXR1cm4gbHN0Wy0zOl0ifQ==
+</div>
+</div>
+<div id="exempel-iteratorer-är-inte-listor" class="section level3">
+<h3>Exempel: iteratorer är inte listor</h3>
+Inspirerat av lösningen ovan kanske man tänker sig en liknande uppgift,
+löst på liknande sätt. Antag att vi vill skriva ut en lista i omvänd
+ordning och se visa maxvärdet.
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImxzdCA9IFsxMCwgMywgNF1cbmxzdCA9IHJldmVyc2VkKGxzdClcbmZvciBlbGVtIGluIGxzdDpcbiAgICBwcmludChlbGVtKVxucHJpbnQoJ0xhcmdlc3Q6JywgbWF4KGxzdCkpIn0=
+</div>
+<p>Nu blir det fel igen, på sista raden:
+<code>ValueError: max() arg is an empty sequence</code>. Varför det? Det
+blir inget fel om man använder <code>sorted</code> istället för
+<code>reversed</code>. Nej, men de två funktionerna har olika typer på
+sina returvärden. Med <code>sorted</code> får vi en lista och den kan
+man utan problem använda upprepade gånger, men <code>reversed</code>
+returnerar en iterator och dessa används en och endast en gång. När
+<code>for</code>-loopen är klar så är iteratorn “förbrukad” och
+<code>max</code> har inget att arbeta med.</p>
+<p>Det här är ett ganska vanligt misstag. Iteratorer används flitigt i
+Python, vilket är bra eftersom de är effektiva och minnessnåla, men man
+får vara uppmärksam på att en iterator behöver omvandlas till en lista
+ibland.</p>
+<p>Hur rättar du felet?</p>
+</div>
+</div>
+<div id="förstå-felmeddelandet" class="section level2">
+<h2>Förstå felmeddelandet</h2>
+<p>Ett första steg till att bli bra på felsökning är att läsa
+felmeddelanden noga. Om programmet avslutar med ett fel så brukar
+felmeddelandet tala om ganska tydligt varför det avslutar. Återigen,
+detta är ofta bara symptom på det egentliga felet, men symptom är
+viktiga.</p>
+<p>Felmeddelanden i Python har alltid samma struktur.</p>
+<ul>
+<li>Först visas var felet uppstår. Det görs genom att visa ett <em>stack
+trace</em> som anger vilka funktionsanrop som är involverade och i vilka
+filer och på vilka rader de anropas.</li>
+<li>Sist visas var felet uppstår, med filnamn och rad, och en enkel
+beskrivning av felet.</li>
+</ul>
+Betrakta den här konstiga koden, skriven enbart för att visa upp ett
+felmeddelande:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBmMSh4KTpcbiAgICByZXR1cm4gZjIoeClcblxuZGVmIGYyKHgpOlxuICAgIHJldHVybiBmMyh4KVxuXG5kZWYgZjMoeCk6XG4gICAgcmV0dXJuIDE3IC8geFxuXG5mMSgwKSJ9
+</div>
+<p>Om man kör programmet anropas alltså <code>f1(0)</code>, som anropar
+<code>f2(0)</code>, som i sin tur anropar <code>f3(0)</code> där
+division med noll uppstår. Det resulterar i det här felmeddelandet
+(åtminstone i Python 3.9):</p>
+<pre class="python"><code>Traceback (most recent call last):
+  File &quot;~/src/kod.py.py&quot;, line 11, in &lt;module&gt;
+    f1(0)
+  File &quot;~/src/kod.py.py&quot;, line 3, in f1
+    return f2(x)
+  File &quot;~/src/kod.py.py&quot;, line 6, in f2
+    return f3(x)
+  File &quot;~/src/kod.py.py&quot;, line 9, in f3
+    return 17 / x
+ZeroDivisionError: division by zero</code></pre>
+<p>Ganska mycket text för ett enkelt fel, men det är illustrativt. Lägg
+särskilt märke till att det framgår på vilken rad det blir fel, här rad
+9, och att det framgår att symptomet är just division med noll. Editorer
+som Spyder visar hjälpsamt just den problematiska filen och raden. Och
+tack vare “Traceback”, som ger oss vårt <em>stack trace</em>, kan man
+utläsa hur funktionerna anropat varandra, vilket är ytterligare tips
+inför felsökningen.</p>
+<p>En del felmeddelanden kan vara svåra att läsa, och för en nybörjare
+så kan viss terminologi vara alltför teknisk, men även om man inte
+förstår allt så kan man ändå hitta värdefulla ledtrådar.</p>
+</div>
+<div id="leta-fel-med-spårutskrifter" class="section level2">
+<h2>Leta fel med spårutskrifter</h2>
+<p>Spårutskrifter är en beprövad och välanvänd teknik för att leta fel.
+Idén är enkel: lägg in <code>print</code>-satser som avslöjar värden på
+variabler och visar både hur variabelvärden ändras och hur programflödet
+går. Man kan se det som ett noggrant sätt att leta symptom som kan
+avslöja vad felet är.</p>
+Som exempel kan vi titta på exemplet om symbolisk derivering av polynom
+från avsnittet om Datarepresentation, men med ett fel insmuget:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkZXJpdmF0aXZlKHBvbHlub21pYWwpOlxuICAgIHJlc3VsdCA9IFtdXG4gICAgZGVncmVlID0gMVxuICAgIGZvciB0ZXJtIGluIHBvbHlub21pYWw6ICAgIyBGZWwhXG4gICAgICAgIG5ld19jb2VmZmljaWVudCA9IHRlcm0gKiBkZWdyZWVcbiAgICAgICAgcmVzdWx0LmFwcGVuZChuZXdfY29lZmZpY2llbnQpXG4gICAgICAgIGRlZ3JlZSArPSAxXG4gICAgcmV0dXJuIHJlc3VsdCJ9
+</div>
+Antag att vi har observerat att det blir något fel utan att lyckas lista
+ut vad det beror på. En enkel spårutskrift visar de relevanta
+variabelvärden i varje iteration:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkZXJpdmF0aXZlKHBvbHlub21pYWwpOlxuICAgIHJlc3VsdCA9IFtdXG4gICAgZGVncmVlID0gMVxuICAgIHByaW50KCdkZWdyZWUgdGVybSBuZXdfY29lZmZpY2llbnQnKSAgICAgIyBQcmFrdGlzayBydWJyaWtcbiAgICBmb3IgdGVybSBpbiBwb2x5bm9taWFsOiAgICMgRmVsIVxuICAgICAgICBuZXdfY29lZmZpY2llbnQgPSB0ZXJtICogZGVncmVlXG4gICAgICAgIHByaW50KGRlZ3JlZSwgdGVybSwgbmV3X2NvZWZmaWNpZW50KSAjIFNwXHUwMGU1cnV0c2tyaWZ0XG4gICAgICAgIHJlc3VsdC5hcHBlbmQobmV3X2NvZWZmaWNpZW50KVxuICAgICAgICBkZWdyZWUgKz0gMVxuICAgIHJldHVybiByZXN1bHQifQ==
+</div>
+<p>Denna spårutskrift skulle förhoppningsvis snabbt visa upp att vi av
+misstag fått med konstanttermen i deriveringen.</p>
+När man jobbar med spårutskrifter händer det lätt att man känner ett
+behov av att krydda med förklarande information. Här ovan var det till
+exempel bra att lägga in en rubrikrad. Behovet är så pass vanligt att
+Python har en särskild finess för spårutskrifter lite gömd i f-strängar:
+om du skriver <code>f'{x}'</code> så ersätts <code>{x}</code> av värdet
+på variabeln <code>x</code>, men om du skriver <code>f'{x=}'</code> så
+sätts istället <code>x=</code> och värdet på variabeln in. Så exemplet
+ovan kan bättre skrivas så här:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlZiBkZXJpdmF0aXZlKHBvbHlub21pYWwpOlxuICAgIHJlc3VsdCA9IFtdXG4gICAgZGVncmVlID0gMVxuICAgIGZvciB0ZXJtIGluIHBvbHlub21pYWw6ICAgIyBGZWwhXG4gICAgICAgIG5ld19jb2VmZmljaWVudCA9IHRlcm0gKiBkZWdyZWVcbiAgICAgICAgcHJpbnQoZid7ZGVncmVlPX0sIHt0ZXJtPX0sIHtuZXdfY29lZmZpY2llbnQ9fScpICMgU3BcdTAwZTVydXRza3JpZnRcbiAgICAgICAgcmVzdWx0LmFwcGVuZChuZXdfY29lZmZpY2llbnQpXG4gICAgICAgIGRlZ3JlZSArPSAxXG4gICAgcmV0dXJuIHJlc3VsdCJ9
+</div>
+<p>Prova! Om vi provkör detta med polynomet <span
+class="math inline">\(1+x+x^2\)</span> så ser det ut så här:</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImRlcml2YXRpdmUoWzEsMSwxXSkifQ==
+</div>
+<pre class="python"><code>degree=1 term=1, new_coefficient=1
+degree=2 term=1, new_coefficient=2
+degree=3 term=1, new_coefficient=3</code></pre>
+<p>Här ska man se att de finns en term med grad 3, vilket är ju är fel
+eftersom vi har ett andragradspolynom som indata.</p>
+<p>Spårutskrifter är bekvämt och praktiskt att använda, men betraktas
+ofta som dålig praxis. Nackdelarna med spårutskrifter är att det är
+arbetsamt och ibland onödigt att lägga in dem, man måste ju oftast ta
+bort dem också, men de används ändå vitt och brett av erfarna
+programmerare. I scriptspråk som Python är kostnaden med spårutskrifter
+ändå ganska låg eftersom man tenderar att arbeta ganska interaktivt med
+koden, mer än i vissa andra språk, och det är lätt att testa kod.</p>
+<div id="loggning" class="section level3">
+<h3>Loggning</h3>
+<p>Om man finner att spårutskrifterna är användbara, så kanske man
+entusiastiskt börjar planera för särskilda funktioner för
+spårutskrifter, avstängbara, där man kan få dem skrivna till en separat
+fil för spårutskrifter. I så fall har man börjat med loggning och det
+finns ingen anledning till att skriva egen kod för det. Det är ett så
+vanligt behov att det finns en standardmodul, med namnet
+<code>logging</code>, för ändamålet. Syftet med modulen är att göra det
+lätt att logga status på program, inte bara för att leta fel, utan mer
+allmänt för att hålla koll på vad ett system håller på med. Många
+datorsystem arbetar över lång tid med viktiga systemtjänster och då blir
+loggar ett viktigt verktyg för att hålla koll på vad som gjorts i ett
+system.</p>
+Här är ett exempel på hur deriveringskoden kan justeras till att logga
+status till filen <code>derivative.log</code>:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBsb2dnaW5nXG5sb2dnaW5nLmJhc2ljQ29uZmlnKGZpbGVuYW1lPSdkZXJpdmF0aXZlLmxvZycsIGxldmVsPWxvZ2dpbmcuREVCVUcpXG5kZWYgZGVyaXZhdGl2ZShwb2x5bm9taWFsKTpcbiAgICByZXN1bHQgPSBbXVxuICAgIGRlZ3JlZSA9IDFcbiAgICBmb3IgdGVybSBpbiBwb2x5bm9taWFsOlxuICAgICAgICBuZXdfY29lZmZpY2llbnQgPSB0ZXJtICogZGVncmVlXG4gICAgICAgIGxvZ2dpbmcuZGVidWcoZid7ZGVncmVlPX0sIHt0ZXJtPX0sIHtuZXdfY29lZmZpY2llbnQ9fScpICMgU3BcdTAwZTVydXRza3JpZnRcbiAgICAgICAgcmVzdWx0LmFwcGVuZChuZXdfY29lZmZpY2llbnQpXG4gICAgICAgIGRlZ3JlZSArPSAxXG4gICAgcmV0dXJuIHJlc3VsdCJ9
+</div>
+<p>De två första raderna initierar loggningen och man kan se vilken fil
+som loggmeddelanden hamnar i och vilken <em>nivå</em> som ska användas.
+Utan <code>level=logging.DEBUG</code> kommer debug-meddelanden och att
+vara utan effekt, men utskrifter gjorda med <code>logging.warning</code>
+eller <code>logging.error</code>, två andra utskriftsmetoder med högre
+prioritet kommer däremot skrivas ut.</p>
+<p>Om man evaluerar koden ovan och sen
+<code>derivative([1, 1, 1])</code> kommer man återfinna dessa utskrifter
+i loggfilen:</p>
+<pre class="python"><code>DEBUG:root:degree=1, term=1, new_coefficient=1
+DEBUG:root:degree=2, term=1, new_coefficient=2
+DEBUG:root:degree=3, term=1, new_coefficient=3</code></pre>
+<p>I vänsterkanten anges vilket sorts loggmeddelande som getts (“DEBUG”)
+och termen “root” som anger källan till meddelandet, vilket i vårt
+exempel inte har någon funktion. Modulen stödjer mer avancerad
+användning än vad vi visar här.</p>
+</div>
+</div>
+<div id="leta-fel-med-debugger" class="section level2">
+<h2>Leta fel med debugger</h2>
+<p>Programmerarens kanske bästa hjälpmedel är <em>debuggern</em>, på
+svenska även känd som <em>avlusare</em>. Det är ett program som används
+för att köra ditt program på ett kontrollerat sätt, med möjlighet att
+stega sig fram, rad för rad, och granska variablers värden utan
+spårutskrifter.</p>
+<p>I editorer särskilt utformade för Python, som Spyder och PyCharm, är
+debuggern inbyggd. Andra editorer, till exempel VS Code, har tillägg som
+erbjuder stöd för debugger. I vissa verktyg finns kontrollerna för
+debuggern alltid tillgängliga, och i andra måste du särskilt instruera
+editorn att “nu vill jag debugga”. Oavsett vilken editor och debugger
+som du använder så kan du räkna med att det finns flera återkommande och
+användbara finesser, och som dessutom återfinns för de flesta
+programmeringsspråk. Vi ska titta på några av de grundläggande
+finesserna.</p>
+<div id="brytpunkter" class="section level3">
+<h3>Brytpunkter</h3>
+<p>En brytpunkt markeras ofta med en röd symbol i kodens vänsterkant och
+den betyder helt enkelt “stanna innan denna rad exekveras”. Du kan
+alltså starta ditt program med debuggern och när körningen kommer till
+brytpunkten så pausar den. Körningen avbryts inte helt, utan kan
+återupptas när man är redo för det.</p>
+<p>I pausen har du möjlighet att granska vilka värden som de olika
+variablerna har, vilket förhoppningsvis ger dig ledtrådar om felet. Att
+arbeta med brytpunkter och inspektion av variabler är förstås ganska
+likt att använda spårutskrifter, men fördelen är att du inte behöver ta
+bort spårutskrifterna när du är klar. Om ditt program dessutom har många
+variabler med lite komplicerade datastrukturer så brukar brytpunkter
+vara enklare att arbeta med. En fördel är att du kan undersöka
+datastrukturer och behöver inte i förväg välja ut vad som ska visas.</p>
+</div>
+<div id="stegning" class="section level3">
+<h3>Stegning</h3>
+<p>Brytpunkter ger dig ögonblicksbilder av programmet och det är inte
+alltid tillräckligt för att förklara vad som går fel. Därför är det
+praktiskt att kunna stega sig fram i programmet, rad för rad, och
+kontinuerligt inspektera variabler om så behövs eller helt enkelt bara
+se vilken väg i programmet man råkar ta.</p>
+<p>Det finns två sätt att stega och du bör vara beredd att använda båda.
+I det enkla steget, ofta kallat <em>step</em> i en debugger och
+tillgänligt via en knapp, så är det alltid aktuell rad som exekveras. Om
+raden innehåller ett funktionsanrop så följer man koden in i funktionen,
+vilket ibland innebär att man följer körningen in i Pythons inre delar.
+Det kan vara både förvirrande och tidsödande. Det är sällan man behöver
+granska Pythons egen implementation för att förstå varför ens program
+gör fel. I sådana tillfällen är det bra att använda det andra sättet att
+stega, ofta kallat <em>next</em> eller <em>step over</em>. Med
+<em>next</em> så instruerar man debuggern att exekvera kodrader och
+fortsätta till nästa rad. Man hoppar alltså över detaljerna i den
+funktion som eventuellt anropas.</p>
+<p>Det brukar också finnas möjlighet att säga “fortsätt till sista raden
+på funktionen” (i Spyder: “step return”), som är ett bra sätt att komma
+framåt på ett snabbare men fortfarande kontrollerat sätt.</p>
+</div>
+</div>
+<div id="strategier-för-felsökning" class="section level2">
+<h2>Strategier för felsökning</h2>
+<p>Även om man behärskar tekniker för felsökning så kan det vara svårt
+eller långsamt att hitta det verkliga misstaget. Det är värt att tänka
+igenom hur man kan avslöja det underliggande felet.</p>
+<p>I avsnittet Defensiv programmering ges tips om hur man kan använda
+<code>assert</code> för att lägga in villkor i sitt program. Villkoren
+ska beskriva utsagor som borde vara sanna där
+<code>assert</code>-raderna ligger. Om villkoret gjorts falskt av en bug
+så avbryts programmet.</p>
+<p>Du kan också läsa om enhetstestning, som är ett sätt att systematiskt
+och automatiserat testa att programmets funktioner är korrekta. Om alla
+funktioner i ett program har enhetstester så får man hjälp att tidigt
+hitta misstag.</p>
+<p>Med eller utan enhetstestning, det kommer alltid vara viktigt att
+använda bra strategier för att hitta sina fel. Vi ska nu gå igenom några
+strategier.</p>
+<div id="avgränsa-fel" class="section level3">
+<h3>Avgränsa fel</h3>
+<p>Om ett program kraschar på rad 917 efter att ha exekverat ett flertal
+olika funktioner så kan misstaget ligga på just den raden eller raden
+innan, men man ska inte utgå ifrån att felet är nära rad 917. Fel kan
+propagera i flera led utan att man lägger märke till det. Det blir då
+viktigt att kunna lyfta blicken och titta längre tillbaka i programmet.
+Att då granska först rad 917, sen rad 916, och rad 915, och så vidare
+längre bakåt, är långsamt. Det är mer effektivt att, om felet inte
+ligger nära rad 917, försöka göra avgränsningar. Är indata till den
+senast anropade funktionen korrekta? Hur skapades dessa indata?</p>
+<p>När felet är riktigt förvirrande svårt att hitta kan man behöva skapa
+“kontrollpunkter” i sitt program för att verifiera att beräkningarna är
+korrekta fram till dem. På så sätt kan man avgränsa och isolera källan
+till felet.</p>
+<p>När man har ett fungerande program som man bygger ut eller förändrar
+så är förstås den nya koden huvudmisstänkt och ska, oavsett var de
+ligger, granskas först.</p>
+</div>
+<div id="skriv-om" class="section level3">
+<h3>Skriv om</h3>
+<p>En del fel är alldeles framför ögonen, men man ser dem inte pga
+felaktiga antaganden eller bara ren förvirring. Förvirring och
+tillfälllig blindhet för vissa misstag är att vänta, eftersom man ofta
+måste hålla många saker i huvudet när man programmerar.</p>
+En typ av misstag som uppstår lättare i scriptspråk (i motsats till
+språk som Java där man måste deklarera sina variabler) är felstavning. I
+förenklad form kan det se ut så här:
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImlkZW50aWZpZXIgPSA3ICAgICAgICAgICAgICAgICMgQSBmaXJzdCBhc3NpZ25tZW50XG5pZGVuZmlmaWVyID0gaWRlbnRpZmllciAqIDIgICAjIFVwZGF0aW5nIHRoZSBhc3NpZ25tZW50XG5wcmludChpZGVudGlmaWVyKSJ9
+</div>
+<p>Varför skrivs värdet 7 ut? Ser du misstaget?</p>
+<p>Om man kan lokalisera ett fel till en funktion, men ändå inte lyckas
+identifiera felet, så är en strategi att formulera om funktionen. Bara
+processen att skriva en funktion på nytt, kanske med andra identifierare
+eller med en lite annorlunda algoritm, kan bota den tillfälliga
+blindheten mot enkla misstag som stavfel, eller avslöja underliggande
+antaganden som man inte först reagerat på.</p>
+</div>
+<div id="granska-indata" class="section level3">
+<h3>Granska indata</h3>
+<p>En del problem beror på att indata innehåller konstigheter som det
+kan vara svårt att lägga märke till. Moderna standarder har botat det
+här i hög grad, men man kan fortfarande stöta på problem som till
+exempel beror på att indata har skapats på en Mac men ska analyseras
+under Windows.</p>
+<p>För det mesta kan man förlita sig på att textfiler använder
+teckenkodningen UTF-8, som är kompatibelt med äldre teckenkodningar som
+ASCII. Om man jobbar i äldre versioner av Python, version 2.7 och
+tidigare, så kan man inte förlita sig på att programmet automatiskt
+klarar UTF-8, och då kan till exempel svenska tecken bli konstiga.
+Teckenkodning ger alltså sällan problem.</p>
+<p>Det är däremot lätt hänt att man gör antaganden om formatet på
+indata. Om mellanrum är viktigt, kodas det med ett blanksteg (“space”)
+eller med ett TAB-tecken? En sån detalj är lätt att missa även när man
+tittar på indatafilen i en texteditor. Det kan därför hjälpa att skriva
+kod som hanterar både blanksteg och TAB-tecken.</p>
+<p>Det är mycket vanligt att man flyttar filer mellan datorsystem, och
+då kan man upptäcka att radbrytningar hanteras olika på olika
+datorsystem. På Mac och Linux brukar ny rad kodas med ett tecken,
+<code>'\n'</code> i Python, men på en PC så används <code>\n\r</code>,
+vilket läses som “new line and carriage return”. På PC ser du alltså
+spår av de första datorskrivarna och deras koppling till mekaniska
+skrivmaskiner: först ska man mata fram papper till en ny rad, och sen
+ska skrivhuvudet flyttas längst till vänster.</p>
+<p>Ett sätt att slippa bry sig om dessa detaljer är att förlita sig på
+etablerat kod för att läsa data, och det kan du läsa om i ett senare
+kapitel.</p>
+</div>
+<div id="välj-dina-testdata" class="section level3">
+<h3>Välj dina testdata</h3>
+<p>När man letar fel så ska man välja sina testdata med omsorg.</p>
+<ul>
+<li>Arbeta med små testdata. Om ditt mål att analysera en stor datafil
+så bör du skapa mindre filer med liknande egenskaper för testning. Det
+snabbar upp felsökningen.</li>
+<li>Fel uppstår ofta på mer ovanliga indata, och därför är det bra att
+testa på specialfall som man konstruerar. Om du läser data från fil så
+bör din kod kunna läsa en tom fil utan att krascha. En funktion som
+arbetar med strängar bör klara den tomma strängen, <code>''</code>, utan
+problem. Om du implementerar en numerisk funktion <span
+class="math inline">\(f(x)\)</span> så bör den fungera på <span
+class="math inline">\(x=0\)</span> (om funktionen är definerad
+där).</li>
+</ul>
+<p>Tänk också på att du antagligen kommer att behöva testa många gånger,
+och kanske även i framtiden. Det är därför bra konstruera testdata och
+spara dem för framtida behov.</p>
+</div>
+</div>
+</div>
+<div id="uppgifter" class="section level1">
+<h1>Uppgifter</h1>
+<ol style="list-style-type: decimal">
+<li><p>Vad händer om vi anropar funktionen <code>divide_by_elems</code>
+(funktionen given i ) med en sträng som argument för <code>x</code>?
+Skriv om funktionen så att om strängen kan göras om till ett heltal ska
+den fortsätta utan att krascha, annars ska den returnera <code
+class="python">None</code>. Lös detta i funktionen med hjälp av <code
+class="python">try</code> och <code
+class="python">except</code>.</p></li>
+<li><p>Skriv om funktionen <code>divide_by_elems</code> så att den inte
+bryter efter första fel, utan fortsätter att dela talet x med rader som
+kommer efter. Till exempel för filen <a
+href="#numbers"><code>numbers.txt</code></a> som ovan ska funktionen
+returnera listan (och eventuellt skriva ut diverse meddelanden från
+felhanteringen):</p>
+<pre class="python"><code>[2.0, 1.0, 0.5, 0.6666666666666666]</code></pre></li>
+<li><p>Givet följande lista </p>
+<pre class="python"><code>xs = [2,-167,12,5676,-14,-7, 12,12,-1]</code></pre>
+<p>Skapa med hjälp av en listomfattning listan <code>ys</code> som
+innehåller endast de positiva talen i <code>xs</code>.</p></li>
+<li><p>Skapa med listomfattning en lista <code>ys</code> där alla talen
+i listan <code>xs</code> i har konverterats till positiva om de är
+negativa (t.ex. <code>-167</code> blir <code>167</code>).</p></li>
+<li><p>Givet funktionen nedan</p>
+<pre class="python"><code>def is_prime(x):
+    if x &gt;= 2:
+        for y in range(2,x):
+            if not ( x % y ):
+                return False
+    else:
+        return False
+    return True</code></pre>
+<p>Skapa en lista med alla primtal under <code>100</code> genom att
+använda en listomfattning.</p></li>
+<li><p>Givet följande lista </p>
+<pre class="python"><code>xs = [2, 3, 5, 7]</code></pre>
+<p>Använd listomfattning för att skapa en lista <code>ys</code> som
+innehåller produkterna av alla par av element från <code>xs</code>, dvs
+elementen <span class="math inline">\(2\cdot 2, 2\cdot 3, 2\cdot 5,
+2\cdot 7, 3\cdot 2,\)</span> osv.</p></li>
+<li><p>Skapa med listomfattning en lista <code>ys</code> som innehåller
+produkter från multiplikation av alla parvisa element i <code>xs</code>
+från utom elementen själva.</p>
+<p><strong>Obs:</strong> Talet <code>2</code> på index <code>0</code> i
+<code>xs</code> ska inte tolkas samma som <code>2</code> på index 1. Du
+kan alltså inte testa om talen är lika utan måste testa om index är
+samma.</p>
+<p><em>Tips</em>: använd <code>range</code>.</p></li>
+<li><p>Skriv om labb 1 med exceptions så att programmet inte kraschar om
+man skriver in något fel.</p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

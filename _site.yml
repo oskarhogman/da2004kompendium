@@ -10,5 +10,9 @@ navbar:
       href: kapitel2.html
     - text: "3: Listor och iteration"
       href: kapitel3.html
+    - text: "4: Uppslagstabeller, filhantering och mer om loopar"
+      href: kapitel4.html
+    - text: "5: Felhantering, särfall, listomfattning, och felsökning"
+      href: kapitel5.html
       
 output_dir: 'docs'

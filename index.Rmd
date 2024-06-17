@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \chapter*{Förord}
 
+OBS Detta är Beta, allting kommer inte fungera som det ska och texten behöver uppdateras. 
+Om du hittar något misstag, mejla gärna vilken del av texten och vad som är fel till oskar.hogman@math.su.se
 
 Det är många som hjälpt oss med att påpeka misstag och förbättra texten. 
 Särskilda insatser har gjorts av
